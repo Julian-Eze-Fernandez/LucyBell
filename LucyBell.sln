@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucyBell.Server", "LucyBell.Server\LucyBell.Server.csproj", "{3653D082-3A56-4E89-B18B-8F6C81CEDA86}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "lucybell.client", "lucybell.client\lucybell.client.esproj", "{DD900156-5B65-4D41-AE02-7F766C28270B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3653D082-3A56-4E89-B18B-8F6C81CEDA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3653D082-3A56-4E89-B18B-8F6C81CEDA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3653D082-3A56-4E89-B18B-8F6C81CEDA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3653D082-3A56-4E89-B18B-8F6C81CEDA86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD900156-5B65-4D41-AE02-7F766C28270B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50A01B92-3EF7-4EFF-ABC7-630E5E303858}
+	EndGlobalSection
+EndGlobal
