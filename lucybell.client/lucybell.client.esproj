@@ -7,4 +7,9 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\lucybell.client\browser\</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\Models\" />
+    <Folder Include="src\app\Services\" />
+    <Folder Include="src\app\Pages\" />
+  </ItemGroup>
 </Project>
