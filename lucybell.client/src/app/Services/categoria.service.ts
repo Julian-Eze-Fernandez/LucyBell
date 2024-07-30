@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
 import { Categoria } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CategoriaService {
 
 
   private http = inject(HttpClient);
-  private apiUrl:string = appsettings.apiUrl + "categorias";
+  private apiUrl: string = 'https://localhost:7123/api/categorias';
 
   constructor() { }
 
@@ -27,7 +28,7 @@ export class CategoriaService {
   editar(objeto:Categoria){
     return this.http.put<ResponseAPI>(this.apiUrl,objeto);
   }
-  DeleteCategoria(id:number){
+  DeleteCategoria(id: number){
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }
 }

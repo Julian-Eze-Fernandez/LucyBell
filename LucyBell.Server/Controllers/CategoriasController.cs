@@ -8,12 +8,14 @@ namespace LucyBell.Server.Controllers
 {
 	[ApiController]
 	[Route("api/categorias")]
-	public class CategoriasController : ControllerBase
+
+    public class CategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;
+        
 
-		public CategoriasController(ApplicationDbContext context, IMapper mapper)
+        public CategoriasController(ApplicationDbContext context, IMapper mapper)
 		{
 			this.context = context;
 			this.mapper = mapper;
@@ -90,19 +92,21 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
-		[HttpDelete("(id:int)")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCategoria(int id)
 		{
-			var existe = await context.Categorias.AnyAsync(x => x.Id == id);
+            var categoria = await context.Categorias.FindAsync(id);
 
-			if (!existe)
-			{
-				return NotFound();
-			}
+            if (categoria == null)
+            {
+                return NotFound();
+            }
 
-			context.Remove(new Categoria() { Id = id });
-			await context.SaveChangesAsync();
-			return NoContent();
-		}
+            // Remove the entity
+            context.Categorias.Remove(categoria);
+            await context.SaveChangesAsync();
+
+            return Ok(new { isSuccess = true });
+        }
 	}
 }

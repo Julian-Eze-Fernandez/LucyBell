@@ -2,8 +2,6 @@ import { Component, inject } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
 import { Categoria } from '../../Models/Categoria';
 import { Router } from '@angular/router';
-import { ModalCategService } from '../../Services/modal-categ.service';
-import { ModalCategComponent } from '../modal-categ/modal-categ.component';
 import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 
@@ -38,9 +36,6 @@ export class InicioComponent {
 
     this.obtenerCategorias();
   }
-
-  private readonly _modalSvc = inject(ModalCategService);
-
 
   nuevo(){
     this.router.navigate(['/categoria',0])

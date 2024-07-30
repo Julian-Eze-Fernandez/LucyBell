@@ -30,7 +30,19 @@ namespace LucyBell.Server
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
-			services.AddAutoMapper(typeof(StartUp));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NuevaPolitica", builder =>
+                    {
+						builder.AllowAnyOrigin() // replace with your frontend and backend ports
+							   .AllowAnyHeader()
+							   .AllowAnyMethod();	   
+								
+								
+                    });
+            });
+
+            services.AddAutoMapper(typeof(StartUp));
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,11 +56,13 @@ namespace LucyBell.Server
 
 			app.UseHttpsRedirection();
 
-			app.UseRouting();
+            app.UseCors("NuevaPolitica");
+
+            app.UseRouting();
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoint =>
+            app.UseEndpoints(endpoint =>
 			{
 				endpoint.MapControllers();
 			});
