@@ -8,25 +8,42 @@
 
 <div class="overflow-x-auto" style="max-width: 80%; margin: auto;">
   <div class="flex justify-between items-center">
-    <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;" > Productos </h2>
-    <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-bold text-white"  > AGREGAR </button>
+    <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
+    <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-bold text-white"> AGREGAR </button>
   </div>
-    <table class="min-w-full " style="border-collapse:separate; border-spacing: 0 1em;">
-      <tbody>
+  <table class="min-w-full " style="border-collapse:separate; border-spacing: 0 1em;">
+    <tbody>
+      <div *ngIf="listaCategoria.length === 0" class="text-center text-gray-500 py-4">
+        No existen categorias en el sistema
+      </div>
+      <tr *ngFor="let categoria of listaCategoria" class=" shadow-md" style="background-color: #221D22;">
+        <td class="px-6 py-2" style="border-radius: 12px 0px 0px 12px; border:0px;">
+          <div class="text-sm font-medium text-white" style="font-size: large;">
+            <i class='bx bx-category'></i> {{ categoria.nombre }}
+          </div>
+        </td>
+        <td class="px-6 py-2 whitespace-no-wrap text-right text-sm font-medium" style="border-radius: 0px 12px 12px 0px; border:0px;">
+          <button class=" hover:bg-green-700 text-white font-bold py-2 px-4 rounded"> <i class='bx bx-plus text-2xl'></i> </button>
+          <button class=" hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"> <i class='bx bx-pencil text-2xl'></i> </button>
+          <button (click)="openDeleteModal(categoria)" class="hover:bg-red-700  text-white font-bold py-2 px-4 rounded ml-2">
+            <i class='bx bx-trash text-2xl'></i>
+          </button>
+        </td>
+      </tr>
 
-          <tr *ngFor="let categoria of listaCategoria" class=" shadow-md" style="background-color: #221D22;">
-            <td class="px-6 py-2" style="border-radius: 12px 0px 0px 12px; border:0px;">
-              <div class="text-sm font-medium text-white" style="font-size: large;">
-                <i class='bx bx-category'></i> {{ categoria.nombre }}
-              </div>
-            </td>
-            <td class="px-6 py-2 whitespace-no-wrap text-right text-sm font-medium" style="border-radius: 0px 12px 12px 0px; border:0px;">
-              <button class=" hover:bg-green-700 text-white font-bold py-2 px-4 rounded" > <i class='bx bx-plus text-2xl' ></i> </button> 
-              <button class=" hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" > <i class='bx bx-pencil text-2xl' ></i> </button>
-              <button class=" hover:bg-red-700  text-white font-bold py-2 px-4 rounded ml-2" (click)="eliminar(categoria)"> <i class='bx bx-trash text-2xl' ></i> </button>
-            </td>
-          </tr>
+    </tbody>
+  </table>
 
-      </tbody>
-    </table>
+
+  <!-- Base modal component -->
+  <app-two-button-modal
+                        #deleteModal
+                        [title]="'Borrar Categoria'"
+                        [confirmButtonText]="'Borrar'"
+                        [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                        [icon]="customIcon"
+                        (confirm)="onConfirmDelete()"
+                        (cancel)="closeDeleteModal()">
+    <p>¿Está seguro de que desea borrar la categoria <strong>"{{ selectedCategoria?.nombre }}"</strong>?</p>
+  </app-two-button-modal>
 </div>
