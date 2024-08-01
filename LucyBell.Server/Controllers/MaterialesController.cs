@@ -75,7 +75,7 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
-		[HttpDelete("(id:int)")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteMaterial(int id)
 		{
 			var existe = await context.Materiales.AnyAsync(x => x.Id == id);
@@ -87,7 +87,8 @@ namespace LucyBell.Server.Controllers
 
 			context.Remove(new Material() { Id = id });
 			await context.SaveChangesAsync();
-			return NoContent();
+
+			return Ok(new { isSuccess = true });
 		}
 	}
 }

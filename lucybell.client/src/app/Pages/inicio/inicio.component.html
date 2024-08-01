@@ -1,7 +1,7 @@
 
 <div class="pl-16">
   <h1 class="text-3xl underline underline-offset-8 pb-3" style="font-family: VollkornSC;">
-    Categorias 
+    Categorias
   </h1>
   <p class="mb-10"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
 </div>
@@ -9,7 +9,7 @@
 <div class="overflow-x-auto" style="max-width: 80%; margin: auto;">
   <div class="flex justify-between items-center">
     <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
-    <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-bold text-white"> AGREGAR </button>
+    <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
   </div>
   <table class="min-w-full " style="border-collapse:separate; border-spacing: 0 1em;">
     <tbody>
@@ -25,7 +25,47 @@
         <td class="px-6 py-2 whitespace-no-wrap text-right text-sm font-medium" style="border-radius: 0px 12px 12px 0px; border:0px;">
           <button class=" hover:bg-green-700 text-white font-bold py-2 px-4 rounded"> <i class='bx bx-plus text-2xl'></i> </button>
           <button class=" hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"> <i class='bx bx-pencil text-2xl'></i> </button>
-          <button (click)="openDeleteModal(categoria)" class="hover:bg-red-700  text-white font-bold py-2 px-4 rounded ml-2">
+          <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700  text-white font-bold py-2 px-4 rounded ml-2">
+            <i class='bx bx-trash text-2xl'></i>
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- Base modal component -->
+  <app-two-button-modal #deleteModalCatg
+                        [title]="'Borrar Categoria'"
+                        [confirmButtonText]="'Borrar'"
+                        [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                        [icon]="customIconCatg"
+                        (confirm)="onConfirmDeleteCatg()"
+                        (cancel)="closeDeleteModalCatg()">
+    <p>¿Está seguro de que desea borrar la categoria <strong>"{{ selectedCategoria?.nombre }}"</strong>?</p>
+  </app-two-button-modal>
+</div>
+
+<div class="overflow-x-auto" style="max-width: 80%; margin: auto;">
+  <div class="flex justify-between items-center">
+    <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
+    <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
+  </div>
+  <table class="min-w-full " style="border-collapse:separate; border-spacing: 0 1em;">
+    <tbody>
+      <div *ngIf="listaMaterial.length === 0" class="text-center text-gray-500 py-4">
+        No existen materiales en el sistema
+      </div>
+      <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
+        <td class="px-6 py-2" style="border-radius: 12px 0px 0px 12px; border:0px;">
+          <div class="text-sm font-medium text-white" style="font-size: large;">
+            <i class='bx bx-category'></i> {{ material.nombre }}
+          </div>
+        </td>
+        <td class="px-6 py-2 whitespace-no-wrap text-right text-sm font-medium" style="border-radius: 0px 12px 12px 0px; border:0px;">
+          <button class=" hover:bg-green-700 text-white font-bold py-2 px-4 rounded"> <i class='bx bx-plus text-2xl'></i> </button>
+          <button class=" hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"> <i class='bx bx-pencil text-2xl'></i> </button>
+          <button (click)="openDeleteModalMats(material)" class="hover:bg-red-700  text-white font-bold py-2 px-4 rounded ml-2">
             <i class='bx bx-trash text-2xl'></i>
           </button>
         </td>
@@ -35,15 +75,14 @@
   </table>
 
 
-  <!-- Base modal component -->
-  <app-two-button-modal
-                        #deleteModal
-                        [title]="'Borrar Categoria'"
+  
+  <app-two-button-modal #deleteModalMats
+                        [title]="'Borrar Material'"
                         [confirmButtonText]="'Borrar'"
                         [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
-                        [icon]="customIcon"
-                        (confirm)="onConfirmDelete()"
-                        (cancel)="closeDeleteModal()">
-    <p>¿Está seguro de que desea borrar la categoria <strong>"{{ selectedCategoria?.nombre }}"</strong>?</p>
+                        [icon]="customIconMats"
+                        (confirm)="onConfirmDeleteMats()"
+                        (cancel)="closeDeleteModalMats()">
+    <p>¿Está seguro de que desea borrar el Material <strong>"{{ selectedMaterial?.nombre }}"</strong>?</p>
   </app-two-button-modal>
 </div>

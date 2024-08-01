@@ -1,11 +1,13 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
+import { MaterialService } from '../../Services/material.service';
 import { Categoria } from '../../Models/Categoria';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.component';
 import { OneButtonModalComponent } from '../one-button-modal/one-button-modal.component';
+import { Material } from '../../Models/Material';
 
 
 
@@ -19,12 +21,25 @@ import { OneButtonModalComponent } from '../one-button-modal/one-button-modal.co
 })
 export class InicioComponent {
 
-  @ViewChild('deleteModal') deleteModal!: OneButtonModalComponent;
+  @ViewChild('deleteModalCatg') deleteModalCatg!: OneButtonModalComponent;
   private categoriaServicio = inject(CategoriaService)
   public listaCategoria: Categoria[] = [];
   public displayedColumns: string[] = ['nombre', 'accion']
   selectedCategoria: Categoria | null = null;
-  customIcon = "<i class='bx bxs-trash-alt bx-md'></i>"
+  customIconCatg = "<i class='bx bxs-trash-alt bx-md'></i>"
+
+  @ViewChild('deleteModalMats') deleteModalMats!: OneButtonModalComponent;
+  private materialServicio = inject(MaterialService)
+  public listaMaterial: Material[] = [];
+  public displayedColumnsMats: string[] = ['nombre', 'accion']
+  selectedMaterial: Material | null = null;
+  customIconMats = "<i class='bx bxs-trash-alt bx-md'></i>"
+
+  constructor(private router: Router) {
+    this.obtenerCategorias();
+    this.obtenerMateriales();
+  }
+  showModal: boolean = false;
 
 
   obtenerCategorias() {
@@ -33,56 +48,23 @@ export class InicioComponent {
         if (data.length >= 0) {
           this.listaCategoria = data;
         }
-      }, 
+      },
       error: (err) => {
         console.log(err.message)
       }
     })
   }
 
-
-  constructor(private router: Router) {
-
-    this.obtenerCategorias();
-  }
-
-  nuevo() {
-    this.router.navigate(['/categoria', 0])
-  }
-
-  editar(objeto: Categoria) {
-    this.router.navigate(['/categoria', objeto.id]);
-  }
-  eliminar(objeto: Categoria) {
-    if (confirm("Desea eliminar la categoria " + objeto.nombre)) {
-      this.categoriaServicio.DeleteCategoria(objeto.id).subscribe({
-        next: (data) => {
-          if (data.isSuccess) {
-            this.obtenerCategorias();
-          }
-          else {
-            alert("no se pudo eliminar")
-          }
-        },
-        error: (err) => {
-          console.log(err.message)
-        }
-      })
-    }
-  }
-
-  showModal: boolean = false;
-
-  openDeleteModal(categoria: Categoria) {
+  openDeleteModalCatg(categoria: Categoria) {
     this.selectedCategoria = categoria;
-    this.deleteModal.openModal();
+    this.deleteModalCatg.openModal();
   }
 
-  closeDeleteModal() {
+  closeDeleteModalCatg() {
     this.selectedCategoria = null;
   }
-
-  onConfirmDelete() {
+  
+  onConfirmDeleteCatg() {
     if (this.selectedCategoria) {
       this.categoriaServicio.DeleteCategoria(this.selectedCategoria.id).subscribe({
         next: (data) => {
@@ -91,11 +73,52 @@ export class InicioComponent {
           } else {
             alert("No se pudo eliminar");
           }
-          this.closeDeleteModal();
+          this.closeDeleteModalCatg();
         },
         error: (err) => {
           console.log(err.message);
-          this.closeDeleteModal();
+          this.closeDeleteModalCatg();
+        }
+      });
+    }
+  }
+
+  obtenerMateriales() {
+    this.materialServicio.GetMaterialesLista().subscribe({
+      next: (data) => {
+        if (data.length >= 0) {
+          this.listaMaterial = data;
+        }
+      },
+      error: (err) => {
+        console.log(err.message)
+      }
+    })
+  }
+
+  openDeleteModalMats(material: Material) {
+    this.selectedMaterial = material;
+    this.deleteModalMats.openModal();
+  }
+
+  closeDeleteModalMats() {
+    this.selectedCategoria = null;
+  }
+
+  onConfirmDeleteMats() {
+    if (this.selectedMaterial) {
+      this.materialServicio.DeleteMaterial(this.selectedMaterial.id).subscribe({
+        next: (data) => {
+          if (data.isSuccess) {
+            this.obtenerMateriales();
+          } else {
+            alert("No se pudo eliminar");
+          }
+          this.closeDeleteModalMats();
+        },
+        error: (err) => {
+          console.log(err.message);
+          this.closeDeleteModalMats();
         }
       });
     }
