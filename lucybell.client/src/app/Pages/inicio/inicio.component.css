@@ -11,7 +11,12 @@ body {
   padding: 1rem; /* Optional: add some padding for better appearance */
 }
 
+.gradient-line {
+  position: relative;
+  height: 1px;
 
+  background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
+}
 
 @media (max-width: 640px) {
   .sidebar {

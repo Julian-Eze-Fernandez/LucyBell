@@ -3,10 +3,12 @@
 
   <div class="main-content flex-1 p-4 ">
     <div class="">
-      <h1 class="text-3xl underline underline-offset-8 pb-3" style="font-family: VollkornSC;">
-
+      <h1 class="text-3xl flex inline-block absolute;" style="font-family: VollkornSC; display: inline-block;">
         Categorias
+        <div class="gradient-line mb-4"></div>
       </h1>
+      
+
       <p class="mb-10"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
 
     </div>
@@ -23,9 +25,9 @@
           <div *ngIf="listaCategoria.length === 0" class="text-center text-gray-500 py-4">
             No existen categorias en el sistema
           </div>
-          <tr *ngFor="let categoria of listaCategoria" class="shadow-md" style="background-color: #221D22;">
+          <tr *ngFor="let categoria of listaCategoria" class="shadow-md" style="background-color: #221D22; border-radius: 12px 0px 0px 12px;">
             <td class="px-6 py-2" style="border-radius: 12px 0px 0px 12px; border:0px;">
-              <div class="font-medium text-white flex items-center" style="font-size: large;">
+              <div class="font-medium text-white flex items-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="20" height="20" fill="url(#pattern0_category)" />
                   <defs>
