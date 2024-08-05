@@ -3,3 +3,7 @@ export interface Material {
   nombre: string;
 
 }
+
+export interface MaterialCreacionDTO {
+  nombre: string;
+}

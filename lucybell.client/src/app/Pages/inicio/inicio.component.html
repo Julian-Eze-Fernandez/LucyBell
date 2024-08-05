@@ -128,7 +128,7 @@
     <div class="overflow-x-auto" style="max-width: 80%; margin: auto;">
       <div class="flex justify-between items-center mt-10">
         <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
-        <button class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
+        <button (click)="openAddMatsModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
       </div>
       <table class="min-w-full " style="border-collapse:separate; border-spacing: 0 1em;">
         <tbody>
@@ -183,9 +183,21 @@
         </tbody>
       </table>
 
-      <!--(click)="openDeleteModalMats(material)"-->
+      <ng-container>
+        <app-two-button-modal #addModalMats
+                              [title]="'Agregar Material'"
+                              [confirmButtonText]="'Añadir'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconAdd"
+                              (confirm)="onAddMats()"
+                              (cancel)="closeAddMatsModal()">
+          <form>
+            <label for="matsName" class="block text-sm font-medium text-gray-700">Nombre de Material</label>
+            <input id="matsName" name="matsName" [(ngModel)]="newMatsName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
 
-      <!-- Modals for materials -->
       <ng-container>
         <app-two-button-modal #deleteModalMats
                               [title]="'Borrar Material'"

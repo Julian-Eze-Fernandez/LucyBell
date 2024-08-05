@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using LucyBell.Server.DTOs.MaterialesDTOs;
 using LucyBell.Server.Entidades;
 using Microsoft.AspNetCore.Mvc;
@@ -54,8 +54,8 @@ namespace LucyBell.Server.Controllers
 
 			context.Add(material);
 			await context.SaveChangesAsync();
-			return Ok();
-		}
+			return Ok(new { isSuccess = true });
+        }
 
 		[HttpPut("(id:int)")]
 		public async Task<ActionResult> PutMaterial(MaterialCreacionDTO materialCreacionDTO, int id)

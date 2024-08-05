@@ -4,7 +4,7 @@ import { appsettings } from '../Settings/appsettings';
 import { Categoria } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
 import { Observable } from 'rxjs';
-import { Material } from '../Models/Material';
+import { Material, MaterialCreacionDTO } from '../Models/Material';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class MaterialService {
   GetMaterialId(id: number) {
     return this.http.get<Material[]>(`${this.apiUrl}/${id}`);
   }
-  PostMaterial(objeto: Material) {
+  PostMaterial(objeto: MaterialCreacionDTO) {
     return this.http.post<ResponseAPI>(this.apiUrl, objeto);
   }
   PutMaterial(objeto: Material) {

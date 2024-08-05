@@ -27,6 +27,7 @@ export class InicioComponent {
   @ViewChild('deleteModalMats') deleteModalMats!: TwoButtonModalComponent;
 
   @ViewChild('addModalCatg') addModalCatg!: TwoButtonModalComponent;
+  @ViewChild('addModalMats') addModalMats!: TwoButtonModalComponent;
 
   @ViewChild('editModalCatg') editModalCatg!: TwoButtonModalComponent;
 
@@ -38,7 +39,7 @@ export class InicioComponent {
   selectedCategoriaEdit: Categoria = { id: 0, nombre: '' }
   newCategoryName: string = '';
   editCategoryName: string = '';
-
+  newMatsName: string = '';
 
   customIconDelete = "<i class='bx bxs-trash-alt bx-md'></i>"
   customIconAdd = "";
@@ -95,6 +96,43 @@ export class InicioComponent {
     });
   }
 
+  openAddMatsModal() {
+    this.showModal = true;
+
+    this.addModalMats.openModal();
+
+
+  }
+
+  closeAddMatsModal() {
+    this.showModal = false;
+    this.addModalMats.closeModal();
+
+  }
+
+  onAddMats() {
+    if (this.newMatsName.trim()) {
+      const material = { nombre: this.newMatsName };
+
+      this.materialServicio.PostMaterial(material).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.obtenerMateriales();
+            this.newMatsName = '';
+
+          } else {
+            alert('Failed to add material: ' /*+ response.message*/);
+          }
+
+        },
+        error: (err) => {
+          console.error('Error adding material:', err);
+          alert('An error occurred while adding the material.');
+        }
+      });
+    }
+  }
+
   openAddCategoryModal() {
     this.showModal = true;
  
@@ -144,7 +182,6 @@ export class InicioComponent {
       }
     })
   }
-
 
   openDeleteModalCatg(categoria: Categoria) {
     this.showModal = true;
