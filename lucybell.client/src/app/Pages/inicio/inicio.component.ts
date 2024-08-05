@@ -23,12 +23,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class InicioComponent {
 
-  @ViewChild('deleteModalCatg') deleteModalCatg!: OneButtonModalComponent;
-  @ViewChild('deleteModalMats') deleteModalMats!: OneButtonModalComponent;
+  @ViewChild('deleteModalCatg') deleteModalCatg!: TwoButtonModalComponent;
+  @ViewChild('deleteModalMats') deleteModalMats!: TwoButtonModalComponent;
 
-  @ViewChild('addModalCatg') addModalCatg!: OneButtonModalComponent;
+  @ViewChild('addModalCatg') addModalCatg!: TwoButtonModalComponent;
 
-  @ViewChild('editModalCatg') editModalCatg!: OneButtonModalComponent;
+  @ViewChild('editModalCatg') editModalCatg!: TwoButtonModalComponent;
 
 
   private categoriaServicio = inject(CategoriaService)
