@@ -11,6 +11,10 @@ body {
   padding: 1rem; /* Optional: add some padding for better appearance */
 }
 
+.table-width {
+  max-width: 90%;
+}
+
 .gradient-line {
   position: relative;
   height: 1px;
@@ -18,12 +22,41 @@ body {
   background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
+.border-fix {
+  border-radius: 12px 0px 0px 12px;
+}
+
+
+.hidden-btn-bg {
+  background-color: #241f24;
+}
+
+@media (max-width: 370px) {
+
+  .table-width {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 740px)(min-width:370) {
+
+    .table-width{
+        max-width:90%;
+    }
+
+}
+
 @media (max-width: 640px) {
   .sidebar {
-    width: 50px; /* Adjust sidebar width */
+    width: 40px; /* Adjust sidebar width */
+    height: 70px;
   }
 
   .main-content {
     margin-left: 0; /* Adjust main content margin */
+  }
+
+  .border-fix {
+    border-radius: 12px 12px 12px 12px;
   }
 }

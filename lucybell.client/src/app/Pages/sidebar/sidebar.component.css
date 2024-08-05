@@ -20,3 +20,15 @@ aside{
   height: 1px;
   background: linear-gradient(to right, rgba(0,0,0,0), rgba(200,200,200,200.5), rgba(0,0,0,0));
 }
+
+.myDropdown {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+  .myDropdown.open {
+    max-height: 150px; /* Adjust based on the expected height of your content */
+    opacity: 1;
+  }
