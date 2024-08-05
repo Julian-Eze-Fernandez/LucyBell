@@ -36,12 +36,13 @@ export class OneButtonModalComponent {
   }
 
   openModal() {
+    
     this.isOpen = true;
     this.animationState = 'open';
   }
 
   closeModal() {
-
+    
     this.animationState = 'closed';
     setTimeout(() => {
       this.isOpen = false;

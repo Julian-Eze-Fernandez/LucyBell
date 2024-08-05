@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
-import { Categoria } from '../Models/Categoria';
+import { Categoria, CategoriaCreacionDTO } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
 import { Observable } from 'rxjs';
 
@@ -22,12 +22,14 @@ export class CategoriaService {
   obtener(id:number){
     return this.http.get<Categoria[]>(`${this.apiUrl}/${id}`);
   }
-  crear(objeto:Categoria){
+  PostCategoria(objeto: CategoriaCreacionDTO){
     return this.http.post<ResponseAPI>(this.apiUrl,objeto);
   }
-  editar(objeto:Categoria){
-    return this.http.put<ResponseAPI>(this.apiUrl,objeto);
+
+  updateCategoria(id: number, categoria: CategoriaCreacionDTO) {
+    return this.http.put<ResponseAPI>(`${this.apiUrl}/${id}`, categoria);
   }
+
   DeleteCategoria(id: number){
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }

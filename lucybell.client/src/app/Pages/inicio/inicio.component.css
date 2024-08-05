@@ -1,0 +1,24 @@
+body {
+  display: flex;
+}
+
+.sidebar {
+  width: 16rem; 
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 1rem; /* Optional: add some padding for better appearance */
+}
+
+
+
+@media (max-width: 640px) {
+  .sidebar {
+    width: 50px; /* Adjust sidebar width */
+  }
+
+  .main-content {
+    margin-left: 0; /* Adjust main content margin */
+  }
+}

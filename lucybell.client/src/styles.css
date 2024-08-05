@@ -1,4 +1,5 @@
-@import '../node_modules/boxicons/css/boxicons.min.css';
+/*@import '../node_modules/boxicons/css/boxicons.min.css';*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +11,12 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#FBEDE0; }
 
 @font-face {
-    font-family: 'VollkornSC';
-    src: url('../src/assets/VollkornSC-Regular.ttf');
-  }
+  font-family: 'VollkornSC';
+  src: url('../src/assets/VollkornSC-Regular.ttf');
+
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../src/assets/Inter-VariableFont_opsz,wght.ttf')
+}
+

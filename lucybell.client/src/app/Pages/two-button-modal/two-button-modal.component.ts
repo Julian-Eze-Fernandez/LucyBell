@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -31,21 +31,34 @@ export class TwoButtonModalComponent {
   isOpen: boolean = false;
 
   animationState = 'closed';
+
+  ngOnInit() {
+    console.log('TwoButtonModalComponent created');
+  }
+
+  ngOnDestroy() {
+    console.log('TwoButtonModalComponent destroyed');
+  }
+
   ngOnChanges() {
+    console.log('change');
     this.animationState = this.isOpen ? 'open' : 'closed';
   }
 
   openModal() {
+    console.log('Modal opened');
+
     this.isOpen = true;
     this.animationState = 'open';
   }
 
   closeModal() {
+    console.log('Modal closed');
 
     this.animationState = 'closed';
     setTimeout(() => {
       this.isOpen = false;
-      this.cancel.emit();
+      /*this.cancel.emit();*/
     }, 200); // Wait for the animation to complete
   }
 

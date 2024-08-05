@@ -28,7 +28,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<List<CategoriaDTO>>(categorias);
 		}
 
-		[HttpGet("{id:int}")]
+		[HttpGet("{id}")]
 		public async Task<ActionResult<CategoriaDTO>> GetCategoriaId(int id)
 		{
 			var categoria = await context.Categorias
@@ -42,7 +42,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<CategoriaDTO>(categoria);
 		}
 
-		[HttpGet("/api/categorias/{id:int}/productos")] //Get que muestra que productos estan en x categoria
+		[HttpGet("/api/categorias/{id}/productos")] //Get que muestra que productos estan en x categoria
 		public async Task<ActionResult<CategoriaDTO>> GetCategoriaIdConProductos(int id)
 		{
 			var categoria = await context.Categorias
@@ -71,10 +71,10 @@ namespace LucyBell.Server.Controllers
 
 			context.Add(categoria);
 			await context.SaveChangesAsync();
-			return Ok();
+			return Ok(new { isSuccess = true });
 		}
 
-		[HttpPut("(id:int)")]
+		[HttpPut("{id}")]
 		public async Task<ActionResult> PutCategoria(CategoriaCreacionDTO categoriaCreacionDTO, int id)
 		{
 			var existe = await context.Categorias.AnyAsync(x => x.Id == id);
@@ -89,8 +89,8 @@ namespace LucyBell.Server.Controllers
 
 			context.Update(categoria);
 			await context.SaveChangesAsync();
-			return NoContent();
-		}
+			return Ok(new { isSuccess = true });
+        }
 
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCategoria(int id)
