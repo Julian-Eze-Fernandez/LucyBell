@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -32,6 +32,27 @@ export class SidebarComponent implements OnInit {
     return this.dropdownStates[key];
   }
 
+  private touchStartX: number | null = null;
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX !== null) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const deltaX = touchEndX - this.touchStartX;
+
+      if (deltaX > 50) { // Swipe right to open
+        this.toggleSidebar();
+      } else if (deltaX < -50) { // Swipe left to close
+        this.toggleSidebar();
+      }
+      this.touchStartX = null;
+    }
+  }
 
   toggleSidebar(): void {
     const sidebar = document.getElementById('default-sidebar');
@@ -58,18 +79,18 @@ export class SidebarComponent implements OnInit {
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
 
-  handleTouchStart(event: TouchEvent) {
-    this.startX = event.touches[0].clientX;
-  }
+  //handleTouchStart(event: TouchEvent) {
+  //  this.startX = event.touches[0].clientX;
+  //}
 
-  handleTouchEnd(event: TouchEvent) {
-    this.endX = event.changedTouches[0].clientX;
+  //handleTouchEnd(event: TouchEvent) {
+  //  this.endX = event.changedTouches[0].clientX;
 
-    if (this.startX - this.endX > 50) {
-      // Swipe left
-      this.toggleSidebar();
-    }
-  }
+  //  if (this.startX - this.endX > 50) {
+  //    // Swipe left
+  //    this.toggleSidebar();
+  //  }
+  //}
 }
 
 

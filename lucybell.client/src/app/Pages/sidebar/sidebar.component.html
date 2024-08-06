@@ -15,7 +15,7 @@
 <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
 <!-- Sidebar -->
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
-  <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor " (touchstart)="handleTouchStart($event)" (touchend)="handleTouchEnd($event)">
+  <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor ">
     <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden bg-MyHover focus:outline-none">
       <span class="sr-only">close sidebar</span>
       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -250,7 +250,7 @@
         </a>
       </li>
     </ul>
-    
+
   </div>
 
 </aside>
