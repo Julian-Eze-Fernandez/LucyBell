@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
-import { Categoria } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
 import { Observable } from 'rxjs';
 import { Material, MaterialCreacionDTO } from '../Models/Material';
@@ -25,9 +24,10 @@ export class MaterialService {
   PostMaterial(objeto: MaterialCreacionDTO) {
     return this.http.post<ResponseAPI>(this.apiUrl, objeto);
   }
-  PutMaterial(objeto: Material) {
-    return this.http.put<ResponseAPI>(this.apiUrl, objeto);
+  PutMaterial(id: number, material: MaterialCreacionDTO) {
+    return this.http.put<ResponseAPI>(`${this.apiUrl}/${id}`, material);
   }
+  
   DeleteMaterial(id: number) {
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }

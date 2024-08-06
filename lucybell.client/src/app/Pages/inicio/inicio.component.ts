@@ -30,16 +30,18 @@ export class InicioComponent {
   @ViewChild('addModalMats') addModalMats!: TwoButtonModalComponent;
 
   @ViewChild('editModalCatg') editModalCatg!: TwoButtonModalComponent;
-
+  @ViewChild('editModalMats') editModalMats!: TwoButtonModalComponent;
 
   private categoriaServicio = inject(CategoriaService)
   public listaCategoria: Categoria[] = [];
   public displayedColumns: string[] = ['nombre', 'accion']
   selectedCategoria: Categoria | null = null;
   selectedCategoriaEdit: Categoria = { id: 0, nombre: '' }
+  selectedMatEdit: Material = { id: 0, nombre: '' }
   newCategoryName: string = '';
   editCategoryName: string = '';
   newMatsName: string = '';
+  editMatName: string = '';
 
   customIconDelete = "<i class='bx bxs-trash-alt bx-md'></i>"
   customIconAdd = "";
@@ -74,7 +76,7 @@ export class InicioComponent {
   onEditCategory() {
     this.selectedCategoriaEdit.nombre = this.editCategoryName
 
-    this.categoriaServicio.updateCategoria(this.selectedCategoriaEdit.id, this.selectedCategoriaEdit).subscribe({
+    this.categoriaServicio.putCategoria(this.selectedCategoriaEdit.id, this.selectedCategoriaEdit).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           // Refresh the list
@@ -131,6 +133,42 @@ export class InicioComponent {
         }
       });
     }
+  }
+
+  openEditMatsModal(material: Material) {
+    this.showModal = true;
+    this.editModalMats.openModal();
+    this.selectedMatEdit = { ...material };
+  }
+
+  closeEditMatsModal() {
+    this.showModal = false;
+    this.editModalMats.closeModal();
+  }
+
+  onEditMats() {
+    this.selectedMatEdit.nombre = this.editMatName
+
+    this.materialServicio.PutMaterial(this.selectedMatEdit.id, this.selectedMatEdit).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          // Refresh the list
+
+          this.closeEditMatsModal(); // Close the modal
+          this.selectedMatEdit = { id: 0, nombre: '' }
+          this.editMatName = '';
+          this.obtenerMateriales();
+
+        } else {
+          alert('Failed to update materiales: ' /* + response.message */);
+        }
+      },
+      error: (err) => {
+        console.error('Error updating material:', err);
+        alert('An error occurred while updating the material.');
+
+      }
+    });
   }
 
   openAddCategoryModal() {

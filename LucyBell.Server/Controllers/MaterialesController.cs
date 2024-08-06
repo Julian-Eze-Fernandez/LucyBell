@@ -57,7 +57,7 @@ namespace LucyBell.Server.Controllers
 			return Ok(new { isSuccess = true });
         }
 
-		[HttpPut("(id:int)")]
+		[HttpPut("{id}")]
 		public async Task<ActionResult> PutMaterial(MaterialCreacionDTO materialCreacionDTO, int id)
 		{
 			var existe = await context.Materiales.AnyAsync(x => x.Id == id);
@@ -72,8 +72,8 @@ namespace LucyBell.Server.Controllers
 
 			context.Update(material);
 			await context.SaveChangesAsync();
-			return NoContent();
-		}
+            return Ok(new { isSuccess = true });
+        }
 
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteMaterial(int id)

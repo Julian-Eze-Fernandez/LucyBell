@@ -187,7 +187,7 @@
                 </div>
                 <div class="ml-2 flex justify-center sm:hidden">
                   <div class="flex w-full justify-between max-w-52 mx-6">
-                    <button class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                       <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect width="25" height="25" fill="url(#pattern0_edit_hidden)" />
                         <defs>
@@ -216,7 +216,7 @@
               </td>
               <td class="ml-2 max-sm:hidden" style="border-radius: 0px 12px 12px 0px; border:0px;">
                 <div class="flex justify-end">
-                  <button class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                  <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <rect width="35" height="35" fill="url(#pattern0_208_938)" />
                       <defs>
@@ -270,6 +270,21 @@
                               (confirm)="onConfirmDeleteMats()"
                               (cancel)="closeDeleteModalMats()">
           <p>¿Está seguro de que desea borrar el Material <strong>"{{ selectedMaterial?.nombre }}"</strong>?</p>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #editModalMats
+                              [title]="'Editar Material'"
+                              [confirmButtonText]="'Editar'"
+                              [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
+                              [icon]="customIconEdit"
+                              (confirm)="onEditMats()"
+                              (cancel)="closeEditMatsModal()">
+          <form>
+            <label for="materialName" class="block text-sm font-medium text-gray-700">Nombre de material</label>
+            <input id="materialName" name="materialName" [(ngModel)]="editMatName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
         </app-two-button-modal>
       </ng-container>
     </div>

@@ -26,7 +26,7 @@ export class CategoriaService {
     return this.http.post<ResponseAPI>(this.apiUrl,objeto);
   }
 
-  updateCategoria(id: number, categoria: CategoriaCreacionDTO) {
+  putCategoria(id: number, categoria: CategoriaCreacionDTO) {
     return this.http.put<ResponseAPI>(`${this.apiUrl}/${id}`, categoria);
   }
 
