@@ -24,7 +24,6 @@ body {
 .gradient-line {
   position: relative;
   height: 1px;
-
   background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
@@ -36,6 +35,32 @@ body {
 .hidden-btn-bg {
   background-color: #241f24;
 }
+
+.table-spacing {
+  border-collapse: separate;
+  border-spacing: 0 1em;
+}
+
+.paddingSub{
+
+}
+
+.borderSub {
+  border-bottom: 1px;
+  border-bottom-color: rgb(0, 0, 0, 0.4);
+  border-bottom-style: solid;
+
+}
+
+  .borderSub .right {
+    border-right-color: transparent;
+    border-right-width: 20px;
+  }
+
+  .borderSub .left {
+    border-left-color: transparent;
+    border-left-width: 20px;
+  }
 
 @media (max-width: 400px) {
 

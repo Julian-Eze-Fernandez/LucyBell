@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LucyBell.Server.Controllers
 {
 	[ApiController]
-	[Route("api/categorias/{categoriaId:int}/subCategorias")]
+	[Route("api/categorias/{categoriaId}/subCategorias")]
 	public class SubCategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
@@ -42,7 +42,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<List<SubCategoriaDTO>>(subCategorias);
 		}
 
-		[HttpGet("/api/subcategoria/{id:int}/productos")] //Get que muestra que productos estan en x subcategoria
+		[HttpGet("/api/subcategoria/{id}/productos")] //Get que muestra que productos estan en x subcategoria
 		public async Task<ActionResult<SubCategoriaDTO>> GetSubCategoriaId(int id)
 		{
 			var subCategoria = await context.SubCategorias
@@ -100,7 +100,7 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
-		[HttpDelete("(id:int)")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteSubCategoria(int id)
 		{
 			var existeSubCategoria = await context.SubCategorias.AnyAsync(x => x.Id == id);

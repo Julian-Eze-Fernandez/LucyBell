@@ -1,7 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
 import { MaterialService } from '../../Services/material.service';
-import { Categoria } from '../../Models/Categoria';
+import { Categoria, CategoriaABM, CategoriaGetSubCategorias } from '../../Models/Categoria';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
@@ -33,15 +33,16 @@ export class InicioComponent {
   @ViewChild('editModalMats') editModalMats!: TwoButtonModalComponent;
 
   private categoriaServicio = inject(CategoriaService)
-  public listaCategoria: Categoria[] = [];
+  public listaCategoria: CategoriaGetSubCategorias[] = [];
   public displayedColumns: string[] = ['nombre', 'accion']
-  selectedCategoria: Categoria | null = null;
-  selectedCategoriaEdit: Categoria = { id: 0, nombre: '' }
+  selectedCategoria: CategoriaABM | null = null;
+  selectedCategoriaEdit: CategoriaABM = { id: 0, nombre: '' }
   selectedMatEdit: Material = { id: 0, nombre: '' }
   newCategoryName: string = '';
   editCategoryName: string = '';
   newMatsName: string = '';
   editMatName: string = '';
+
 
   customIconDelete = "<i class='bx bxs-trash-alt bx-md'></i>"
   customIconAdd = "";
@@ -52,6 +53,7 @@ export class InicioComponent {
   public displayedColumnsMats: string[] = ['nombre', 'accion']
   selectedMaterial: Material | null = null;
 
+  
 
   constructor(private router: Router) {
     this.obtenerCategorias();
@@ -60,8 +62,13 @@ export class InicioComponent {
 
   showModal: boolean = false;
 
+  toggleSubcategories(categoria: CategoriaGetSubCategorias) {
+    categoria.isExpanded = !categoria.isExpanded;
+    console.log(categoria.isExpanded)
+  }
 
-  openEditCategoryModal(categoria: Categoria) {
+
+  openEditCategoryModal(categoria: CategoriaABM) {
     this.showModal = true;
     this.editModalCatg.openModal();
     this.selectedCategoriaEdit = { ...categoria };
@@ -211,17 +218,15 @@ export class InicioComponent {
   obtenerCategorias() {
     this.categoriaServicio.GetCategoriasLista().subscribe({
       next: (data) => {
-        if (data.length >= 0) {
-          this.listaCategoria = data;
-        }
+        this.listaCategoria = data.map(c => ({ ...c, isExpanded: false }));
       },
       error: (err) => {
-        console.log(err.message)
+        console.log(err.message);
       }
-    })
+    });
   }
 
-  openDeleteModalCatg(categoria: Categoria) {
+  openDeleteModalCatg(categoria: CategoriaABM) {
     this.showModal = true;
 
     this.selectedCategoria = categoria;
