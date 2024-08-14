@@ -18,12 +18,12 @@
         <table class="min-w-full table-spacing">
           <tbody>
             <ng-container *ngIf="listaCategoria.length === 0" class="text-center text-gray-500 py-4">
-                No existen categorias en el sistema
+              No existen categorias en el sistema
             </ng-container>
             <ng-container *ngFor="let categoria of listaCategoria">
 
-              <tr class="border-fix" style="background-color: #221D22;">
-                <td class="px-6 py-2 border-fix" style=" border:0px;">
+              <tr class="" style="background-color: #221D22;">
+                <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                   <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
                     <button (click)="toggleSubcategories(categoria)" class="flex">
                       <div>
@@ -62,7 +62,7 @@
                   </div>
                   <div class="sm:hidden mt-2 flex justify-center ">
                     <div class="flex justify-between flex w-full">
-                      <button class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
+                      <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                           <rect width="25" height="25" fill="url(#pattern0_add_hidden)" />
                           <defs>
@@ -98,9 +98,9 @@
                     </div>
                   </div>
                 </td>
-                <td class="max-sm:hidden" style="border-radius: 0px 12px 12px 0px; border:0px;">
+                <td class="max-sm:hidden border-fix-right">
                   <div class="flex justify-end">
-                    <button class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
+                    <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
                       <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect width="35" height="35" fill="url(#pattern0_208_937)" />
                         <defs>
@@ -138,36 +138,49 @@
 
                 </td>
               </tr>
-              <ng-container *ngIf="categoria.isExpanded" >
+              <ng-container *ngIf="categoria.isExpanded" style="padding-left:100px">
+                <tr *ngFor="let subcategoria of categoria.subCategorias" class="borderSub subcategoryColor">
 
-                <tr *ngFor="let subcategoria of categoria.subCategorias"[ngClass]="{'borderSub':true}">
-                  <td class="borderSub left" >
-                  {{ subcategoria.nombre }}
+                  <td class="borderSub left border-fix-left">
+                    <div class="flex">
+                      <svg width="20" height="20" viewBox="0 -1 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect width="20" height="20" fill="url(#pattern0_833_4)" />
+                        <defs>
+                          <pattern id="pattern0_833_4" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_833_4" transform="scale(0.01)" />
+                          </pattern>
+                          <image id="image0_833_4" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVR4nO3cQW7UMBjFcW8qTkAF5RAwI3EKymGgC9o1iON0xbZwB1hwCSoE7aaweCiSI8JoSJw0tl8y/9+mi8b5HL/YdbNwCAAAAAAAAAAAAAAAoChJLyV9knSr9biV9FHSaVgSSe+1fu/CgmZGFSH/s51IeiPpLpb0nylxmVplIC1J57HkVXAn6eYAAnkcS/4M7mqF0ajxnMGdKgoVnjO4IxAzBGKGQMwQiBkCMUMgZgjEDIGYIRAzBGKGQMwQiBkCMUMgZgjEDIGYIRAzBGKGQMwQiBkCMUMgZnRggjsdmOCuRkc1saakZ5K+xeYfJD0YuP6hpM8EkiEQSRtJ17HppaSjgeuPJX2J17c/mSH7jB2ce86Mr5IeEUiPMYMzRxhja1bV11FJW0mvm+Vi5D23fe1SB2eGZep4bM3q/tfROKi/469/NW9q4v22Q+1SBmfOMFJrugdy1t2dNG984v3OhtoNDc7cYaTUXEIgm/iGt2/608T7bYbaJSyTs4YxVNPKwOA0f1BfpYaR2m5gmZw9jL6admp0VHtqzrWbGlPTkkMgyjgz4vVHqw9k6pZ4t2ahMC5XHcjULfFuzdJhrDmQSVviVqddqTCu1x7IpC1xayfMEmFsVx3IfbbEjdJhdGsGdzU6qr+KhNGtGdzVDCTM+39GN4zvkp6PrWnB8WuvZpwZqTVtuH3tVYYwhmouJZDiX3uVKYy+mnZcvvYqYxh9z2nH4WuvMoexr6atGh1Vp+bcu6mUmks54u+kYM1WqTCexDY/grt4rm3jvGDNVtZlqtP2YkmHYJ7Gzt7F0zuzzxT9K1sYcWZcdI6JfRGWoDlkWOv3NixJnClXNY+NzeAmPtMyZgYAAAAAAAAAAAAAAGE9/gCHck7ukOJj7gAAAABJRU5ErkJggg==" />
+                        </defs>
+                      </svg>
+                      {{ subcategoria.nombre }}
+                    </div>
                   </td>
 
-                  <td class="borderSub right flex justify-end">
-                    <button class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <rect width="20" height="20" fill="url(#pattern0_831_5)" />
-                        <defs>
-                          <pattern id="pattern0_831_5" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_831_5" transform="scale(0.015625)" />
-                          </pattern>
-                          <image id="image0_831_5" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAhUlEQVR4nO3WwQ3DMAwEwe2/6cs/byOxoBmADQg2lwUAAL+2r7nOPEC+gPkFsgNmCaYC60JTgVRgKpAKTAVSgXWhqUAqMBVIBXZKBXbYeICn7bDxAG83d0DugLkDOucOeJodkB2QHZAdkCWYCiSDXWgymAxOBpPByWAyuC602ysAAEB/9AGWOE7AP2l/cAAAAABJRU5ErkJggg==" />
-                        </defs>
-                      </svg>
-                    </button>
-                    <button class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <rect width="20" height="20" fill="url(#pattern0_830_4)" />
-                        <defs>
-                          <pattern id="pattern0_830_4" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_830_4" transform="scale(0.01)" />
-                          </pattern>
-                          <image id="image0_830_4" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACtElEQVR4nO2dPYsTURiFHz9ALey0EhdZ8C+ohYggiP0iopXaWYggLDYWLxaLhZ02FmKnIFsLoqCFP8FyFwVFsLARRBYWrwyOIOLNJnESzn09D7xNCDM55xkyNyTkgjHGGGOMMcYYY4wxZlbsB84By8CNKeYycNh6/p09wD1gAygDzFNgwWKmYxfweiARv88nYNFSJmdlBjJ+TSfaTMBu4MsMhXRzzEbG58SMZXRz00LG50KlxG/A8wnnY+VY9y1kfC5WSnw7RYkPK8fqHjcWMj929svJIWa5clW/n+JYq5VjrQ74evciyKE53IiL6HRvsXJYiBgWIoaFiGEhYliI+LK3tiI5P+Byc3EOM04OyWXvn9SCnKQtSpIcaYKUJDnSBClJcqQJUpLkSBOkJMmRJkhJkiNNkJIkR5ogJUmOiYMcr/zIrfsAVqP2w7iFAc/x3wqJyvNfNnYOWRTLCgvRKissRKussBCtssJCtMoKC9EqKyxEq6ywEK2ywkK0ygoL0SorLESrrLAQrbLCQrTKCgvRKissRKussBCtssJCtMoKC9EqKyxEq6ywEK2ywkK0ygoL0SorLESrrLAQrbLCQrTKCgvRKissRKussBCtssJCtMoKC9EqKyxEq6ywEK2ywkLGL+sasP6XeTRCyHpljg54jkmly5IlSEmSI02QkiRHmiAlSY40QUqSHGmClCQ50gQpSXLwtRJkiXbYN0LIERpjLcF/rl8aIeQAjfG4EuQ7cB3Yjjangc+VDB+AbTTG2RFXV+nDvppi+4lZzwvg3Rav/S4NsgN4s0Ww0uBstLyH1SlgU6DEMuA0vzPP1f6+URLMkxbvHbUtjGrL4NLAdBfUnf5tOA0HgQeNidkEnrX4mWPS3TvPAFeAW8BtsVnpvzdZ6rd8NcYYY4wxxhhjjDHG8JMfT2SLuEV5t3oAAAAASUVORK5CYII=" />
-                        </defs>
-                      </svg>
-                    </button>
+                  <td class="borderSub right border-fix-right">
+                    <div class="flex justify-end">
+                      <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <rect width="25" height="25" fill="url(#pattern0_208_938_sub)" />
+                          <defs>
+                            <pattern id="pattern0_208_938_sub" patternContentUnits="objectBoundingBox" width="1" height="1">
+                              <use xlink:href="#image0_208_938_sub" transform="scale(0.0104167)" />
+                            </pattern>
+                            <image id="image0_208_938_sub" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
+                          </defs>
+                        </svg>
+                      </button>
+                      <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <rect width="25" height="25" fill="url(#pattern0_208_939_sub)" />
+                          <defs>
+                            <pattern id="pattern0_208_939_sub" patternContentUnits="objectBoundingBox" width="1" height="1">
+                              <use xlink:href="#image0_208_939_sub" transform="scale(0.0104167)" />
+                            </pattern>
+                            <image id="image0_208_939_sub" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
+                          </defs>
+                        </svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
 
@@ -179,6 +192,49 @@
       </div>
 
       <!-- Modals for categories -->
+
+      <ng-container>
+        <app-two-button-modal #editModalSub
+                              [title]="'Editar SubCategoria'"
+                              [confirmButtonText]="'Editar'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconDelete"
+                              (confirm)="onEditSubcategory()"
+                              (cancel)="closeEditSubCategoryModal()">
+          <form>
+            <label for="SubCategoryName" class="block text-sm font-medium text-gray-700">Nombre de Subcategoria</label>
+            <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="editSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #addModalSub
+                              [title]="'Añadir SubCategoria'"
+                              [confirmButtonText]="'Añadir'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconDelete"
+                              (confirm)="onAddSubcategory()"
+                              (cancel)="closeAddSubCategoryModal()">
+          <form>
+            <label for="SubCategoryName" class="block text-sm font-medium text-gray-700">Nombre de Subcategoria</label>
+            <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="newSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #deleteModalSub
+                              [title]="'Borrar SubCategoria'"
+                              [confirmButtonText]="'Borrar'"
+                              [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                              [icon]="customIconDelete"
+                              (confirm)="onConfirmDeleteSubcategory()"
+                              (cancel)="closeDeleteSubCategoryModal()">
+          <p>¿Está seguro de que desea borrar la subcategoria <strong>"{{ selectedSubCategoria?.nombre }}"</strong>?</p>
+        </app-two-button-modal>
+      </ng-container>
+
       <ng-container>
         <app-two-button-modal #deleteModalCatg
                               [title]="'Borrar Categoria'"
@@ -222,6 +278,10 @@
       </ng-container>
     </div>
 
+
+
+
+
     <div class="overflow-x-auto m-2 md:m-auto table-title">
       <div class="flex justify-between items-center mt-10">
         <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
@@ -234,7 +294,7 @@
               No existen materiales en el sistema
             </div>
             <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
-              <td class="px-6 py-2 border-fix" style=" border:0px;">
+              <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                 <div class="text-sm font-medium text-white flex items-center max-sm:justify-center" style="font-size: large;">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="20" height="20" fill="url(#pattern0_769_3)" />
@@ -276,7 +336,7 @@
 
                 </div>
               </td>
-              <td class="ml-2 max-sm:hidden" style="border-radius: 0px 12px 12px 0px; border:0px;">
+              <td class="ml-2 max-sm:hidden border-fix-right">
                 <div class="flex justify-end">
                   <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

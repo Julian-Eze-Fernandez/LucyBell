@@ -71,10 +71,10 @@ namespace LucyBell.Server.Controllers
 			subCategoria.CategoriaId = categoriaId;
 			context.Add(subCategoria);
 			await context.SaveChangesAsync();
-			return Ok();
+			return Ok(new { isSuccess = true });
 		}
 
-		[HttpPut]
+		[HttpPut("{id}")]
 		public async Task<ActionResult> PutSubCategoria(int categoriaId, int id, SubCategoriaCreacionDTO subCategoriaCreacionDTO)
 		{
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
@@ -97,7 +97,7 @@ namespace LucyBell.Server.Controllers
 
 			context.Update(subCategoria);
 			await context.SaveChangesAsync();
-			return NoContent();
+			return Ok(new { isSuccess = true });
 		}
 
 		[HttpDelete("{id}")]
@@ -112,7 +112,7 @@ namespace LucyBell.Server.Controllers
 
 			context.Remove(new SubCategoria() { Id = id });
 			await context.SaveChangesAsync();
-			return NoContent();
+			return Ok(new { isSuccess = true });
 		}
 	}
 }

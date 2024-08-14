@@ -1,5 +1,6 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
+import { SubcategoriaService } from '../../Services/subcategoria.service';
 import { MaterialService } from '../../Services/material.service';
 import { Categoria, CategoriaABM, CategoriaGetSubCategorias } from '../../Models/Categoria';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.co
 import { OneButtonModalComponent } from '../one-button-modal/one-button-modal.component';
 import { SidebarComponent } from '../sidebar/sidebar.component'
 import { Material } from '../../Models/Material';
+import { SubCategoria, SubCategoriaCreacionDTO } from '../../Models/SubCategoria';
 import { FormsModule } from '@angular/forms';
 
 
@@ -25,22 +27,35 @@ export class InicioComponent {
 
   @ViewChild('deleteModalCatg') deleteModalCatg!: TwoButtonModalComponent;
   @ViewChild('deleteModalMats') deleteModalMats!: TwoButtonModalComponent;
+  @ViewChild('deleteModalSub') deleteModalSub!: TwoButtonModalComponent;
 
   @ViewChild('addModalCatg') addModalCatg!: TwoButtonModalComponent;
   @ViewChild('addModalMats') addModalMats!: TwoButtonModalComponent;
+  @ViewChild('addModalSub') addModalSub!: TwoButtonModalComponent;
 
+  @ViewChild('editModalSub') editModalSub!: TwoButtonModalComponent;
   @ViewChild('editModalCatg') editModalCatg!: TwoButtonModalComponent;
   @ViewChild('editModalMats') editModalMats!: TwoButtonModalComponent;
 
   private categoriaServicio = inject(CategoriaService)
+  private subcategoriaServicio = inject(SubcategoriaService)
   public listaCategoria: CategoriaGetSubCategorias[] = [];
   public displayedColumns: string[] = ['nombre', 'accion']
+
+  selectedSubCategoria: SubCategoria | null = null;
+
   selectedCategoria: CategoriaABM | null = null;
+  
+  selectedSubCategoriaEdit: SubCategoria = { id: 0, nombre: '', categoriaId: 0 };
   selectedCategoriaEdit: CategoriaABM = { id: 0, nombre: '' }
   selectedMatEdit: Material = { id: 0, nombre: '' }
-  newCategoryName: string = '';
-  editCategoryName: string = '';
+
   newMatsName: string = '';
+  newCategoryName: string = '';
+  newSubCategoryName: string = '';
+
+  editSubCategoryName: string = '';
+  editCategoryName: string = '';
   editMatName: string = '';
 
 
@@ -67,14 +82,12 @@ export class InicioComponent {
     console.log(categoria.isExpanded)
   }
 
-
   openEditCategoryModal(categoria: CategoriaABM) {
     this.showModal = true;
     this.editModalCatg.openModal();
     this.selectedCategoriaEdit = { ...categoria };
     
   }
-
   closeEditCategoryModal() {
     this.showModal = false;
     this.addModalCatg.closeModal();
@@ -86,15 +99,15 @@ export class InicioComponent {
     this.categoriaServicio.putCategoria(this.selectedCategoriaEdit.id, this.selectedCategoriaEdit).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          // Refresh the list
           
-          this.closeEditCategoryModal(); // Close the modal
+          
+          this.closeEditCategoryModal(); 
           this.selectedCategoriaEdit = { id: 0, nombre: '' }
           this.editCategoryName = '';
           this.obtenerCategorias();
 
         } else {
-          alert('Failed to update category: ' /* + response.message */);
+          alert('Failed to update category: ');
         }
       }, 
       error: (err) => {
@@ -105,6 +118,99 @@ export class InicioComponent {
     });
   }
 
+  openAddSubCategoryModal(categoria: CategoriaABM) {
+    this.showModal = true;
+    this.addModalSub.openModal();
+    this.selectedCategoria = { ...categoria };
+  }
+  closeAddSubCategoryModal() {
+    this.showModal = false;
+    this.addModalSub.closeModal();
+    this.newSubCategoryName = '';
+  }
+  onAddSubcategory() {
+    if (this.newSubCategoryName.trim() && this.selectedCategoria) {
+      const subCategoria: SubCategoriaCreacionDTO = { nombre: this.newSubCategoryName, categoriaId: this.selectedCategoria.id};
+
+      this.subcategoriaServicio.PostSubCategoria(this.selectedCategoria.id, subCategoria).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.obtenerCategorias();
+            this.closeAddSubCategoryModal();
+          } else {
+            alert('Failed to add subcategory');
+          }
+        },
+        error: (err) => {
+          console.error('Error adding subcategory:', err);
+          alert('An error occurred while adding the subcategory.');
+        }
+      });
+    }
+  }
+
+  openEditSubCategoryModal(subCategoria: SubCategoria, categoria: CategoriaABM) {
+    this.showModal = true;
+    this.editModalSub.openModal();
+    this.selectedSubCategoriaEdit = { categoriaId: categoria.id, id: subCategoria.id, nombre: subCategoria.nombre };
+  }
+  closeEditSubCategoryModal() {
+    this.showModal = false;
+    this.editModalSub.closeModal();
+    this.selectedSubCategoriaEdit = { id: 0, nombre: '', categoriaId: 0 };
+    this.editSubCategoryName = '';
+  }
+  onEditSubcategory() {
+    this.selectedSubCategoriaEdit.nombre = this.editSubCategoryName;
+
+    this.subcategoriaServicio.PutSubCategoria(this.selectedSubCategoriaEdit.categoriaId, this.selectedSubCategoriaEdit.id, this.selectedSubCategoriaEdit).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.obtenerCategorias();
+          this.closeEditSubCategoryModal();
+        } else {
+          alert('Failed to update subcategory: ');
+        }
+      },
+      error: (err) => {
+        console.error('Error updating subcategory:', err);
+        alert('An error occurred while updating the subcategory.');
+      }
+    });
+  }
+
+  openDeleteSubCategoryModal(subCategoria: SubCategoria, categoria: CategoriaABM) {
+    this.showModal = true;
+    this.selectedCategoria = categoria;
+    this.selectedSubCategoria = subCategoria;
+    this.deleteModalSub.openModal();
+  }
+  closeDeleteSubCategoryModal() {
+    this.showModal = false;
+    this.selectedSubCategoria = null;
+  }
+  onConfirmDeleteSubcategory() {
+    if (this.selectedCategoria && this.selectedSubCategoria) {
+      this.subcategoriaServicio.DeleteSubCategoria(this.selectedCategoria.id, this.selectedSubCategoria.id).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.obtenerCategorias();
+          } else {
+            alert('Failed to delete subcategory');
+          }
+          this.closeDeleteSubCategoryModal();
+        },
+        error: (err) => {
+          console.error('Error deleting subcategory:', err);
+          alert('An error occurred while deleting the subcategory.');
+          this.closeDeleteSubCategoryModal();
+        }
+      });
+    }
+  }
+
+
+
   openAddMatsModal() {
     this.showModal = true;
 
@@ -112,13 +218,11 @@ export class InicioComponent {
 
 
   }
-
   closeAddMatsModal() {
     this.showModal = false;
     this.addModalMats.closeModal();
 
   }
-
   onAddMats() {
     if (this.newMatsName.trim()) {
       const material = { nombre: this.newMatsName };
@@ -130,7 +234,7 @@ export class InicioComponent {
             this.newMatsName = '';
 
           } else {
-            alert('Failed to add material: ' /*+ response.message*/);
+            alert('Failed to add material: ');
           }
 
         },
@@ -147,27 +251,25 @@ export class InicioComponent {
     this.editModalMats.openModal();
     this.selectedMatEdit = { ...material };
   }
-
   closeEditMatsModal() {
     this.showModal = false;
     this.editModalMats.closeModal();
   }
-
   onEditMats() {
     this.selectedMatEdit.nombre = this.editMatName
 
     this.materialServicio.PutMaterial(this.selectedMatEdit.id, this.selectedMatEdit).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          // Refresh the list
+          
 
-          this.closeEditMatsModal(); // Close the modal
+          this.closeEditMatsModal(); 
           this.selectedMatEdit = { id: 0, nombre: '' }
           this.editMatName = '';
           this.obtenerMateriales();
 
         } else {
-          alert('Failed to update materiales: ' /* + response.message */);
+          alert('Failed to update materiales: ');
         }
       },
       error: (err) => {
@@ -185,13 +287,11 @@ export class InicioComponent {
    
 
   }
-
   closeAddCategoryModal() {
     this.showModal = false;
     this.addModalCatg.closeModal();
    
   }
-
   onAddCategory() {
     if (this.newCategoryName.trim()) {
       const categoria = { nombre: this.newCategoryName };
@@ -203,7 +303,7 @@ export class InicioComponent {
             this.newCategoryName = '';
             
           } else {
-            alert('Failed to add category: ' /*+ response.message*/);
+            alert('Failed to add category: ');
           }
           
         },
@@ -234,13 +334,11 @@ export class InicioComponent {
 
     
   }
-
   closeDeleteModalCatg() {
     this.showModal = false;
     this.selectedCategoria = null;
     
   }
-  
   onConfirmDeleteCatg() {
     if (this.selectedCategoria) {
       this.categoriaServicio.DeleteCategoria(this.selectedCategoria.id).subscribe({
@@ -283,13 +381,11 @@ export class InicioComponent {
 
     
   }
-
   closeDeleteModalMats() {
     this.showModal = false;
     this.selectedCategoria = null;
     
   }
-
   onConfirmDeleteMats() {
     if (this.selectedMaterial) {
       this.materialServicio.DeleteMaterial(this.selectedMaterial.id).subscribe({
