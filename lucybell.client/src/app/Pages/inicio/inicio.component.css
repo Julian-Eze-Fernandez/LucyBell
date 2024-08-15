@@ -84,7 +84,7 @@ body {
     margin-left: 0; /* Adjust main content margin */
   }
 
-  .border-fix {
+  .border-fix-left {
     border-radius: 12px 12px 12px 12px;
   }
 }

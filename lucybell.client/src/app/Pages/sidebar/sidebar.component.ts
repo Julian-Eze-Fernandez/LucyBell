@@ -73,9 +73,7 @@ export class SidebarComponent implements OnInit {
 
   toggleDropdown(dropdownId: string): void {
     const dropdown = document.getElementById(dropdownId);
-    if (dropdown) {
-      dropdown.classList.toggle('hidden');
-    }
+
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
 
