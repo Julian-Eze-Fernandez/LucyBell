@@ -8,6 +8,7 @@ import { TwoButtonModalComponent } from './Pages/two-button-modal/two-button-mod
 import { OneButtonModalComponent } from './Pages/one-button-modal/one-button-modal.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     TwoButtonModalComponent,
     OneButtonModalComponent,
-    SidebarComponent
+    SidebarComponent,
+    AgregarProductoComponent
   ],
   imports: [
     BrowserModule,

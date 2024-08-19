@@ -5,11 +5,11 @@
     <div class="">
       <h1 class="text-3xl flex inline-block absolute;" style="font-family: VollkornSC; display: inline-block;">
         Categorias
-        <div class="gradient-line mb-4"></div>
+        <div class="gradient-line-title mb-4"></div>
       </h1>
       <p class="mb-10"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
     </div>
-    <div class="overflow-x-auto m-2 md:m-auto table-title">
+    <div class="overflow-x-auto md:m-auto table-title">
       <div class="flex justify-between items-center">
         <h2 style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
         <button (click)="openAddCategoryModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
@@ -21,7 +21,6 @@
               No existen categorias en el sistema
             </ng-container>
             <ng-container *ngFor="let categoria of listaCategoria">
-
               <tr class="" style="background-color: #221D22;">
                 <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                   <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
@@ -310,7 +309,7 @@
 
 
 
-    <div class="overflow-x-auto m-2 md:m-auto table-title">
+    <div class="overflow-x-auto md:m-auto table-title">
       <div class="flex justify-between items-center mt-10">
         <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
         <button (click)="openAddMatsModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>

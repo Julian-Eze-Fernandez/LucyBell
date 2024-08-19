@@ -90,8 +90,8 @@ namespace LucyBell.Server.Controllers
 
 			context.Add(producto);
 			await context.SaveChangesAsync();
-			return Ok();
-		}
+            return Ok(new { isSuccess = true });
+        }
 
 		[HttpPut]
 		public async Task<ActionResult> PutProducto(int categoriaId, int subCategoriaId, int materialId, int id, ProductoCreacionDTO productoCreacionDTO)

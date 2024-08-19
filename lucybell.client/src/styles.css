@@ -10,6 +10,16 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#FBEDE0; }
 
+.sidebar {
+  width: 16rem;
+}
+
+.gradient-line-title {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
 @font-face {
   font-family: 'VollkornSC';
   src: url('../src/assets/VollkornSC-Regular.ttf');

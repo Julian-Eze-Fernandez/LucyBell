@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { appsettings } from '../Settings/appsettings';
 import { Categoria, CategoriaCreacionDTO } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

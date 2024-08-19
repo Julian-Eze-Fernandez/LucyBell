@@ -1,0 +1,73 @@
+<div class="flex">
+  <app-sidebar class="sidebar max-p-max"></app-sidebar>
+
+  <div class="main-content flex-1 p-4">
+    <div class="">
+      <h1 class="text-3xl flex inline-block absolute;" style="font-family: VollkornSC; display: inline-block;">
+        Agregar Producto
+        <div class="gradient-line-title mb-4"></div>
+      </h1>
+      <p class="mb-10"> Agrega productos a tu catalogo </p>
+    </div>
+
+    <form class="mx-auto p-4" (ngSubmit)="onSubmitProd()">
+      <!-- Nombre -->
+      <div class="mb-4">
+        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese nombre">
+      </div>
+
+      <!-- Categoria -->
+      <div class="mb-4">
+        <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
+        <select id="categoria" [(ngModel)]="selectedCategoriaId" (change)="onCategoriaChange()" name="categoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="" disabled selected>Seleccione una categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+        </select>
+      </div>
+
+      <!-- Material -->
+      <div class="mb-4">
+        <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
+        <select id="material" [(ngModel)]="selectedMaterialId" name="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="" disabled selected>Seleccione un material</option>
+          <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
+        </select>
+      </div>
+
+      <!-- Subcategoria -->
+      <div class="mb-4">
+        <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
+        <select id="subcategoria" [disabled]="!selectedCategoriaId || subcategorias.length == 0" [(ngModel)]="selectedSubcategoriaId" name="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="" disabled selected>Seleccione una subcategoria</option>
+          <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{ subcategoria.nombre }}</option>
+        </select>
+      </div>
+
+      <!-- Descripcion -->
+      <div class="mb-4">
+        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion</label>
+        <textarea id="descripcion"
+                  rows="3"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Ingrese descripcion"
+                  [(ngModel)]="descripcion"
+                  name="descripcion"></textarea>
+      </div>
+
+      <!-- Precio -->
+      <div class="mb-4">
+        <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
+        <input type="number" id="precio" [(ngModel)]="precio" name="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex items-center justify-center">
+        <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline">Agregar Producto</button>
+      </div>
+    </form>
+
+  </div>
+
+</div>
+

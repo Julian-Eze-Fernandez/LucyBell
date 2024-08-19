@@ -2,14 +2,9 @@ body {
   display: flex;
 }
 
-.sidebar {
-  width: 16rem;
-
-}
-
 .main-content {
   flex-grow: 1;
-  padding: 1rem; /* Optional: add some padding for better appearance */
+  padding: 1rem;
 }
 
 .table-title {
@@ -21,11 +16,6 @@ body {
   max-height: 30rem;
 }
 
-.gradient-line {
-  position: relative;
-  height: 1px;
-  background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
-}
 
 .border-fix-left {
   border-radius: 12px 0px 0px 12px;
@@ -67,21 +57,22 @@ body {
     border-left-width: 20px;
   }
 
-@media (max-width: 400px) {
+
+@media (max-width: 750px) {
 
   .table-title {
-    max-width: 95%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 640px) {
   .sidebar {
-    width: 40px; /* Adjust sidebar width */
+    width: 40px; 
     height: 70px;
   }
 
   .main-content {
-    margin-left: 0; /* Adjust main content margin */
+    margin-left: 0; 
   }
 
   .border-fix-left {
