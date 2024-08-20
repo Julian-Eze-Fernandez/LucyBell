@@ -26,8 +26,9 @@ namespace LucyBell.Server
 		public DbSet<Producto> Productos { get; set; }
 		public DbSet<SubCategoria> SubCategorias { get; set; }
 		public DbSet<VarianteProducto> VariantesProducto { get; set; }
+        public DbSet<ImagenProducto> ImagenesProducto { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			var cascadeFKs = modelBuilder.Model.GetEntityTypes()
 				.SelectMany(t => t.GetForeignKeys())
