@@ -18,9 +18,9 @@ namespace LucyBell.Server.Entidades
         public List<ImagenProducto> ImagenesProductos { get; set; }
         public int CategoriaId { get; set; }
 		public Categoria Categoria { get; set; }
-		public int SubCategoriaId { get; set; }
+		public int? SubCategoriaId { get; set; }
 		public SubCategoria SubCategoria { get; set; }
-		public int MaterialId { get; set; }
+		public int? MaterialId { get; set; }
 		public Material Material { get; set; }
 	}
 }

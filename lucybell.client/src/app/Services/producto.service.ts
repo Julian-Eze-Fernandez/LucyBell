@@ -10,8 +10,7 @@ import { Observable } from 'rxjs'; // agregado por mi
 export class ProductoService {
 
   private http = inject(HttpClient);
-  private apiUrl: string = 'https://localhost:7123/api';
-    baseUrl: any; //agregado por mi
+  private apiUrl: string = 'https://localhost:7123/api/productos';
 
   constructor() { }
 
@@ -20,9 +19,8 @@ export class ProductoService {
   //  return this.http.post<ResponseAPI>(url, objeto);
   //}
 
-  PostProducto(categoriaId: number = 0, subCategoriaId: number = 0, materialId: number = 0, formData: FormData): Observable<any> {
-    const url = `${this.baseUrl}/${categoriaId}/${subCategoriaId}/${materialId}/productos`;
-    return this.http.post(url, formData);
+  PostProducto(categoriaId: number, subCategoriaId: number | null, materialId: number | null, formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
   }
 
 

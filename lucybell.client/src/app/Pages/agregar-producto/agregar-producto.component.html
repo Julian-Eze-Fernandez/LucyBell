@@ -88,7 +88,7 @@
       <div class="mb-4">
         <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
         <select id="categoria" [(ngModel)]="selectedCategoriaId" (change)="onCategoriaChange()" name="categoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value="" disabled selected>Seleccione una categoria</option>
+          <option value=""  selected>Seleccione una categoria</option>
           <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
         </select>
       </div>
@@ -97,7 +97,7 @@
       <div class="mb-4">
         <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
         <select id="material" [(ngModel)]="selectedMaterialId" name="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value="" disabled selected>Seleccione un material</option>
+          <option value=""  selected>Seleccione un material</option>
           <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
         </select>
       </div>
@@ -106,7 +106,7 @@
       <div class="mb-4">
         <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
         <select id="subcategoria" [disabled]="!selectedCategoriaId || subcategorias.length == 0" [(ngModel)]="selectedSubcategoriaId" name="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value="" disabled selected>Seleccione una subcategoria</option>
+          <option value=""  selected>Seleccione una subcategoria</option>
           <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{ subcategoria.nombre }}</option>
         </select>
       </div>

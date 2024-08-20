@@ -216,13 +216,14 @@ export class AgregarProductoComponent implements OnInit {
     }
 
     // Llama al servicio para agregar el producto, ahora con FormData
-    if (this.selectedCategoriaId != null && this.selectedSubcategoriaId != null && this.selectedMaterialId != null) {
+    if (this.selectedCategoriaId  ) {
       this.productoService
         .PostProducto(this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
         .subscribe((response) => {
           console.log('Producto agregado con éxito:', response);
         }, (error) => {
           console.error('Error al agregar producto:', error);
+          
         });
     } else {
       console.error('Uno o más ID son null o undefined');

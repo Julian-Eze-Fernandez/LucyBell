@@ -286,8 +286,8 @@ namespace LucyBell.Server.Migrations
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoriaId = table.Column<int>(type: "int", nullable: false),
-                    SubCategoriaId = table.Column<int>(type: "int", nullable: false),
-                    MaterialId = table.Column<int>(type: "int", nullable: false)
+                    SubCategoriaId = table.Column<int>(type: "int", nullable: true),
+                    MaterialId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -302,14 +302,12 @@ namespace LucyBell.Server.Migrations
                         name: "FK_Productos_Materiales_MaterialId",
                         column: x => x.MaterialId,
                         principalTable: "Materiales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Productos_SubCategorias_SubCategoriaId",
                         column: x => x.SubCategoriaId,
                         principalTable: "SubCategorias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -381,6 +379,26 @@ namespace LucyBell.Server.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DetallesPedido_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImagenesProducto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UrlImagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImagenesProducto", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ImagenesProducto_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
@@ -480,6 +498,11 @@ namespace LucyBell.Server.Migrations
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ImagenesProducto_ProductoId",
+                table: "ImagenesProducto",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pedidos_ClienteId",
                 table: "Pedidos",
                 column: "ClienteId");
@@ -539,6 +562,9 @@ namespace LucyBell.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "DetallesPedido");
+
+            migrationBuilder.DropTable(
+                name: "ImagenesProducto");
 
             migrationBuilder.DropTable(
                 name: "VariantesProducto");

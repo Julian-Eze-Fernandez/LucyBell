@@ -276,7 +276,7 @@ namespace LucyBell.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -287,7 +287,7 @@ namespace LucyBell.Server.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SubCategoriaId")
+                    b.Property<int?>("SubCategoriaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -646,15 +646,11 @@ namespace LucyBell.Server.Migrations
 
                     b.HasOne("LucyBell.Server.Entidades.Material", "Material")
                         .WithMany("Productos")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("LucyBell.Server.Entidades.SubCategoria", "SubCategoria")
                         .WithMany("Productos")
-                        .HasForeignKey("SubCategoriaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SubCategoriaId");
 
                     b.Navigation("Categoria");
 

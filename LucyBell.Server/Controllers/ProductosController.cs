@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LucyBell.Server.Controllers
 {
 	[ApiController]
-	[Route("api/{categoriaId:int}/{subCategoriaId:int}/{materialId:int}/productos")]
+	[Route("api/productos")]
 	public class ProductosController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
@@ -96,19 +96,19 @@ namespace LucyBell.Server.Controllers
 		[HttpPost]
 		public async Task<ActionResult> PostProducto(
 		[FromForm] int categoriaId,
-		[FromForm] int subCategoriaId,
-		[FromForm] int materialId,
+		[FromForm] int? subCategoriaId,
+		[FromForm] int? materialId,
 		[FromForm] ProductoCreacionDTO productoCreacionDTO,
 		[FromForm] List<IFormFile> imagenes) // Recibe las imágenes aquí
 		{
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
 			if (!existeCategoria) return NotFound();
 
-			var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
-			if (!existeSubCategoria) return NotFound();
+			//var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
+			//if (!existeSubCategoria) return NotFound();
 
-			var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
-			if (!existeMaterial) return NotFound();
+			//var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
+			//if (!existeMaterial) return NotFound();
 
 			var producto = mapper.Map<Producto>(productoCreacionDTO);
 			producto.CategoriaId = categoriaId;
