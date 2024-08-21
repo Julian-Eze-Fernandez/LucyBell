@@ -117,6 +117,7 @@ import { ProductoCreacion } from '../../Models/Producto';
 })
 export class AgregarProductoComponent implements OnInit {
 
+  imageUrls: string[] = [];
   categorias: any[] = [];
   materiales: any[] = [];
   subcategorias: any[] = [];
@@ -136,6 +137,8 @@ export class AgregarProductoComponent implements OnInit {
     private subcategoriaService: SubcategoriaService,
     private productoService: ProductoService
   ) { }
+
+
 
   ngOnInit() {
     this.GetCategorias();
@@ -179,17 +182,20 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   // Método para manejar la selección de imágenes
-  selectedFiles: File[] = [];
 
-  onFileSelected(event: any): void {
-    const files: FileList = event.target.files;
-    this.selectedFiles = [];
 
-    for (let i = 0; i < files.length; i++) {
-      this.selectedFiles.push(files[i]);
+  onFileSelected(event: any, index: number): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.imagenesSeleccionadas[index] = file;
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrls[index] = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
-
 
   onSubmitProd(): void {
     const formData = new FormData();
@@ -211,9 +217,9 @@ export class AgregarProductoComponent implements OnInit {
     }
 
     // Agregar las imágenes seleccionadas al FormData
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      formData.append('imagenes', this.selectedFiles[i], this.selectedFiles[i].name);
-    }
+    this.imagenesSeleccionadas.forEach((file, index) => {
+      formData.append('imagenes', file, file.name);
+    });
 
     // Llama al servicio para agregar el producto, ahora con FormData
     if (this.selectedCategoriaId  ) {
