@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseAPI } from '../Models/ResponseAPI';
 import { Producto, ProductoCreacion } from '../Models/Producto';
+import { appsettings } from '../Settings/appsettings';
 import { Observable } from 'rxjs'; // agregado por mi
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs'; // agregado por mi
 export class ProductoService {
 
   private http = inject(HttpClient);
-  private apiUrl: string = 'https://localhost:7123/api/productos';
+  private readonly apiUrl = appsettings.apiUrl + "productos"
 
   constructor() { }
 

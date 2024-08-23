@@ -11,7 +11,7 @@ import { Material, MaterialCreacionDTO } from '../Models/Material';
 export class MaterialService {
 
   private http = inject(HttpClient);
-  private apiUrl: string = 'https://localhost:7123/api/materiales';
+  private readonly apiUrl = appsettings.apiUrl + "materiales"
 
   constructor() { }
 

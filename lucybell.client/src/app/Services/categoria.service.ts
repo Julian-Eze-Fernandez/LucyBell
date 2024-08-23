@@ -2,15 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Categoria, CategoriaCreacionDTO } from '../Models/Categoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
+import { appsettings } from '../Settings/appsettings'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
+  private readonly apiUrl = appsettings.apiUrl + "categorias";
 
   private http = inject(HttpClient);
-  private apiUrl: string = 'https://localhost:7123/api/categorias';
 
   constructor() { }
 

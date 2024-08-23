@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { SubCategoria, SubCategoriaCreacionDTO } from '../Models/SubCategoria';
 import { ResponseAPI } from '../Models/ResponseAPI';
+import { appsettings } from '../Settings/appsettings';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { ResponseAPI } from '../Models/ResponseAPI';
 export class SubcategoriaService {
 
   private http = inject(HttpClient);
-  private apiUrl: string = 'https://localhost:7123/api/categorias';
+  private readonly apiUrl = appsettings.apiUrl + "categorias";
+
   constructor() { }
 
   GetSubCategoriasLista() {
