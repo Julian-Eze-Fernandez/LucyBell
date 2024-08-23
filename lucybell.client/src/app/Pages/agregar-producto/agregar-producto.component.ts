@@ -170,6 +170,7 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   onCategoriaChange(): void {
+    this.selectedSubcategoriaId = null;
     if (this.selectedCategoriaId) {
       this.subcategoriaService
         .obtenerSubCategoriasPorCategoria(this.selectedCategoriaId)
@@ -179,6 +180,7 @@ export class AgregarProductoComponent implements OnInit {
     } else {
       this.subcategorias = [];
     }
+
   }
 
   // Método para manejar la selección de imágenes
