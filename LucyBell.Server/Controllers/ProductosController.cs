@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LucyBell.Server.DTOs.ProductosDTOs;
+using LucyBell.Server.DTOs.VariantesProductoDTO;
 using LucyBell.Server.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +60,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<ProductoDTO>(productos);
 		}
 
-		//[HttpPost]
+		//[HttpPost] (POST SIN FOTOS CON SUBCATEGORIAS Y MATERIALES REQUERIDOS)
 		//public async Task<ActionResult> PostProducto(int categoriaId, int subCategoriaId, int materialId, ProductoCreacionDTO productoCreacionDTO)
 		//{
 		//	var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
@@ -93,7 +94,7 @@ namespace LucyBell.Server.Controllers
 		//          return Ok(new { isSuccess = true });
 		//      }
 
-		[HttpPost]
+		[HttpPost] //POST QUE FUNCIONA(23/08/2024)
 		public async Task<ActionResult> PostProducto(
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,
