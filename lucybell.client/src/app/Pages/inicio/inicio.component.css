@@ -2,10 +2,6 @@ body {
   display: flex;
 }
 
-.main-content {
-  flex-grow: 1;
-  padding: 1rem;
-}
 
 .table-title {
   max-width: 90%;
@@ -66,18 +62,9 @@ body {
 }
 
 @media (max-width: 640px) {
-  .sidebar {
-    width: 40px; 
-    height: 70px;
-  }
 
-  .main-content {
-    padding: 0px;
-  }
 
   .border-fix-left {
     border-radius: 12px 12px 12px 12px;
   }
-
-
 }
