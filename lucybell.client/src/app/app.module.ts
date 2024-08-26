@@ -9,6 +9,7 @@ import { OneButtonModalComponent } from './Pages/one-button-modal/one-button-mod
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component';
+import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-produ
     TwoButtonModalComponent,
     OneButtonModalComponent,
     SidebarComponent,
-    AgregarProductoComponent
+    AgregarProductoComponent,
+    AdministrarProductosComponent
   ],
   imports: [
     BrowserModule,
