@@ -48,14 +48,15 @@ namespace LucyBell.Server
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			//Uso de swagger en desarrollo
-			//if (env.IsDevelopment())
-			//{
-			//	app.UseSwagger();
-			//	app.UseSwaggerUI();
-			//}
+			if (env.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
 
-			app.UseSwagger();
-			app.UseSwaggerUI();
+			// Uso de swagger para SOMEE
+			//app.UseSwagger();
+			//app.UseSwaggerUI();
 
 			app.UseHttpsRedirection();
 

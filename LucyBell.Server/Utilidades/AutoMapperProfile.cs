@@ -3,6 +3,7 @@ using LucyBell.Server.DTOs.CategoriasDTOs;
 using LucyBell.Server.DTOs.MaterialesDTOs;
 using LucyBell.Server.DTOs.ProductosDTOs;
 using LucyBell.Server.DTOs.SubCategoriasDTOs;
+using LucyBell.Server.DTOs.VariantesProductoDTO;
 using LucyBell.Server.Entidades;
 
 namespace LucyBell.Server.Utilidades
@@ -22,6 +23,11 @@ namespace LucyBell.Server.Utilidades
 			CreateMap<Material, MaterialDTO>(); //Mapeo para GET
 			CreateMap<ProductoCreacionDTO, Producto>(); //Mapeo para POST
 			CreateMap<Producto, ProductoDTO>(); //Mapeo para GET
+			CreateMap<VarianteProductoCreacionDTO, VarianteProducto>(); //Mapeo para POST
+			CreateMap<VarianteProducto, VarianteProductoDTO>()
+				.ForMember(dest => dest.ProductoSinVariante, opt => opt.MapFrom(src => src.Producto)); ; //Mapeo para GET
+			CreateMap<Producto, ProductoSinVariantesDTO>();
+				
 		}
 	}
 }
