@@ -1,3 +1,3 @@
 export const appsettings ={
-    apiUrl: 'https://localhost:7123/api/'
+  apiUrl: 'https://lucybell-front.vercel.app/api/'
 }
