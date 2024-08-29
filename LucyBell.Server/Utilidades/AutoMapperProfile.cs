@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LucyBell.Server.DTOs.CategoriasDTOs;
+using LucyBell.Server.DTOs.IngresosProductoDTO;
 using LucyBell.Server.DTOs.MaterialesDTOs;
 using LucyBell.Server.DTOs.ProductosDTOs;
 using LucyBell.Server.DTOs.SubCategoriasDTOs;
@@ -17,16 +18,23 @@ namespace LucyBell.Server.Utilidades
 
 			CreateMap<CategoriaCreacionDTO, Categoria>(); //Mapeo para POST
 			CreateMap<Categoria, CategoriaDTO>(); //Mapeo para GET
+
 			CreateMap<SubCategoriaCreacionDTO, SubCategoria>(); //Mapeo para POST
 			CreateMap<SubCategoria, SubCategoriaDTO>(); //Mapeo para GET
+
 			CreateMap<MaterialCreacionDTO, Material>(); //Mapeo para POST
 			CreateMap<Material, MaterialDTO>(); //Mapeo para GET
+
 			CreateMap<ProductoCreacionDTO, Producto>(); //Mapeo para POST
 			CreateMap<Producto, ProductoDTO>(); //Mapeo para GET
+
 			CreateMap<VarianteProductoCreacionDTO, VarianteProducto>(); //Mapeo para POST
 			CreateMap<VarianteProducto, VarianteProductoDTO>()
 				.ForMember(dest => dest.ProductoSinVariante, opt => opt.MapFrom(src => src.Producto)); ; //Mapeo para GET
-			CreateMap<Producto, ProductoSinVariantesDTO>();
+			CreateMap<Producto, ProductoSinVariantesDTO>(); //Mapeo para GET
+
+			CreateMap<IngresoProductoCreacionDTO, IngresoProducto>(); //Mapeo para POST
+			CreateMap<IngresoProducto, IngresoProductoDTO>(); //Mapeo para GET
 				
 		}
 	}
