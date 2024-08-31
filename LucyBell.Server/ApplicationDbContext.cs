@@ -28,7 +28,7 @@ namespace LucyBell.Server
 		public DbSet<VarianteProducto> VariantesProducto { get; set; }
         public DbSet<ImagenProducto> ImagenesProducto { get; set; }
         public DbSet<IngresoProducto> IngresosProducto { get; set; }
-
+        public DbSet<ModificacionPrecio> ModificacionesPrecio { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

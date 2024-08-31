@@ -57,7 +57,7 @@ namespace LucyBell.Server
 				app.UseSwaggerUI();
 			}
 
-			// Uso de swagger para SOMEE
+			//Uso de swagger para SOMEE
 			//app.UseSwagger();
 			//app.UseSwaggerUI();
 

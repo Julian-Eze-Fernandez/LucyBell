@@ -4,6 +4,7 @@ using LucyBell.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240831162852_ModificacionesPrecio")]
+    partial class ModificacionesPrecio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,9 +272,6 @@ namespace LucyBell.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PrecioNuevo")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PrecioViejo")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductoId")

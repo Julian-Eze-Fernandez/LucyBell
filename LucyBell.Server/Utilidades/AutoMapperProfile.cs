@@ -2,6 +2,7 @@
 using LucyBell.Server.DTOs.CategoriasDTOs;
 using LucyBell.Server.DTOs.IngresosProductoDTO;
 using LucyBell.Server.DTOs.MaterialesDTOs;
+using LucyBell.Server.DTOs.ModificacionesPrecioDTOs;
 using LucyBell.Server.DTOs.ProductosDTOs;
 using LucyBell.Server.DTOs.SubCategoriasDTOs;
 using LucyBell.Server.DTOs.VariantesProductoDTO;
@@ -35,6 +36,9 @@ namespace LucyBell.Server.Utilidades
 
 			CreateMap<IngresoProductoCreacionDTO, IngresoProducto>(); //Mapeo para POST
 			CreateMap<IngresoProducto, IngresoProductoDTO>(); //Mapeo para GET
+
+			CreateMap<ModificacionPrecioCreacionDTO, ModificacionPrecio>(); //Mapeo para POST
+			CreateMap<ModificacionPrecio, ModificacionPrecioDTO>(); //Mapeo para GET
 				
 		}
 	}
