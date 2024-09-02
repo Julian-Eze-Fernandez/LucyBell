@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240820123308_inicio")]
-    partial class inicio
+    [Migration("20240829144519_HorayFechaJuntasdeNuevo")]
+    partial class HorayFechaJuntasdeNuevo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,6 +218,30 @@ namespace LucyBell.Server.Migrations
                     b.ToTable("ImagenesProducto");
                 });
 
+            modelBuilder.Entity("LucyBell.Server.Entidades.IngresoProducto", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VarianteProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("VarianteProductoId");
+
+                    b.ToTable("IngresosProducto");
+                });
+
             modelBuilder.Entity("LucyBell.Server.Entidades.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -335,22 +359,14 @@ namespace LucyBell.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Talle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -628,6 +644,17 @@ namespace LucyBell.Server.Migrations
                     b.Navigation("Producto");
                 });
 
+            modelBuilder.Entity("LucyBell.Server.Entidades.IngresoProducto", b =>
+                {
+                    b.HasOne("LucyBell.Server.Entidades.VarianteProducto", "VarianteProducto")
+                        .WithMany("IngresosProducto")
+                        .HasForeignKey("VarianteProductoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("VarianteProducto");
+                });
+
             modelBuilder.Entity("LucyBell.Server.Entidades.Pedido", b =>
                 {
                     b.HasOne("LucyBell.Server.Entidades.Cliente", "Cliente")
@@ -773,6 +800,11 @@ namespace LucyBell.Server.Migrations
             modelBuilder.Entity("LucyBell.Server.Entidades.SubCategoria", b =>
                 {
                     b.Navigation("Productos");
+                });
+
+            modelBuilder.Entity("LucyBell.Server.Entidades.VarianteProducto", b =>
+                {
+                    b.Navigation("IngresosProducto");
                 });
 #pragma warning restore 612, 618
         }

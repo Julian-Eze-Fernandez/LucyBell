@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace LucyBell.Server
@@ -43,6 +45,7 @@ namespace LucyBell.Server
             });
 
             services.AddAutoMapper(typeof(StartUp));
+
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +56,10 @@ namespace LucyBell.Server
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
+
+			// Uso de swagger para SOMEE
+			//app.UseSwagger();
+			//app.UseSwaggerUI();
 
 			app.UseHttpsRedirection();
 

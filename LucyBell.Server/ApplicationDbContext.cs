@@ -27,6 +27,8 @@ namespace LucyBell.Server
 		public DbSet<SubCategoria> SubCategorias { get; set; }
 		public DbSet<VarianteProducto> VariantesProducto { get; set; }
         public DbSet<ImagenProducto> ImagenesProducto { get; set; }
+        public DbSet<IngresoProducto> IngresosProducto { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
