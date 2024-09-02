@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LucyBell.Server.DTOs.VariantesProductoDTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace LucyBell.Server.DTOs.ProductosDTOs
 {
