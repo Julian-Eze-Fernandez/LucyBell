@@ -6,5 +6,6 @@ namespace LucyBell.Server.DTOs.IngresosProductoDTO
 	{
 		public int Cantidad { get; set; }
 		public DateTime FechaIngreso { get; set; }
+		public int VarianteProductoId { get; set; }
 	}
 }
