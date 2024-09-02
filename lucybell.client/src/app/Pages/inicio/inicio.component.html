@@ -36,7 +36,7 @@
                           </defs>
                         </svg>
                       </div>
-                      {{ categoria.nombre }}
+                      <span class="ml-2 text-xl"> {{ categoria.nombre }} </span>
                       <div class="ml-2">
                         <svg *ngIf="!categoria.isExpanded" width="20" height="20" viewBox="0 -2 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                           <rect width="20" height="20" fill="url(#pattern0_277_685)" />
@@ -317,9 +317,9 @@
       <div>
         <table class="min-w-full overflow-y-auto table-width" style="border-collapse:separate; border-spacing: 0 1em;">
           <tbody>
-            <div *ngIf="listaMaterial.length === 0" class="text-center text-gray-500 py-4">
+            <ng-container *ngIf="listaMaterial.length === 0" class="text-center text-gray-500 py-4">
               No existen materiales en el sistema
-            </div>
+            </ng-container>
             <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
               <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                 <div class="text-sm font-medium text-white flex items-center max-sm:justify-center" style="font-size: large;">
