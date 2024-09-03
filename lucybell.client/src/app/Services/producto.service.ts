@@ -24,6 +24,8 @@ export class ProductoService {
     return this.http.post(this.apiUrl, formData);
   }
 
-
+  DeleteProducto(id: number) {
+    return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
+  }
 
 }

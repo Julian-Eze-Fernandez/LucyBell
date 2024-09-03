@@ -251,8 +251,67 @@ export class AgregarProductoComponent implements OnInit {
 
   //}
 
+  //onSubmitProd(): void {
+  //  const formData = new FormData();
+  //  formData.append('nombre', this.nombre);
+  //  formData.append('descripcion', this.descripcion);
+  //  formData.append('precio', this.precio.toString());
+
+  //  if (this.selectedCategoriaId) {
+  //    formData.append('categoriaId', this.selectedCategoriaId.toString());
+  //  }
+
+  //  if (this.selectedSubcategoriaId) {
+  //    formData.append('subcategoriaId', this.selectedSubcategoriaId.toString());
+  //  }
+
+  //  if (this.selectedMaterialId) {
+  //    formData.append('materialId', this.selectedMaterialId.toString());
+  //  }
+
+  //  // Add selected images to FormData
+  //  this.imagenesSeleccionadas.forEach((file, index) => {
+  //    formData.append('imagenes', file, file.name);
+  //  });
+
+  //  // Post Producto and handle response
+  //  if (this.selectedCategoriaId)
+  //  {
+  //    this.productoService.PostProducto(this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
+  //      .pipe(
+  //        switchMap((productoResponse: any) => {
+  //          // After Producto is successfully created, get the productoId
+  //          const productoId = productoResponse.productoId;
+
+  //          // Prepare VariantesProducto to post
+  //          let variantesToPost = this.variantes;
+  //          if (!this.isAddingColor) {
+  //            variantesToPost = [{ color: null, cantidad: this.currentCantidad }];
+  //          }
+
+  //          // Post VariantesProducto with the productoId
+  //          return this.VariantesProductoService.postVariantesProductos(productoId, variantesToPost );
+  //        })
+  //      )
+  //      .subscribe({
+  //        next: (response) => {
+  //          console.log('Producto y VariantesProducto agregados con éxito:', response);
+  //        },
+  //        error: (error) => {
+  //          console.error('Error al agregar producto o variantes:', error);
+  //          // Handle rollback if needed, e.g., delete Producto if VariantesProducto fails
+  //        }
+  //      });
+  //  }
+
+  //}
+
+
+
   onSubmitProd(): void {
     const formData = new FormData();
+
+    // Append product data
     formData.append('nombre', this.nombre);
     formData.append('descripcion', this.descripcion);
     formData.append('precio', this.precio.toString());
@@ -269,41 +328,68 @@ export class AgregarProductoComponent implements OnInit {
       formData.append('materialId', this.selectedMaterialId.toString());
     }
 
-    // Add selected images to FormData
+    // Add images
     this.imagenesSeleccionadas.forEach((file, index) => {
       formData.append('imagenes', file, file.name);
     });
 
-    // Post Producto and handle response
-    if (this.selectedCategoriaId)
-    {
+    if (this.selectedCategoriaId){
       this.productoService.PostProducto(this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
-        .pipe(
-          switchMap((productoResponse: any) => {
-            // After Producto is successfully created, get the productoId
-            const productoId = productoResponse.id;
-
-            // Prepare VariantesProducto to post
-            let variantesToPost = this.variantes;
-            if (!this.isAddingColor) {
-              variantesToPost = [{ color: null, cantidad: this.currentCantidad }];
-            }
-
-            // Post VariantesProducto with the productoId
-            return this.VariantesProductoService.postVariantesProductos(productoId, variantesToPost );
-          })
-        )
         .subscribe({
-          next: (response) => {
-            console.log('Producto y VariantesProducto agregados con éxito:', response);
+          next: (response: any) => {
+            this.productoId = response.productoId; // Assuming 'id' is returned in the response
+
+            // If `productoId` exists, create variants
+            if (this.productoId) {
+              this.createVariants(this.productoId);
+            }
           },
-          error: (error) => {
-            console.error('Error al agregar producto o variantes:', error);
-            // Handle rollback if needed, e.g., delete Producto if VariantesProducto fails
+          error: (err) => {
+            console.error('Error al agregar producto:', err);
           }
         });
     }
     
+  }
+
+  createVariants(productoId: number): void {
+    if (this.isAddingColor && this.variantes.length > 0) {
+      
+      this.VariantesProductoService.postVariantesProductos(productoId, this.variantes)
+        .subscribe({
+          next: (response) => {
+            console.log('Variante producto added successfully:', response);
+          },
+          error: (err) => {
+            console.error('Error adding variante producto:', err);
+
+            // Rollback the product if variant creation fails
+            this.productoService.DeleteProducto(productoId).subscribe({
+              next: () => console.log('Producto rolled back due to variant creation failure'),
+              error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
+            });
+          }
+        });
+      
+    } else {
+      const defaultVariante: VariantesProductoCreacionDTO[] = [{ color: null, cantidad: this.currentCantidad }];
+
+      this.VariantesProductoService.postVariantesProductos(productoId, defaultVariante)
+        .subscribe({
+          next: (response) => {
+            console.log('Default variante producto added successfully:', response);
+          },
+          error: (err) => {
+            console.error('Error adding default variante producto:', err);
+
+            // Rollback the product if default variant creation fails
+            this.productoService.DeleteProducto(productoId).subscribe({
+              next: () => console.log('Producto rolled back due to default variant creation failure'),
+              error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
+            });
+          }
+        });
+    }
   }
 
 
