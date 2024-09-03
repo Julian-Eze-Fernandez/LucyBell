@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240831163323_ModificacionesPrecioConPrecioViejo")]
-    partial class ModificacionesPrecioConPrecioViejo
+    [Migration("20240903114851_inicio")]
+    partial class inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

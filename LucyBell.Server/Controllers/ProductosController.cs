@@ -183,5 +183,22 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
-	}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProducto(int id)
+        {
+            var producto = await context.Productos.FindAsync(id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            // Remove the entity
+            context.Productos.Remove(producto);
+            await context.SaveChangesAsync();
+
+            return Ok(new { isSuccess = true });
+        }
+
+    }
 }

@@ -140,14 +140,14 @@
       <!-- Nombre -->
       <div class="mb-4">
         <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese nombre">
+        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  focus:ring-2 focus:ring-purple-500" placeholder="Ingrese nombre">
       </div>
 
       <!-- Categoria -->
       <div class="mb-4">
         <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
-        <select id="categoria" [(ngModel)]="selectedCategoriaId" (change)="onCategoriaChange()" name="categoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value=""  selected>Seleccione una categoria</option>
+        <select id="categoria" [(ngModel)]="selectedCategoriaId" (change)="onCategoriaChange()" name="categoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white  focus:ring-2 focus:ring-purple-500">
+          <option value="" selected>Seleccione una categoria</option>
           <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
         </select>
       </div>
@@ -155,8 +155,8 @@
       <!-- Material -->
       <div class="mb-4">
         <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
-        <select id="material" [(ngModel)]="selectedMaterialId" name="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value=""  selected>Seleccione un material</option>
+        <select id="material" [(ngModel)]="selectedMaterialId" name="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white  focus:ring-2 focus:ring-purple-500">
+          <option value="" selected>Seleccione un material</option>
           <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
         </select>
       </div>
@@ -164,8 +164,8 @@
       <!-- Subcategoria -->
       <div class="mb-4">
         <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
-        <select id="subcategoria" [disabled]="!selectedCategoriaId || subcategorias.length == 0" [(ngModel)]="selectedSubcategoriaId" name="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option value=""  selected>Seleccione una subcategoria</option>
+        <select id="subcategoria" [disabled]="!selectedCategoriaId || subcategorias.length == 0" [(ngModel)]="selectedSubcategoriaId" name="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:ring-2 focus:ring-purple-500">
+          <option value="" selected>Seleccione una subcategoria</option>
           <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{ subcategoria.nombre }}</option>
         </select>
       </div>
@@ -175,7 +175,7 @@
         <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion</label>
         <textarea id="descripcion"
                   rows="3"
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:ring-2 focus:ring-purple-500"
                   placeholder="Ingrese descripcion"
                   [(ngModel)]="descripcion"
                   name="descripcion"></textarea>
@@ -184,10 +184,68 @@
       <!-- Precio -->
       <div class="mb-4">
         <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
-        <input type="number" id="precio" [(ngModel)]="precio" name="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio">
+        <input type="number" id="precio" [(ngModel)]="precio" name="precio" class="shadow appearance-none border rounded w-full max-w-md py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 text-2xl" placeholder="Ingrese precio">
       </div>
 
       <!-- Campo de selección de imágenes -->
+
+      <div class="space-y-4 mb-6">
+        <!-- Cantidad Input (Visible when not adding colors) -->
+        <div *ngIf="!isAddingColor" class="flex flex-col">
+          <label for="cantidad" class="block text-gray-700 text-sm font-bold mb-2">Cantidad</label>
+          <input id="cantidad"
+                 type="number"
+                 name="cantidad"
+                 [(ngModel)]="currentCantidad"
+                 class="shadow appearance-none border rounded w-full max-w-96  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500"
+                 [disabled]="isAddingColor" />
+        </div>
+
+        <!-- Color Input and Add Button (Visible when adding colors) -->
+        <div *ngIf="isAddingColor" class="space-y-2">
+          <label for="color" class="block text-gray-700 text-sm font-bold mb-2">Agregar Color y Cantidad</label>
+          <div class="flex items-center space-x-2 max-w-96">
+            <input id="color"
+                   type="text"
+                   [(ngModel)]="currentColor"
+                   placeholder="Ej. Azul.."
+                   name="color"
+                   class="shadow appearance-none border rounded w-full min-w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input id="colorCantidad"
+                   type="number"
+                   [(ngModel)]="currentColorCantidad"
+                   name="colorCantidad"
+                   class="shadow appearance-none border rounded w-full max-w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500"
+                   placeholder="Cantidad" />
+            <button (click)="addColor()"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                    type="button">
+              +
+            </button>
+          </div>
+          <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <button (click)="toggleAddColor()"
+                  type="button"
+                  class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+            {{ isAddingColor ? 'Cancelar' : 'Agregar Color' }}
+          </button>
+        </div>
+
+        <div *ngIf="variantes.length > 0" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 mb-4">
+          <div *ngFor="let variante of variantes"
+               class="p-4 bg-white shadow rounded-full flex justify-between items-center">
+            <span>{{ variante.color }} ({{ variante.cantidad }})</span>
+            <button (click)="removeColor(variante.color || '')"
+                    class="text-red-500 hover:text-red-700"
+                    type="button">
+              x
+            </button>
+          </div>
+        </div>
+      </div>
 
 
       <!-- Submit Button -->

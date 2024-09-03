@@ -17,8 +17,8 @@
       <div class="overflow-y-auto table-width">
         <table class="min-w-full table-spacing">
           <tbody>
-            <ng-container *ngIf="listaCategoria.length === 0" class="text-center text-gray-500 py-4">
-              No existen categorias en el sistema
+            <ng-container *ngIf="listaCategoria.length === 0">
+              <p class="text-center text-gray-500 py-4"> No existen categorias en el sistema</p> 
             </ng-container>
             <ng-container *ngFor="let categoria of listaCategoria">
               <tr class="" style="background-color: #221D22;">
@@ -318,7 +318,7 @@
         <table class="min-w-full overflow-y-auto table-width" style="border-collapse:separate; border-spacing: 0 1em;">
           <tbody>
             <ng-container *ngIf="listaMaterial.length === 0" class="text-center text-gray-500 py-4">
-              No existen materiales en el sistema
+              <p class="text-center text-gray-500 py-4">No existen materiales en el sistema</p>
             </ng-container>
             <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
               <td class="px-6 py-2 border-fix-left" style=" border:0px;">
