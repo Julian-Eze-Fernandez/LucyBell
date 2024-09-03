@@ -23,4 +23,8 @@ export class ProductoService {
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }
 
+  GetProductoCompleto(){
+    return this.http.get<Producto[]>(`${this.apiUrl}/completo`)
+  }
+
 }

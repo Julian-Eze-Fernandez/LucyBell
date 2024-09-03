@@ -14,20 +14,22 @@ import { AdministrarProductosComponent } from './Pages/administrar-productos/adm
 
 @NgModule({
   declarations: [
+
+  ],
+  imports: [
     AppComponent,
     TwoButtonModalComponent,
     OneButtonModalComponent,
     SidebarComponent,
     AgregarProductoComponent,
-    AdministrarProductosComponent
-  ],
-  imports: [
+    AdministrarProductosComponent,
+
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }
