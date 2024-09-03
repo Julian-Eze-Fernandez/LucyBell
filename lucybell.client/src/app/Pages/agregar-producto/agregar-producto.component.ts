@@ -131,7 +131,7 @@ export class AgregarProductoComponent implements OnInit {
   descripcion: string = '';
   precio: number = 0;
 
-  productoId?: number;  // Assign this based on your application logic
+  productoId?: number;  
   variantes: VariantesProductoCreacionDTO[] = [];
   currentColor: string = '';
   currentColorCantidad: number = 0;
@@ -337,9 +337,9 @@ export class AgregarProductoComponent implements OnInit {
       this.productoService.PostProducto(this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
         .subscribe({
           next: (response: any) => {
-            this.productoId = response.productoId; // Assuming 'id' is returned in the response
+            this.productoId = response.productoId; 
 
-            // If `productoId` exists, create variants
+            // Si producto falla, 
             if (this.productoId) {
               this.createVariants(this.productoId);
             }
@@ -363,7 +363,7 @@ export class AgregarProductoComponent implements OnInit {
           error: (err) => {
             console.error('Error adding variante producto:', err);
 
-            // Rollback the product if variant creation fails
+            // Borra producto si variante falla
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to variant creation failure'),
               error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
@@ -382,7 +382,7 @@ export class AgregarProductoComponent implements OnInit {
           error: (err) => {
             console.error('Error adding default variante producto:', err);
 
-            // Rollback the product if default variant creation fails
+            // Borra producto si variante falla
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to default variant creation failure'),
               error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
@@ -397,11 +397,11 @@ export class AgregarProductoComponent implements OnInit {
     this.isAddingColor = !this.isAddingColor;
 
     if (!this.isAddingColor) {
-      // Clear all variants and reset cantidad when cancelling
+      // limpia variantes
       this.variantes = [];
       this.currentCantidad = 0;
     } else {
-      // Disable and reset cantidad when adding color
+      // resetea cantidad
       this.currentCantidad = 0;
     }
   }
