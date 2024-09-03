@@ -21,14 +21,14 @@ namespace LucyBell.Server.Controllers
 			this.mapper = mapper;
 		}
 
-		[HttpGet("/productos/lista")]
+		[HttpGet("lista")]
 		public async Task<ActionResult<List<ProductoDTO>>> GetProductosLista()
 		{
 			var productos = await context.Productos.ToListAsync();
 			return mapper.Map<List<ProductoDTO>>(productos);
 		}
 
-		[HttpGet("/productos/completo")]
+		[HttpGet("completo")]
 		public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompleto()
 		{
 			var productos = await context.Productos
