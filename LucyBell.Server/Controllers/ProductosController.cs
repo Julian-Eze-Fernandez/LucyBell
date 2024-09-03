@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LucyBell.Server.DTOs.ImagenesProductoDTOs;
 using LucyBell.Server.DTOs.ProductosDTOs;
 using LucyBell.Server.DTOs.VariantesProductoDTO;
 using LucyBell.Server.Entidades;
@@ -25,6 +26,39 @@ namespace LucyBell.Server.Controllers
 		{
 			var productos = await context.Productos.ToListAsync();
 			return mapper.Map<List<ProductoDTO>>(productos);
+		}
+
+		[HttpGet("/productos/completo")]
+		public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompleto()
+		{
+			var productos = await context.Productos
+				.Include(productoBD => productoBD.ImagenesProductos)
+				.Include(productoBD => productoBD.VariantesProducto)
+				.ToListAsync();
+
+			var productosDTO = productos.Select(producto => new ProductoCompletoDTO
+			{
+				Id = producto.Id,
+				Nombre = producto.Nombre,
+				Precio = producto.Precio,
+				Descripcion = producto.Descripcion,
+				CategoriaId = producto.CategoriaId,
+				SubCategoriaId = producto.SubCategoriaId,
+				MaterialId = producto.MaterialId,
+				ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+				{
+					Id = img.Id,
+					UrlImagen = img.UrlImagen
+				}).ToList(),
+				VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
+				{
+					Id = variante.Id,
+					Color = variante.Color,
+					Cantidad = variante.Cantidad
+				}).ToList()
+			}).ToList();
+
+			return Ok(productosDTO);
 		}
 
 		[HttpGet]
@@ -59,40 +93,6 @@ namespace LucyBell.Server.Controllers
 
 			return mapper.Map<ProductoDTO>(productos);
 		}
-
-		//[HttpPost] (POST SIN FOTOS CON SUBCATEGORIAS Y MATERIALES REQUERIDOS)
-		//public async Task<ActionResult> PostProducto(int categoriaId, int subCategoriaId, int materialId, ProductoCreacionDTO productoCreacionDTO)
-		//{
-		//	var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
-
-		//	if (!existeCategoria)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
-
-		//	if (!existeSubCategoria)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
-
-		//	if (!existeMaterial)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	var producto = mapper.Map<Producto>(productoCreacionDTO);
-		//	producto.CategoriaId = categoriaId;
-		//	producto.SubCategoriaId = subCategoriaId;
-		//	producto.MaterialId = materialId;
-
-		//	context.Add(producto);
-		//	await context.SaveChangesAsync();
-		//          return Ok(new { isSuccess = true });
-		//      }
 
 		[HttpPost] //POST QUE FUNCIONA(23/08/2024)
 		public async Task<ActionResult> PostProducto(
