@@ -15,11 +15,6 @@ export class ProductoService {
 
   constructor() { }
 
-  //PostProducto(categoriaId: number, subCategoriaId: number, materialId: number, objeto: ProductoCreacion) {
-  //  const url = `${this.apiUrl}/${categoriaId}/${subCategoriaId}/${materialId}/productos`;
-  //  return this.http.post<ResponseAPI>(url, objeto);
-  //}
-
   PostProducto(categoriaId: number, subCategoriaId: number | null, materialId: number | null, formData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, formData);
   }

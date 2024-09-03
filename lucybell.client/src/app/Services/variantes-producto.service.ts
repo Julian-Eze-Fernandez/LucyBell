@@ -15,8 +15,8 @@ export class VariantesProductoService {
 
   constructor() { }
 
-  postVariantesProductos(productoId: number, variantes: VariantesProductoCreacionDTO[]): Observable<any> {
-    return this.http.post(`${this.apiUrl}?productoId=${productoId}`, variantes);
+  postVariantesProductos(id: number, variantes: VariantesProductoCreacionDTO[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}`, variantes);
   }
 
 }

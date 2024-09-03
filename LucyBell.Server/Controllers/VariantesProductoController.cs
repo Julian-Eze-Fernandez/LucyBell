@@ -39,10 +39,10 @@ namespace LucyBell.Server.Controllers
 			return Ok(variantesDTO);
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> PostVariantesProductos(int productoId, List<VarianteProductoCreacionDTO> variantesProductoCreacionDTO)
+		[HttpPost("{id}")]
+		public async Task<ActionResult> PostVariantesProductos(int id, List<VarianteProductoCreacionDTO> variantesProductoCreacionDTO)
 		{
-			var existeProducto = await context.Productos.AnyAsync(productoDB => productoDB.Id == productoId);
+			var existeProducto = await context.Productos.AnyAsync(productoDB => productoDB.Id == id);
 			if (!existeProducto)
 			{
 				return NotFound();
@@ -52,7 +52,7 @@ namespace LucyBell.Server.Controllers
 
 			foreach (var varianteDTO in variantesProductoCreacionDTO)
 			{
-				var existeVarianteConElMismoColor = await context.VariantesProducto.AnyAsync(x => x.Color == varianteDTO.Color && x.ProductoId == productoId);
+				var existeVarianteConElMismoColor = await context.VariantesProducto.AnyAsync(x => x.Color == varianteDTO.Color && x.ProductoId == id);
 
 				if (existeVarianteConElMismoColor)
 				{
@@ -60,7 +60,7 @@ namespace LucyBell.Server.Controllers
 				}
 
 				var variante = mapper.Map<VarianteProducto>(varianteDTO);
-				variante.ProductoId = productoId;
+				variante.ProductoId = id;
 
 				variantesAIgresar.Add(variante);
 			}
