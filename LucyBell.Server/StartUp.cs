@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.Globalization;
 using System.Text.Json.Serialization;
 
@@ -57,11 +58,21 @@ namespace LucyBell.Server
 				app.UseSwaggerUI();
 			}
 
-			//Uso de swagger para SOMEE
-			//app.UseSwagger();
-			//app.UseSwaggerUI();
+            //Uso de swagger para SOMEE
+            //app.UseSwagger();
+            //app.UseSwaggerUI();
 
-			app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            // Serve static files from custom directory (Imagenes in your case)
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Imagenes")),
+                RequestPath = "/Imagenes"
+            });
+
+            app.UseHttpsRedirection();
 
             app.UseCors("NuevaPolitica");
 

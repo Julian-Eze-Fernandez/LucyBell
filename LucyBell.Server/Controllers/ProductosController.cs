@@ -48,8 +48,8 @@ namespace LucyBell.Server.Controllers
 				ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
 				{
 					Id = img.Id,
-					UrlImagen = img.UrlImagen
-				}).ToList(),
+					UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen
+                }).ToList(),
 				VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
 				{
 					Id = variante.Id,

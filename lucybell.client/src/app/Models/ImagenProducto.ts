@@ -6,5 +6,5 @@ export interface ImagenProducto{
 
 export interface ImagenProductoDTO{
     id : number;
-    UrlImagen: string;
+    urlImagen: string;
 }
