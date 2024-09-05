@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.component';
 
 @Component({
   selector: 'app-two-button-modal',
@@ -20,6 +21,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class TwoButtonModalComponent {
 
+ 
   @Input() title: string = 'Default Title';
   @Input() confirmButtonText: string = 'Confirm';
   @Input() confirmButtonColor: string = 'blue';
@@ -52,6 +54,7 @@ export class TwoButtonModalComponent {
     this.animationState = 'open';
   }
 
+
   closeModal() {
     console.log('Modal closed');
 
@@ -64,7 +67,7 @@ export class TwoButtonModalComponent {
 
   onConfirm() {
     this.confirm.emit();
-    this.closeModal();
+
   }
 
   onOverlayClick(event: MouseEvent) {

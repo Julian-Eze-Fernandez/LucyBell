@@ -149,8 +149,19 @@ namespace LucyBell.Server.Controllers
 
 
 		[HttpPut]
-		public async Task<ActionResult> PutProducto(int categoriaId, int subCategoriaId, int materialId, int id, ProductoCreacionDTO productoCreacionDTO)
+		public async Task<ActionResult> PutProducto(int id,	
+		[FromForm] int categoriaId,
+		[FromForm] int? subCategoriaId,
+		[FromForm] int? materialId,
+		[FromForm] ProductoCreacionDTO productoCreacionDTO,
+		[FromForm] List<IFormFile> imagenes)
 		{
+			var producto = mapper.Map<Producto>(productoCreacionDTO);
+			producto.Id = id;
+			producto.CategoriaId = categoriaId;
+			producto.SubCategoriaId = subCategoriaId;
+			producto.MaterialId = materialId;
+
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
 
 			if (!existeCategoria)
@@ -158,29 +169,52 @@ namespace LucyBell.Server.Controllers
 				return NotFound();
 			}
 
-			var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == id);
+			if ( subCategoriaId != null){
+				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
 
-			if (!existeSubCategoria)
-			{
-				return NotFound();
+				if (!existeSubCategoria)
+				{
+					return NotFound();
+				}
+			}
+			
+			if (materialId != null){
+				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
+
+				if (!existeMaterial)
+				{
+					return NotFound();
+				}
 			}
 
-			var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == id);
-
-			if (!existeMaterial)
+			foreach (var imagen in imagenes)
 			{
-				return NotFound();
+				if (imagen.Length > 0)
+				{
+					var nombreArchivo = Path.GetFileName(imagen.FileName);
+					var ruta = $"Imagenes/{nombreArchivo}";
+
+					using (var stream = new FileStream(ruta, FileMode.Create))
+					{
+						await imagen.CopyToAsync(stream);
+					}
+
+					// Guardar la imagen en la base de datos
+					var imagenProducto = new ImagenProducto
+					{
+						UrlImagen = ruta,
+						ProductoId = producto.Id
+					};
+
+					context.ImagenesProducto.Add(imagenProducto);
+				}
 			}
 
-			var producto = mapper.Map<Producto>(productoCreacionDTO);
-			producto.Id = id;
-			producto.CategoriaId = categoriaId;
-			producto.SubCategoriaId = subCategoriaId;
-			producto.MaterialId = materialId;
+
 
 			context.Update(producto);
 			await context.SaveChangesAsync();
-			return NoContent();
+			return Ok(new {	isSuccess = true});
 		}
 
         [HttpDelete("{id}")]
