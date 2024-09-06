@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProductoService } from '../../Services/producto.service';
@@ -8,11 +8,12 @@ import {Categoria} from '../../Models/Categoria';
 import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AgregarProductoComponent } from "../agregar-producto/agregar-producto.component";
+import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
 
 @Component({
   selector: 'app-administrar-productos',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, TwoButtonModalComponent, AgregarProductoComponent],
+  imports: [CommonModule, SidebarComponent, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent],
   templateUrl: './administrar-productos.component.html',
   styleUrl: './administrar-productos.component.css'
 })
@@ -24,6 +25,7 @@ export class AdministrarProductosComponent implements OnInit {
   @ViewChild('editModalProd') editModalProd!: TwoButtonModalComponent;
 
   productos: Producto[] = [];
+  selectedProducto: any = null;
   categorias: Categoria[] = []
   categoriasMap: { [id: number]: string } = {};
   showModal: boolean = false;
@@ -35,6 +37,8 @@ export class AdministrarProductosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarProductos()
   }
+
+  
 
   cargarProductos(): void {
     this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
@@ -53,6 +57,20 @@ export class AdministrarProductosComponent implements OnInit {
     });
 
   }
+
+  openEditModal(producto: any): void {
+    this.selectedProducto = producto;
+    this.showModal = true;
+    this.editModalProd.openModal();
+  }
+
+  closeEditModal(): void {
+    this.selectedProducto = null; // Reset when the modal closes
+    this.showModal = false;
+    this.editModalProd.closeModal();
+    
+  }
+
 
   getTotalStock(producto: Producto): number {
     return producto.variantesProducto.reduce((acc, variante) => acc + variante.cantidad, 0);

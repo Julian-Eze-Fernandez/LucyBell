@@ -164,8 +164,8 @@ namespace LucyBell.Server.Controllers
 		}
 
 
-		[HttpPut]
-		public async Task<ActionResult> PutProducto(int id,	
+		[HttpPut("{id}")]
+        public async Task<ActionResult> PutProducto(int id,	
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,
 		[FromForm] int? materialId,
@@ -179,28 +179,26 @@ namespace LucyBell.Server.Controllers
 			producto.MaterialId = materialId;
 
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
+			if (!existeCategoria) return NotFound();
 
-			if (!existeCategoria)
-			{
-				return NotFound();
-			}
 
-			if ( subCategoriaId != null){
+
+            if ( subCategoriaId != null){
 				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
 
-				if (!existeSubCategoria)
-				{
-					return NotFound();
-				}
+				 if (!existeSubCategoria)
+				 {
+				 	return NotFound();
+				 }
 			}
 			
 			if (materialId != null){
 				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
 
-				if (!existeMaterial)
-				{
-					return NotFound();
-				}
+				// if (!existeMaterial)
+				// {
+				// 	return NotFound();
+				// }
 			}
 
 			foreach (var imagen in imagenes)

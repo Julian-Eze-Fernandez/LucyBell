@@ -1,0 +1,70 @@
+<div class="flex">
+
+  <div class="main-content">
+
+    <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+
+      <!-- Nombre -->
+      <div class="mb-4">
+        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+        <input type="text" id="nombre" formControlName="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese nombre">
+        <div *ngIf="productoForm.get('nombre')?.touched && productoForm.get('nombre')?.invalid">
+          <small class="text-red-600">El nombre es obligatorio.</small>
+        </div>
+      </div>
+    
+      <!-- Categoria -->
+      <div class="mb-4">
+        <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
+        <select id="categoria" formControlName="categoria" (change)="onCategoriaChange()" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
+          <option value="" selected disabled hidden>Seleccione una categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+        </select>
+        <div *ngIf="productoForm.get('categoria')?.touched && productoForm.get('categoria')?.invalid">
+          <small class="text-red-600">La categoria es obligatoria.</small>
+        </div>
+      </div>
+    
+      <!-- Material -->
+      <div class="mb-4">
+        <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
+        <select id="material" formControlName="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
+          <option value="" selected>Seleccione un material</option>
+          <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
+        </select>
+      </div>
+    
+      <!-- Subcategoria -->
+      <div class="mb-4">
+        <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
+        <select id="subcategoria" formControlName="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
+          <option value="" selected>Seleccione una subcategoria</option>
+          <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{ subcategoria.nombre }}</option>
+        </select>
+      </div>
+    
+      <!-- Descripcion -->
+      <div class="mb-4">
+        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion</label>
+        <textarea id="descripcion" formControlName="descripcion" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese descripcion"></textarea>
+      </div>
+    
+      <!-- Precio -->
+      <div class="mb-4">
+        <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
+        <input type="number" id="precio" formControlName="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio">
+      </div>
+    
+      <!-- Submit Button -->
+      <div class="flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Actualizar Producto</button>
+      </div>
+    
+    </form>
+  </div>
+
+</div>
+
+  
+
+
