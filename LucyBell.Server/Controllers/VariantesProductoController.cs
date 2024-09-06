@@ -24,19 +24,8 @@ namespace LucyBell.Server.Controllers
 		[HttpGet]
 		public async Task<ActionResult<List<VarianteProductoDTO>>> GetVariantesConProductos()
 		{
-			var variantes = await context.VariantesProducto
-				.Include(varianteBD => varianteBD.Producto)
-				.ToListAsync();
-
-			var variantesDTO = variantes.Select(variante => new VarianteProductoDTO
-			{
-				Id = variante.Id,
-				Color = variante.Color,
-				Cantidad = variante.Cantidad,
-				ProductoSinVariante = mapper.Map<ProductoSinVariantesDTO>(variante.Producto)
-			}).ToList();
-
-			return Ok(variantesDTO);
+			var variantes = await context.VariantesProducto.ToListAsync();
+			return mapper.Map<List<VarianteProductoDTO>>(variantes);
 		}
 
 		[HttpPost("{id}")]

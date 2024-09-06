@@ -1,3 +1,4 @@
+import { ProductoSinVariantesDTO } from "./Producto";
 export interface VariantesProducto {
   id: number;
   color: string;
@@ -7,13 +8,6 @@ export interface VariantesProducto {
 export interface VariantesProductoCreacionDTO {
   color: string | null;
   cantidad: number;
-}
-
-export interface ProductoSinVariantesDTO {
-  id: number;
-  nombre: string;
-  precio: number;
-  descripcion?: string;
 }
 
 export interface VarianteProductoDTO {

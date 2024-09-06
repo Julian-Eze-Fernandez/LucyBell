@@ -1,10 +1,10 @@
-<div *ngIf="isOpen" [@fade]="animationState" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div *ngIf="isOpen" [@fade]="animationState" class="fixed inset-0 z-50 flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
   <!-- Background backdrop -->
   <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300" (click)="onOverlayClick($event)"></div>
 
   <!-- Modal content -->
-  <div class="relative z-100 w-full max-w-lg p-6 myBackground rounded-lg shadow-xl transition-all ease-out duration-300 sm:my-8">
+  <div class="relative z-100 w-full max-w-lg p-6 myBackground rounded-lg shadow-xl transition-all ease-out duration-300 sm:my-8 max-h-screen overflow-y-auto">
     <!-- Header with title and close button -->
     <div class="flex items-start justify-between">
       <div class="flex items-center">
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Modal body content -->
-    <div class="mt-2">
+    <div class="mt-2 overflow-y-auto max-h-[75vh]">
       <ng-content></ng-content>
     </div>
 

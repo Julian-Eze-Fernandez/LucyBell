@@ -23,4 +23,13 @@ export class ProductoService {
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }
 
+  GetProductoCompleto(){
+    return this.http.get<Producto[]>(`${this.apiUrl}/completo`)
+  }
+
+  PutProducto(id: number, categoriaId: number, subCategoriaId: number | null, materialId: number | null, formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, formData);
+  }
+
+
 }
