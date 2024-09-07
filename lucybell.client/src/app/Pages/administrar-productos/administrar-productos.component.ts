@@ -20,6 +20,7 @@ import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
 export class AdministrarProductosComponent implements OnInit {
 
   @ViewChild(AgregarProductoComponent) agregarProductoComponent!: AgregarProductoComponent;
+  @ViewChild(EditProductoComponent) editProductoComponent!: EditProductoComponent;
   @ViewChild('addModalProd') addModalProd!: TwoButtonModalComponent;
   @ViewChild('deleteModalProd') deleteModalProd!: TwoButtonModalComponent;
   @ViewChild('editModalProd') editModalProd!: TwoButtonModalComponent;
@@ -46,9 +47,6 @@ export class AdministrarProductosComponent implements OnInit {
 
       const categoriaIds = Array.from(this.productos.map(p => p.categoriaId));
 
-      console.log(this.productos);
-      console.log(this.productos[0].imagenesProductos[0].urlImagen);
-
       categoriaIds.forEach(id => {
         this.categoriaService.obtener(id).subscribe(categoria => {
           this.categoriasMap[id] = categoria.nombre;
@@ -68,7 +66,23 @@ export class AdministrarProductosComponent implements OnInit {
     this.selectedProducto = null; // Reset when the modal closes
     this.showModal = false;
     this.editModalProd.closeModal();
-    
+  }
+
+  onEdit(): void {
+    if (this.editProductoComponent.productoForm.valid) {
+      this.editProductoComponent.onSubmit().subscribe({
+        next: (response) => {
+          if (response) {
+            // Only close the modal and reload products if the update was successful
+            this.closeEditModal();
+            this.cargarProductos();
+          }
+        },
+        error: (err) => {
+          console.error('Error updating product:', err);
+        }
+      });
+    }
   }
 
 
@@ -92,8 +106,13 @@ export class AdministrarProductosComponent implements OnInit {
   }
 
   onSubmitProd(){
-    this.agregarProductoComponent.onSubmitProd();
-    
+    this.agregarProductoComponent.onSubmitProd()
+
+    if(this.agregarProductoComponent.productoForm.valid){
+    this.closeAddProdModal();  
+    this.cargarProductos();
+    }
+
   }
 
 }

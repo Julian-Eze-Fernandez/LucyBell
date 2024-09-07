@@ -87,7 +87,7 @@
                             [confirmButtonText]="'Editar'"
                             [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
                             [icon]="customIcon"
-                            (confirm)="onSubmitProd()"
+                            (confirm)="onEdit()"
                             (cancel)="closeEditModal()">
         <app-edit-producto [product]="selectedProducto"></app-edit-producto>
       </app-two-button-modal>

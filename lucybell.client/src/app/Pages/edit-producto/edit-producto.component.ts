@@ -5,6 +5,7 @@ import { SubcategoriaService } from '../../Services/subcategoria.service';
 import { MaterialService } from '../../Services/material.service';
 import { ProductoService } from '../../Services/producto.service';
 import { FormsModule, Validators, FormGroup, FormBuilder, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-edit-producto',
   standalone: true,
@@ -22,6 +23,10 @@ export class EditProductoComponent implements OnInit, OnChanges{
   selectedCategoriaId: number | null = null;
   selectedSubcategoriaId: number | null = null;
   selectedMaterialId: number | null = null;
+
+  arrayImages: { id: number; urlImagen: string }[] = [];
+  imagenesSeleccionadas: File[] = []; 
+  imageUrls: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +61,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges):void {
-    if (changes['product'] && changes['product'].currentValue) {
+    if (changes['product'] && changes['product'].currentValue) {  
       this.fillWithData();
     }
   };
@@ -71,8 +76,30 @@ export class EditProductoComponent implements OnInit, OnChanges{
         descripcion: this.product.descripcion,
         precio: this.product.precio
       });
+      
+      this.arrayImages = this.product.imagenesProductos || [];    
+
+      this.imageUrls = this.arrayImages.map((image) => image.urlImagen);
+
+
     }
   }
+
+  onFileSelected(event: any, index: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      // Replace the image at the specific index with the new one
+      this.imagenesSeleccionadas[index] = file;
+      // Generate a preview URL for the newly selected image
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrls[index] = e.target.result; // Update the image URL for preview
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  
 
   GetCategorias() {
     this.categoriaService.GetCategoriasLista().subscribe({
@@ -119,16 +146,13 @@ export class EditProductoComponent implements OnInit, OnChanges{
   }
 
   // Handle form submission to update product
-  onSubmit(): void {
+  onSubmit(): Observable<any> {
     if (this.productoForm.invalid) {
       this.productoForm.markAllAsTouched();
-      return;
+      return of(null);
     }
 
     const formData = new FormData();
-
-
-    console.log( '', this.productoForm.value);
 
     formData.append('nombre', this.productoForm.get('nombre')?.value);
 
@@ -147,19 +171,16 @@ export class EditProductoComponent implements OnInit, OnChanges{
     formData.append('descripcion', this.productoForm.get('descripcion')?.value);
     formData.append('precio', this.productoForm.get('precio')?.value);
 
-
+    this.imagenesSeleccionadas.forEach((file, index) => {
+      if (file) {
+        formData.append(`imagenes[${index}]`, file, file.name);
+      }
+    });
 
     if(this.selectedCategoriaId){
       
-      this.productoService.PutProducto(this.product.id,this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData).subscribe({
-        next: (response) => {
-          console.log('Product updated successfully:', response);
-        },
-        error: (err) => {
-          console.error('Error updating product:', err);
-        }
-      });
+      return this.productoService.PutProducto(this.product.id,this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
     }
-    
+    return of(null);
   }
 }
