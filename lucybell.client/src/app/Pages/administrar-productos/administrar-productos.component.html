@@ -43,7 +43,7 @@
           <p class="text-orange-200"> {{ getCategoryName(producto.categoriaId) }} </p>
           <div class="flex">
             <!-- Example of SVGs, can be replaced with actual content or icons -->
-             <button>
+             <button (click)="openEditModal(producto)">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mr-2">
                 <rect width="20" height="20" fill="url(#pattern0_268_279)"/>
                 <defs>
@@ -81,6 +81,17 @@
       </app-two-button-modal>
     </ng-container>
 
+    <ng-container>
+      <app-two-button-modal #editModalProd
+                            [title]="'Editar Producto'"
+                            [confirmButtonText]="'Editar'"
+                            [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                            [icon]="customIcon"
+                            (confirm)="onEdit()"
+                            (cancel)="closeEditModal()">
+        <app-edit-producto [product]="selectedProducto"></app-edit-producto>
+      </app-two-button-modal>
+    </ng-container>
   </div>
 
 </div>

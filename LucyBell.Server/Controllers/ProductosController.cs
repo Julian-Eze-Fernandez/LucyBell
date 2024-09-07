@@ -62,39 +62,61 @@ namespace LucyBell.Server.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<ProductoDTO>> GetProductoPorId(int categoriaId, int subCategoriaId, int materialId)
+		public async Task<ActionResult<List<ProductoDTO>>> GetProductoFiltrado(
+		int? categoriaId = null,
+		int? subCategoriaId = null,
+		int? materialId = null)
 		{
-			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
+			var query = context.Productos.AsQueryable();
 
-			if (!existeCategoria)
+			if (categoriaId.HasValue)
 			{
-				return NotFound();
+				var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId.Value);
+
+				if (!existeCategoria)
+				{
+					return NotFound($"No se encontró la categoría con Id {categoriaId}");
+				}
+
+				query = query.Where(productoDB => productoDB.CategoriaId == categoriaId.Value);
 			}
 
-			var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
-
-			if (!existeSubCategoria)
+			if (subCategoriaId.HasValue)
 			{
-				return NotFound();
+				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId.Value);
+
+				if (!existeSubCategoria)
+				{
+					return NotFound($"No se encontró la subcategoría con Id {subCategoriaId}");
+				}
+
+				query = query.Where(productoDB => productoDB.SubCategoriaId == subCategoriaId.Value);
 			}
 
-			var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
-
-			if (!existeMaterial)
+			if (materialId.HasValue)
 			{
-				return NotFound();
+				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId.Value);
+
+				if (!existeMaterial)
+				{
+					return NotFound($"No se encontró el material con Id {materialId}");
+				}
+
+				query = query.Where(productoDB => productoDB.MaterialId == materialId.Value);
 			}
 
-			var productos = await context.Productos
-				.Where(productoDB => productoDB.CategoriaId == categoriaId &&
-									 productoDB.SubCategoriaId == subCategoriaId &&
-									 productoDB.MaterialId == materialId)
-				.FirstOrDefaultAsync();
+			var productos = await query.ToListAsync();
 
-			return mapper.Map<ProductoDTO>(productos);
+			if (productos == null || productos.Count == 0)
+			{
+				return NotFound("No se encontraron productos con los filtros especificados.");
+			}
+
+			return Ok(mapper.Map<List<ProductoDTO>>(productos));
 		}
 
-		[HttpPost] //POST QUE FUNCIONA(23/08/2024)
+
+		[HttpPost]
 		public async Task<ActionResult> PostProducto(
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,
@@ -105,19 +127,13 @@ namespace LucyBell.Server.Controllers
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
 			if (!existeCategoria) return NotFound();
 
-			//var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
-			//if (!existeSubCategoria) return NotFound();
-
-			//var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
-			//if (!existeMaterial) return NotFound();
-
 			var producto = mapper.Map<Producto>(productoCreacionDTO);
 			producto.CategoriaId = categoriaId;
 			producto.SubCategoriaId = subCategoriaId;
 			producto.MaterialId = materialId;
 
 			context.Add(producto);
-			await context.SaveChangesAsync(); // Guardar primero el producto
+			await context.SaveChangesAsync();
 
 			// Subir las imágenes si existen
 			foreach (var imagen in imagenes)
@@ -143,13 +159,13 @@ namespace LucyBell.Server.Controllers
 				}
 			}
 
-			await context.SaveChangesAsync(); // Guardar las imágenes relacionadas
+			await context.SaveChangesAsync();
 			return Ok(new { isSuccess = true, productoId = producto.Id });
 		}
 
 
-		[HttpPut]
-		public async Task<ActionResult> PutProducto(int id,	
+		[HttpPut("{id}")]
+        public async Task<ActionResult> PutProducto(int id,	
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,
 		[FromForm] int? materialId,
@@ -163,28 +179,26 @@ namespace LucyBell.Server.Controllers
 			producto.MaterialId = materialId;
 
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
+			if (!existeCategoria) return NotFound();
 
-			if (!existeCategoria)
-			{
-				return NotFound();
-			}
 
-			if ( subCategoriaId != null){
+
+            if ( subCategoriaId != null){
 				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
 
-				if (!existeSubCategoria)
-				{
-					return NotFound();
-				}
+				 if (!existeSubCategoria)
+				 {
+				 	return NotFound();
+				 }
 			}
 			
 			if (materialId != null){
 				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
 
-				if (!existeMaterial)
-				{
-					return NotFound();
-				}
+				// if (!existeMaterial)
+				// {
+				// 	return NotFound();
+				// }
 			}
 
 			foreach (var imagen in imagenes)
@@ -227,7 +241,6 @@ namespace LucyBell.Server.Controllers
                 return NotFound();
             }
 
-            // Remove the entity
             context.Productos.Remove(producto);
             await context.SaveChangesAsync();
 

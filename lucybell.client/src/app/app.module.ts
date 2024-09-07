@@ -10,11 +10,14 @@ import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component';
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
+import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component';
 
 
 @NgModule({
   declarations: [
 
+  
+    
   ],
   imports: [
     AppComponent,
@@ -23,7 +26,7 @@ import { AdministrarProductosComponent } from './Pages/administrar-productos/adm
     SidebarComponent,
     AgregarProductoComponent,
     AdministrarProductosComponent,
-
+    EditProductoComponent,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

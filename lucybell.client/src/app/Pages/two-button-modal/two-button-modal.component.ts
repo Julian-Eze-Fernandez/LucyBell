@@ -34,21 +34,12 @@ export class TwoButtonModalComponent {
 
   animationState = 'closed';
 
-  ngOnInit() {
-    console.log('TwoButtonModalComponent created');
-  }
-
-  ngOnDestroy() {
-    console.log('TwoButtonModalComponent destroyed');
-  }
-
   ngOnChanges() {
-    console.log('change');
     this.animationState = this.isOpen ? 'open' : 'closed';
   }
 
   openModal() {
-    console.log('Modal opened');
+
 
     this.isOpen = true;
     this.animationState = 'open';
@@ -56,7 +47,7 @@ export class TwoButtonModalComponent {
 
 
   closeModal() {
-    console.log('Modal closed');
+
 
     this.animationState = 'closed';
     setTimeout(() => {
@@ -72,7 +63,7 @@ export class TwoButtonModalComponent {
 
   onOverlayClick(event: MouseEvent) {
     // Ensure that clicks outside the modal content area close the modal
-    console.log('Overlay clicked:', event);
+
     if (event.target === event.currentTarget) {
       this.closeModal();
     }
