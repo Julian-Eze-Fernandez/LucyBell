@@ -86,6 +86,8 @@ export class InicioComponent {
     this.showModal = true;
     this.editModalCatg.openModal();
     this.selectedCategoriaEdit = { ...categoria };
+    this.editCategoryName = this.selectedCategoriaEdit.nombre;
+
     
   }
   closeEditCategoryModal() {
@@ -153,6 +155,7 @@ export class InicioComponent {
     this.showModal = true;
     this.editModalSub.openModal();
     this.selectedSubCategoriaEdit = { categoriaId: categoria.id, id: subCategoria.id, nombre: subCategoria.nombre };
+    this.editSubCategoryName = this.selectedSubCategoriaEdit.nombre;
   }
   closeEditSubCategoryModal() {
     this.showModal = false;
