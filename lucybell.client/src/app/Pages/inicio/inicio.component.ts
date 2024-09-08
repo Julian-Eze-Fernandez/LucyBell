@@ -90,7 +90,7 @@ export class InicioComponent {
   }
   closeEditCategoryModal() {
     this.showModal = false;
-    this.addModalCatg.closeModal();
+    this.editModalCatg.closeModal();
 
   }
   onEditCategory() {
@@ -188,6 +188,7 @@ export class InicioComponent {
   closeDeleteSubCategoryModal() {
     this.showModal = false;
     this.selectedSubCategoria = null;
+    this.deleteModalSub.closeModal();
   }
   onConfirmDeleteSubcategory() {
     if (this.selectedCategoria && this.selectedSubCategoria) {
@@ -336,6 +337,7 @@ export class InicioComponent {
   }
   closeDeleteModalCatg() {
     this.showModal = false;
+    this.deleteModalCatg.closeModal();
     this.selectedCategoria = null;
     
   }
@@ -383,6 +385,7 @@ export class InicioComponent {
   }
   closeDeleteModalMats() {
     this.showModal = false;
+    this.deleteModalMats.closeModal();
     this.selectedCategoria = null;
     
   }

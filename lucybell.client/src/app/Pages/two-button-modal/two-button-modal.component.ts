@@ -52,8 +52,12 @@ export class TwoButtonModalComponent {
     this.animationState = 'closed';
     setTimeout(() => {
       this.isOpen = false;
-      /*this.cancel.emit();*/
+
     }, 200); // Wait for the animation to complete
+  }
+
+  onClose(){
+    this.cancel.emit();
   }
 
   onConfirm() {
@@ -65,8 +69,8 @@ export class TwoButtonModalComponent {
     // Ensure that clicks outside the modal content area close the modal
 
     if (event.target === event.currentTarget) {
-      this.closeModal();
-    }
+      this.onClose();
+    } 
   }
 
 }

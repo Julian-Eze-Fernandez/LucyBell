@@ -54,7 +54,7 @@
                 </defs>
               </svg>
              </button>
-            <button>
+            <button (click)="openDeleteProdModal(producto)">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="20" height="20" fill="url(#pattern0_268_282)"/>
                 <defs>
@@ -90,6 +90,24 @@
                             (confirm)="onEdit()"
                             (cancel)="closeEditModal()">
         <app-edit-producto [product]="selectedProducto"></app-edit-producto>
+      </app-two-button-modal>
+    </ng-container>
+
+    <ng-container>
+      <app-two-button-modal #deleteModalProd
+                            [title]="'Eliminar Producto'"
+                            [confirmButtonText]="'Eliminar'"
+                            [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                            [icon]="customIcon"
+                            (confirm)="onDelete()"
+                            (cancel)="closeDeleteProdModal()">
+        <div class="flex flex-col items-center"> 
+          <p>  ¿Está seguro de que desea borrar el producto <strong>"{{ selectedProducto?.nombre }}"</strong>?</p>
+          <div *ngIf="!tieneVariantes" class="items-center">
+            <P class="text-red-700 font-bold mt-2"  > No podra eliminar el producto hasta que vacie su Stock </P>
+            <span *ngFor="let variante of selectedProducto?.variantesProducto" class="flex justify-center text-red-700">{{variante.color || selectedProducto?.nombre }} ({{ variante.cantidad }}) </span>
+          </div>
+        </div>
       </app-two-button-modal>
     </ng-container>
   </div>
