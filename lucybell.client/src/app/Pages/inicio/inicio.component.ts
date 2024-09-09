@@ -86,11 +86,13 @@ export class InicioComponent {
     this.showModal = true;
     this.editModalCatg.openModal();
     this.selectedCategoriaEdit = { ...categoria };
+    this.editCategoryName = this.selectedCategoriaEdit.nombre;
+
     
   }
   closeEditCategoryModal() {
     this.showModal = false;
-    this.addModalCatg.closeModal();
+    this.editModalCatg.closeModal();
 
   }
   onEditCategory() {
@@ -153,6 +155,7 @@ export class InicioComponent {
     this.showModal = true;
     this.editModalSub.openModal();
     this.selectedSubCategoriaEdit = { categoriaId: categoria.id, id: subCategoria.id, nombre: subCategoria.nombre };
+    this.editSubCategoryName = this.selectedSubCategoriaEdit.nombre;
   }
   closeEditSubCategoryModal() {
     this.showModal = false;
@@ -188,6 +191,7 @@ export class InicioComponent {
   closeDeleteSubCategoryModal() {
     this.showModal = false;
     this.selectedSubCategoria = null;
+    this.deleteModalSub.closeModal();
   }
   onConfirmDeleteSubcategory() {
     if (this.selectedCategoria && this.selectedSubCategoria) {
@@ -336,6 +340,7 @@ export class InicioComponent {
   }
   closeDeleteModalCatg() {
     this.showModal = false;
+    this.deleteModalCatg.closeModal();
     this.selectedCategoria = null;
     
   }
@@ -383,6 +388,7 @@ export class InicioComponent {
   }
   closeDeleteModalMats() {
     this.showModal = false;
+    this.deleteModalMats.closeModal();
     this.selectedCategoria = null;
     
   }

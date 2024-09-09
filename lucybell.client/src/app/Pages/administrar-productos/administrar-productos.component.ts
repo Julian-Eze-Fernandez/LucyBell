@@ -9,6 +9,7 @@ import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.co
 import { FormsModule } from '@angular/forms';
 import { AgregarProductoComponent } from "../agregar-producto/agregar-producto.component";
 import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
+import  {VariantesProductoService} from '../../Services/variantes-producto.service';
 
 @Component({
   selector: 'app-administrar-productos',
@@ -26,14 +27,16 @@ export class AdministrarProductosComponent implements OnInit {
   @ViewChild('editModalProd') editModalProd!: TwoButtonModalComponent;
 
   productos: Producto[] = [];
-  selectedProducto: any = null;
+  selectedProducto: Producto | null = null;
   categorias: Categoria[] = []
   categoriasMap: { [id: number]: string } = {};
   showModal: boolean = false;
   customIcon: string = '';
   isSuccess: boolean = false;
 
-  constructor(private productoService: ProductoService, private categoriaService: CategoriaService) { }
+  tieneVariantes: boolean = false;
+
+  constructor(private productoService: ProductoService, private categoriaService: CategoriaService, private VariantesProductoService: VariantesProductoService) { }
 
   ngOnInit(): void {
     this.cargarProductos()
@@ -97,12 +100,52 @@ export class AdministrarProductosComponent implements OnInit {
   openAddProdModal() {
     this.showModal = true;
     this.addModalProd.openModal();
-  
+    console.log(this.tieneVariantes)
   }
   closeAddProdModal() {
     this.showModal = false;
     this.addModalProd.closeModal();
-  
+
+  }
+
+  openDeleteProdModal( categoria: any) {
+    this.showModal = true;
+    this.selectedProducto = categoria;
+    this.deleteModalProd.openModal();
+
+    if(this.selectedProducto?.variantesProducto.length == 0){
+      this.tieneVariantes = true;
+
+
+    }
+
+
+  }
+  closeDeleteProdModal() {
+    this.tieneVariantes = false;
+    this.selectedProducto = null;
+    this.showModal = false;
+    this.deleteModalProd.closeModal();
+
+  }
+
+  onDelete(): void { 
+    if(this.selectedProducto){
+
+      this.productoService.DeleteProducto(this.selectedProducto.id).subscribe({
+        next: (response) => {
+          if (response) {
+            // Only close the modal and reload products if the update was successful
+            this.closeDeleteProdModal();
+            this.cargarProductos();
+          }
+        },
+        error: (err) => {
+          console.error('Error deleting product:', err);
+        }
+      })
+    }
+
   }
 
   onSubmitProd(){
