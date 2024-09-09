@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LucyBell.Server.DTOs.CategoriasDTOs;
 using LucyBell.Server.Entidades;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +24,7 @@ namespace LucyBell.Server.Controllers
 		}
 
 		[HttpGet]
+		//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<List<CategoriaDTO>>> GetCategoriasLista()
 		{
 			var categorias = await context.Categorias
