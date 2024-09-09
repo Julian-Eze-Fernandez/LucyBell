@@ -1,0 +1,36 @@
+<div class="flex">
+    <app-sidebar class="sidebar max-p-max"></app-sidebar>
+
+    <div class="main-content flex-1 p-4">
+
+        <div class="flex">
+            <div class="block">
+                <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
+                    Stock
+                    <div class="gradient-line-title mb-4"></div>
+                </h1>
+                <div class="flex">
+                    <p class="mb-10">Administra el stock de tus productos</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max">
+            <div *ngFor="let item of variantesConProducto" >
+
+                    <div class="item-background p-4 shadow rounded text-white">
+                        <div class="flex">
+                            <h3 class="font-bold mr-2">{{ item.productoNombre }}</h3>
+                        
+                            <p *ngIf="item.variante.color"> ({{ item.variante.color }})</p>
+                        </div>
+                        
+                        <p>Stock: {{ item.variante.cantidad }} <!-- Display the stock -->
+                        </p>
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>

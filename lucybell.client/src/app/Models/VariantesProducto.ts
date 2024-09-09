@@ -14,5 +14,5 @@ export interface VarianteProductoDTO {
   id: number;
   color: string;
   cantidad: number;
-  productoSinVariante: ProductoSinVariantesDTO;
+
 }

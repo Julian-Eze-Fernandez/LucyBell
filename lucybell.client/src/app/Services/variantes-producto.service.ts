@@ -21,5 +21,8 @@ export class VariantesProductoService {
   deleteVariantesProducto(id: number): Observable<ResponseAPI> {
     return this.http.delete<ResponseAPI>(`${this.apiUrl}/${id}`);
   }
+  GetVariantesConProductos(){
+    return this.http.get<VarianteProductoDTO[]>(`${this.apiUrl}`);
+  }
 
 }
