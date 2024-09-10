@@ -41,7 +41,12 @@ namespace LucyBell.Server
 				fk.DeleteBehavior = DeleteBehavior.Restrict;
 			}
 
-			base.OnModelCreating(modelBuilder);
+			modelBuilder.Entity<Producto>()
+                .HasMany(p => p.ImagenesProductos)
+				.WithOne(c => c.Producto)
+				.OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
 		}
 	}
 }

@@ -27,7 +27,13 @@
       <div *ngFor="let producto of productos" class="item-background rounded-lg">
         <div class="p-2">
           <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+            <div *ngIf="producto.imagenesProductos.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
+              <p class="text-white">
+                Imagen no encontrada
+              </p>
+            </div>
             <div *ngIf="producto.imagenesProductos.length > 0">
+
               <img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
