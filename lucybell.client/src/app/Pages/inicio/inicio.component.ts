@@ -305,7 +305,7 @@ export class InicioComponent {
           if (response.isSuccess) {
             this.obtenerCategorias();
             this.newCategoryName = '';
-            
+            this.closeAddCategoryModal();
           } else {
             alert('Failed to add category: ');
           }

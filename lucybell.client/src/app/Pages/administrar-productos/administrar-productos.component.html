@@ -40,7 +40,7 @@
           <p>${{producto.precio}}</p>
         </div>
         <div class="flex items-center justify-between text-white text-sm p-2">
-          <p class="text-orange-200"> {{ getCategoryName(producto.categoriaId) }} </p>
+          <p class="text-orange-200"> {{ producto.categoriaNombre }} </p>
           <div class="flex">
             <!-- Example of SVGs, can be replaced with actual content or icons -->
              <button (click)="openEditModal(producto)">

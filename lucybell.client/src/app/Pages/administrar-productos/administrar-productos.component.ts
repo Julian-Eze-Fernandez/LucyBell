@@ -47,14 +47,6 @@ export class AdministrarProductosComponent implements OnInit {
   cargarProductos(): void {
     this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
       this.productos = data;
-
-      const categoriaIds = Array.from(this.productos.map(p => p.categoriaId));
-
-      categoriaIds.forEach(id => {
-        this.categoriaService.obtener(id).subscribe(categoria => {
-          this.categoriasMap[id] = categoria.nombre;
-        });
-      });
     });
 
   }
@@ -105,6 +97,8 @@ export class AdministrarProductosComponent implements OnInit {
   closeAddProdModal() {
     this.showModal = false;
     this.addModalProd.closeModal();
+    this.agregarProductoComponent.productoForm.reset();
+    this.cargarProductos();
 
   }
 

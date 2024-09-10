@@ -167,6 +167,15 @@ export class AgregarProductoComponent implements OnInit {
       formData.append('material', this.selectedMaterialId.toString());
     }
 
+    formData.append('currentColor', this.productoForm.get('currentColor')?.value);
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
+
+    formData.append('precio', this.productoForm.get('precio')?.value);
+
+    this.currentCantidad = this.productoForm.get('cantidad')?.value;
+    this.currentColor = this.productoForm.get('currentColor')?.value;
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
+
     // Add images
     this.imagenesSeleccionadas.forEach((file, index) => {
       formData.append('imagenes', file, file.name);
@@ -182,6 +191,7 @@ export class AgregarProductoComponent implements OnInit {
             if (this.productoId) {
               this.createVariants(this.productoId);
             }
+
           },
           error: (err) => {
             console.error('Error al agregar producto:', err);
@@ -198,11 +208,13 @@ export class AgregarProductoComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log('Variante producto added successfully:', response);
-            
+            this.variantes = [];
+            this.isAddingColor = false;
           },
           error: (err) => {
             console.error('Error adding variante producto:', err);
-
+            this.variantes = [];
+            this.isAddingColor = false;
             // Borra producto si variante falla
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to variant creation failure'),
@@ -246,6 +258,8 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   addColor(): void {
+    this.currentColor = this.productoForm.get('currentColor')?.value;
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
     const trimmedColor = this.currentColor.trim();
 
     if (!trimmedColor) {
