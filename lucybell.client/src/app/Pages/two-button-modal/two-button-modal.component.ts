@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } 
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-two-button-modal',
@@ -21,12 +22,18 @@ import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.c
 })
 export class TwoButtonModalComponent {
 
- 
+  constructor(private sanitizer: DomSanitizer) {}
+
   @Input() title: string = 'Default Title';
   @Input() confirmButtonText: string = 'Confirm';
   @Input() confirmButtonColor: string = 'blue';
-  @Input() icon: string = '';
-
+  private _icon: string ='';
+  @Input() set icon(value: string) {
+    this._icon = this.sanitizer.bypassSecurityTrustHtml(value) as string;
+  }
+  get icon(): SafeHtml {
+    return this._icon;
+  }
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 

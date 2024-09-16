@@ -111,6 +111,9 @@
       <div class="mb-4">
         <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
         <input type="number" id="precio" formControlName="precio" class="shadow appearance-none border rounded w-full max-w-md py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 text-2xl" placeholder="Ingrese precio">
+        <div *ngIf="productoForm.get('precio')?.touched && productoForm.get('precio')?.invalid">
+          <small class="text-red-600">El precio es obligatorio.</small>
+        </div>
       </div>
     
  
@@ -119,6 +122,9 @@
         <div *ngIf="!isAddingColor" class="flex flex-col">
           <label for="cantidad" class="block text-gray-700 text-sm font-bold mb-2">Cantidad</label>
           <input id="cantidad" type="number" formControlName="cantidad" class="shadow appearance-none border rounded w-full max-w-96  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <div *ngIf="productoForm.get('cantidad')?.touched && productoForm.get('cantidad')?.invalid">
+            <small class="text-red-600">La cantidad es obligatoria.</small>
+          </div>
         </div>
     
         <!-- Color Input and Add Button (Visible when adding colors) -->
@@ -127,6 +133,9 @@
           <div class="flex items-center space-x-2 max-w-96">
             <input id="color" type="text" formControlName="currentColor" placeholder="Ej. Azul.."  class="shadow appearance-none border rounded w-full min-w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" />
             <input id="colorCantidad" type="number" formControlName="currentColorCantidad"  class="shadow appearance-none border rounded w-full max-w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Cantidad" />
+            <div *ngIf="productoForm.get('currentColorCantidad')?.touched && productoForm.get('currentColorCantidad')?.invalid">
+              <small class="text-red-600">La cantidad es obligatoria.</small>
+            </div>
             <button (click)="addColor()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" type="button">+</button>
           </div>
           <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>

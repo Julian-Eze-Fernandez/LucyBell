@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240910114523_inicio")]
+    [Migration("20240913133854_inicio")]
     partial class inicio
     {
         /// <inheritdoc />
@@ -664,7 +664,7 @@ namespace LucyBell.Server.Migrations
                     b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
                         .WithMany("ImagenesProductos")
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Producto");
