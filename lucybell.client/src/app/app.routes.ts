@@ -4,6 +4,8 @@ import { CategoriaComponent } from './Pages/categoria/categoria.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component'
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component'
+import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component'
+import { StockComponent } from './Pages/stock/stock.component'
 import { Component } from '@angular/core';
 export const routes: Routes = [
     { path:'',component:InicioComponent },
@@ -12,6 +14,8 @@ export const routes: Routes = [
     { path: 'categoria/:id', component: CategoriaComponent },
     { path: 'agregarProducto', component: AgregarProductoComponent },
     { path: 'administrarProductos', component: AdministrarProductosComponent },
+    { path: 'editarProducto/:id', component:EditProductoComponent  },
+    { path: 'stock', component:StockComponent}
 ];
 
 

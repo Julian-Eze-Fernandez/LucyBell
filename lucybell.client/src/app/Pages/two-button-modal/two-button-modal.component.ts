@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-two-button-modal',
@@ -20,11 +22,18 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class TwoButtonModalComponent {
 
+  constructor(private sanitizer: DomSanitizer) {}
+
   @Input() title: string = 'Default Title';
   @Input() confirmButtonText: string = 'Confirm';
   @Input() confirmButtonColor: string = 'blue';
-  @Input() icon: string = '';
-
+  private _icon: string ='';
+  @Input() set icon(value: string) {
+    this._icon = this.sanitizer.bypassSecurityTrustHtml(value) as string;
+  }
+  get icon(): SafeHtml {
+    return this._icon;
+  }
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
@@ -32,47 +41,43 @@ export class TwoButtonModalComponent {
 
   animationState = 'closed';
 
-  ngOnInit() {
-    console.log('TwoButtonModalComponent created');
-  }
-
-  ngOnDestroy() {
-    console.log('TwoButtonModalComponent destroyed');
-  }
-
   ngOnChanges() {
-    console.log('change');
     this.animationState = this.isOpen ? 'open' : 'closed';
   }
 
   openModal() {
-    console.log('Modal opened');
+
 
     this.isOpen = true;
     this.animationState = 'open';
   }
 
+
   closeModal() {
-    console.log('Modal closed');
+
 
     this.animationState = 'closed';
     setTimeout(() => {
       this.isOpen = false;
-      /*this.cancel.emit();*/
+
     }, 200); // Wait for the animation to complete
+  }
+
+  onClose(){
+    this.cancel.emit();
   }
 
   onConfirm() {
     this.confirm.emit();
-    this.closeModal();
+
   }
 
   onOverlayClick(event: MouseEvent) {
     // Ensure that clicks outside the modal content area close the modal
-    console.log('Overlay clicked:', event);
+
     if (event.target === event.currentTarget) {
-      this.closeModal();
-    }
+      this.onClose();
+    } 
   }
 
 }

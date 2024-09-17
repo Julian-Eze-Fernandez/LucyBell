@@ -19,7 +19,7 @@ export class CategoriaService {
     return this.http.get<Categoria[]>(this.apiUrl);
   }
   obtener(id:number){
-    return this.http.get<Categoria[]>(`${this.apiUrl}/${id}`);
+    return this.http.get<Categoria>(`${this.apiUrl}/${id}`);
   }
   PostCategoria(objeto: CategoriaCreacionDTO){
     return this.http.post<ResponseAPI>(this.apiUrl,objeto);

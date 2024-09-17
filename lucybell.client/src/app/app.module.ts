@@ -10,24 +10,33 @@ import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component';
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
+import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component';
+import { StockComponent } from './Pages/stock/stock.component';
 
 
 @NgModule({
   declarations: [
+
+  
+    
+  
+    
+  ],
+  imports: [
     AppComponent,
     TwoButtonModalComponent,
     OneButtonModalComponent,
     SidebarComponent,
     AgregarProductoComponent,
-    AdministrarProductosComponent
-  ],
-  imports: [
+    AdministrarProductosComponent,
+    EditProductoComponent,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule 
+    RouterModule,
+    StockComponent 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }
