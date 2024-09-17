@@ -11,6 +11,7 @@ import { AgregarProductoComponent } from "../agregar-producto/agregar-producto.c
 import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
 import  {VariantesProductoService} from '../../Services/variantes-producto.service';
 import { Validators } from '@angular/forms';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-administrar-productos',
@@ -88,9 +89,10 @@ export class AdministrarProductosComponent implements OnInit {
   }
 
   closeEditModal(): void {
-    this.selectedProducto = null; // Reset when the modal closes
+    this.selectedProducto = null;
     this.showModal = false;
     this.editModalProd.closeModal();
+    this.editProductoComponent.limpiarForm();
   }
 
   onEdit(): void {
@@ -98,9 +100,10 @@ export class AdministrarProductosComponent implements OnInit {
       this.editProductoComponent.onSubmit().subscribe({
         next: (response) => {
           if (response) {
-            // Only close the modal and reload products if the update was successful
             this.closeEditModal();
-            this.cargarProductos();
+            setTimeout(() => {
+              this.cargarProductos();
+            } , 200)
           }
         },
         error: (err) => {
@@ -127,8 +130,7 @@ export class AdministrarProductosComponent implements OnInit {
   closeAddProdModal() {
     this.showModal = false;
     this.addModalProd.closeModal();
-    this.agregarProductoComponent.productoForm.markAsPristine();
-    this.agregarProductoComponent.productoForm.reset();
+    this.agregarProductoComponent.reiniciarForm();
     this.agregarProductoComponent.limpiarImgenes();
     this.cargarProductos();
 
@@ -177,7 +179,8 @@ export class AdministrarProductosComponent implements OnInit {
 
     if(this.agregarProductoComponent.productoForm.valid){
     this.closeAddProdModal();  
-    this.cargarProductos();
+    setTimeout(() => {
+    this.cargarProductos();}, 200);
     }
 
   }

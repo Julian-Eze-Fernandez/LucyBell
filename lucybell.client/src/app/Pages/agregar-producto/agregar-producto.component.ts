@@ -68,7 +68,7 @@ export class AgregarProductoComponent implements OnInit {
       precio: [0, Validators.required],
       cantidad: [0, Validators.required],
       currentColor: [''],
-      currentColorCantidad: [0,]
+      currentColorCantidad: [0]
     });
 
     this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
@@ -81,6 +81,24 @@ export class AgregarProductoComponent implements OnInit {
   limpiarImgenes() {
     this.imageUrls = [];
     this.imagenesSeleccionadas = [];
+  }
+
+  reiniciarForm(){
+    setTimeout(() => {
+      this.productoForm = this.fb.group({
+        nombre: ['', Validators.required],
+        categoria: ['', Validators.required],
+        material: [''],
+        subcategoria: [{ value: '', disabled: true }],
+        descripcion: [''],
+        precio: [0, Validators.required],
+        cantidad: [0, Validators.required],
+        currentColor: [''],
+        currentColorCantidad: [0]
+      });
+      this.errorMessage = '';
+      this.isAddingColor = false;
+    }, 200); 
   }
 
   GetCategorias() {
@@ -169,13 +187,17 @@ export class AgregarProductoComponent implements OnInit {
     if (this.selectedCategoriaId) {
       formData.append('categoriaId', this.selectedCategoriaId.toString());
     }
+    
+    this.selectedSubcategoriaId = this.productoForm.get('subcategoria')?.value;
 
     if (this.selectedSubcategoriaId) {
-      formData.append('subcategoriaId', this.selectedSubcategoriaId.toString());
+      formData.append('subCategoriaId', this.selectedSubcategoriaId.toString());
     }
 
+    this.selectedMaterialId = this.productoForm.get('material')?.value;
+
     if (this.selectedMaterialId) {
-      formData.append('material', this.selectedMaterialId.toString());
+      formData.append('materialId', this.selectedMaterialId.toString());
     }
 
     formData.append('currentColor', this.productoForm.get('currentColor')?.value);

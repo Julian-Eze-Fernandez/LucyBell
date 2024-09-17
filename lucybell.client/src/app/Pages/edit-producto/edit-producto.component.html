@@ -111,6 +111,35 @@
         <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
         <input type="number" id="precio" formControlName="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio">
       </div>
+
+      <div class="mb-4">
+        <p class="modalSubtitle">Variantes actuales</p>
+        <div class="flex flex-wrap gap-2" >
+          <div *ngFor="let color of product?.variantesProducto" class="bg-violet-500 rounded-full p-2 text-white">
+            <span>{{ color.color || 'Base' }}</span>
+          </div>
+          <div *ngIf="product?.variantesProducto?.length == 0" >
+            <span>No hay variantes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="nuevoColor" class="block text-gray-700 text-sm font-bold mb-2">Color</label>
+        <div class="flex">
+          <input type="text" id="nuevoColor" formControlName="nuevoColor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej. Azul..">
+          <button (click)="addColor()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" type="button">+</button>
+        </div>
+        <p class="text-red-500">{{ errorMessage }}</p>
+
+        <div *ngIf="variantes.length > 0" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 mb-4">
+          <div *ngFor="let variante of variantes" class="p-4 bg-white shadow rounded-full flex justify-between items-center">
+            <span>{{ variante.color }}</span>
+            <button (click)="removeColor(variante.color || '')" class="text-red-500 hover:text-red-700" type="button">x</button>
+          </div>
+        </div>
+        
+      </div>
     
       <!-- Submit Button -->
       <div class="flex justify-end">
