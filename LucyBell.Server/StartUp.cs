@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace LucyBell.Server
@@ -30,7 +33,20 @@ namespace LucyBell.Server
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
-			services.AddAutoMapper(typeof(StartUp));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NuevaPolitica", builder =>
+                    {
+						builder.AllowAnyOrigin() // replace with your frontend and backend ports
+							   .AllowAnyHeader()
+							   .AllowAnyMethod();	   
+								
+								
+                    });
+            });
+
+            services.AddAutoMapper(typeof(StartUp));
+
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,13 +58,29 @@ namespace LucyBell.Server
 				app.UseSwaggerUI();
 			}
 
-			app.UseHttpsRedirection();
+            //Uso de swagger para SOMEE
+            //app.UseSwagger();
+            //app.UseSwaggerUI();
 
-			app.UseRouting();
+            app.UseStaticFiles();
+
+            // Serve static files from custom directory (Imagenes in your case)
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Imagenes")),
+                RequestPath = "/Imagenes"
+            });
+
+            app.UseHttpsRedirection();
+
+            app.UseCors("NuevaPolitica");
+
+            app.UseRouting();
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoint =>
+            app.UseEndpoints(endpoint =>
 			{
 				endpoint.MapControllers();
 			});

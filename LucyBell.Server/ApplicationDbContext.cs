@@ -26,8 +26,11 @@ namespace LucyBell.Server
 		public DbSet<Producto> Productos { get; set; }
 		public DbSet<SubCategoria> SubCategorias { get; set; }
 		public DbSet<VarianteProducto> VariantesProducto { get; set; }
+        public DbSet<ImagenProducto> ImagenesProducto { get; set; }
+        public DbSet<IngresoProducto> IngresosProducto { get; set; }
+        public DbSet<ModificacionPrecio> ModificacionesPrecio { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			var cascadeFKs = modelBuilder.Model.GetEntityTypes()
 				.SelectMany(t => t.GetForeignKeys())
@@ -38,7 +41,12 @@ namespace LucyBell.Server
 				fk.DeleteBehavior = DeleteBehavior.Restrict;
 			}
 
-			base.OnModelCreating(modelBuilder);
+			modelBuilder.Entity<Producto>()
+                .HasMany(p => p.ImagenesProductos)
+				.WithOne(c => c.Producto)
+				.OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
 		}
 	}
 }

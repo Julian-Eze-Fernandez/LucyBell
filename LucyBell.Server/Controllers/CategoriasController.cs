@@ -8,12 +8,14 @@ namespace LucyBell.Server.Controllers
 {
 	[ApiController]
 	[Route("api/categorias")]
-	public class CategoriasController : ControllerBase
+
+    public class CategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;
+        
 
-		public CategoriasController(ApplicationDbContext context, IMapper mapper)
+        public CategoriasController(ApplicationDbContext context, IMapper mapper)
 		{
 			this.context = context;
 			this.mapper = mapper;
@@ -22,11 +24,13 @@ namespace LucyBell.Server.Controllers
 		[HttpGet]
 		public async Task<ActionResult<List<CategoriaDTO>>> GetCategoriasLista()
 		{
-			var categorias = await context.Categorias.ToListAsync();
+			var categorias = await context.Categorias
+				.Include(c => c.SubCategorias)
+                .ToListAsync();
 			return mapper.Map<List<CategoriaDTO>>(categorias);
 		}
 
-		[HttpGet("{id:int}")]
+		[HttpGet("{id}")]
 		public async Task<ActionResult<CategoriaDTO>> GetCategoriaId(int id)
 		{
 			var categoria = await context.Categorias
@@ -40,7 +44,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<CategoriaDTO>(categoria);
 		}
 
-		[HttpGet("/api/categorias/{id:int}/productos")] //Get que muestra que productos estan en x categoria
+		[HttpGet("/api/categorias/{id}/productos")] //Get que muestra que productos estan en x categoria
 		public async Task<ActionResult<CategoriaDTO>> GetCategoriaIdConProductos(int id)
 		{
 			var categoria = await context.Categorias
@@ -69,10 +73,10 @@ namespace LucyBell.Server.Controllers
 
 			context.Add(categoria);
 			await context.SaveChangesAsync();
-			return Ok();
+			return Ok(new { isSuccess = true });
 		}
 
-		[HttpPut("(id:int)")]
+		[HttpPut("{id}")]
 		public async Task<ActionResult> PutCategoria(CategoriaCreacionDTO categoriaCreacionDTO, int id)
 		{
 			var existe = await context.Categorias.AnyAsync(x => x.Id == id);
@@ -87,22 +91,24 @@ namespace LucyBell.Server.Controllers
 
 			context.Update(categoria);
 			await context.SaveChangesAsync();
-			return NoContent();
-		}
+			return Ok(new { isSuccess = true });
+        }
 
-		[HttpDelete("(id:int)")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCategoria(int id)
 		{
-			var existe = await context.Categorias.AnyAsync(x => x.Id == id);
+            var categoria = await context.Categorias.FindAsync(id);
 
-			if (!existe)
-			{
-				return NotFound();
-			}
+            if (categoria == null)
+            {
+                return NotFound();
+            }
 
-			context.Remove(new Categoria() { Id = id });
-			await context.SaveChangesAsync();
-			return NoContent();
-		}
+            // Remove the entity
+            context.Categorias.Remove(categoria);
+            await context.SaveChangesAsync();
+
+            return Ok(new { isSuccess = true });
+        }
 	}
 }

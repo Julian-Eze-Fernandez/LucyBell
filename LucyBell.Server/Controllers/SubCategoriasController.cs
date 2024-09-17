@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LucyBell.Server.Controllers
 {
 	[ApiController]
-	[Route("api/categorias/{categoriaId:int}/subCategorias")]
+	[Route("api/categorias/{categoriaId}/subCategorias")]
 	public class SubCategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
@@ -42,7 +42,7 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<List<SubCategoriaDTO>>(subCategorias);
 		}
 
-		[HttpGet("/api/subcategoria/{id:int}/productos")] //Get que muestra que productos estan en x subcategoria
+		[HttpGet("/api/subcategoria/{id}/productos")] //Get que muestra que productos estan en x subcategoria
 		public async Task<ActionResult<SubCategoriaDTO>> GetSubCategoriaId(int id)
 		{
 			var subCategoria = await context.SubCategorias
@@ -71,10 +71,10 @@ namespace LucyBell.Server.Controllers
 			subCategoria.CategoriaId = categoriaId;
 			context.Add(subCategoria);
 			await context.SaveChangesAsync();
-			return Ok();
+			return Ok(new { isSuccess = true });
 		}
 
-		[HttpPut]
+		[HttpPut("{id}")]
 		public async Task<ActionResult> PutSubCategoria(int categoriaId, int id, SubCategoriaCreacionDTO subCategoriaCreacionDTO)
 		{
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
@@ -97,10 +97,10 @@ namespace LucyBell.Server.Controllers
 
 			context.Update(subCategoria);
 			await context.SaveChangesAsync();
-			return NoContent();
+			return Ok(new { isSuccess = true });
 		}
 
-		[HttpDelete("(id:int)")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteSubCategoria(int id)
 		{
 			var existeSubCategoria = await context.SubCategorias.AnyAsync(x => x.Id == id);
@@ -112,7 +112,7 @@ namespace LucyBell.Server.Controllers
 
 			context.Remove(new SubCategoria() { Id = id });
 			await context.SaveChangesAsync();
-			return NoContent();
+			return Ok(new { isSuccess = true });
 		}
 	}
 }
