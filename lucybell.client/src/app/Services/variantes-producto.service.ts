@@ -25,4 +25,7 @@ export class VariantesProductoService {
     return this.http.get<VarianteProductoDTO[]>(`${this.apiUrl}`);
   }
 
+  PutVariantesProductos(productoId: number, id: number, variantes: VariantesProductoCreacionDTO): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${productoId}/${id}`, variantes);
+  }
 }

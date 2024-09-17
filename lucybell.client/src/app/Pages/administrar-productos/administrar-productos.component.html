@@ -2,32 +2,36 @@
   <app-sidebar class="sidebar max-p-max"></app-sidebar>
 
   <div class="main-content flex-1 p-4">
-    <div class="flex">
+    <div class="flex flex-col">
       <div class="block">
         <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
           Administrar Productos
           <div class="gradient-line-title mb-4"></div>
         </h1>
-        <div class="flex">
-          <p class="mb-10">Administra los productos agregados</p>
-          <div>
-            <button type="button" class="addButton" (click)="openAddProdModal()">
-              <span class="addButton__text">Nuevo </span>
-              <span class="addButton__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-            </button>
-          </div>
-        </div>
-
       </div>
-
-
+      <div class="flex  w-full">
+        <p class="mb-6">Administra los productos agregados</p>
+      </div>
     </div>
     
+    <div class="mb-4">
+      <button type="button" class="addButton" (click)="openAddProdModal()">
+        <span class="addButton__text">Nuevo </span>
+        <span class="addButton__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+      </button>
+    </div>
+
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max">
       <div *ngFor="let producto of productos" class="item-background rounded-lg">
         <div class="p-2">
           <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+            <div *ngIf="producto.imagenesProductos.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
+              <p class="text-white">
+                Imagen no encontrada
+              </p>
+            </div>
             <div *ngIf="producto.imagenesProductos.length > 0">
+
               <img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
@@ -40,7 +44,7 @@
           <p>${{producto.precio}}</p>
         </div>
         <div class="flex items-center justify-between text-white text-sm p-2">
-          <p class="text-orange-200"> {{ getCategoryName(producto.categoriaId) }} </p>
+          <p class="text-orange-200"> {{ producto.categoriaNombre }} </p>
           <div class="flex">
             <!-- Example of SVGs, can be replaced with actual content or icons -->
              <button (click)="openEditModal(producto)">
@@ -74,7 +78,7 @@
                             [title]="'Agregar Producto'"
                             [confirmButtonText]="'Agregar'"
                             [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
-                            [icon]="customIcon"
+                            [icon]="customIconAdd"
                             (confirm)="onSubmitProd()"
                             (cancel)="closeAddProdModal()">
         <app-agregar-producto></app-agregar-producto>
@@ -86,7 +90,7 @@
                             [title]="'Editar Producto'"
                             [confirmButtonText]="'Editar'"
                             [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
-                            [icon]="customIcon"
+                            [icon]="customIconEdit"
                             (confirm)="onEdit()"
                             (cancel)="closeEditModal()">
         <app-edit-producto [product]="selectedProducto"></app-edit-producto>
@@ -98,7 +102,7 @@
                             [title]="'Eliminar Producto'"
                             [confirmButtonText]="'Eliminar'"
                             [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
-                            [icon]="customIcon"
+                            [icon]="customIconDelete"
                             (confirm)="onDelete()"
                             (cancel)="closeDeleteProdModal()">
         <div class="flex flex-col items-center"> 

@@ -661,7 +661,7 @@ namespace LucyBell.Server.Migrations
                     b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
                         .WithMany("ImagenesProductos")
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Producto");

@@ -66,7 +66,7 @@ export class AgregarProductoComponent implements OnInit {
       subcategoria: [{ value: '', disabled: true }],
       descripcion: [''],
       precio: [0, Validators.required],
-      cantidad: [0],
+      cantidad: [0, Validators.required],
       currentColor: [''],
       currentColorCantidad: [0]
     });
@@ -77,7 +77,29 @@ export class AgregarProductoComponent implements OnInit {
     });
 
   }
+  
+  limpiarImgenes() {
+    this.imageUrls = [];
+    this.imagenesSeleccionadas = [];
+  }
 
+  reiniciarForm(){
+    setTimeout(() => {
+      this.productoForm = this.fb.group({
+        nombre: ['', Validators.required],
+        categoria: ['', Validators.required],
+        material: [''],
+        subcategoria: [{ value: '', disabled: true }],
+        descripcion: [''],
+        precio: [0, Validators.required],
+        cantidad: [0, Validators.required],
+        currentColor: [''],
+        currentColorCantidad: [0]
+      });
+      this.errorMessage = '';
+      this.isAddingColor = false;
+    }, 200); 
+  }
 
   GetCategorias() {
     this.categoriaService.GetCategoriasLista().subscribe({
@@ -142,6 +164,13 @@ export class AgregarProductoComponent implements OnInit {
 
 
   onSubmitProd(): void {
+    
+    if(this.isAddingColor){
+      if(this.variantes.length == 0){
+        this.errorMessage = 'Debe agregar al menos un color';
+        return;
+      }
+    }
 
     if (this.productoForm.invalid) {
       // If the form is invalid, trigger validation errors
@@ -158,14 +187,27 @@ export class AgregarProductoComponent implements OnInit {
     if (this.selectedCategoriaId) {
       formData.append('categoriaId', this.selectedCategoriaId.toString());
     }
+    
+    this.selectedSubcategoriaId = this.productoForm.get('subcategoria')?.value;
 
     if (this.selectedSubcategoriaId) {
-      formData.append('subcategoriaId', this.selectedSubcategoriaId.toString());
+      formData.append('subCategoriaId', this.selectedSubcategoriaId.toString());
     }
 
+    this.selectedMaterialId = this.productoForm.get('material')?.value;
+
     if (this.selectedMaterialId) {
-      formData.append('material', this.selectedMaterialId.toString());
+      formData.append('materialId', this.selectedMaterialId.toString());
     }
+
+    formData.append('currentColor', this.productoForm.get('currentColor')?.value);
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
+
+    formData.append('precio', this.productoForm.get('precio')?.value);
+
+    this.currentCantidad = this.productoForm.get('cantidad')?.value;
+    this.currentColor = this.productoForm.get('currentColor')?.value;
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
 
     // Add images
     this.imagenesSeleccionadas.forEach((file, index) => {
@@ -182,6 +224,7 @@ export class AgregarProductoComponent implements OnInit {
             if (this.productoId) {
               this.createVariants(this.productoId);
             }
+
           },
           error: (err) => {
             console.error('Error al agregar producto:', err);
@@ -198,11 +241,13 @@ export class AgregarProductoComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log('Variante producto added successfully:', response);
-            
+            this.variantes = [];
+            this.isAddingColor = false;
           },
           error: (err) => {
             console.error('Error adding variante producto:', err);
-
+            this.variantes = [];
+            this.isAddingColor = false;
             // Borra producto si variante falla
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to variant creation failure'),
@@ -239,16 +284,23 @@ export class AgregarProductoComponent implements OnInit {
       // limpia variantes
       this.variantes = [];
       this.currentCantidad = 0;
+      this.productoForm.value.cantidad = 0;
     } else {
       // resetea cantidad
       this.currentCantidad = 0;
+      this.productoForm.patchValue({
+        cantidad: 0
+      });
+
     }
   }
 
   addColor(): void {
-    const trimmedColor = this.currentColor.trim();
+    this.currentColor = this.productoForm.get('currentColor')?.value;
+    this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
+    const trimmedColor = this.currentColor;
 
-    if (!trimmedColor) {
+    if (trimmedColor == '') {
       this.errorMessage = 'El campo color no puede estar vacio';
       return;
     }

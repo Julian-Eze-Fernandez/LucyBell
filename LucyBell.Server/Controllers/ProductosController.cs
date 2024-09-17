@@ -34,6 +34,7 @@ namespace LucyBell.Server.Controllers
 			var productos = await context.Productos
 				.Include(productoBD => productoBD.ImagenesProductos)
 				.Include(productoBD => productoBD.VariantesProducto)
+				.Include(productoBD => productoBD.Categoria)
 				.ToListAsync();
 
 			var productosDTO = productos.Select(producto => new ProductoCompletoDTO
@@ -43,7 +44,8 @@ namespace LucyBell.Server.Controllers
 				Precio = producto.Precio,
 				Descripcion = producto.Descripcion,
 				CategoriaId = producto.CategoriaId,
-				SubCategoriaId = producto.SubCategoriaId,
+                CategoriaNombre = producto.Categoria.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
 				MaterialId = producto.MaterialId,
 				ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
 				{
@@ -55,7 +57,7 @@ namespace LucyBell.Server.Controllers
 					Id = variante.Id,
 					Color = variante.Color,
 					Cantidad = variante.Cantidad
-				}).ToList()
+				}).ToList(),
 			}).ToList();
 
 			return Ok(productosDTO);

@@ -6,6 +6,7 @@ export interface Producto {
   precio: number;
   descripcion?: string;
   categoriaId: number;
+  categoriaNombre: string;
   subCategoriaId: number;
   materialId: number;
   imagenesProductos: ImagenProductoDTO[];

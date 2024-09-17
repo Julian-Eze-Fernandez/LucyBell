@@ -59,7 +59,7 @@ namespace LucyBell.Server.Controllers
 			return Ok(new { isSuccess = true });
 		}
 
-		[HttpPut]
+		[HttpPut("{productoId}/{id}")]
 		public async Task<ActionResult> PutVariantesProductos(int productoId, int id, VarianteProductoCreacionDTO varianteProductoCreacionDTO)
 		{
 			var existeProducto = await context.Productos.AnyAsync(productoDB => productoDB.Id == productoId);

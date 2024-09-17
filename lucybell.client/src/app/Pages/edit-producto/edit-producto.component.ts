@@ -6,6 +6,9 @@ import { MaterialService } from '../../Services/material.service';
 import { ProductoService } from '../../Services/producto.service';
 import { FormsModule, Validators, FormGroup, FormBuilder, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { VariantesProductoService } from '../../Services/variantes-producto.service';
+import { VariantesProductoCreacionDTO } from '../../Models/VariantesProducto';
+import { Producto } from '../../Models/Producto';
 @Component({
   selector: 'app-edit-producto',
   standalone: true,
@@ -14,7 +17,7 @@ import { Observable, of } from 'rxjs';
   styleUrl: './edit-producto.component.css'
 })
 export class EditProductoComponent implements OnInit, OnChanges{
-  @Input() product: any = null; // The product data to be edited
+  @Input() product: Producto | null = null; // The product data to be edited
   productoForm!: FormGroup;
 
   categorias: any[] = [];
@@ -23,17 +26,21 @@ export class EditProductoComponent implements OnInit, OnChanges{
   selectedCategoriaId: number | null = null;
   selectedSubcategoriaId: number | null = null;
   selectedMaterialId: number | null = null;
+  nuevoColor: string = '';
+  errorMessage: string = '';
 
   arrayImages: { id: number; urlImagen: string }[] = [];
   imagenesSeleccionadas: File[] = []; 
   imageUrls: string[] = [];
+  variantes: VariantesProductoCreacionDTO[] = [];
 
   constructor(
     private fb: FormBuilder,
     private productoService: ProductoService,
     private materialService: MaterialService,
     private subcategoriaService: SubcategoriaService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private VariantesProductoService: VariantesProductoService
   ) {}
 
   ngOnInit(): void {
@@ -42,15 +49,18 @@ export class EditProductoComponent implements OnInit, OnChanges{
       nombre: ['', Validators.required],
       categoria: ['', Validators.required],
       material: [''],
-      subcategoria: [{ value: '', disabled: true }],
+      subcategoria: [{ value: ''}],
       descripcion: [''],
-      precio: [0, Validators.required]
+      precio: [0, Validators.required],
+      nuevoColor: ['']
       
     });
 
     this.GetCategorias();
+    
     this.GetMateriales();
 
+    
     // Pre-fill the form with product data
 
     this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
@@ -64,6 +74,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
     if (changes['product'] && changes['product'].currentValue) {  
       this.fillWithData();
     }
+    console.log(this.product);
   };
 
   fillWithData(){
@@ -132,17 +143,63 @@ export class EditProductoComponent implements OnInit, OnChanges{
       this.subcategoriaService.obtenerSubCategoriasPorCategoria(this.selectedCategoriaId).subscribe({
         next: (data) => {
           this.subcategorias = data;
-          subcategoriaControl?.enable();
         },
         error: (err) => {
           console.log(err.message);
-          subcategoriaControl?.disable();
         }
       });
     } else {
       this.subcategorias = [];
-      subcategoriaControl?.disable();
     }
+  }
+
+  addColor(): void {
+    this.nuevoColor = this.productoForm.get('nuevoColor')?.value;
+
+    if (this.nuevoColor == '') {
+      this.errorMessage = 'El campo color no puede estar vacio';
+      return;
+    }
+
+    const colorExists = this.variantes.some(v => v.color && v.color.toLowerCase() === this.nuevoColor.toLowerCase());
+
+    const colorExistEnProd = this.product?.variantesProducto.some(v => v.color && v.color.toLowerCase() === this.nuevoColor.toLowerCase());
+
+    if (colorExists) {
+     this.errorMessage = `El color ${this.nuevoColor} ya esta siendo añadido`;
+     return;
+    }
+    else if (colorExistEnProd) {
+      this.errorMessage = `El color ${this.nuevoColor} ya existe en el producto`;
+      return;
+    }
+
+    this.variantes.push({ color: this.nuevoColor, cantidad: 0});
+
+    this.errorMessage = '';
+  }
+
+  removeColor(color: string): void {
+    if (color !== null) {
+      this.variantes = this.variantes.filter(v => v.color !== color);
+    } 
+  }
+
+  limpiarForm(): void {
+    setTimeout(() => {
+      this.productoForm = this.fb.group({
+        nombre: ['', Validators.required],
+        categoria: ['', Validators.required],
+        material: [''],
+        subcategoria: [{ value: ''}],
+        descripcion: [''],
+        precio: [0, Validators.required],
+        nuevoColor: ['']
+      });
+      this.errorMessage = '';
+      this.variantes = [];
+    }, 200);
+    
   }
 
   // Handle form submission to update product
@@ -160,12 +217,16 @@ export class EditProductoComponent implements OnInit, OnChanges{
       formData.append('categoriaId', this.selectedCategoriaId.toString());
     }
     
+    this.selectedSubcategoriaId = this.productoForm.get('subcategoria')?.value;
+
     if (this.selectedSubcategoriaId) {
-      formData.append('material', this.selectedSubcategoriaId.toString());
+      formData.append('subCategoriaId', this.selectedSubcategoriaId.toString());
     }
-    
+
+    this.selectedMaterialId = this.productoForm.get('material')?.value;
+
     if (this.selectedMaterialId) {
-      formData.append('subcategoriaId', this.selectedMaterialId.toString());
+      formData.append('materialId', this.selectedMaterialId.toString());
     }
 
     formData.append('descripcion', this.productoForm.get('descripcion')?.value);
@@ -177,10 +238,21 @@ export class EditProductoComponent implements OnInit, OnChanges{
       }
     });
 
-    if(this.selectedCategoriaId){
+    if(this.product && this.variantes.length > 0){
       
-      return this.productoService.PutProducto(this.product.id,this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
+    this.VariantesProductoService.postVariantesProductos(this.product.id, this.variantes).subscribe({})
+    this.variantes = [];
     }
+
+    if(this.selectedCategoriaId){
+      if(this.product != null){
+      
+        return this.productoService.PutProducto(this.product.id ,this.selectedCategoriaId, this.selectedSubcategoriaId, this.selectedMaterialId, formData)
+      }
+    }
+
+
+
     return of(null);
   }
 }

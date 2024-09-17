@@ -20,7 +20,7 @@ import { StockComponent } from './Pages/stock/stock.component';
   
     
   
-    StockComponent
+    
   ],
   imports: [
     AppComponent,
@@ -33,7 +33,8 @@ import { StockComponent } from './Pages/stock/stock.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule 
+    RouterModule,
+    StockComponent 
   ],
   providers: [],
   bootstrap: []
