@@ -10,8 +10,9 @@ namespace LucyBell.Server.Controllers
 {
 	[ApiController]
 	[Route("api/categorias")]
+	//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-    public class CategoriasController : ControllerBase
+	public class CategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;
@@ -24,7 +25,6 @@ namespace LucyBell.Server.Controllers
 		}
 
 		[HttpGet]
-		//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<List<CategoriaDTO>>> GetCategoriasLista()
 		{
 			var categorias = await context.Categorias

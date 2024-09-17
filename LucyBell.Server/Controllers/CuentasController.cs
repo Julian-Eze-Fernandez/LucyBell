@@ -1,4 +1,6 @@
 ﻿using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,16 +18,16 @@ namespace LucyBell.Server.Controllers
 		private readonly IConfiguration configuration;
 		private readonly SignInManager<IdentityUser> signInManager;
 
-		public CuentasController(UserManager<IdentityUser> userManager, 
+		public CuentasController(UserManager<IdentityUser> userManager,
 			IConfiguration configuration,
 			SignInManager<IdentityUser> signInManager)
-        {
+		{
 			this.userManager = userManager;
 			this.configuration = configuration;
 			this.signInManager = signInManager;
 		}
 
-        [HttpPost("registrar")] // Registra nuevos usuarios
+		[HttpPost("registrar")] // Registra nuevos usuarios
 		public async Task<ActionResult<RespuestaAutenticacion>> Registrar(CredencialesUsuarios credencialesUsuarios)
 		{
 			// Crear un nuevo usuario en el sistema usando el email proporcionado
@@ -38,14 +40,14 @@ namespace LucyBell.Server.Controllers
 			{
 				return ConstruirToken(credencialesUsuarios);
 			}
-			else 
+			else
 			{
 				return BadRequest(resultado.Errors);
 			}
 		}
 
 
-		[HttpPost] // Endpoint para iniciar sesión
+		[HttpPost("login")] // Endpoint para iniciar sesión
 		public async Task<ActionResult<RespuestaAutenticacion>> Login(CredencialesUsuarios credencialesUsuarios)
 		{
 			// Verifica las credenciales de inicio de sesión (email y contraseña)
@@ -62,6 +64,20 @@ namespace LucyBell.Server.Controllers
 			}
 		}
 
+		[HttpGet("RenovarToken")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+		public ActionResult<RespuestaAutenticacion> Renovar()
+		{
+			var emailClaim = HttpContext.User.Claims.Where(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").FirstOrDefault();
+			var email = emailClaim.Value;
+			var credencialesUsuario = new CredencialesUsuarios()
+			{
+				Email = email
+			};
+
+			return ConstruirToken(credencialesUsuario);
+		}
+
 		private RespuestaAutenticacion ConstruirToken(CredencialesUsuarios credencialesUsuarios) // Método para generar un token JWT basado en las credenciales del usuario
 		{
 			var claims = new List<Claim>()
@@ -73,7 +89,7 @@ namespace LucyBell.Server.Controllers
 			var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["llavejwt"]));
 			var creds = new SigningCredentials(llave, SecurityAlgorithms.HmacSha256);
 
-			var expiracion = DateTime.Now.AddYears(1);
+			var expiracion = DateTime.Now.AddHours(24);
 
 			var securityToken = new JwtSecurityToken(issuer: null, audience: null, claims: claims,
 				expires: expiracion, signingCredentials: creds);

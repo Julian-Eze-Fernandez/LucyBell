@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -14,6 +15,7 @@ namespace LucyBell.Server
 	{
 		public StartUp(IConfiguration configuration)
 		{
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 			Configuration = configuration;
 		}
 
