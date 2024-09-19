@@ -35,7 +35,7 @@
     <div class="gradient-line mb-4"></div>
     <ul class="space-y-2">
       <li>
-        <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg bg-MyHover">
+        <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
 
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="30" height="30" fill="url(#pattern0_277_690)" />
@@ -50,9 +50,7 @@
         </a>
       </li>
       <li>
-        <button (click)="toggleDropdown('dropdown-ventas')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover" aria-controls="dropdown-ventas">
-          <i class='bx bx-purchase-tag bx-sm group-hover:text-white'></i>
-
+        <button (click)="toggleDropdown('dropdown-ventas')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-ventas">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="30" height="30" fill="url(#pattern0_277_687)" />
             <defs>
@@ -85,7 +83,7 @@
         <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-ventas') }">
           <ul id="dropdown-ventas" class=" py-2 space-y-2">
             <li>
-              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover">
+              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="25" height="25" fill="url(#pattern0_277_683)" />
                   <defs>
@@ -99,7 +97,7 @@
               </a>
             </li>
             <li>
-              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover">
+              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="25" height="25" fill="url(#pattern0_277_680)" />
                   <defs>
@@ -113,7 +111,7 @@
               </a>
             </li>
             <li>
-              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover">
+              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="25" height="25" fill="url(#pattern0_277_677)" />
                   <defs>
@@ -133,7 +131,7 @@
 
       </li>
       <li>
-        <button (click)="toggleDropdown('dropdown-productos')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover" aria-controls="dropdown-productos">
+        <button (click)="toggleDropdown('dropdown-productos')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-productos">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="30" height="30" fill="url(#pattern0_277_670)" />
             <defs>
@@ -167,7 +165,7 @@
         <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-productos') }">
           <ul id="dropdown-productos" class=" py-2 space-y-2">
             <li>
-              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover">
+              <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="25" height="25" fill="url(#pattern0_277_666)" />
                   <defs>
@@ -182,7 +180,7 @@
               </a>
             </li>
             <li>
-              <a href="administrarProductos" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-75 group bg-MyHover">
+              <a href="administrarProductos" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <rect width="25" height="25" fill="url(#pattern0_277_660)" />
                   <defs>
@@ -201,7 +199,7 @@
 
       </li>
       <li>
-        <a href="stock" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg bg-MyHover">
+        <a href="stock" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="30" height="30" fill="url(#pattern0_277_602)" />
             <defs>
@@ -216,7 +214,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg bg-MyHover">
+        <a href="inicio" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transtion duration-300 bg-MyHover">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="30" height="30" fill="url(#pattern0_277_653)" />
             <defs>

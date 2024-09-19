@@ -12,11 +12,17 @@ import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-produ
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
 import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component';
 import { StockComponent } from './Pages/stock/stock.component';
+import { navBarComponent } from './Pages/navBar/navBar.component';
+import { InicioComponent } from './Pages/inicio/inicio.component';
 
 
 @NgModule({
   declarations: [
 
+  
+    
+  
+    
   
     
   
@@ -34,7 +40,9 @@ import { StockComponent } from './Pages/stock/stock.component';
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
-    StockComponent 
+    StockComponent,
+    navBarComponent,
+    InicioComponent 
   ],
   providers: [],
   bootstrap: []
