@@ -17,7 +17,7 @@ register();
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, ],
+  imports: [CommonModule, navBarComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
@@ -56,25 +56,20 @@ export class InicioComponent implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event'])
-    onWindowScroll() {
-      const space = document.getElementById('navBar-Space');
-      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (space) {
-        if (scrollPosition > 5) {
-          
-
-          space.classList.remove('mt-80');
-          space.classList.add('mt-56');
-
-
-
-        } else {
-          space.classList.remove('mt-56');
-          space.classList.add('mt-80');
-        }
+  onWindowScroll() {
+    const placeholder = document.getElementById('navBar-Placeholder');
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  
+    if (placeholder) {
+      if (scrollPosition > 5) {
+        placeholder.classList.remove('h-48,', 'sm:h-60', 'lg:h-80');
+        placeholder.classList.add('h-40', 'sm:h-44', 'lg:h-52');
+      } else {
+        placeholder.classList.remove('h-40', 'sm:h-44', 'lg:h-52');
+        placeholder.classList.add('h-48', 'sm:h-60', 'lg:h-80');
       }
     }
+  }
   
 
 }

@@ -41,7 +41,7 @@ export class navBarComponent implements OnInit {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
       if (logoContainer && logoContainerVine1 && logoContainerVine2) {
-        if (scrollPosition > 0) {
+        if (scrollPosition > 5) {
 
           setTimeout(() => {
             logoContainer.classList.remove('h-36', 'sm:h-44', 'lg:h-64');
