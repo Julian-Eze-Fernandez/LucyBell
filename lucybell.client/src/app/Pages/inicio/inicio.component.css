@@ -1,6 +1,6 @@
 .container {
     max-width: 124rem;
-    padding: 0 1rem;
+    padding: 50 1rem;
     margin: 0 auto;
   }
   
@@ -32,9 +32,15 @@
     position: relative;
   }
   
-  @media (max-width:500px) {
+  @media (max-width:550px) {
     #tranding .tranding-slider {
       height: 35rem;
+    }
+  }
+
+  @media (max-width:430px) {
+    #tranding .tranding-slider {
+      height: 30rem;
     }
   }
   
@@ -45,6 +51,9 @@
   }
   
   @media (max-width:550px) {
+
+
+
     .tranding-slide {
       width: 22rem !important;
       height: 27rem !important;
@@ -209,3 +218,8 @@
   ::-webkit-scrollbar-track {
     background: #f9f9f9;
   }
+
+
+.z-100 {
+  z-index: 999;
+}
