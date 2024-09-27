@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,11 +12,20 @@ import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-produ
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
 import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component';
 import { StockComponent } from './Pages/stock/stock.component';
+import { navBarComponent } from './Pages/navBar/navBar.component';
+import { InicioComponent } from './Pages/inicio/inicio.component';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 
 @NgModule({
   declarations: [
 
+  
+    
+  
+    
   
     
   
@@ -34,9 +43,12 @@ import { StockComponent } from './Pages/stock/stock.component';
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
-    StockComponent 
+    StockComponent,
+    navBarComponent,
+    InicioComponent 
   ],
   providers: [],
-  bootstrap: []
+  bootstrap: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

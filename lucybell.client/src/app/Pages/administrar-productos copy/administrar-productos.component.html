@@ -1,0 +1,122 @@
+<div class="flex">
+  <app-sidebar class="sidebar max-p-max"></app-sidebar>
+
+  <div class="main-content flex-1 p-4">
+    <div class="flex flex-col">
+      <div class="block">
+        <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
+          Administrar Productos
+          <div class="gradient-line-title mb-4"></div>
+        </h1>
+      </div>
+      <div class="flex  w-full">
+        <p class="mb-6">Administra los productos agregados</p>
+      </div>
+    </div>
+    
+    <div class="mb-4">
+      <button type="button" class="addButton" (click)="openAddProdModal()">
+        <span class="addButton__text">Nuevo </span>
+        <span class="addButton__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max">
+      <div *ngFor="let producto of productos" class="item-background rounded-lg">
+        <div class="p-2">
+          <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+            <div *ngIf="producto.imagenesProductos.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
+              <p class="text-white">
+                Imagen no encontrada
+              </p>
+            </div>
+            <div *ngIf="producto.imagenesProductos.length > 0">
+
+              <img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+        <div class="mb-2 flex items-center justify-center text-white font-medium">
+          {{producto.nombre}}
+        </div>
+        <div class="flex items-center justify-evenly text-white text-sm">
+          <p>Stock: {{getTotalStock(producto)}}</p>
+          <p>${{producto.precio}}</p>
+        </div>
+        <div class="flex items-center justify-between text-white text-sm p-2">
+          <p class="text-orange-200"> {{ producto.categoriaNombre }} </p>
+          <div class="flex">
+            <!-- Example of SVGs, can be replaced with actual content or icons -->
+             <button (click)="openEditModal(producto)">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mr-2">
+                <rect width="20" height="20" fill="url(#pattern0_268_279)"/>
+                <defs>
+                  <pattern id="pattern0_268_279" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_268_279" transform="scale(0.0111111)"/>
+                  </pattern>
+                  <image id="image0_268_279" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVR4nO2dv2sUQRTH10L/mWgQrEQLMV2wC+9d/gIbO0VshKTIe3cIChYiVir+aKztbO3Uylb2vU0sNDaWamBlDgWJS8zldt96O98PTLl3Mx++t/tmZ4YrCgAAAAAAAAAA/y+0VZ5m9Sck9pHEv7PaDos9YqlO9t23wcBSXmOxPVav/272g8Su9N3HhYfEN5sF72tiN/vu6/AlK2THSYbsQMmQHSgZsgMlQ3ag5F8NpV+Q6FRnr018af/3ZQ11J/th32PLQjapVX2PKxfZ3/oeUx6yxbb7Hk8WskntcZGbOBLfnPWaOdO8ty7by0Uu0B/CImWT+tUiF6hJlPhkps8Y+40jlHUbRS7QQWnsVDYk193LhuS6+2RDct29bEiuu5cNyfVM5dgRSr9Zr1loqNUp82zJzgbq4vUmZEe9Q4bsGMmQHSg5d9kUKTlX2dSH5GlDnVxDMpK8WBBuF5A8CAhJhuRBQEgyJA8CQpIheRAgyQFAcgCQHAAkBwDJAUByAJAcACQHAMkBXH7w5jiN/cxIbIW27Ho6OBOxxkc5bdNqgrQ8C8lBCU/HdpHkAFjsC7YEBMDiH7DvIgBSf4sHXwCk/go7iAJg9RfYphUAi91GnRwAje0iJiNzQpPq1GFmZaNxeYHVb7H6MxJ/SeqvSfzdtCI5oPzLfsb3G1YbtyFkbeJLpP4Vkpuo62Osbm2lj9XuIMkN0MTPt/lTZ6nWcbtoFGP32zyWMBJbyWqn/aFfh4rttvkQo433J7rp7QIzUruEAzcBsNhznG4KgNU+4yhZAOlPBv65vKRWsfjdtLQV0adBkiqL5oeg7ZLYPRY7l+rsvvu58KQKIcmeJlv8E4k/ZS1XUzXSd98AAAAAAAAAABTz8RPoiEpw35pqPgAAAABJRU5ErkJggg=="/>
+                </defs>
+              </svg>
+             </button>
+            <button (click)="openDeleteProdModal(producto)">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="20" height="20" fill="url(#pattern0_268_282)"/>
+                <defs>
+                  <pattern id="pattern0_268_282" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_268_282" transform="scale(0.0111111)"/>
+                  </pattern>
+                  <image id="image0_268_282" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADD0lEQVR4nO2cTW9NURSGl48JA3NRH3fty0ix9mlEgjQMMTXAH8BITTCRmDCmVOdlyoBfwASz+gVIRO9a97ZNG5LW4MpOg+RKEx+73Wtt60neec9zd865ed/bA+A4juM4juM4Zfh0YF+LqT2WMkt7dvvnsAZwbB2XiIsSQ38luNhp8KjLzi46vPkpeSVM+MpFZxeNS7+IjrjkojMjA5K/x0UDQLqHMoXXTLi8mqjSSX9bugWZvd+nbwVMuFBapPy+8AWT32SYwtXS8uRPZUe8Ahr52GzfyoQPmMJ8aUmyZvLDHBPe/3BkaEsx0RzDZGkRsn7CJ4tI7gNsFApfSguQ9QqFz+maXXSsVPR/eOt4CKVIDwiOOJ4eGBULnpWI94o+DB3HcRzHcdafGvsOpjAP2hAKb0uLkfyZBm0IhecKxPSzhsIz0AZTmCguJuZNqoBBG90YbpQWI7nT4HXQhsTWhQpFnwedP3BRICfmS6fBY6CN2QZ3lRYjmdMbCTtBG/2zsIkJv5aWI5mSrqU/OroZNMIU3lcjOoZ3oBWh8LK0IMkVCi9AK0zhcTUnmsIj0ApTuFOPaLwNWpHYvlxakORKg5dAKxxbZ6o50Q2eBq3MNDhcWpBkSm8E94NWuofb20oLkkxJ1wKaqWEA4BjmQDuVDADToJ0qBgBSWPjXOACwxsK/ygGgUVj4VzkANAoL/0FSWV5cVPy3mPgPrRoGgJ7Gwr+2AYA1F/41DQCsufCvagAgxYV/TQMAay78axoAWHPhP0gqzUsLk78N4UWwQirNzZ7oBk+BFSwPAD3NhX9NA0BXe+FfwwDAFgr/SgaAabCGyQGADBT+NQwAbKHwHySV5/ZONF4Da6Ty3NyJPoTnwBoWB4COhcK/hgGgZ6Hwtz4AsKXC3/IAwJYKf9MDABkq/AfhiFN2TjROgVUsvTaTqT0GVukOt4c0v2lXfkjG5e7BvTvAMkLhloHbxk2wTnr7IUccLy1z1VC42wfYALUgEU8y4VOJoaNA7gxTeCJNOFHai+M4juM4juM4juM4DhjkG7dwMgP+Zui0AAAAAElFTkSuQmCC"/>
+                </defs>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container>
+      <app-two-button-modal #addModalProd
+                            [title]="'Agregar Producto'"
+                            [confirmButtonText]="'Agregar'"
+                            [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                            [icon]="customIconAdd"
+                            (confirm)="onSubmitProd()"
+                            (cancel)="closeAddProdModal()">
+        <app-agregar-producto></app-agregar-producto>
+      </app-two-button-modal>
+    </ng-container>
+
+    <ng-container>
+      <app-two-button-modal #editModalProd
+                            [title]="'Editar Producto'"
+                            [confirmButtonText]="'Editar'"
+                            [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                            [icon]="customIconEdit"
+                            (confirm)="onEdit()"
+                            (cancel)="closeEditModal()">
+        <app-edit-producto [product]="selectedProducto"></app-edit-producto>
+      </app-two-button-modal>
+    </ng-container>
+
+    <ng-container>
+      <app-two-button-modal #deleteModalProd
+                            [title]="'Eliminar Producto'"
+                            [confirmButtonText]="'Eliminar'"
+                            [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                            [icon]="customIconDelete"
+                            (confirm)="onDelete()"
+                            (cancel)="closeDeleteProdModal()">
+        <div class="flex flex-col items-center"> 
+          <p>  ¿Está seguro de que desea borrar el producto <strong>"{{ selectedProducto?.nombre }}"</strong>?</p>
+          <div *ngIf="!tieneVariantes" class="items-center">
+            <P class="text-red-700 font-bold mt-2"  > No podra eliminar el producto hasta que vacie su Stock </P>
+            <span *ngFor="let variante of selectedProducto?.variantesProducto" class="flex justify-center text-red-700">{{variante.color || selectedProducto?.nombre }} ({{ variante.cantidad }}) </span>
+          </div>
+        </div>
+      </app-two-button-modal>
+    </ng-container>
+  </div>
+
+</div>
+
+
+
