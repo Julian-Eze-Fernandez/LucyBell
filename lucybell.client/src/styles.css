@@ -8,7 +8,7 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#FBEDE0; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#fbede0; }
 
 .sidebar {
   width: 16rem;
@@ -23,6 +23,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 .main-content {
   flex-grow: 1;
   padding: 1rem;
+}
+
+.crossBg {
+
+  --s: 30px; /* control the size*/
+  --c1: #fbede0;
+  --c2: #e7cbcc;
+  
+  background:
+    conic-gradient(at 60% 60%,var(--c1) 75%,#0000 0)
+      0 0/calc(5*var(--s)/2) calc(5*var(--s)/2),
+    repeating-conic-gradient(var(--c1) 0 25%,#0000 0 50%)
+      0 0/calc(5*var(--s)) calc(5*var(--s)),
+    repeating-conic-gradient(var(--c2) 0 25%,var(--c1) 0 50%)
+      0 0/var(--s) var(--s); ;
+
 }
 
 @media (max-width: 640px) {
@@ -43,6 +59,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 }
 @font-face {
   font-family: 'Inter';
-  src: url('../src/assets/Inter-VariableFont_opsz,wght.ttf')
+  src: url('../src/assets/Inter-VariableFont_opsz\,wght.ttf')
 }
 
+@font-face {
+  font-family: 'Julius';
+  src: url('../src/assets/JuliusSansOne-Regular.ttf')
+}

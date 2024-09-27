@@ -146,8 +146,6 @@ export class AgregarProductoComponent implements OnInit {
   }
 
 
-  // Método para manejar la selección de imágenes
-
 
   onFileSelected(event: any, index: number): void {
     const file = event.target.files[0];
@@ -173,7 +171,7 @@ export class AgregarProductoComponent implements OnInit {
     }
 
     if (this.productoForm.invalid) {
-      // If the form is invalid, trigger validation errors
+
       this.productoForm.markAllAsTouched();
     }
 
@@ -209,7 +207,7 @@ export class AgregarProductoComponent implements OnInit {
     this.currentColor = this.productoForm.get('currentColor')?.value;
     this.currentColorCantidad = this.productoForm.get('currentColorCantidad')?.value;
 
-    // Add images
+
     this.imagenesSeleccionadas.forEach((file, index) => {
       formData.append('imagenes', file, file.name);
     });
@@ -248,7 +246,7 @@ export class AgregarProductoComponent implements OnInit {
             console.error('Error adding variante producto:', err);
             this.variantes = [];
             this.isAddingColor = false;
-            // Borra producto si variante falla
+
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to variant creation failure'),
               error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
@@ -267,7 +265,7 @@ export class AgregarProductoComponent implements OnInit {
           error: (err) => {
             console.error('Error adding default variante producto:', err);
 
-            // Borra producto si variante falla
+
             this.productoService.DeleteProducto(productoId).subscribe({
               next: () => console.log('Producto rolled back due to default variant creation failure'),
               error: (deleteErr) => console.error('Error rolling back producto:', deleteErr)
@@ -281,12 +279,12 @@ export class AgregarProductoComponent implements OnInit {
     this.isAddingColor = !this.isAddingColor;
 
     if (!this.isAddingColor) {
-      // limpia variantes
+
       this.variantes = [];
       this.currentCantidad = 0;
       this.productoForm.value.cantidad = 0;
     } else {
-      // resetea cantidad
+
       this.currentCantidad = 0;
       this.productoForm.patchValue({
         cantidad: 0
