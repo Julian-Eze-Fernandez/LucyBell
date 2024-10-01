@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { Router } from '@angular/router';
 import { CredencialesUsuarioDTO } from '../seguridad';
@@ -12,6 +12,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-login',
   standalone: true,
   imports: [FormularioAutenticacionComponent, CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   animations: [

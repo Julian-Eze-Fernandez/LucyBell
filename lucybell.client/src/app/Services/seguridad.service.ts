@@ -68,6 +68,6 @@ export class SeguridadService {
 
 
   obtenerRol(): string {
-    return 'admin';
+    return '';
   }
 }

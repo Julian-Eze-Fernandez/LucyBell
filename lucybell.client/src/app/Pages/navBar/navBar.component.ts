@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit, ViewChild  } from '@angular/core';
+import { Component, HostListener, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriaService } from '../../Services/categoria.service';
 import { CategoriaABM } from '../../Models/Categoria';
@@ -14,6 +14,7 @@ import { LoginComponent } from "../seguridad/login/login.component";
   templateUrl: './navBar.component.html',
   standalone: true,
   imports: [CommonModule, AutorizadoComponent, RouterModule, FormsModule, FormularioAutenticacionComponent, LoginComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './navBar.component.css'
 })
 export class navBarComponent implements OnInit {
