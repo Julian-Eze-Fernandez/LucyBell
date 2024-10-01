@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   imports: [
     RouterOutlet,
     CommonModule,
-  ]
+    AutorizadoComponent
+]
 })
 export class SidebarComponent implements OnInit {
 

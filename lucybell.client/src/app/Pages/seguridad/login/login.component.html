@@ -1,0 +1,32 @@
+
+<div *ngIf="isOpen" [@fade]="animationState" class="fixed inset-0 z-[102] flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+    <!-- Background backdrop -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300" (click)="onOverlayClick($event)"></div>
+  
+    <!-- Modal content -->
+    <div class="relative z-[103] w-full max-w-lg p-6 myBackground rounded-lg shadow-xl transition-all ease-out duration-300 sm:my-8 max-h-screen overflow-y-auto">
+      <!-- Header with title and close button -->
+      <div class="flex flex-row-reverse">
+        <button (click)="closeModal()" class="p-1 absolute right">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <div id="logo-container" class="transition-all duration-500 ease-in-out h-36 sm:h-44 lg:h-64 flex justify-center items-center mx-auto max-h-32 max-w-32" >
+          <img src="../../../assets/LucybellLogo.svg" alt="Logo" class="h-full object-contain logo">
+        </div>
+      </div>
+
+
+      <!-- Modal body content -->
+      <div class="mt-2 mx-4 sm:mx-10 px-1 overflow-y-auto max-h-[75vh]">
+        <app-formulario-autenticacion [errores]="errores" titulo="Login" (posteoFormulario)="loguear($event)"></app-formulario-autenticacion>
+      </div>
+  
+      <!-- Modal footer with buttons -->
+      <div class="flex flex-row mt-4 justify-center">
+        <button type="button" class="inline-flex text-sm font-medium font-volkornSC text-black rounded-md underline underline-offset-2" (click)="onConfirm()">Registrarse</button>
+      </div>
+    </div>
+  </div>
+  

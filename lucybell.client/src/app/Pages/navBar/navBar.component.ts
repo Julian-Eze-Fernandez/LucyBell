@@ -1,16 +1,27 @@
-import { Component, HostListener, OnInit  } from '@angular/core';
+import { Component, HostListener, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriaService } from '../../Services/categoria.service';
 import { CategoriaABM } from '../../Models/Categoria';
+import { SeguridadService } from '../../Services/seguridad.service';
+import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { FormularioAutenticacionComponent } from "../seguridad/formulario-autenticacion/formulario-autenticacion.component";
+import { LoginComponent } from "../seguridad/login/login.component";
 
 @Component({
   selector: 'app-navBar',
   templateUrl: './navBar.component.html',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule, AutorizadoComponent, RouterModule, FormsModule, FormularioAutenticacionComponent, LoginComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './navBar.component.css'
 })
 export class navBarComponent implements OnInit {
+  seguridadService = inject(SeguridadService);
+  @ViewChild('loginModal') loginModal!: LoginComponent;
+  showModal: boolean = false;
+
 
   constructor(private categoriaService: CategoriaService) {}
 
@@ -71,5 +82,22 @@ export class navBarComponent implements OnInit {
 
         }
       }
+    }
+
+    openLoginModal() {
+      this.showModal = true;
+      this.loginModal.openModal();
+  
+    }
+
+    closeLoginModal() {
+      this.showModal = false;
+      this.loginModal.closeModal();
+  
+    }
+
+    onSubmitLogin(){
+
+  
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LucyBell.Server.DTOs.CategoriasDTOs;
 using LucyBell.Server.Entidades;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +10,9 @@ namespace LucyBell.Server.Controllers
 {
 	[ApiController]
 	[Route("api/categorias")]
+	//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-    public class CategoriasController : ControllerBase
+	public class CategoriasController : ControllerBase
 	{
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;

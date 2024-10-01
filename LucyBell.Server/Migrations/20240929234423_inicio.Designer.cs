@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240913133854_inicio")]
+    [Migration("20240929234423_inicio")]
     partial class inicio
     {
         /// <inheritdoc />
