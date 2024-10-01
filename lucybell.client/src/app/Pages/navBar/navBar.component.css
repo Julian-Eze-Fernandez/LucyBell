@@ -23,3 +23,7 @@
   border-radius: 0px 25px 25px 25px;
 }
 
+.saludo {
+  font-size: 18px;
+  display: inline;
+}

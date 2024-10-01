@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Imagenes\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Validaciones\" />
   </ItemGroup>
 

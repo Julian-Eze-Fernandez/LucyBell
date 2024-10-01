@@ -1,8 +1,8 @@
 ﻿namespace LucyBell.Server.DTOs.AdministracionesUsuarioDTOs
 {
-	public class RespuestaAutenticacion
+	public class RespuestaAutenticacionDTO
 	{
-        public string Token { get; set; }
+        public required string Token { get; set; }
         public DateTime Expiracion { get; set; }
     }
 }

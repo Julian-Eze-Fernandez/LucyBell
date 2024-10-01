@@ -15,6 +15,11 @@ import { StockComponent } from './Pages/stock/stock.component';
 import { navBarComponent } from './Pages/navBar/navBar.component';
 import { InicioComponent } from './Pages/inicio/inicio.component';
 import { register } from 'swiper/element/bundle';
+import { AutorizadoComponent } from './Pages/seguridad/autorizado/autorizado.component';
+import { LoginComponent } from './Pages/seguridad/login/login.component';
+import { FormularioAutenticacionComponent } from './Pages/seguridad/formulario-autenticacion/formulario-autenticacion.component';
+import { MostrarErroresComponent } from './Pages/seguridad/mostrar-errores/mostrar-errores.component';
+import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
 
 register();
 
@@ -30,6 +35,11 @@ register();
     
   
     
+  
+  
+  
+  
+  
   ],
   imports: [
     AppComponent,
@@ -45,7 +55,12 @@ register();
     RouterModule,
     StockComponent,
     navBarComponent,
-    InicioComponent 
+    InicioComponent ,
+    AutorizadoComponent,
+    LoginComponent,
+    FormularioAutenticacionComponent,
+    MostrarErroresComponent,
+    RegistroComponent,
   ],
   providers: [],
   bootstrap: [],

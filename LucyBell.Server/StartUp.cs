@@ -31,20 +31,6 @@ namespace LucyBell.Server
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
-			// Configuración de la autenticación utilizando JWT Bearer
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) //Esto le dice a la aplicación que use JWT para autenticar las solicitudes.
-				.AddJwtBearer(opciones => opciones.TokenValidationParameters = new TokenValidationParameters { 
-				ValidateIssuer = false, // Desactiva la validación del "Issuer" (quién emitió el token)
-				ValidateAudience = false, // Desactiva la validación de la "Audience" (para quién es el token)
-				ValidateLifetime = true, // Habilita la validación del tiempo de vida del token
-				ValidateIssuerSigningKey = true, // Habilita la validación de la clave de firma del token
-
-				// Define la clave secreta que se utiliza para firmar el token (obtenida de la configuración)
-				IssuerSigningKey = new SymmetricSecurityKey(
-					Encoding.UTF8.GetBytes(Configuration["llavejwt"])),
-				ClockSkew = TimeSpan.Zero // Elimina cualquier margen de error en la validación de la expiración del token
-				});
-
 			services.AddEndpointsApiExplorer();
 			services.AddSwaggerGen( c =>
 			{
@@ -95,6 +81,24 @@ namespace LucyBell.Server
 			services.AddIdentity<IdentityUser, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
+
+			services.AddScoped<UserManager<IdentityUser>>();
+			services.AddScoped<SignInManager<IdentityUser>>();
+
+			services.AddAuthentication().AddJwtBearer(opciones =>
+			{
+				opciones.MapInboundClaims = false;
+
+				opciones.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = false,
+					ValidateAudience = false,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["llavejwt"]!)),
+					ClockSkew = TimeSpan.Zero
+				};
+			});
 
 
 		}
