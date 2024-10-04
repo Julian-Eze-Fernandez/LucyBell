@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
 using LucyBell.Server.DTOs.CategoriasDTOs;
 using LucyBell.Server.DTOs.ImagenesProductoDTOs;
 using LucyBell.Server.DTOs.IngresosProductoDTO;
@@ -8,6 +9,7 @@ using LucyBell.Server.DTOs.ProductosDTOs;
 using LucyBell.Server.DTOs.SubCategoriasDTOs;
 using LucyBell.Server.DTOs.VariantesProductoDTO;
 using LucyBell.Server.Entidades;
+using Microsoft.AspNetCore.Identity;
 
 namespace LucyBell.Server.Utilidades
 {
@@ -39,6 +41,12 @@ namespace LucyBell.Server.Utilidades
 
 			CreateMap<ModificacionPrecioCreacionDTO, ModificacionPrecio>(); //Mapeo para POST
 			CreateMap<ModificacionPrecio, ModificacionPrecioDTO>(); //Mapeo para GET
+
+			//CreateMap<IdentityUser, UsuarioDTO>(); //Mapeo para GET
+			CreateMap<IdentityUser, UsuarioDTO>()
+		   .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+		   .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.UserName))
+		   .ForMember(dest => dest.Telefono, opt => opt.MapFrom(src => src.PhoneNumber));
 
 		}
 	}

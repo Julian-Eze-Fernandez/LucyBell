@@ -1,8 +1,12 @@
-﻿using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using LucyBell.Server.Utilidades;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,26 +21,44 @@ namespace LucyBell.Server.Controllers
 		private readonly UserManager<IdentityUser> userManager;
 		private readonly IConfiguration configuration;
 		private readonly SignInManager<IdentityUser> signInManager;
+		private readonly ApplicationDbContext context;
+		private readonly IMapper mapper;
 
 		public UsuariosController(UserManager<IdentityUser> userManager,
 			IConfiguration configuration,
-			SignInManager<IdentityUser> signInManager)
+			SignInManager<IdentityUser> signInManager,
+			ApplicationDbContext context,
+			IMapper mapper)
 		{
 			this.userManager = userManager;
 			this.configuration = configuration;
 			this.signInManager = signInManager;
+			this.context = context;
+			this.mapper = mapper;
+		}
+
+		[HttpGet("ListadoUsuarios")]
+		public async Task<ActionResult<List<UsuarioDTO>>> ListadoUsuarios([FromQuery] PaginacionDTO paginacionDTO)
+		{
+			var queryable = context.Users.AsQueryable();
+			await HttpContext.InsertarParametrosPaginacionEnCabecera(queryable);
+			var usuarios = await queryable.ProjectTo<UsuarioDTO>(mapper.ConfigurationProvider)
+				.OrderBy(x => x.Email).Paginar(paginacionDTO).ToListAsync();
+
+			return usuarios;
 		}
 
 		[HttpPost("registrar")]
-		public async Task<ActionResult<RespuestaAutenticacionDTO>> Registrar(CredencialesUsuarioDTO credencialesUsuarioDTO)
+		public async Task<ActionResult<RespuestaAutenticacionDTO>> Registrar(CredencialesUsuarioCreacionDTO credencialesUsuarioCreacionDTO)
 		{
 			var usuario = new IdentityUser
 			{
-				Email = credencialesUsuarioDTO.Email,
-				UserName = credencialesUsuarioDTO.Email
+				UserName = credencialesUsuarioCreacionDTO.Nombre,
+				Email = credencialesUsuarioCreacionDTO.Email,
+				PhoneNumber = credencialesUsuarioCreacionDTO.Telefono
 			};
 
-			var resultado = await userManager.CreateAsync(usuario, credencialesUsuarioDTO.Password);
+			var resultado = await userManager.CreateAsync(usuario, credencialesUsuarioCreacionDTO.Password);
 
 			if (resultado.Succeeded)
 			{
@@ -74,9 +96,37 @@ namespace LucyBell.Server.Controllers
 			}
 		}
 
+		[HttpPost("HacerAdmin")]
+		public async Task<IActionResult> HacerAdmin(EditarClaimDTO editarClaimDTO)
+		{
+			var usuario = await userManager.FindByEmailAsync(editarClaimDTO.Email);
+
+			if (usuario is null)
+			{
+				return NotFound();
+			}
+
+			await userManager.AddClaimAsync(usuario, new Claim("esadmin", "true"));
+			return NoContent();
+		}
+
+		[HttpPost("RemoverAdmin")]
+		public async Task<IActionResult> RemoverAdmin(EditarClaimDTO editarClaimDTO)
+		{
+			var usuario = await userManager.FindByEmailAsync(editarClaimDTO.Email);
+
+			if (usuario is null)
+			{
+				return NotFound();
+			}
+
+			await userManager.RemoveClaimAsync(usuario, new Claim("esadmin", "true"));
+			return NoContent();
+		}
+
 		private IEnumerable<IdentityError> ConstruirLoginIncorrecto()
 		{
-			var identityError = new IdentityError() { Description = "Login incorrecto" };
+			var identityError = new IdentityError() { Description = "Email o contraseña incorrecta" };
 			var errores = new List<IdentityError>();
 			errores.Add(identityError);
 			return errores;

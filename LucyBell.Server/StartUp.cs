@@ -100,6 +100,10 @@ namespace LucyBell.Server
 				};
 			});
 
+			services.AddAuthorization(opciones =>
+			{
+				opciones.AddPolicy("esadmin", politica => politica.RequireClaim("esadmin"));
+			});
 
 		}
 

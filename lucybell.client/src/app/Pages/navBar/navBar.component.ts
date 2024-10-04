@@ -86,13 +86,13 @@ export class navBarComponent implements OnInit {
 
     openLoginModal() {
       this.showModal = true;
-      this.loginModal.openModal();
+      this.loginModal.openLoginModal();
   
     }
 
     closeLoginModal() {
       this.showModal = false;
-      this.loginModal.closeModal();
+      this.loginModal.closeLoginModal();
   
     }
 

@@ -10,7 +10,7 @@ namespace LucyBell.Server.Controllers
 {
 	[ApiController]
 	[Route("api/categorias")]
-	//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+	//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "esadmin")]
 
 	public class CategoriasController : ControllerBase
 	{

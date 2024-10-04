@@ -20,6 +20,9 @@ import { LoginComponent } from './Pages/seguridad/login/login.component';
 import { FormularioAutenticacionComponent } from './Pages/seguridad/formulario-autenticacion/formulario-autenticacion.component';
 import { MostrarErroresComponent } from './Pages/seguridad/mostrar-errores/mostrar-errores.component';
 import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
+import { FormularioRegistroComponent } from './Pages/seguridad/formulario-registro/formulario-registro.component';
+import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
+import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componentes/listado-generico/listado-generico.component';
 
 register();
 
@@ -35,6 +38,9 @@ register();
     
   
     
+  
+  
+  
   
   
   
@@ -61,6 +67,9 @@ register();
     FormularioAutenticacionComponent,
     MostrarErroresComponent,
     RegistroComponent,
+    FormularioRegistroComponent,
+    IndiceUsuariosComponent,
+    ListadoGenericoComponent,
   ],
   providers: [],
   bootstrap: [],

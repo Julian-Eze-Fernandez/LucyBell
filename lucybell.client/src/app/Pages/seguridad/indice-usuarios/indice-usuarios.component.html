@@ -1,0 +1,64 @@
+<div class="flex">
+    <app-sidebar class="sidebar max-p-max"></app-sidebar>
+
+    <div class="main-content flex-1 p-4">
+        <div class="flex">
+            <div class="block">
+              <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
+                Usuarios
+                <div class="gradient-line-title mb-4"></div>
+              </h1>
+              <div class="flex">
+                <p class="mb-10">Administra los usuarios de la pagina</p>
+              </div>
+            </div>
+          </div>
+        
+        <app-listado-generico [listado]="usuarios">
+            <ng-container contenido>
+                <div class="flex justify-center">
+                    <table class="w-auto divide-y divide-gray-200">
+                      <thead class="bg-purplePersonalizado text-black">
+                        <tr>
+                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Email</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Nombre</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Telefono</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-gray-100 divide-y divide-gray-200">
+                        <tr *ngFor="let element of usuarios">
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ element.email }}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ element.nombre }}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ element.telefono }}</td>
+                          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <button (click)="hacerAdmin(element.email)" class="bg-lime-600 hover:bg-green-70 text-white px-2 py-1 rounded">Hacer Admin</button>
+                            <button (click)="removerAdmin(element.email)" class="bg-red-500 text-white px-2 py-1 rounded">Remover Admin</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+            </ng-container>
+        </app-listado-generico>
+
+        <div class="flex justify-center mt-4">
+            <button (click)="actualizarPaginacion({ pageIndex: paginacion.pagina - 1, pageSize: paginacion.recordsPorPagina })" 
+                    [disabled]="paginacion.pagina === 1"
+                    class="px-4 py-2 bg-gray-300 rounded-l disabled:bg-gray-100">
+                <
+            </button>
+            
+            <span class="px-4 py-2 bg-white border-t border-b border-gray-300">
+                {{ paginacion.pagina }}
+            </span>
+            
+            <button (click)="actualizarPaginacion({ pageIndex: paginacion.pagina, pageSize: paginacion.recordsPorPagina })" 
+                    class="px-4 py-2 bg-gray-300 rounded-r">
+                >
+            </button>
+        </div>
+    </div>
+</div>
+
