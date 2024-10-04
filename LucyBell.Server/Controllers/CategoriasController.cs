@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LucyBell.Server.Controllers
 {
@@ -63,7 +64,7 @@ namespace LucyBell.Server.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostCategoria(CategoriaCreacionDTO categoriaCreacionDTO)
+		public async Task<ActionResult> PostCategoria([FromForm] CategoriaCreacionDTO categoriaCreacionDTO, IFormFile? imagen)
 		{
 			var existeCategoriaConElMismoNombre = await context.Categorias.AnyAsync(x => x.Nombre == categoriaCreacionDTO.Nombre);
 
@@ -72,32 +73,61 @@ namespace LucyBell.Server.Controllers
 				return BadRequest($"Ya existe una categoria con el nombre {categoriaCreacionDTO.Nombre}");
 			}
 
-			var categoria = mapper.Map<Categoria>(categoriaCreacionDTO);
+            string? urlImagen = null;
 
-			context.Add(categoria);
+            if (imagen != null)
+            {
+                // Save the image (e.g., to a folder or cloud storage) and get the URL
+                var filePath = Path.Combine("Imagenes", imagen.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imagen.CopyToAsync(stream);
+                }
+                urlImagen = $"Imagenes/{imagen.FileName}"; // Construct the URL for the saved image
+            }
+
+            var categoria = mapper.Map<Categoria>(categoriaCreacionDTO);
+            categoria.UrlImagen = urlImagen;
+
+            context.Add(categoria);
 			await context.SaveChangesAsync();
 			return Ok(new { isSuccess = true });
 		}
 
 		[HttpPut("{id}")]
-		public async Task<ActionResult> PutCategoria(CategoriaCreacionDTO categoriaCreacionDTO, int id)
-		{
-			var existe = await context.Categorias.AnyAsync(x => x.Id == id);
+        public async Task<ActionResult> PutCategoria([FromForm] CategoriaCreacionDTO categoriaCreacionDTO, int id, IFormFile? imagen)
+        {
+            var categoriaExistente = await context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
 
-			if (!existe)
-			{
-				return NotFound();
-			}
+            if (categoriaExistente == null)
+            {
+                return NotFound();
+            }
 
-			var categoria = mapper.Map<Categoria>(categoriaCreacionDTO);
-			categoria.Id = id;
+            string? urlImagen = categoriaExistente.UrlImagen; 
 
-			context.Update(categoria);
-			await context.SaveChangesAsync();
-			return Ok(new { isSuccess = true });
+            if (imagen != null)
+            {
+                var filePath = Path.Combine("Imagenes", imagen.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imagen.CopyToAsync(stream);
+                }
+
+                urlImagen = $"Imagenes/{imagen.FileName}"; 
+            }
+
+            var categoria = mapper.Map(categoriaCreacionDTO, categoriaExistente); 
+
+            categoria.Id = id;
+            categoria.UrlImagen = urlImagen; 
+
+            context.Update(categoria);
+            await context.SaveChangesAsync();
+            return Ok(new { isSuccess = true });
         }
 
-		[HttpDelete("{id}")]
+        [HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCategoria(int id)
 		{
             var categoria = await context.Categorias.FindAsync(id);

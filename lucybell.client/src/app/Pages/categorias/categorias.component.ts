@@ -12,6 +12,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component'
 import { Material } from '../../Models/Material';
 import { SubCategoria, SubCategoriaCreacionDTO } from '../../Models/SubCategoria';
 import { FormsModule } from '@angular/forms';
+import {appsettings} from '../../Settings/appsettings';
 
 
 
@@ -19,11 +20,13 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [CommonModule, TwoButtonModalComponent, OneButtonModalComponent, FormsModule, SidebarComponent],
+  imports: [CommonModule, TwoButtonModalComponent, OneButtonModalComponent, FormsModule, SidebarComponent,],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })
 export class CategoriasComponent {
+
+  appsettings = appsettings;
 
   @ViewChild('deleteModalCatg') deleteModalCatg!: TwoButtonModalComponent;
   @ViewChild('deleteModalMats') deleteModalMats!: TwoButtonModalComponent;
@@ -47,11 +50,13 @@ export class CategoriasComponent {
   selectedCategoria: CategoriaABM | null = null;
   
   selectedSubCategoriaEdit: SubCategoria = { id: 0, nombre: '', categoriaId: 0 };
-  selectedCategoriaEdit: CategoriaABM = { id: 0, nombre: '' }
-  selectedMatEdit: Material = { id: 0, nombre: '' }
+  selectedCategoriaEdit: CategoriaABM = { id: 0, nombre: '', urlImagen: '' };
+  selectedMatEdit: Material = { id: 0, nombre: '' };
 
   newMatsName: string = '';
   newCategoryName: string = '';
+  selectedImage: File | null = null;
+  imageUrl: string | null = null;
   newSubCategoryName: string = '';
 
   editSubCategoryName: string = '';
@@ -116,32 +121,41 @@ export class CategoriasComponent {
   }
   closeEditCategoryModal() {
     this.showModal = false;
+    this.selectedImage = null; 
+    this.imageUrl = null;
+    this.selectedCategoriaEdit = { id: 0, nombre: '', urlImagen: '' };
     this.editModalCatg.closeModal();
 
   }
-  onEditCategory() {
-    this.selectedCategoriaEdit.nombre = this.editCategoryName
 
-    this.categoriaServicio.putCategoria(this.selectedCategoriaEdit.id, this.selectedCategoriaEdit).subscribe({
+  onEditCategory() {
+    const formData = new FormData();
+    formData.append('nombre', this.editCategoryName);
+    
+    if (this.selectedImage) {
+      formData.append('imagen', this.selectedImage); 
+    }
+  
+    this.categoriaServicio.putCategoria(this.selectedCategoriaEdit.id, formData).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          
-          
-          this.closeEditCategoryModal(); 
-          this.selectedCategoriaEdit = { id: 0, nombre: '' }
+          this.closeEditCategoryModal();
+          this.selectedCategoriaEdit = { id: 0, nombre: '', urlImagen: '' };
           this.editCategoryName = '';
+          this.selectedImage = null; 
+          this.imageUrl = null;
           this.obtenerCategorias();
-
         } else {
-          alert('Failed to update category: ');
+          alert('Failed to update category');
         }
-      }, 
+      },
       error: (err) => {
         console.error('Error updating category:', err);
         alert('An error occurred while updating the category.');
-        
       }
     });
+
+    
   }
 
   openAddSubCategoryModal(categoria: CategoriaABM) {
@@ -312,7 +326,7 @@ export class CategoriasComponent {
 
   openAddCategoryModal() {
     this.showModal = true;
- 
+
     this.addModalCatg.openModal();
    
 
@@ -320,22 +334,46 @@ export class CategoriasComponent {
   closeAddCategoryModal() {
     this.showModal = false;
     this.addModalCatg.closeModal();
+    this.selectedImage = null; 
+    this.imageUrl = null;
    
   }
+
+  imagenSeleccionada(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   onAddCategory() {
     if (this.newCategoryName.trim()) {
-      const categoria = { nombre: this.newCategoryName };
+      const formData = new FormData();
+      formData.append('nombre', this.newCategoryName);
 
-      this.categoriaServicio.PostCategoria(categoria).subscribe({
+      if (this.selectedImage) {
+        formData.append('imagen', this.selectedImage);
+      } else {
+        // If no new image is selected, keep the existing image URL
+        formData.append('urlImagen', this.selectedCategoriaEdit.urlImagen || '');
+      }
+  
+      this.categoriaServicio.PostCategoria(formData).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             this.obtenerCategorias();
             this.newCategoryName = '';
+            this.selectedImage = null; 
+            this.imageUrl = null;
             this.closeAddCategoryModal();
           } else {
-            alert('Failed to add category: ');
+            alert('Failed to add category');
           }
-          
         },
         error: (err) => {
           console.error('Error adding category:', err);
@@ -344,7 +382,6 @@ export class CategoriasComponent {
       });
     }
   }
-
   obtenerCategorias() {
     this.categoriaServicio.GetCategoriasLista().subscribe({
       next: (data) => {

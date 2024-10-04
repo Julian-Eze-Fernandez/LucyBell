@@ -56,7 +56,8 @@ namespace LucyBell.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    UrlImagen = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
