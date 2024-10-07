@@ -224,3 +224,17 @@
   z-index: 999;
 }
 
+.julius{
+  font-family: Julius;
+}
+
+.volSC{
+  font-family: VollkornSC;
+}
+
+.dynamic-gap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: calc(1rem + 2vw); /* Adjust this formula as needed */
+}
+

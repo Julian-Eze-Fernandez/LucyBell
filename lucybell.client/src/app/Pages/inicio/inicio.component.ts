@@ -2,6 +2,8 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener } from '@angula
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../navBar/navBar.component';
 import { register } from 'swiper/element/bundle';
+import { Categoria } from '../../Models/Categoria';
+import { CategoriaService } from '../../Services/categoria.service';
 import Swiper from 'swiper';
 
 import SwiperCore,{ Pagination, Navigation, EffectCoverflow } from 'swiper/modules';
@@ -28,6 +30,10 @@ register();
 
 export class InicioComponent implements OnInit {
 
+  listaCategorias: Categoria[] = []
+
+constructor(private categoriaService:CategoriaService){}
+
   ngOnInit(): void {  
 
     var TrandingSlider = new Swiper('.tranding-slider', {
@@ -53,6 +59,19 @@ export class InicioComponent implements OnInit {
       }
     });
 
+    this.obtenerCategorias();
+
+  }
+
+  obtenerCategorias() {
+    this.categoriaService.GetCategoriasLista().subscribe({
+      next: (data) => {
+        this.listaCategorias = data.map(c => ({ ...c, isExpanded: false }));
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    });
   }
 
   @HostListener('window:scroll', ['$event'])
