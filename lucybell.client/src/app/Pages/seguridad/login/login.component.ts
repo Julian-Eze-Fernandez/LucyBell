@@ -1,17 +1,18 @@
 import { Component, EventEmitter, inject, Input, Output, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { Router } from '@angular/router';
-import { CredencialesUsuarioDTO } from '../seguridad';
-import { extraerErroresIdentity } from '../funciones/extraerErrores';
+import { CredencialesUsuarioCreacionDTO, CredencialesUsuarioDTO } from '../seguridad';
+import { extraerErroresIdentity } from '../compartidos/funciones/extraerErrores';
 import { FormularioAutenticacionComponent } from "../formulario-autenticacion/formulario-autenticacion.component";
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FormularioRegistroComponent } from "../formulario-registro/formulario-registro.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormularioAutenticacionComponent, CommonModule],
+  imports: [FormularioAutenticacionComponent, CommonModule, FormularioRegistroComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -35,7 +36,21 @@ export class LoginComponent {
     this.seguridadService.login(credenciales)
     .subscribe({
       next: () => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
+      },
+      error: err => {
+        const errores = extraerErroresIdentity(err);
+        this.errores = errores;
+      }
+    })
+  }
+
+  registrar(credenciales: CredencialesUsuarioCreacionDTO){
+    this.seguridadService.registrar(credenciales)
+    .subscribe({
+      next: () => {
+        this.isRegisterOpen = false;
+        this.router.navigate(['/']);
       },
       error: err => {
         const errores = extraerErroresIdentity(err);
@@ -49,29 +64,35 @@ export class LoginComponent {
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
-  isOpen: boolean = false;
+  isLoginOpen: boolean = false;
+  isRegisterOpen: boolean = false;
 
   animationState = 'closed';
 
   ngOnChanges() {
-    this.animationState = this.isOpen ? 'open' : 'closed';
+    this.animationState = this.isLoginOpen ? 'open' : 'closed';
   }
 
-  openModal() {
-    this.isOpen = true;
+  openLoginModal() {
+    this.isLoginOpen = true;
     this.animationState = 'open';
   }
 
-  closeModal() {
+  closeLoginModal() {
+    this.resetearErrores();
     this.animationState = 'closed';
     setTimeout(() => {
-      this.isOpen = false;
+      this.isLoginOpen = false;
 
     }, 200); // Wait for the animation to complete
   }
 
   onClose(){
     this.cancel.emit();
+
+    if (this.isRegisterOpen) {
+      this.closeRegisterModal();
+    }
   }
 
   onConfirm() {
@@ -87,4 +108,21 @@ export class LoginComponent {
     } 
   }
 
+  openRegisternModal() {
+    this.isLoginOpen = false;
+    this.isRegisterOpen = true;
+    this.animationState = 'open';
+  }
+
+  closeRegisterModal() {
+    this.animationState = 'closed';
+    setTimeout(() => {
+      this.isRegisterOpen = false;
+
+    }, 200); // Wait for the animation to complete
+  }
+
+  resetearErrores() {
+    this.errores = [];
+}
 }

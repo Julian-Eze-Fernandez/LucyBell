@@ -1,5 +1,5 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { SeguridadService } from '../../../Services/seguridad.service';
+import { SeguridadService } from '../../../../Services/seguridad.service';
 import { inject } from '@angular/core';
 
 export const esAdminGuard: CanActivateFn = (route, state) => {

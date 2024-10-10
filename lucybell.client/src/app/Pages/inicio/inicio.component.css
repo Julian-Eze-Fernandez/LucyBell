@@ -20,47 +20,49 @@
     font-family: inter;
     font-size: 2rem;
     color: white;
-    background-color: rgba(37, 37, 37, 0.5);
-    border-radius: 10px;
+    background-color: rgba(37, 37, 37, 0.8);
+    border-radius: 5px;
     padding: 2px 10px;
   }
   
   
   #tranding .tranding-slider {
-    height: 37rem;
+    height: 35rem;
     padding: 2rem 0;
     position: relative;
   }
   
-  @media (max-width:550px) {
+  @media (max-width:640px) {
     #tranding .tranding-slider {
-      height: 35rem;
+      height: 33rem;
     }
+
   }
 
   @media (max-width:430px) {
     #tranding .tranding-slider {
-      height: 30rem;
+      height: 28rem;
     }
+
   }
   
   .tranding-slide {
-    width: 29rem;
-    height: 30rem;
+    width: 25rem;
+    height: 27rem;
     position: relative;
   }
   
-  @media (max-width:550px) {
+  @media (max-width:640px) {
 
 
 
     .tranding-slide {
       width: 22rem !important;
-      height: 27rem !important;
+      height: 25rem !important;
     }
     .tranding-slide .tranding-slide-img img {
       width: 22rem !important;
-      height: 27rem !important;
+      height: 25rem !important;
     }
 
     .price{
@@ -75,17 +77,17 @@
   @media (max-width:430px) {
     .tranding-slide {
       width: 18rem !important;
-      height: 22rem !important;
+      height: 20rem !important;
     }
     .tranding-slide .tranding-slide-img img {
       width: 18rem !important;
-      height: 22rem !important;
+      height: 20rem !important;
     }
   }
   
   .tranding-slide .tranding-slide-img img {
-    width: 29rem;
-    height: 30rem;
+    width: 25rem;
+    height: 27rem;
     border-radius: 2rem;
     object-fit: cover;
   }
@@ -116,8 +118,8 @@
     font-size: 1.5rem;
     color: white;
     font-family: julius;
-    background-color: rgba(37, 37, 37, 0.5);
-    border-radius: 10px;
+    background-color: rgba(37, 37, 37, 0.8);
+    border-radius: 5px;
     padding: 2px 10px;
   }
   
@@ -222,5 +224,35 @@
 
 .z-100 {
   z-index: 999;
+}
+
+.slider-size{
+  margin-top: 580px;
+}
+
+@media (max-width:640px){
+  .slider-size{
+    margin-top: 530px;
+  }
+}
+
+@media (max-width:430px){
+  .slider-size{
+    margin-top: 460px;
+  }
+}
+
+.julius{
+  font-family: Julius;
+}
+
+.volSC{
+  font-family: VollkornSC;
+}
+
+.dynamic-gap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: calc(1rem + 2vw); /* Adjust this formula as needed */
 }
 

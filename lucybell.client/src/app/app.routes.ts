@@ -8,9 +8,10 @@ import { StockComponent } from './Pages/stock/stock.component'
 import { navBarComponent } from './Pages/navBar/navBar.component';
 import { InicioComponent } from './Pages/inicio/inicio.component'
 import { Component } from '@angular/core';
-import { esAdminGuard } from './Pages/seguridad/guards/es-admin.guard';
+import { esAdminGuard } from './Pages/seguridad/compartidos/guards/es-admin.guard';
 import { LoginComponent } from './Pages/seguridad/login/login.component';
 import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
+import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
     { path: 'categorias',component:CategoriasComponent, canActivate: [esAdminGuard]},
@@ -21,8 +22,9 @@ export const routes: Routes = [
     { path: 'stock', component:StockComponent, canActivate: [esAdminGuard]},
     { path: 'navBar', component: navBarComponent },
     { path: 'inicio', component: InicioComponent },
+    { path: 'usuarios', component: IndiceUsuariosComponent},
     //{ path: 'login', component: LoginComponent },
-    { path: 'registrar', component: RegistroComponent },
+    //{ path: 'registrar', component: RegistroComponent },
 ];
 
 

@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
-import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO } from '../Pages/seguridad/seguridad';
+import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO, UsuarioDTO } from '../Pages/seguridad/seguridad';
 import { Observable, tap } from 'rxjs';
+import { PaginacionDTO } from '../Pages/seguridad/compartidos/modelos/PaginacionDTO';
+import { construirQueryParams } from '../Pages/seguridad/compartidos/funciones/construirQueryParams';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,20 @@ export class SeguridadService {
   private urlBase = appsettings.apiUrl.endsWith('/') ? appsettings.apiUrl + 'usuarios' : appsettings.apiUrl + '/usuarios';
   private readonly llaveToken = 'token';
   private readonly llaveExpiracion = 'token-expiracion';
+
+  obtenerUsuariosPaginado(paginacion: PaginacionDTO): Observable<HttpResponse<UsuarioDTO[]>> {
+    let queryParams = construirQueryParams(paginacion);
+    return this.http.get<UsuarioDTO[]>(`${this.urlBase}/ListadoUsuarios`, { params: queryParams, observe: 'response' });
+  }
+
+  hacerAdmin(email: string){
+    return this.http.post(`${this.urlBase}/haceradmin`, {email});
+  }
   
+  removerAdmin(email: string){
+    return this.http.post(`${this.urlBase}/removeradmin`, {email});
+  }
+
   registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
     .pipe(
@@ -66,8 +81,12 @@ export class SeguridadService {
     localStorage.removeItem(this.llaveExpiracion);
   }
 
-
   obtenerRol(): string {
-    return '';
+    const esAdmin = this.obtenerCampoJWT('esadmin');
+    if (esAdmin) {
+      return 'admin'
+    } else {
+    return 'admin';
+    }
   }
 }

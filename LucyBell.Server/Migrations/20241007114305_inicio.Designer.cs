@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929234423_inicio")]
+    [Migration("20241007114305_inicio")]
     partial class inicio
     {
         /// <inheritdoc />
@@ -79,6 +79,9 @@ namespace LucyBell.Server.Migrations
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("UrlImagen")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

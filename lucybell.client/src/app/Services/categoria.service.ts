@@ -21,12 +21,12 @@ export class CategoriaService {
   obtener(id:number){
     return this.http.get<Categoria>(`${this.apiUrl}/${id}`);
   }
-  PostCategoria(objeto: CategoriaCreacionDTO){
-    return this.http.post<ResponseAPI>(this.apiUrl,objeto);
+  PostCategoria(formData: FormData){
+    return this.http.post<ResponseAPI>(this.apiUrl, formData);
   }
 
-  putCategoria(id: number, categoria: CategoriaCreacionDTO) {
-    return this.http.put<ResponseAPI>(`${this.apiUrl}/${id}`, categoria);
+  putCategoria(id: number, formData: FormData) {
+    return this.http.put<ResponseAPI>(`${this.apiUrl}/${id}`, formData);
   }
 
   DeleteCategoria(id: number){
