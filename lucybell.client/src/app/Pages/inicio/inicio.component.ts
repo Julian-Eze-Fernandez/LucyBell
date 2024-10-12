@@ -6,14 +6,6 @@ import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
 import Swiper from 'swiper';
 
-import SwiperCore,{ Pagination, Navigation, EffectCoverflow } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-
-
 register();
 
 @Component({
@@ -24,9 +16,6 @@ register();
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
-
-
-
 
 export class InicioComponent implements OnInit {
 
@@ -74,20 +63,5 @@ constructor(private categoriaService:CategoriaService){}
     });
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const placeholder = document.getElementById('navBar-Placeholder');
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-  
-    if (placeholder) {
-      if (scrollPosition > 5) {
-        placeholder.classList.remove('h-48,', 'sm:h-60', 'lg:h-80');
-        placeholder.classList.add('h-40', 'sm:h-44', 'lg:h-52');
-      } else {
-        placeholder.classList.remove('h-40', 'sm:h-44', 'lg:h-52');
-        placeholder.classList.add('h-48', 'sm:h-60', 'lg:h-80');
-      }
-    }
-  }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnChanges  } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { ProductoService } from '../../Services/producto.service';
 import { CategoriaService } from '../../Services/categoria.service';
 import {Producto} from '../../Models/Producto';
@@ -16,7 +16,7 @@ import { timeout } from 'rxjs';
 @Component({
   selector: 'app-administrar-productos',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent],
+  imports: [CommonModule, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent, SidebarAdminComponent],
   templateUrl: './administrar-productos.component.html',
   styleUrl: './administrar-productos.component.css'
 })

@@ -1,255 +1,105 @@
-<!-- Button to toggle the sidebar -->
 <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg z-31 sm:hidden bg-MyHover focus:outline-none focus:ring-2 focus:ring-gray-200">
-  <span class="sr-only">Open sidebar</span>
-  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <rect width="30" height="30" fill="url(#pattern0_766_44)" />
-    <defs>
-      <pattern id="pattern0_766_44" patternContentUnits="objectBoundingBox" width="1" height="1">
-        <use xlink:href="#image0_766_44" transform="scale(0.01)" />
-      </pattern>
-      <image id="image0_766_44" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3ZwXEEMQwDQeSfNByFlzyxuwoJcPRTAgAAMK+WL28gSHY9OkEyH0GQ/HAQAAAAAACA1/X41unxrdPjW6fHBwAAAAAAwMemP4h6bIJkPoIgmT+8IHkkCAAAAAAAwOt6fOv0+Nbp8a3T4wMAAAAAAOBj0x9EPTZBMh9BkMwfXpA8EgQAACD/6A/bIkoLlbKojgAAAABJRU5ErkJggg==" />
-    </defs>
-  </svg>
-
-</button>
-<div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
-<!-- Sidebar -->
-<aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
-  <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor ">
-    <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden bg-MyHover focus:outline-none">
-      <span class="sr-only">close sidebar</span>
-      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <rect width="30" height="30" fill="url(#pattern0_798_4)" />
-        <defs>
-          <pattern id="pattern0_798_4" patternContentUnits="objectBoundingBox" width="1" height="1">
-            <use xlink:href="#image0_798_4" transform="scale(0.01)" />
-          </pattern>
-          <image id="image0_798_4" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABUElEQVR4nO3dMUoDARQG4T1hgkGx0LMLKUSJR1AY2coimy7CvGW+bqsf3qRMssuSJEmSJLkL4AH4AL6Ax+k7owHPwDd/LpN3RuP6SKvPqTujsX2k9fk0cWc04GnjSD/Ay8Sd0SiGB8XwoBgeFMODYnhQDA+K4UExPCiGB8XwoBgeFMODYnhQDA+K4VEMkWKIFEOkGCLFECmGSDFEiiFSDJFiiBRDpBgixRAphkgxRIohUgyRYogUQ6QYIsUQKYbM+o8FN36J+jpxZxeKIlQUoaIIFUWoKEJFESqKUFGEiiJUFKGiCBVFqChCRREqilBRhIoiVBShoggVRagoQvRtFh+K4kNRfCiKD0XxoSg+FMWHovhQFB+K4kNRfCiKD0XxoSg+FMWHovhw+6XBx4k7u8D2sc5Td3aB62O9T97ZBeAIvK2fWuAwfSdJkiRJln/yC/d3EpzcmuBOAAAAAElFTkSuQmCC" />
-        </defs>
-      </svg>
-    </button>
-    <div class="flex items-center justify-center mb-2 mt-6">
-      <img src='../assets/Logo.svg' alt="Logo" class="h-auto">
+    <span class="sr-only">Open sidebar</span>
+    <img src="../../../assets/icons/Menu.svg" alt="Menu">
+  </button>
+  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
+  
+  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
+    <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor ">
+      <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden bg-MyHover focus:outline-none">
+        <span class="sr-only">close sidebar</span>
+        <img src="../../../assets/icons/Back.svg" alt="Menu">
+      </button>
+      <div class="flex items-center justify-center mb-2 mt-6">
+        <img src='../assets/Logo.svg' alt="Logo" class="h-auto">
+      </div>
+  
+      <div class="gradient-line mb-4"></div>
+      <ul class="space-y-2">
+        <app-autorizado rol="admin">
+          <ng-container autorizado>
+            <li>
+              <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
+                <img src="../../../assets/icons/Home.svg" alt="Inicio">
+                <span class="ml-3 text-lg font-medium">Inicio</span>
+              </a>
+            </li>
+            <li>
+              <button (click)="toggleDropdown('dropdown-ventas')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-ventas">
+                <img src="../../../assets/icons/MoneyTag.svg" alt="MoneyTag">
+                <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Ventas</span>
+                <img *ngIf="!isDropdownOpen('dropdown-ventas')"  src="../../../assets/icons/Dropdown.svg" alt="DropDown">
+                <img *ngIf="isDropdownOpen('dropdown-ventas')"  src="../../../assets/icons/closeDropDown.svg" alt="Cerrar DropDown">
+              </button>
+              <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-ventas') }">
+                <ul id="dropdown-ventas" class=" py-2 space-y-2">
+                  <li>
+                    <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                      <img src="../../../assets/icons/Coins.svg" alt="Ventas activas">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Ventas Activas</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                      <img src="../../../assets/icons/History.svg" alt="Historial">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Historial de ventas</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                      <img src="../../../assets/icons/Graphs.svg" alt="Graficos">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Graficos</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <button (click)="toggleDropdown('dropdown-productos')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-productos">
+                <img src="../../../assets/icons/Products.svg" alt="Product">
+                <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Productos</span>
+                <img *ngIf="!isDropdownOpen('dropdown-productos')"  src="../../../assets/icons/Dropdown.svg" alt="DropDown">
+                <img *ngIf="isDropdownOpen('dropdown-productos')"  src="../../../assets/icons/closeDropDown.svg" alt="CloseDropDown">
+              </button>
+              <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-productos') }">
+                <ul id="dropdown-productos" class=" py-2 space-y-2">
+                  <li>
+                    <a href="categorias" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                      <img src="../../../assets/icons/Categories.svg" alt="Categorias">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Categorias</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="administrarProductos" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                      <img src="../../../assets/icons/EditProd.svg" alt="Admin. productos">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Administrar prod</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="stock" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+                <img src="../../../assets/icons/Stock.svg" alt="Stock">
+                <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Stock</span>
+              </a>
+            </li>
+            <li>
+              <a href="usuarios" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+                <img src="../../../assets/icons/Users.svg" alt="Usuarios">
+                <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Usuarios</span>
+              </a>
+            </li>
+            <li>
+              <a href="inicio" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transtion duration-300 bg-MyHover">
+                <img src="../../../assets/icons/Store.svg" alt="Tienda">
+                <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Volver a tienda</span>
+              </a>
+            </li>
+          </ng-container>
+        </app-autorizado>
+      </ul>
     </div>
-    <!-- Separator Line -->
-    <div class="gradient-line mb-4"></div>
-    <ul class="space-y-2">
-      <app-autorizado rol="admin">
-        <ng-container autorizado>
-          <li>
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
-    
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_690)" />
-                <defs>
-                  <pattern id="pattern0_277_690" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_690" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_690" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABWklEQVR4nO2Y62rCQBBG933q41j8Ud/Dn31whVNKTS/bRLPZ28zmOyBIFJxzshiYEIQQQvQBOH2+wh4BXoErcAPOYafyE/uJwH/5/URgWX78CHz94cXy14Vrpz3c+RvwBhwXPjsPLx9+vjNmBFbIDxuBBPnhIrBBfpgIZMi7j0ABebcRKCjvLgIV5N1EoKK8+Qg0kDcbgYby5iLQQd5MBDrKd4+AAfluETAk3zwCBuWbRWB+k4Olrc19RopvlniwwwvGmJsx6yTwZIEZjLE056YIPN/eegqQFgE4LGxqkwJQmA2/N+dwWBvhMrO99RYgfjq8r5KPInw/6rwFuF+bIqTJTwAvv967CxA7ZEHiQK2pPh8KULlwJtF4OgGhd2EKU3q+ZFCAv6QGy6X0DUoGBahcOBNzJ6A1ChDhr3AmChDhr3AmChDhr7C3ANZRgNLgDAUQQgghhAiP+QD9uT8s+wzvuQAAAABJRU5ErkJggg==" />
-                </defs>
-              </svg>
-              <span class="ml-3 text-lg font-medium">Inicio</span>
-            </a>
-          </li>
-          <li>
-            <button (click)="toggleDropdown('dropdown-ventas')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-ventas">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_687)" />
-                <defs>
-                  <pattern id="pattern0_277_687" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_687" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_687" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADT0lEQVR4nO2ZzWsTQRjGpxbBo94FPw9eFAWvSmtpSSsW0dYPaikNImoVRVCqIpT6SUDE+oUnD14E/xEPnj0IXpQiiKhg61esP5l0Kss4053d7Caz6fwgh2zyPpnn2dnZ2TdCBAKBQCAQCAQCDQeokBPCd4CbeZn3PgDgRp7mvQ4AuJa3eW8DAK4axjoLdGSg7XcAwKTFfGdG+v4GAExYzO/K8Df8DAC4kLd5bwMALhnMfwO6Umj1Ae/Uq9f7AIBxi/nulHrS+AJvvQ4AOG8w/x3oqUOzGAEA5yzmS3Xq9krj6lXyMgDgrMH8D9M166C1NeH3mxsAcAz4o43jJ9CfQmsQ+A3cKkQAwJjF/J6Yug3AA+AV8AF4AdwDqhGdCa8DAE6kOfMyHGCGeOaAbV4GgHna/wL2xtRtUpshF/Nlx7E0NgDgqMX8Pofap7jxJMF4GhcAUFZnJ4q8bgcc6z9qtfIyWglMacdfehcAMGIxP+hYv1yrnY18tkr77L1XAQDD6vakmz8YU7dGe/9J06jdLYCd2vHXjuPakXsAwJDBvHx/OKZuPfBFbpIix55pOp+B1UAbcD9yfMphXDK0r7kGAByymB9yqH0cqamFAGxRO8Qod9VnbapGmtoYo91huZVWsjR/QNuYLJgfdqyf1mo3q+Ny4TNOd2AZsD1Gt9NyK72dge155KpuMC8XwBHhiHampVa7Or5C051JoNllMV9phPnRhDr6DJAdona1fY7yxlGvW/UVdJyfG+oNoJxQ57lhsPp6InnooNVjMX+9LrN5hWCpNyEXvHUxWiXVV9CZFHlCyhDkA4yjeXmL7HNohpjMOz0pNjOEO5HvV9XlMK2msWxxPQLWxmjsNtwyJVcyN7oYwH71sBNFPgwdd/gTNHbDlPDMN9Z8BjMhUXtL1fSrvoLOuGgmpJwJCX/DNu0vCx8gxxBkP8GgLbkofIIcQlhE89+DVMuGwPz6YtI6I3yGDEJQbfCqQeO0KALUEYLlaVPWnhJFghQhyE6SxfyYKCIkCEE1WUzmT4oig0MIcldoMZ/ZXsLbEIBRQ1c5UZOlEGDfNs+lba+1ykxYGuYdQpDmj4ilAP+H4NRSb9U1oer6H2KrhjDQ7HEEAoFAICBq/AWvxmIT4kgaPAAAAABJRU5ErkJggg==" />
-                </defs>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Ventas</span>
-              <svg *ngIf="!isDropdownOpen('dropdown-ventas')" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="25" height="25" fill="url(#pattern0_277_685)" />
-                <defs>
-                  <pattern id="pattern0_277_685" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_685" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_685" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7UlEQVR4nO3YSw4BURBG4bskdmOIkWUYWjSOSHSIhGj9uFW3z5f0wET+U22kFEmSJEmSJEnSE7AqS90OHIErcCjJADvgApyGxHdSHeElvtPvCMD67Qt4fN6X4O4bP2xfD71i+F/C6JtJdITJtpLgCJNvJPARZttGwCPMvolAR6i2hQBHqL6BigOqx9ccEia+xqBw8XMOCxs/x8Dw8VMOTRM/xeB08WMOTxs/RkD6+CEhzcT/E9RcfJ+wZuN/CWw+/oc/K1P++fqXD2+77Tff4wjtx385wnLiO8AWOD+ebVkiYHN/au+QJEmSpLI0N1oXQbC/SSywAAAAAElFTkSuQmCC" />
-                </defs>
-              </svg>
-              <svg *ngIf="isDropdownOpen('dropdown-ventas')" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="25" height="25" fill="url(#pattern0_787_2)" />
-                <defs>
-                  <pattern id="pattern0_787_2" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_787_2" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_787_2" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA8klEQVR4nO3YO44CMRRE0bck2M2EDBE7IGTjwB21hDQJID7tz7PvkTqhJauqTNQRkiRJkqS6gJ/liRkBO+B8e3YxE+AXuPDvChxi0vLzjMDj8uOPAOzvlL88+G0fE9z8dbntZ+9iBLxQcNgReKPYcCPwQaFhRuCLIulHYIUCaUdgxeDpRqBA4DQjUDBo9yNQIWC3I1AxWHcj0CBQNyPQMEjzEWgdoGUGOijfLAsdla+eiQ7LV8tGx+WLZyRB+WJZSVR+9czANuvHyicfX7fvHnTMcvMv/BNOnx50zFb+zginbw/aRFKZs0uSJEmSJElSlPAHrM1BjN8sFcsAAAAASUVORK5CYII=" />
-                </defs>
-              </svg>
-            </button>
-            <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-ventas') }">
-              <ul id="dropdown-ventas" class=" py-2 space-y-2">
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="25" height="25" fill="url(#pattern0_277_683)" />
-                      <defs>
-                        <pattern id="pattern0_277_683" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_277_683" transform="scale(0.015625)" />
-                        </pattern>
-                        <image id="image0_277_683" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACL0lEQVR4nO2ZPWsUURSGTxG33zaQJoGgaJU21tnGJqRKYZEmkD+hnZ11QIi/IY3YSCobP2orJfgHVk0la+IjN54QuZlJyM49l3PxPDCwzNw5nHm58+55d0WCIAiCIAiCwAXACrADvACOgK/AFPilx1TPHematHZFWgYYAXvAR+bng9YYSUsAG8AXypFqbUgLALvAKeVJr8queAZ4CJz1PMA74BmwCdwHxsAdPcZ6blPXpLVdJGHXxSvA66zhJMYBsDpHrVW9Nxf0lXgFOMma3SpQcyur+UO8wlUsBEAaEuBs4CvwsstTxCtcz78m+ECNb6THWM9dmOD76wpJowIUQ7xCJcQrXGVPx9mho3CbAsjl+eUsDB13hKHjLAwt31TXXWrDqFFTASib2nImBfqbmAlA+dSWMwOeA4tz9Lao985MBMAutXVxqq/NE+ARcLcjDN3Ta091bW9vLaQ2U1pJba4FOKkRWvRb4u2cz/lb792xEKBqagOWgMfAPvBGjXeqBjfTz5/12r6uXerr979LbVQQwCS1uZ0DqIfPOYD6uJsDqqQ2K4oLIEaprTkBhtLyHDCxdOsW5oCZS7fu6bd4QSu3NtpZ3ywFKI3FzjpsSYDSOyuJsdaMWxfmJ7A9+OETeWUrty7Ip6J/i9MjgOOdtVCqx3OA7zXdeujOKg5w2IRbWwGsdQ0u7tzaEmBbndWvW1vD35/Hk8P6dOsaAAtu3bo2eHPrIAiCIAiCIJDb8AfocHdvSerIPgAAAABJRU5ErkJggg==" />
-                      </defs>
-                    </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Ventas Activas</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="25" height="25" fill="url(#pattern0_277_680)" />
-                      <defs>
-                        <pattern id="pattern0_277_680" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_277_680" transform="scale(0.015625)" />
-                        </pattern>
-                        <image id="image0_277_680" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlklEQVR4nO2aTUtUURjHT1BGy5my0tz0Ai3MvoZECBVpRatIMCt61YRo0cZEK+s7KH0DI4h2YWW5cWW1qRZRqWU1UWbOLx48i/F4ruO999zrHeb8QBicO//nnOc+5/V5lPJ4PB6Px+NJEKAeOA70A4+BSeAT8BuYA74Cr4FHwD3gGLBNVTLAZuAK8BRYIDxF4DlwDsirSgFo0G+xgDtE6y5Qp7IKsB64CPwkOX4BN4GaNDu2hIBnGoEJyofzHT2+G/W8sAnYAOT0/44AvcAo8G8FvXFgTyYcABwCfgQ09CNwHdgZwa44qBt4H6D9HWhx1tEoDgAu6LdrMgNclTesYqIjpB34bLEzD5yOayOSA4DOgM6PJDFZ6WEyZLFXTNQJWBwAtFmWNmlIVxzdVf5OouGvJRKSGQ4sZ69lzMtm5kQc3ZC/bbYss7PA7tAdjOCACcubPxlXN8Lvmy2R8EqW47BaYR1gcsOFbkQNGQ4ml6NoBVKm80+AdS50o2honWFDSobn9qh6y1ih84U4Y86hA/LAF0NuIKpe2AgIJKxuuefLaHUYcrIdz8XRrDQHyGbpnSHZGUezohyg9XoMyWdxNSvNAfXGAaqY6UsVHDtAa8qJs5Q2VWUO6DNkB1WVOeCoITuiqswB+wzZN6pSHLBaymhuMR6fUlmFiJTR3Gg8/sdFQ+cM0Zpqc8CMIZqvqiEAvDVEG1VGAZqcT4IspqtKOawySiLLIHDfEO1VGSWRjRCLiYxSRlVGAV4YbW11IbrVuP6W2+AGlTGAHZbDUK1K6JDRrTKG5TjsLlKB84b4h1QTlNEuRM64NJC33MO3q4wgnbVcjOZcGxk0jExLEYRTI+4uRfuTMFRnyf0POTcUvl0PLFnjZG6CgC7D2JoOBcttsHAp6clm3DAo6anmxIwGt+WAJTU25jw1ZiKVGTrMSimk6QTdeXNS/gbsSqsBLTolbUZCe0phb0uPH0za9hKkKCGgQGI4ibI2XXZnTnjoNpxybS+ME8xIQC9LHS42S6Kh1/kpi535Neu8MRykOMGG7BivyT5dRas37NEaNmZTD/sgJEsMvCSYBX2euKXP7E16A1Oj/+Tzfv1dnz7VrVRdOpbahBehUNJcIVxSSL1QMiyyCwNuO64YFa0BOZqrSoHFsrazkqUNWC3KUdQVo53ODzZpA9Tq0jo5UD3U5fLT+sp9Tn+e1N9JUXSrs8sMj8fj8Xg8HmXnP1UbzQ37aBBAAAAAAElFTkSuQmCC" />
-                      </defs>
-                    </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Historial de ventas</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="25" height="25" fill="url(#pattern0_277_677)" />
-                      <defs>
-                        <pattern id="pattern0_277_677" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_277_677" transform="scale(0.015625)" />
-                        </pattern>
-                        <image id="image0_277_677" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD20lEQVR4nO2ZW4gVRxCGR9dVQbyxalACgjeUPAjBJ0kQNQoiwXhZBSXBF/dBiCYRFHxxIQ+uq4LBJ4OCoGgUAyqiIoiGgKKQC/jgyioaDd6RuCoSL/lCMYUceqf7nOk5s2f22B8cOMzUdHX93VNTNRNFgUAgEAgEAhUA9AeWAQeADuC5/jr02FKxieoRYDFwg/JcBxb1wHzmAXuA74A5wOi8HDUA20jPVqBvLpOK57Ulwedj4BywE2gBpgNDszrahj/tVYu4+7xOppjHwSzbPok3wBPj90+iJXxR9ejjud2mcnb5JrwblgF/TbAfa7HtzCMxAp8B3wK7gcuajG2s93GwzDHgcbX5GGjW32qHfXO1BTDmKvf6Xw7/i30GPegYcK/a7Kcy9ucUeB9gLfCqjP+pPoNfcwy4Q22+ArYDv5SZQEcOwY8CTle4AIN9HHQ5BtyUYP+1w76rWoGrr5nA3QQ//wE/Gcce+DrpKlPs/AFcATbrVuyrCS83AbQmadWnkMkjYD4w2zh+wdfZNSpnrF5zKq9bABijRU4Scgt+qHZSAJWyz9fhAUfAcu/dB15rspQd0A+4k0cS1LL3YcK4b4HvxXeJbZth0+rrdKlDgM/VpqHEfoPDfonnHBq15JV72+SebPeEa44Ydl/6CtBf7/UkzgPfAMuBNY6tj+aFRg//UlhdtIx5BvjAUSDJYvwInJVaxUsAQbo6srMgSgCYBKyznFuo5bWJ3HIb82yyuqFdnS9t3Ud8Vz88U5uVJccHAD9YtrzU/p9EPQ3x463dI/gt5koBTcDPht0LqdSAicBvlrGOybU9Hnwp0tU5nvOldCZte2AW8LflmtuWuuNfzTV9opSYA6W93pWVm7UHuKrb+Jn+l2NLzISnybRdH1lpkAQ8LfIkFwHSAkx2bGt5e2PjEDAko+/aCkCc6JJ69Lea6AbJewXj3Evp7qrkvzYCACOAo5aVlZ59Ront6JKmpiNN21ouwJoIAMy1dGloyTzM0tnJ291BKX0VRwDi53ebJdFJdm/JwWcxBACmAL9bVv0SMCEnv7UVgLgDbNFCxuSN7ojGWgWYqwDASHkxaln1W8CnVfBRTAGIP0PZEt1hYHiV/BRLAGCgI9E99e67e4MAwEfAn5ZVl559fNECrIoAuBPda31B2eA5drEFIH7vfoJkbmbtzQstAHEHJ0EmsdfrQ0NvEkAAVhljyNffFVEvCTCzAIK2pcIFYFyUgnoRoEk/QadOdHUhQBbqXgAKHmAQwCD7kqd0UPTzmaHeBaDgAQQBDMIOSClQWciocNHPBwKBQCAQCASi95z/ARaswUFdA0I5AAAAAElFTkSuQmCC" />
-                      </defs>
-                    </svg>
-    
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Graficos</span>
-                  </a>
-                </li>
-              </ul>
-    
-            </div>
-    
-          </li>
-          <li>
-            <button (click)="toggleDropdown('dropdown-productos')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-productos">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_670)" />
-                <defs>
-                  <pattern id="pattern0_277_670" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_670" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_670" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABQUlEQVR4nO3VS07DMBRGYc8RK2HANmhXUR4LYdhdlE5gRR0whS1AGR5koUpgxTSJc/3S/w0bRdc+TlLnRERERERmATaUs3ElAVfAZ8EAX8B1qc1fAAfKewUuSwR4oh7PuTd/N7CIXcb5u4H5tyXf+4N/JQq/fvbfA4YHf/gopoPjB+Fn5/seAPua/ooif8EvVsMeaMe9RYAj7ThaBGiKAiwN68KJsj8BrjIKEGivcK8BgDXwznT+npX1+nIEmLP5kzfr9Y2mAIEJ4Vb+JJnO33NjfUCumgGJFCDQXuFEChBor3AiBQi0V/gX4BHYTrneTQB+NneyHXu9pwB/jL0e+z3bwnLNUYDA2HDmJ5NrTvcB5lKAQHuFI3POid3nloYCGBeOhD4n2wGhAMaFE3XzBDQToHYKsDQaowAiIiIiIu4/34GRP9dkBSdiAAAAAElFTkSuQmCC" />
-                </defs>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Productos</span>
-              <svg *ngIf="!isDropdownOpen('dropdown-productos')" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="25" height="25" fill="url(#pattern0_277_685)" />
-                <defs>
-                  <pattern id="pattern0_277_685" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_685" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_685" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7UlEQVR4nO3YSw4BURBG4bskdmOIkWUYWjSOSHSIhGj9uFW3z5f0wET+U22kFEmSJEmSJEnSE7AqS90OHIErcCjJADvgApyGxHdSHeElvtPvCMD67Qt4fN6X4O4bP2xfD71i+F/C6JtJdITJtpLgCJNvJPARZttGwCPMvolAR6i2hQBHqL6BigOqx9ccEia+xqBw8XMOCxs/x8Dw8VMOTRM/xeB08WMOTxs/RkD6+CEhzcT/E9RcfJ+wZuN/CWw+/oc/K1P++fqXD2+77Tff4wjtx385wnLiO8AWOD+ebVkiYHN/au+QJEmSpLI0N1oXQbC/SSywAAAAAElFTkSuQmCC" />
-                </defs>
-              </svg>
-              <svg *ngIf="isDropdownOpen('dropdown-productos')" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="25" height="25" fill="url(#pattern0_dropdown-productos)" />
-                <defs>
-                  <pattern id="pattern0_dropdown-productos" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_dropdown-productos" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_dropdown-productos" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA8klEQVR4nO3YO44CMRRE0bck2M2EDBE7IGTjwB21hDQJID7tz7PvkTqhJauqTNQRkiRJkqS6gJ/liRkBO+B8e3YxE+AXuPDvChxi0vLzjMDj8uOPAOzvlL88+G0fE9z8dbntZ+9iBLxQcNgReKPYcCPwQaFhRuCLIulHYIUCaUdgxeDpRqBA4DQjUDBo9yNQIWC3I1AxWHcj0CBQNyPQMEjzEWgdoGUGOijfLAsdla+eiQ7LV8tGx+WLZyRB+WJZSVR+9czANuvHyicfX7fvHnTMcvMv/BNOnx50zFb+zginbw/aRFKZs0uSJEmSJElSlPAHrM1BjN8sFcsAAAAASUVORK5CYII=" />
-                </defs>
-              </svg>
-    
-            </button>
-            <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-productos') }">
-              <ul id="dropdown-productos" class=" py-2 space-y-2">
-                <li>
-                  <a href="categorias" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="25" height="25" fill="url(#pattern0_277_666)" />
-                      <defs>
-                        <pattern id="pattern0_277_666" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_277_666" transform="scale(0.015625)" />
-                        </pattern>
-                        <image id="image0_277_666" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNklEQVR4nO2XQW6DMBBFfbwmtyirnjs5B/1VGxYRIsFjzwzFek9iEQv4njejAKUAAAAAvEBBHJVjRkkby8pBgBUldSYr5zQCitN+EdCLmIAY9kR7NYwJ6EVMQAx7or0axgT0IiYghj3RXg1jAnoRExDDnmivhjEBveigCYjKQYAVJXUmKwcBAAAWlPTvnJVjRkkby8pBgBUldeY0AkrQfTb2/ilpXq19S/paXbd13hAC5o3f0+qa6V3xoQIkXSXdl+NSsW4V0FL8nCng/rR8q1hvFWApfhpNwGwpvibHU8Dlt8Dl+KhYtwowF58qwEqDAHPxNTnuG48S0Fj8NMxToLQVP85ToDgUf2oBcih+hKfA/30T9L7P6d4EEwXUfgD9nRcuwIujchBgRUmdycpBAAAAAEB58APNSQqlY9LfoAAAAABJRU5ErkJggg==" />
-                      </defs>
-                    </svg>
-    
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Categorias</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="administrarProductos" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="25" height="25" fill="url(#pattern0_277_660)" />
-                      <defs>
-                        <pattern id="pattern0_277_660" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_277_660" transform="scale(0.015625)" />
-                        </pattern>
-                        <image id="image0_277_660" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB00lEQVR4nO2YPUoDQRhAB2IardQIVupBLEWNt1BrGzux8RxewCqiiJWI+NfY+YONoCDiAcRO8cnABuKQxMzO7GZm9nuwTXY337y3kwSilCAIgiAIgiB0hchRrhA5EsAVIsd7ABU4EsAgvKIFIwEMvBeNDQngCpEjAXyB77KeKXx9SICCCztiLE92gAqlMLACvGCPvqdZ9PrKCPBKft6KXt/ASAADi3BN4Bl79D3LRT8gFcwARySAQXyFHZEABvEV9rw+oAasAtfAZ3ZcAevAiPMAFX6AU3pzDkw4DVCB0Ue2X4Ra7gEq/gCatdwDVGD0kTwGZrLjxDh3mXuACgig0UN+H6h3XDdrnP+IPkAmf/uffHbtXFIBsJOvZx+HND4C2Mvr19P4EgSmPMifRfkz6Ele3z9pO3joATL5uy5CLUv5Rp7hf/ApFry8xnwnVSX5YQYIQn5YAYKR1xAO5ctrqLK8hirLa6iyfFkAo8BXJeU1wLwhdN9DvtVDfkrFDLBpSO1W4sm3AfYMsY3KyGuAJ0NuS0fQOwF4SHLbt9H/0wM/DE46T14DLFnIPwLTKiWA7QHEv4GLZLZ9J8BhF+F34AjYARaAMZUqwA1wkO2ERWC8jMG/FOHA60+7u/cAAAAASUVORK5CYII=" />
-                      </defs>
-                    </svg>
-    
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Administrar prod</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-    
-          </li>
-          <li>
-            <a href="stock" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_602)" />
-                <defs>
-                  <pattern id="pattern0_277_602" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_602" transform="scale(0.0104167)" />
-                  </pattern>
-                  <image id="image0_277_602" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVR4nO3bwU4DMQxFUf81y+HPHxJCCASFepqp/eJ7tq0aT25TdZMIAAAAAAAA4GJqJqZRMzGNmolp1ExMo2ZiGjUT02Q3Qos2lAAE6IETUIwAxQhQjAB7BDgkvfAvqCbA8eW1HxFWrbutBwMcv7z+LcKqdbf1QIDjj/d8Rli17rZOBjju+Nz3CKvW3daJAK+Jz775XgIUb4Q4AQRogRNQjADFCFCMAMUIUIwAxQjQNECVmEbNxDRqJqZRMzGNmolp1EwAAACgGzUT5nMS4EkIUIwAxQhQjAC7B1j1byQuXrfbnGkuDyaTOdNcHkwmc6a5PJhM5kxzeTCZzJnm8mAymTPN5UqpTOZMc7lSKpM501yulMpkzjSXK6UymTPN5UqpTOZMc7lSKpM50y5foCjAKgT4QIDFxAnw+mbJZM5+C9xAgJMbsYo4AQS4Bz9BZie13wI38BP0z0ZUiWSwbnOmqZkwn5MAT0KAYgQoRoBdAgAAAAAAACB28AbB/DJSZhjATQAAAABJRU5ErkJggg==" />
-                </defs>
-              </svg>
-    
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Stock</span>
-            </a>
-          </li>
-          <li>
-            <a href="usuarios" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_602)" />
-                <defs>
-                  <pattern id="pattern0_277_602" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_602" transform="scale(0.0104167)" />
-                  </pattern>
-                  <image id="image0_277_602" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVR4nO3bwU4DMQxFUf81y+HPHxJCCASFepqp/eJ7tq0aT25TdZMIAAAAAAAA4GJqJqZRMzGNmolp1ExMo2ZiGjUT02Q3Qos2lAAE6IETUIwAxQhQjAB7BDgkvfAvqCbA8eW1HxFWrbutBwMcv7z+LcKqdbf1QIDjj/d8Rli17rZOBjju+Nz3CKvW3daJAK+Jz775XgIUb4Q4AQRogRNQjADFCFCMAMUIUIwAxQjQNECVmEbNxDRqJqZRMzGNmolp1EwAAACgGzUT5nMS4EkIUIwAxQhQjAC7B1j1byQuXrfbnGkuDyaTOdNcHkwmc6a5PJhM5kxzeTCZzJnm8mAymTPN5UqpTOZMc7lSKpM501yulMpkzjSXK6UymTPN5UqpTOZMc7lSKpM50y5foCjAKgT4QIDFxAnw+mbJZM5+C9xAgJMbsYo4AQS4Bz9BZie13wI38BP0z0ZUiWSwbnOmqZkwn5MAT0KAYgQoRoBdAgAAAAAAACB28AbB/DJSZhjATQAAAABJRU5ErkJggg==" />
-                </defs>
-              </svg>
-    
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Usuarios</span>
-            </a>
-          </li>
-          <li>
-            <a href="inicio" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transtion duration-300 bg-MyHover">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect width="30" height="30" fill="url(#pattern0_277_653)" />
-                <defs>
-                  <pattern id="pattern0_277_653" patternContentUnits="objectBoundingBox" width="1" height="1">
-                    <use xlink:href="#image0_277_653" transform="scale(0.015625)" />
-                  </pattern>
-                  <image id="image0_277_653" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABrklEQVR4nO3UPU4DMRCG4WlIw0+PBIIeEJwlNwClCOJQQAUXgBsEED8lIDhGgKR80UpbJIOzm814teswT5lxxvZnr0Wcc84552YgcWJF4jwAKxIXPQBpOQ9AiZ5oaqybPyB9B4tufhV4I32fwMYiAVyyPK6rbr4XaHIuiQAuAuvvzfvnfeBH/fkDWJdE5J/vq9rDGDha5LsfA4eSGGAvcJDF7wHh7/5YEgWczP0eEP7uryRxMw7173sAjNSgd2BNEpftId/LpFFo4FAN6k7UtgMpbiVU76raMBTAgxp0B+zkzW8DE9xkkyRQ3wXu9d5CAZzxf/RDAXSAF5bfI7Ay68HYBJ7naFBUa7pe5CnbY/i5zGXpAKfAAPgKNMluSj+vf+djBvlvnRbUtcl6+OSL6G7SctHXiwcwTVpOLddvgNSdKEbWfo3fAIw8ACV2gGJF5BNb+gCk5n4eQOQDKRV7Qms/DyDygZSKPaG1nwcQ+UBKVZ2wKut8VeuV4QFM8xugYFTWL3a9MmI3NM7nASi1HxixGxrn8wCU2g+MhlnX4wFY0TDrejwA55xzzjkJ+wUYEUKqCCFAUwAAAABJRU5ErkJggg==" />
-                </defs>
-              </svg>
-    
-    
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Volver a tienda</span>
-            </a>
-          </li>
-        </ng-container>
-      </app-autorizado>
-    </ul>
-
-  </div>
-
-</aside>
+  </aside>
+  
+  
