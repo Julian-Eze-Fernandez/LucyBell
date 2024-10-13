@@ -8,7 +8,7 @@ import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.component';
 import { OneButtonModalComponent } from '../one-button-modal/one-button-modal.component';
-import { SidebarComponent } from '../sidebar/sidebar.component'
+import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component'
 import { Material } from '../../Models/Material';
 import { SubCategoria, SubCategoriaCreacionDTO } from '../../Models/SubCategoria';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import {appsettings} from '../../Settings/appsettings';
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [CommonModule, TwoButtonModalComponent, OneButtonModalComponent, FormsModule, SidebarComponent,],
+  imports: [CommonModule, TwoButtonModalComponent, OneButtonModalComponent, FormsModule, SidebarAdminComponent,],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })

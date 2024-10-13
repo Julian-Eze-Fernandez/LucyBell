@@ -1,5 +1,5 @@
 import { Component, model, OnInit, ViewChild  } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { CommonModule, } from '@angular/common';
 import {VariantesProductoService} from '../../Services/variantes-producto.service';
 import {VarianteProductoDTO} from '../../Models/VariantesProducto';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-stock',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, TwoButtonModalComponent, FormsModule ],
+  imports: [CommonModule, SidebarAdminComponent, TwoButtonModalComponent, FormsModule ],
   templateUrl: './stock.component.html',
   styleUrl: './stock.component.css'
 })

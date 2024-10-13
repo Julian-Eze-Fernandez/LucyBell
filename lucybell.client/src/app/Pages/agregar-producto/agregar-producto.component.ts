@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CategoriaService } from '../../Services/categoria.service';
 import { SubcategoriaService } from '../../Services/subcategoria.service';
 import { MaterialService } from '../../Services/material.service';
@@ -14,7 +13,7 @@ import { Observable, of, switchMap } from 'rxjs';
 @Component({
   selector: 'app-agregar-producto',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './agregar-producto.component.html',
   styleUrl: './agregar-producto.component.css'
 })

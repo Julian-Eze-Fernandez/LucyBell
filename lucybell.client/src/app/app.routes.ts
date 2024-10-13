@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriasComponent } from './Pages/categorias/categorias.component';
-import { SidebarComponent } from './Pages/sidebar/sidebar.component';
+import { SidebarAdminComponent } from './Pages/sidebarAdmin/sidebarAdmin.component';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component'
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component'
 import { EditProductoComponent } from './Pages/edit-producto/edit-producto.component'
@@ -15,7 +15,7 @@ import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indic
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
     { path: 'categorias',component:CategoriasComponent, canActivate: [esAdminGuard]},
-    { path: 'sidebar', component: SidebarComponent, canActivate: [esAdminGuard]},
+    { path: 'sidebarAdmin', component: SidebarAdminComponent, canActivate: [esAdminGuard]},
     { path: 'agregarProducto', component: AgregarProductoComponent, canActivate: [esAdminGuard]},
     { path: 'administrarProductos', component: AdministrarProductosComponent, canActivate: [esAdminGuard]},
     { path: 'editarProducto/:id', component:EditProductoComponent, canActivate: [esAdminGuard]},

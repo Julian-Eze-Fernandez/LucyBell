@@ -1,12 +1,13 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
+import { Component, OnInit, HostListener} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css',
+  selector: 'app-sidebarAdmin',
+  templateUrl: './sidebarAdmin.component.html',
+  styleUrl: './sidebarAdmin.component.css',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -14,8 +15,7 @@ import { RouterOutlet } from '@angular/router';
     AutorizadoComponent
 ]
 })
-
-export class SidebarComponent implements OnInit {
+export class SidebarAdminComponent implements OnInit {
 
   isSidebarOpen = false;
 
@@ -78,6 +78,8 @@ export class SidebarComponent implements OnInit {
 
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
-  
 
 }
+
+
+

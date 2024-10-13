@@ -5,12 +5,12 @@ import { UsuarioDTO } from '../seguridad';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { ListadoGenericoComponent } from "../compartidos/componentes/listado-generico/listado-generico.component";
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from "../../sidebar/sidebar.component";
+import { SidebarAdminComponent } from "../../sidebarAdmin/sidebarAdmin.component";
 
 @Component({
   selector: 'app-indice-usuarios',
   standalone: true,
-  imports: [RouterLink, ListadoGenericoComponent, CommonModule, SidebarComponent],
+  imports: [RouterLink, ListadoGenericoComponent, CommonModule, SidebarAdminComponent],
   templateUrl: './indice-usuarios.component.html',
   styleUrls: ['./indice-usuarios.component.css'] // Cambié `styleUrl` a `styleUrls` para el plural
 })
