@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PaginacionDTO } from '../compartidos/modelos/PaginacionDTO';
 import { UsuarioDTO } from '../seguridad';
@@ -15,6 +15,12 @@ import { SidebarAdminComponent } from "../../sidebarAdmin/sidebarAdmin.component
   styleUrls: ['./indice-usuarios.component.css'] // Cambié `styleUrl` a `styleUrls` para el plural
 })
 export class IndiceUsuariosComponent {
+
+  @ViewChild(SidebarAdminComponent) sidebarAdmin!: SidebarAdminComponent;
+  private touchStartX: number | null = null;
+  private startX: number = 0;
+  private endX: number = 0;
+
   columnasAMostrar = ['email', 'nombre', 'telefono', 'acciones'];
   paginacion: PaginacionDTO = { pagina: 1, recordsPorPagina: 10 };
   cantidadTotalRegistros!: number;
@@ -59,6 +65,31 @@ export class IndiceUsuariosComponent {
         this.mensaje = `El usuario ${email} ya no es admin.`;
         setTimeout(() => this.mensaje = '', 5000); // Limpia el mensaje después de 5 segundos
       });
+  }
+
+  
+  toggleChildSidebar(): void {
+    this.sidebarAdmin.toggleSidebar();
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX !== null) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const deltaX = touchEndX - this.touchStartX;
+
+      if (deltaX > 50) { // Swipe right to open
+        this.sidebarAdmin.toggleSidebar();
+      } else if (deltaX < -50) { // Swipe left to close
+        this.sidebarAdmin.toggleSidebar();
+      }
+      this.touchStartX = null;
+    }
   }
 }
 

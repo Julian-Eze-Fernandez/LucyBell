@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges  } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, HostListener  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { ProductoService } from '../../Services/producto.service';
@@ -28,6 +28,8 @@ export class AdministrarProductosComponent implements OnInit {
   @ViewChild('deleteModalProd') deleteModalProd!: TwoButtonModalComponent;
   @ViewChild('editModalProd') editModalProd!: TwoButtonModalComponent;
 
+  @ViewChild(SidebarAdminComponent) sidebarAdmin!: SidebarAdminComponent;
+
   productos: Producto[] = [];
   selectedProducto: Producto | null = null;
   categorias: Categoria[] = []
@@ -35,6 +37,10 @@ export class AdministrarProductosComponent implements OnInit {
   showModal: boolean = false;
   isSuccess: boolean = false;
   initialFormValues: any;
+
+  private touchStartX: number | null = null;
+  private startX: number = 0;
+  private endX: number = 0;
 
   customIconDelete = `<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect width="35" height="35" fill="url(#pattern0_830_4)"/>
@@ -182,6 +188,30 @@ export class AdministrarProductosComponent implements OnInit {
     this.cargarProductos();}, 200);
     }
 
+  }
+
+  toggleChildSidebar(): void {
+    this.sidebarAdmin.toggleSidebar();
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX !== null) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const deltaX = touchEndX - this.touchStartX;
+
+      if (deltaX > 50) { // Swipe right to open
+        this.sidebarAdmin.toggleSidebar();
+      } else if (deltaX < -50) { // Swipe left to close
+        this.sidebarAdmin.toggleSidebar();
+      }
+      this.touchStartX = null;
+    }
   }
 
 }

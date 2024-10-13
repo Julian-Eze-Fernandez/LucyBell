@@ -1,6 +1,39 @@
-<div class="mb-48 sm:mb-60 lg:mb-80" >
-	<app-navBar class="sticky top-0 z-50"></app-navBar>
+<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80" >
+	<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
 </div>
+
+<app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
+
+<div *ngIf="!isLargeScreen" class="sticky top-0 z-20 bg-MyBg">
+
+	<div class="relative flex flex-row justify-center">
+		
+		<button 
+		(click)="toggleChildSidebar()" 
+		class="absolute left-1 top-2 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
+		<img src="../../../assets/icons/MenuBlack.svg" alt="Menu">
+		</button>
+           
+        <!-- Logo Container -->
+        <div id="logo-container" class="h-10 my-2 flex justify-center items-center mx-auto" >
+          <img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo">
+        </div>
+		
+		<div class="absolute right-1 top-4 opacity-80">
+			<div class="flex">
+				<button class="px-1 h-full items-center text-3xl">
+					<ion-icon name="person-circle-outline"></ion-icon>
+				</button>
+				<button class="px-1 h-full items-center text-3xl" >
+					<ion-icon name="cart-outline"></ion-icon>
+				</button>
+			</div>
+		</div>
+
+    </div>
+	<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+</div>
+
 
 <section id="tranding" class="max-h-32">
 	<div class="container">

@@ -1,7 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
+import { CategoriaService } from '../../Services/categoria.service';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-sidebar',
@@ -18,42 +21,29 @@ import { RouterOutlet } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   isSidebarOpen = false;
+  categorias: any[] = [];
 
-  constructor() { }
+  constructor(private categoriaService: CategoriaService) {}
 
   ngOnInit(): void {
+    this.GetCategorias()
+  }
+
+  GetCategorias() {
+    this.categoriaService.GetCategoriasLista().subscribe({
+      next: (data) => {
+        this.categorias = data;
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    });
   }
 
   dropdownStates: { [key: string]: boolean } = {};
 
-  private startX: number = 0;
-
-  private endX: number = 0;
-
   isDropdownOpen(key: string): boolean {
     return this.dropdownStates[key];
-  }
-
-  private touchStartX: number | null = null;
-
-  @HostListener('touchstart', ['$event'])
-  onTouchStart(event: TouchEvent): void {
-    this.touchStartX = event.touches[0].clientX;
-  }
-
-  @HostListener('touchend', ['$event'])
-  onTouchEnd(event: TouchEvent): void {
-    if (this.touchStartX !== null) {
-      const touchEndX = event.changedTouches[0].clientX;
-      const deltaX = touchEndX - this.touchStartX;
-
-      if (deltaX > 50) { // Swipe right to open
-        this.toggleSidebar();
-      } else if (deltaX < -50) { // Swipe left to close
-        this.toggleSidebar();
-      }
-      this.touchStartX = null;
-    }
   }
 
   toggleSidebar(): void {
@@ -78,6 +68,5 @@ export class SidebarComponent implements OnInit {
 
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
-  
 
 }
