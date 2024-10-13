@@ -1,16 +1,19 @@
 <div class="flex">
   <app-sidebarAdmin class="sidebar"></app-sidebarAdmin>
-
+  <button 
+      (click)="toggleChildSidebar()" 
+      class="md:hidden fixed bottom-4 left-4 items-center text-sm p-2 text-gray-500  rounded-full bg-MyColor bg-MyHover outline outline-violet-400  z-20">
+      <span class="sr-only">Open sidebar</span>
+      <img src="../../../assets/icons/Menu.svg" alt="Menu">
+  </button>
   <div class="main-content flex-1 p-4 ">
-    <div class="">
-      <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
-        Categorias
-        <div class="gradient-line-title mb-4"></div>
-      </h1>
-      <p class="mb-10"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
-    </div>
+    <h1 class="text-3xl inline-block absolute; max-md:pl-4 max-md:text-2xl max-md:pt-4" style="font-family: VollkornSC; display: inline-block;">
+      Categorias
+      <div class="gradient-line-title mb-4"></div>
+    </h1>
+    <p class="mb-10 ml-4"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
     <!-- <div class="table-background rounded-sm shadow-md border border-x-orange-200"> -->
-      <div class="overflow-x-auto md:m-auto table-title max-sm:pr-4 py-4">
+      <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4 py-4">
         <div class="flex justify-between items-center">
           <h2 style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
           <button (click)="openAddCategoryModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
@@ -347,9 +350,9 @@
 
 
 
-    <div class="overflow-x-auto md:m-auto table-title max-sm:pr-4">
+    <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4">
       <div class="flex justify-between items-center mt-10">
-        <h2 class="ml-1" style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
+        <h2  style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
         <button (click)="openAddMatsModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
       </div>
       <div>

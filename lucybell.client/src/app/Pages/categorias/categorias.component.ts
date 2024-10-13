@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, HostListener } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
 import { SubcategoriaService } from '../../Services/subcategoria.service';
 import { MaterialService } from '../../Services/material.service';
@@ -39,6 +39,8 @@ export class CategoriasComponent {
   @ViewChild('editModalSub') editModalSub!: TwoButtonModalComponent;
   @ViewChild('editModalCatg') editModalCatg!: TwoButtonModalComponent;
   @ViewChild('editModalMats') editModalMats!: TwoButtonModalComponent;
+
+  @ViewChild(SidebarAdminComponent) sidebarAdmin!: SidebarAdminComponent;
 
   private categoriaServicio = inject(CategoriaService)
   private subcategoriaServicio = inject(SubcategoriaService)
@@ -109,6 +111,10 @@ export class CategoriasComponent {
   toggleSubcategories(categoria: CategoriaGetSubCategorias) {
     categoria.isExpanded = !categoria.isExpanded;
     console.log(categoria.isExpanded)
+  }
+
+  toggleChildSidebar(): void {
+    this.sidebarAdmin.toggleSidebar();
   }
 
   openEditCategoryModal(categoria: CategoriaABM) {
@@ -426,8 +432,6 @@ export class CategoriasComponent {
     }
   }
 
-
-
   obtenerMateriales() {
     this.materialServicio.GetMaterialesLista().subscribe({
       next: (data) => {
@@ -473,6 +477,34 @@ export class CategoriasComponent {
       });
     }
   }
+
+  private touchStartX: number | null = null;
+
+  private startX: number = 0;
+
+  private endX: number = 0;
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX !== null) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const deltaX = touchEndX - this.touchStartX;
+
+      if (deltaX > 50) { // Swipe right to open
+        this.sidebarAdmin.toggleSidebar();
+      } else if (deltaX < -50) { // Swipe left to close
+        this.sidebarAdmin.toggleSidebar();
+      }
+      this.touchStartX = null;
+    }
+  }
+
+
 }
 
 

@@ -1,7 +1,6 @@
 import { Component, HostListener, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriaService } from '../../Services/categoria.service';
-import { CategoriaABM } from '../../Models/Categoria';
 import { SeguridadService } from '../../Services/seguridad.service';
 import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
 import { RouterModule } from '@angular/router';

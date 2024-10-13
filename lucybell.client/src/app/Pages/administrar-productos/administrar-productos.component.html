@@ -1,27 +1,33 @@
 <div class="flex">
-  <app-sidebarAdmin class="sidebar max-p-max"></app-sidebarAdmin>
+  <app-sidebarAdmin class="sidebar"></app-sidebarAdmin>
+  <button 
+    (click)="toggleChildSidebar()" 
+    class="md:hidden fixed bottom-4 left-4 items-center text-sm p-2 text-gray-500 rounded-full bg-MyColor bg-MyHover outline outline-violet-400  z-20">
+    <span class="sr-only">Open sidebar</span>
+    <img src="../../../assets/icons/Menu.svg" alt="Menu">
+  </button>
 
   <div class="main-content flex-1 p-4">
     <div class="flex flex-col">
       <div class="block">
-        <h1 class="text-3xl inline-block absolute; max-sm:pl-4 max-sm:text-2xl max-sm:pt-4" style="font-family: VollkornSC; display: inline-block;">
+        <h1 class="text-3xl inline-block absolute; max-md:pl-4 max-md:text-2xl max-md:pt-4" style="font-family: VollkornSC; display: inline-block;">
           Administrar Productos
           <div class="gradient-line-title mb-4"></div>
         </h1>
       </div>
-      <div class="flex  w-full">
-        <p class="mb-6">Administra los productos agregados</p>
+      <div class="flex mb-6 max-md:ml-4">
+        <p>Administra los productos agregados</p>
       </div>
     </div>
     
-    <div class="mb-4">
+    <div class="mb-4 max-md:ml-4">
       <button type="button" class="addButton" (click)="openAddProdModal()">
         <span class="addButton__text">Nuevo </span>
         <span class="addButton__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
       </button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max max-md:mx-2">
       <div *ngFor="let producto of productos" class="item-background rounded-lg">
         <div class="p-2">
           <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">

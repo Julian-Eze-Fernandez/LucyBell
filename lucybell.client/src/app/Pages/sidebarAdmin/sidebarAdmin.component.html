@@ -1,104 +1,130 @@
+<div>
+	<div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" (click)="toggleSidebar()"></div>
+	<aside id="default-sidebar"
+		class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+		aria-label="Sidenav">
+		<div class="overflow-y-auto py-5 px-3 h-full bg-MyColor">
+			<button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button"
+				class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden bg-MyHover focus:outline-none">
+				<span class="sr-only">close sidebar</span>
+				<img src="../../../assets/icons/Back.svg" alt="Menu" />
+			</button>
+			<div class="flex items-center justify-center mb-2 mt-6">
+				<img src="../assets/Logo.svg" alt="Logo" class="h-auto" />
+			</div>
 
-<button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg z-31 sm:hidden bg-MyHover focus:outline-none focus:ring-2 focus:ring-gray-200">
-  <span class="sr-only">Open sidebar</span>
-  <img src="../../../assets/icons/Menu.svg" alt="Menu">
-</button>
-<div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
-
-<aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
-  <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor ">
-    <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button" class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden bg-MyHover focus:outline-none">
-      <span class="sr-only">close sidebar</span>
-      <img src="../../../assets/icons/Back.svg" alt="Menu">
-    </button>
-    <div class="flex items-center justify-center mb-2 mt-6">
-      <img src='../assets/Logo.svg' alt="Logo" class="h-auto">
-    </div>
-
-    <div class="gradient-line mb-4"></div>
-    <ul class="space-y-2">
-      <app-autorizado rol="admin">
-        <ng-container autorizado>
-          <li>
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
-              <img src="../../../assets/icons/Home.svg" alt="Inicio">
-              <span class="ml-3 text-lg font-medium">Inicio</span>
-            </a>
-          </li>
-          <li>
-            <button (click)="toggleDropdown('dropdown-ventas')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-ventas">
-              <img src="../../../assets/icons/MoneyTag.svg" alt="MoneyTag">
-              <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Ventas</span>
-              <img *ngIf="!isDropdownOpen('dropdown-ventas')"  src="../../../assets/icons/Dropdown.svg" alt="DropDown">
-              <img *ngIf="isDropdownOpen('dropdown-ventas')"  src="../../../assets/icons/closeDropDown.svg" alt="Cerrar DropDown">
-            </button>
-            <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-ventas') }">
-              <ul id="dropdown-ventas" class=" py-2 space-y-2">
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <img src="../../../assets/icons/Coins.svg" alt="Ventas activas">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Ventas Activas</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <img src="../../../assets/icons/History.svg" alt="Historial">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Historial de ventas</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <img src="../../../assets/icons/Graphs.svg" alt="Graficos">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Graficos</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <button (click)="toggleDropdown('dropdown-productos')" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover" aria-controls="dropdown-productos">
-              <img src="../../../assets/icons/Products.svg" alt="Product">
-              <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Productos</span>
-              <img *ngIf="!isDropdownOpen('dropdown-productos')"  src="../../../assets/icons/Dropdown.svg" alt="DropDown">
-              <img *ngIf="isDropdownOpen('dropdown-productos')"  src="../../../assets/icons/closeDropDown.svg" alt="CloseDropDown">
-            </button>
-            <div [ngClass]="{ 'myDropdown': true, 'open': isDropdownOpen('dropdown-productos') }">
-              <ul id="dropdown-productos" class=" py-2 space-y-2">
-                <li>
-                  <a href="categorias" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <img src="../../../assets/icons/Categories.svg" alt="Categorias">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Categorias</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="administrarProductos" class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
-                    <img src="../../../assets/icons/EditProd.svg" alt="Admin. productos">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Administrar prod</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="stock" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
-              <img src="../../../assets/icons/Stock.svg" alt="Stock">
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Stock</span>
-            </a>
-          </li>
-          <li>
-            <a href="usuarios" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
-              <img src="../../../assets/icons/Users.svg" alt="Usuarios">
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Usuarios</span>
-            </a>
-          </li>
-          <li>
-            <a href="inicio" class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transtion duration-300 bg-MyHover">
-              <img src="../../../assets/icons/Store.svg" alt="Tienda">
-              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Volver a tienda</span>
-            </a>
-          </li>
-        </ng-container>
-      </app-autorizado>
-    </ul>
-  </div>
-</aside>
+			<div class="gradient-line mb-4"></div>
+			<ul class="space-y-2">
+				<app-autorizado rol="admin">
+					<ng-container autorizado>
+						<li>
+							<a href="#"
+								class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
+								<img src="../../../assets/icons/Home.svg" alt="Inicio" />
+								<span class="ml-3 text-lg font-medium">Inicio</span>
+							</a>
+						</li>
+						<li>
+							<button (click)="toggleDropdown('dropdown-ventas')" type="button"
+								class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover"
+								aria-controls="dropdown-ventas">
+								<img src="../../../assets/icons/MoneyTag.svg" alt="MoneyTag" />
+								<span
+									class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Ventas</span>
+								<img *ngIf="!isDropdownOpen('dropdown-ventas')" src="../../../assets/icons/Dropdown.svg"
+									alt="DropDown" />
+								<img *ngIf="isDropdownOpen('dropdown-ventas')"
+									src="../../../assets/icons/closeDropDown.svg" alt="Cerrar DropDown" />
+							</button>
+							<div [ngClass]="{ myDropdown: true, open: isDropdownOpen('dropdown-ventas')}">
+								<ul id="dropdown-ventas" class="py-2 space-y-2">
+									<li>
+										<a href="#"
+											class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+											<img src="../../../assets/icons/Coins.svg" alt="Ventas activas" />
+											<span
+												class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Ventas
+												Activas</span>
+										</a>
+									</li>
+									<li>
+										<a href="#"
+											class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+											<img src="../../../assets/icons/History.svg" alt="Historial" />
+											<span
+												class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Historial
+												de ventas</span>
+										</a>
+									</li>
+									<li>
+										<a href="#"
+											class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+											<img src="../../../assets/icons/Graphs.svg" alt="Graficos" />
+											<span
+												class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Graficos</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<button (click)="toggleDropdown('dropdown-productos')" type="button"
+								class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover"
+								aria-controls="dropdown-productos">
+								<img src="../../../assets/icons/Products.svg" alt="Product" />
+								<span
+									class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Productos</span>
+								<img *ngIf="!isDropdownOpen('dropdown-productos')"
+									src="../../../assets/icons/Dropdown.svg" alt="DropDown" />
+								<img *ngIf="isDropdownOpen('dropdown-productos')"
+									src="../../../assets/icons/closeDropDown.svg" alt="CloseDropDown" />
+							</button>
+							<div [ngClass]="{ myDropdown: true, open: isDropdownOpen('dropdown-productos') }">
+								<ul id="dropdown-productos" class="py-2 space-y-2">
+									<li>
+										<a href="categorias"
+											class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+											<img src="../../../assets/icons/Categories.svg" alt="Categorias" />
+											<span
+												class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Categorias</span>
+										</a>
+									</li>
+									<li>
+										<a href="administrarProductos"
+											class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+											<img src="../../../assets/icons/EditProd.svg" alt="Admin. productos" />
+											<span
+												class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">Administrar
+												prod</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="stock"
+								class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+								<img src="../../../assets/icons/Stock.svg" alt="Stock" />
+								<span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Stock</span>
+							</a>
+						</li>
+						<li>
+							<a href="usuarios"
+								class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+								<img src="../../../assets/icons/Users.svg" alt="Usuarios" />
+								<span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Usuarios</span>
+							</a>
+						</li>
+						<li>
+							<a href="inicio"
+								class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transtion duration-300 bg-MyHover">
+								<img src="../../../assets/icons/Store.svg" alt="Tienda" />
+								<span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Volver a tienda</span>
+							</a>
+						</li>
+					</ng-container>
+				</app-autorizado>
+			</ul>
+		</div>
+	</aside>
+</div>

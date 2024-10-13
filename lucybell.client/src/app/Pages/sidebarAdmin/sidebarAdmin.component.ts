@@ -1,7 +1,6 @@
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
 
 @Component({
@@ -26,35 +25,11 @@ export class SidebarAdminComponent implements OnInit {
 
   dropdownStates: { [key: string]: boolean } = {};
 
-  private startX: number = 0;
-
-  private endX: number = 0;
 
   isDropdownOpen(key: string): boolean {
     return this.dropdownStates[key];
   }
 
-  private touchStartX: number | null = null;
-
-  @HostListener('touchstart', ['$event'])
-  onTouchStart(event: TouchEvent): void {
-    this.touchStartX = event.touches[0].clientX;
-  }
-
-  @HostListener('touchend', ['$event'])
-  onTouchEnd(event: TouchEvent): void {
-    if (this.touchStartX !== null) {
-      const touchEndX = event.changedTouches[0].clientX;
-      const deltaX = touchEndX - this.touchStartX;
-
-      if (deltaX > 50) { // Swipe right to open
-        this.toggleSidebar();
-      } else if (deltaX < -50) { // Swipe left to close
-        this.toggleSidebar();
-      }
-      this.touchStartX = null;
-    }
-  }
 
   toggleSidebar(): void {
     const sidebar = document.getElementById('default-sidebar');

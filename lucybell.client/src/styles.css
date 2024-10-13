@@ -25,6 +25,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   padding: 1rem;
 }
 
+.bg-MyColor {
+  background-color: #221D22;
+}
+
+.bg-MyBg {
+  background-color:#fbede0;
+}
+
+.bg-MyHover:hover {
+  background-color: #7B688B;
+  color: white;
+}
+
 .crossBg {
 
   --s: 30px; /* control the size*/
@@ -41,10 +54,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .sidebar {
-    width: 40px;
-    height: 70px;
+    width: 0px;
   }
 
   .main-content {

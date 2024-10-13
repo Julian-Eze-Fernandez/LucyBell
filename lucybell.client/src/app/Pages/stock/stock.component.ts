@@ -1,4 +1,4 @@
-import { Component, model, OnInit, ViewChild  } from '@angular/core';
+import { Component, HostListener, model, OnInit, ViewChild  } from '@angular/core';
 import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { CommonModule, } from '@angular/common';
 import {VariantesProductoService} from '../../Services/variantes-producto.service';
@@ -21,6 +21,8 @@ export class StockComponent implements OnInit {
 
  @ViewChild('deleteModalStock') deleteModalStock!: TwoButtonModalComponent;
  @ViewChild('editModalStock') editModalStock!: TwoButtonModalComponent;
+
+ @ViewChild(SidebarAdminComponent) sidebarAdmin!: SidebarAdminComponent;
   
  variantesConProducto: { productoNombre: string, productoId: number, variante: VarianteProductoDTO, imagen: string | null }[] = [];
   productos: Producto[] = [];
@@ -28,6 +30,12 @@ export class StockComponent implements OnInit {
   modalStock: boolean = false;
   selectedProductoNombre:string = '';
   productoIdEdit: number = 0;
+
+  private touchStartX: number | null = null;
+
+  private startX: number = 0;
+
+  private endX: number = 0;
 
   customIconDelete = `<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect width="35" height="35" fill="url(#pattern0_830_4)"/>
@@ -61,19 +69,6 @@ customIconEdit = `<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xm
   this.cargarStock();
  }
 
-  // cargarStock(){
-  //   this.ProductoService.GetProductoCompleto().subscribe((productos) => {
-  //     this.variantesConProducto = productos.flatMap(producto => 
-  //       producto.variantesProducto.map(variante => ({
-  //         productoNombre: producto.nombre,
-  //         productoId: producto.id,
-  //         variante: variante,
-  //         imagen: producto.imagenesProductos?.length > 0 ? producto.imagenesProductos[0].urlImagen : null
-  //       }))
-  //     );
-  //   });
-  //   console.log(this.variantesConProducto)
-  // }
   cargarStock() {
   this.ProductoService.GetProductoCompleto().subscribe((productos) => {
     // Log the raw response from the API
@@ -169,6 +164,30 @@ onDelete(): void {
         console.error('Error deleting product:', err);
       }
     })
+  }
+}
+
+toggleChildSidebar(): void {
+  this.sidebarAdmin.toggleSidebar();
+}
+
+@HostListener('touchstart', ['$event'])
+onTouchStart(event: TouchEvent): void {
+  this.touchStartX = event.touches[0].clientX;
+}
+
+@HostListener('touchend', ['$event'])
+onTouchEnd(event: TouchEvent): void {
+  if (this.touchStartX !== null) {
+    const touchEndX = event.changedTouches[0].clientX;
+    const deltaX = touchEndX - this.touchStartX;
+
+    if (deltaX > 50) { // Swipe right to open
+      this.sidebarAdmin.toggleSidebar();
+    } else if (deltaX < -50) { // Swipe left to close
+      this.sidebarAdmin.toggleSidebar();
+    }
+    this.touchStartX = null;
   }
 }
 
