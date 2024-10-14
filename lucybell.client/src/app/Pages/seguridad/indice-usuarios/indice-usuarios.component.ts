@@ -38,11 +38,22 @@ export class IndiceUsuariosComponent {
   }
 
   actualizarPaginacion(datos: { pageIndex: number; pageSize: number }) {
-    this.paginacion.pagina = datos.pageIndex + 1;  // Aumentamos el índice de página
-    this.paginacion.recordsPorPagina = datos.pageSize;  // Actualizamos los registros por página
-
-    // Cargamos los registros de acuerdo a la nueva configuración
+    // Establece la página directamente sin sumar 1
+    this.paginacion.pagina = datos.pageIndex;  
+    this.paginacion.recordsPorPagina = datos.pageSize;
+  
+    // Cargar los registros para la nueva configuración
     this.cargarRegistros();
+  }
+  
+  irAPaginaAnterior() {
+    if (this.paginacion.pagina > 1) {
+      // Aquí, pageIndex será la página actual menos 1
+      this.actualizarPaginacion({
+        pageIndex: this.paginacion.pagina - 1,
+        pageSize: this.paginacion.recordsPorPagina
+      });
+    }
   }
 
   hacerAdmin(email: string) {

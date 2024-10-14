@@ -36,7 +36,7 @@
                             </li>
                             <li class="relative group flex items-center h-full">
             
-                                <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4">Contactos</a>
+                                <a href="contacto" class="flex items-center transition duration-300 navbarHover h-full px-4">Contactos</a>
                             </li >
                             <li>
                                 <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4">Sobre mi</a>
@@ -60,12 +60,15 @@
                             <div class="flex items-center space-x-4 h-full">
                                 <ul class="flex items-center h-full">
                                     <li class="h-full group items-center relative z-[101]">
-                                        <a class=" flex transition duration-300 navbarHover px-2 h-full items-center text-fuchsia-600 text-3xl">
-                                            <ion-icon name="person-circle-outline" class="outline-lime-500"></ion-icon>
-                                        </a>
+                                        <a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
                                         <ul class="absolute right-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
                                             <li>
                                                 <span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300  w-full">{{seguridadService.obtenerCampoJWT('email')}}</span>
+                                            </li>
+                                            <li *ngIf="seguridadService.obtenerRol()">
+                                                <a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+                                                  Administrar
+                                                </a>
                                             </li>
                                             <li>
                                                 <button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">Logout</button>
