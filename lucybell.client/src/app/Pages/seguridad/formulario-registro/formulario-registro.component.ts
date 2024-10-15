@@ -19,8 +19,11 @@ export class FormularioRegistroComponent {
     nombre: ['', {validators: [Validators.required]}],
     email: ['', {validators: [Validators.required, Validators.email]}],
     password: ['', {validators: [Validators.required]}],
+    repetirPassword: ['', {validators: [Validators.required]}],
     telefono: ['', {validators: [Validators.required]}]
-  })
+  }, {
+    validators: this.passwordsCoinciden
+  });
 
   @Input({required: true})
   titulo!: string;
@@ -65,6 +68,20 @@ export class FormularioRegistroComponent {
     return '';
   }
 
+  obtenerMensajeErrorRepetirPassword(): string{
+    let campo = this.form.controls.repetirPassword;
+
+    if (campo.hasError('required')) {
+      return 'El campo repetir contraseña es requerido';      
+    }
+
+    if (this.form.hasError('noCoinciden')) {
+      return 'Las contraseñas no coinciden';
+    }
+
+    return '';
+  }
+
   obtenerMensajeErrorTelefono(): string{
     let campo = this.form.controls.telefono;
 
@@ -84,4 +101,10 @@ export class FormularioRegistroComponent {
     this.posteoFormulario.emit(credenciales);
   }
 
+  passwordsCoinciden(formGroup: any) {
+    const password = formGroup.get('password').value;
+    const repetirPassword = formGroup.get('repetirPassword').value;
+
+    return password === repetirPassword ? null : { noCoinciden: true };
+  }
 }

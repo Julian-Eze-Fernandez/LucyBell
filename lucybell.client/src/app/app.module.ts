@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TwoButtonModalComponent } from './Pages/two-button-modal/two-button-modal.component';
 import { OneButtonModalComponent } from './Pages/one-button-modal/one-button-modal.component';
-import { SidebarComponent } from './Pages/sidebarAdmin/sidebarAdmin.component';
+import { SidebarAdminComponent } from './Pages/sidebarAdmin/sidebarAdmin.component';
 import { RouterModule } from '@angular/router';
 import { AgregarProductoComponent } from './Pages/agregar-producto/agregar-producto.component';
 import { AdministrarProductosComponent } from './Pages/administrar-productos/administrar-productos.component';
@@ -24,6 +24,7 @@ import { FormularioRegistroComponent } from './Pages/seguridad/formulario-regist
 import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componentes/listado-generico/listado-generico.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
+import { ContactoComponent } from './Pages/contacto/contacto.component';
 
 register();
 
@@ -48,7 +49,7 @@ register();
   
   
   
-    SidebarComponent
+    
   ],
   imports: [
     AppComponent,
@@ -60,6 +61,7 @@ register();
     EditProductoComponent,
     BrowserModule,
     HttpClientModule,
+    SidebarAdminComponent,
     AppRoutingModule,
     RouterModule,
     StockComponent,
@@ -73,6 +75,7 @@ register();
     FormularioRegistroComponent,
     IndiceUsuariosComponent,
     ListadoGenericoComponent,
+    ContactoComponent,
   ],
   providers: [],
   bootstrap: [],

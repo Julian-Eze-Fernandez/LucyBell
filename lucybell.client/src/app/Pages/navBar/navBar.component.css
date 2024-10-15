@@ -35,3 +35,7 @@
 .z-101 {
 z-index: 200;
 }
+
+.navbarFont {
+  font-family: Inter;
+}
