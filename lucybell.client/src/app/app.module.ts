@@ -24,6 +24,7 @@ import { FormularioRegistroComponent } from './Pages/seguridad/formulario-regist
 import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componentes/listado-generico/listado-generico.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
+import { ContactoComponent } from './Pages/contacto/contacto.component';
 
 register();
 
@@ -73,6 +74,7 @@ register();
     FormularioRegistroComponent,
     IndiceUsuariosComponent,
     ListadoGenericoComponent,
+    ContactoComponent,
   ],
   providers: [],
   bootstrap: [],

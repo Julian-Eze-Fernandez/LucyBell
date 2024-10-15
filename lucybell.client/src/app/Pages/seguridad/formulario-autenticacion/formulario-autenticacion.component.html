@@ -3,24 +3,22 @@
 <app-mostrar-errores [errores]="errores"></app-mostrar-errores>
 
 <form (submit)="guardarCambios()" [formGroup]="form" class="space-y-4 mt-2 font-volkornSC">
-    <!-- Campo de email -->
+  
     <div class="flex flex-col">
       <label for="email" class="mb-1 text-xl text-gray-800">Email</label>
       <input id="email" type="email" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.email" />
-      <!-- Mensaje de error -->
+
       <span class="text-red-500 text-sm" *ngIf="form.controls.email.invalid && form.controls.email.touched">{{obtenerMensajeErrorEmail()}}</span>
     </div>
   
-    <!-- Campo de password -->
     <div class="flex flex-col">
       <label for="password" class="mb-1 text-xl text-gray-800">Constraseña</label>
       <input id="password" type="password" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.password" />
       <a class="text-gray-700 underline underline-offset-2 text-sm cursor-pointer">Olvide mi contraseña</a>
-      <!-- Mensaje de error -->
+
       <span class="text-red-500 text-sm" *ngIf="form.controls.password.invalid && form.controls.password.touched">{{obtenerMensajeErrorPassword()}}</span>
     </div>
   
-    <!-- Botón de enviar -->
     <div class="flex justify-center">
       <button type="submit" class="mt-6 bg-purplePersonalizado hover:bg-blue-500 text-2xl text-black py-1 px-10 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" [disabled]="form.invalid">INGRESAR</button>
     </div>
