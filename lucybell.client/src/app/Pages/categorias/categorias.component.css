@@ -44,7 +44,6 @@ body {
   border-bottom: 1px;
   border-bottom-color: rgb(0, 0, 0, 0.4);
   border-bottom-style: solid;
-
 }
 
   .borderSub .right {
@@ -57,6 +56,22 @@ body {
     border-left-width: 20px;
   }
 
+  .dropdown {
+    overflow: hidden; /* Prevent overflow during transition */
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out; /* Transition for transform and opacity */
+  }
+  
+  .dropdown.collapsed {
+    transform: translateY(-10px); /* Move it up slightly to avoid blank space */
+    opacity: 0;    /* Fully transparent */
+    height: 0;     /* Set height to 0 to avoid any space */
+  }
+  
+  .dropdown.expanded {
+    transform: translateY(0); /* Move back to normal position */
+    opacity: 1;        /* Fully visible */
+    height: auto;      /* Allow it to take natural height */
+  }
 
 @media (max-width: 750px) {
 

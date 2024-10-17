@@ -25,6 +25,7 @@ import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indic
 import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componentes/listado-generico/listado-generico.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { ContactoComponent } from './Pages/contacto/contacto.component';
+import { ProductosComponent } from './Pages/productos/productos.component';
 
 register();
 
@@ -50,6 +51,8 @@ register();
   
   
     
+  
+    ProductosComponent
   ],
   imports: [
     AppComponent,
