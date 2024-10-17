@@ -2,7 +2,7 @@
   <app-sidebarAdmin class="sidebar"></app-sidebarAdmin>
   <button 
       (click)="toggleChildSidebar()" 
-      class="md:hidden fixed bottom-4 left-4 items-center text-sm p-2 text-gray-500  rounded-full bg-MyColor bg-MyHover outline outline-violet-400  z-20">
+      class="animate-pulse md:hidden fixed bottom-4 left-4 items-center text-sm p-2 text-gray-500  rounded-full bg-MyColor bg-MyHover outline outline-violet-400 z-20">
       <span class="sr-only">Open sidebar</span>
       <img src="../../../assets/icons/Menu.svg" alt="Menu">
   </button>
@@ -16,19 +16,19 @@
       <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4 py-4">
         <div class="flex justify-between items-center">
           <h2 style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
-          <button (click)="openAddCategoryModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
+          <button (click)="openAddCategoryModal()" class=" bg-lime-600  rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
         </div>
-        <div class="overflow-y-auto table-width">
-          <table class="min-w-full table-spacing">
+        <div class="overflow-y-auto table-width flex justify-center">
+          <table class=" table-spacing">
             <tbody>
               <ng-container *ngIf="listaCategoria.length === 0">
                 <p class="text-center text-gray-500 py-4"> No existen categorias en el sistema</p> 
               </ng-container>
               <ng-container *ngFor="let categoria of listaCategoria">
-                <tr class="" style="background-color: #221D22;">
+                <tr style="background-color: #221D22;">
                   <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                     <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
-                      <button (click)="toggleSubcategories(categoria)" class="flex">
+                      <button (click)="toggleSubcategories(categoria)" class="flex hover:scale-105 transition duration-150 ease-in-out">
                         <div>
                           <img src="../../../assets/icons/Categories.svg" alt="categorias">
                         </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="sm:hidden mt-2 flex justify-center ">
                       <div class="justify-between flex w-full">
-                        <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ml-2">
+                        <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ml-2 ">
                           <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
                         </button>
                         <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-6 rounded ml-2">
@@ -55,13 +55,13 @@
                   </td>
                   <td class="max-sm:hidden border-fix-right">
                     <div class="flex justify-end">
-                      <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
+                      <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold rounded-lg px-4 py-2 ml-2">
                         <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
                       </button>
-                      <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                      <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2">
                         <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                       </button>
-                      <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                      <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2 mr-2">
                         <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar">
                       </button>
                     </div>
@@ -73,11 +73,11 @@
                     <td class="borderSub left right border-fix-left ease-in-out duration-300">
                       <div class="flex items-center max-sm:justify-center max-sm:mt-2">
                         <img src="../../../assets/icons/Subcategory.svg" alt="subcategorias">
-                        <span class="ml-2">{{ subcategoria.nombre }}</span>
+                        <span class="ml-2 ">{{ subcategoria.nombre }}</span>
                       </div>
                       <div class="sm:hidden flex justify-center">
                         <div class="flex w-full justify-between max-w-52 mx-6">
-                          <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ">
+                          <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700  text-white font-bold rounded px-6 py-2 ">
                             <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
                           </button>
                           <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded  mr-2">
@@ -88,10 +88,10 @@
                     </td>
                     <td class="borderSub right border-fix-right max-sm:hidden">
                       <div class="flex justify-end">
-                        <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
+                        <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold rounded px-4 py-2 ml-2">
                           <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
                         </button>
-                        <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                        <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded ml-2 mr-2">
                           <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
                         </button>
                       </div>
@@ -218,17 +218,17 @@
     <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4">
       <div class="flex justify-between items-center mt-10">
         <h2  style="font-family: VollkornSC; font-size: x-large;"> Materiales </h2>
-        <button (click)="openAddMatsModal()" class=" bg-lime-600 hover:bg-green-70 rounded px-4 py-1 font-medium text-white"> AGREGAR </button>
+        <button (click)="openAddMatsModal()" class=" bg-lime-600 rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
       </div>
-      <div>
-        <table class="min-w-full overflow-y-auto table-width" style="border-collapse:separate; border-spacing: 0 1em;">
+      <div class="flex justify-center">
+        <table class="table-spacing overflow-y-auto table-width" style="border-collapse:separate; border-spacing: 0 1em;">
           <tbody>
             <ng-container *ngIf="listaMaterial.length === 0" class="text-center text-gray-500 py-4">
               <p class="text-center text-gray-500 py-4">No existen materiales en el sistema</p>
             </ng-container>
             <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
               <td class="px-6 py-2 border-fix-left" style=" border:0px;">
-                <div class="text-sm font-medium text-white flex items-center max-sm:justify-center" style="font-size: large;">
+                <div class="text-sm font-medium text-white flex items-center max-sm:justify-center " style="font-size: large;">
                   <img src="../../../assets/icons/Material.svg" alt="material">
                   <span class="ml-2 text-xl">{{ material.nombre }}</span>
                 </div>
@@ -245,10 +245,10 @@
               </td>
               <td class="ml-2 max-sm:hidden border-fix-right">
                 <div class="flex justify-end">
-                  <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                  <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2">
                     <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                   </button>
-                  <button (click)="openDeleteModalMats(material)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                  <button (click)="openDeleteModalMats(material)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2 mr-2">
                     <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
                   </button>
                 </div>
