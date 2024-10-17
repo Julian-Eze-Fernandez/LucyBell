@@ -21,8 +21,8 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 grid-flow-row auto-rows-max max-md:pr-2 max-md:ml-2">
-        <div *ngFor="let item of variantesConProducto" class="flex flex-col h-full">
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 grid-flow-row auto-rows-max max-md:pr-2 max-md:ml-2">
+        <div *ngFor="let item of variantesConProducto" class="flex flex-col h-full shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
           
           <div class="item-background p-4 shadow rounded text-white center flex-col h-full">
             <div>
@@ -63,39 +63,39 @@
               </div>
             </div>
           </div>
-          <ng-container>
-            <app-two-button-modal #deleteModalStock
-                                  [title]="'Eliminar Stock'"
-                                  [confirmButtonText]="'Eliminar'"
-                                  [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
-                                  [icon]="customIconDelete"
-                                  (confirm)="onDelete()"
-                                  (cancel)="closeDeleteStockModal()">
-              <div class="flex flex-col items-center">
-                <p *ngIf="modalStock && selectedVariante?.color == null">¿Está seguro de que desea borrar el stock de <strong>"{{selectedProductoNombre}}"</strong>?</p> 
-                <p *ngIf="modalStock && selectedVariante?.color != null">¿Está seguro de que desea borrar el stock <strong>"{{ selectedVariante?.color }}"</strong> de <strong>"{{selectedProductoNombre}}"</strong>?</p>
-              </div>
-            </app-two-button-modal>
-          </ng-container>
-          <ng-container>
-            <app-two-button-modal #editModalStock
-                                  [title]="'Editar Stock'"
-                                  [confirmButtonText]="'Editar'"
-                                  [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
-                                  [icon]="customIconEdit"
-                                  (confirm)="onEdit()"
-                                  (cancel)="closeEditStockModal()">
-              <div class="flex flex-col mb-2">
-                <p *ngIf="modalStock && selectedVariante?.color == null">Editar stock de <strong>"{{selectedProductoNombre}}"</strong></p> 
-                <p *ngIf="modalStock && selectedVariante?.color != null">Editar stock <strong>"{{ selectedVariante?.color }}"</strong> de <strong>"{{selectedProductoNombre}}"</strong></p>
-              </div>
-              <form>
-                <label for="stockCantidad" class="block text-sm font-medium text-gray-700">Cantidad</label>
-                <input type="number" placeholder="Stock" class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2"  *ngIf="selectedVariante" [(ngModel)]="selectedVariante.cantidad" name="stockCantidad" min="0" required>
-              </form>
-            </app-two-button-modal>
-          </ng-container>
         </div>
+        <ng-container>
+          <app-two-button-modal #deleteModalStock
+                                [title]="'Eliminar Stock'"
+                                [confirmButtonText]="'Eliminar'"
+                                [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                                [icon]="customIconDelete"
+                                (confirm)="onDelete()"
+                                (cancel)="closeDeleteStockModal()">
+            <div class="flex flex-col items-center">
+              <p *ngIf="modalStock && selectedVariante?.color == null">¿Está seguro de que desea borrar el stock de <strong>"{{selectedProductoNombre}}"</strong>?</p> 
+              <p *ngIf="modalStock && selectedVariante?.color != null">¿Está seguro de que desea borrar el stock <strong>"{{ selectedVariante?.color }}"</strong> de <strong>"{{selectedProductoNombre}}"</strong>?</p>
+            </div>
+          </app-two-button-modal>
+        </ng-container>
+        <ng-container>
+          <app-two-button-modal #editModalStock
+                                [title]="'Editar Stock'"
+                                [confirmButtonText]="'Editar'"
+                                [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
+                                [icon]="customIconEdit"
+                                (confirm)="onEdit()"
+                                (cancel)="closeEditStockModal()">
+            <div class="flex flex-col mb-2">
+              <p *ngIf="modalStock && selectedVariante?.color == null">Editar stock de <strong>"{{selectedProductoNombre}}"</strong></p> 
+              <p *ngIf="modalStock && selectedVariante?.color != null">Editar stock <strong>"{{ selectedVariante?.color }}"</strong> de <strong>"{{selectedProductoNombre}}"</strong></p>
+            </div>
+            <form>
+              <label for="stockCantidad" class="block text-sm font-medium text-gray-700">Cantidad</label>
+              <input type="number" placeholder="Stock" class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2"  *ngIf="selectedVariante" [(ngModel)]="selectedVariante.cantidad" name="stockCantidad" min="0" required>
+            </form>
+          </app-two-button-modal>
+        </ng-container>
       </div>
       
     </div>

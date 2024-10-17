@@ -32,7 +32,8 @@ body {
 
 .table-spacing {
   border-collapse: separate;
-  border-spacing: 0 1em;
+  border-spacing: 0px 15px;
+  min-width: 95%;
 }
 
 .subcategoryColor {

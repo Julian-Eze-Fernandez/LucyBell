@@ -27,8 +27,8 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 grid-flow-row auto-rows-max max-md:mx-2">
-      <div *ngFor="let producto of productos" class="item-background rounded-lg">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 grid-flow-row auto-rows-max max-md:mx-2 p-10">
+      <div *ngFor="let producto of productos" class="item-background rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
         <div class="p-2">
           <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
             <div *ngIf="producto.imagenesProductos.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
@@ -53,10 +53,10 @@
           <p class="text-orange-200"> {{ producto.categoriaNombre }} </p>
           <div class="flex">
 
-             <button (click)="openEditModal(producto)">
+             <button (click)="openEditModal(producto)" class="hover:scale-125 transition duration-150 ease-in-out">
               <img src="../../../assets/icons/BlueEdit.svg" alt="Editar" />
              </button>
-            <button (click)="openDeleteProdModal(producto)">
+            <button (click)="openDeleteProdModal(producto)" class="hover:scale-125 transition duration-150 ease-in-out">
               <img src="../../../assets/icons/RedDelete.svg" alt="Eliminar" />
             </button>
           </div>
@@ -104,6 +104,8 @@
         </div>
       </app-two-button-modal>
     </ng-container>
+
+
   </div>
 
 </div>

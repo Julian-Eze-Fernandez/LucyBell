@@ -52,7 +52,7 @@ register();
   
     
   
-    ProductosComponent
+    
   ],
   imports: [
     AppComponent,
@@ -79,6 +79,7 @@ register();
     IndiceUsuariosComponent,
     ListadoGenericoComponent,
     ContactoComponent,
+    ProductosComponent
   ],
   providers: [],
   bootstrap: [],
