@@ -30,73 +30,25 @@
                     <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
                       <button (click)="toggleSubcategories(categoria)" class="flex">
                         <div>
-                          <svg width="20" height="20" viewBox="0 -2 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="20" height="20" fill="url(#pattern0_category)" />
-                            <defs>
-                              <pattern id="pattern0_category" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_277_666" transform="scale(0.015625)" />
-                              </pattern>
-                              <image id="image0_277_666" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNklEQVR4nO2XQW6DMBBFfbwmtyirnjs5B/1VGxYRIsFjzwzFek9iEQv4njejAKUAAAAAvEBBHJVjRkkby8pBgBUldSYr5zQCitN+EdCLmIAY9kR7NYwJ6EVMQAx7or0axgT0IiYghj3RXg1jAnoRExDDnmivhjEBveigCYjKQYAVJXUmKwcBAAAWlPTvnJVjRkkby8pBgBUldeY0AkrQfTb2/ilpXq19S/paXbd13hAC5o3f0+qa6V3xoQIkXSXdl+NSsW4V0FL8nCng/rR8q1hvFWApfhpNwGwpvibHU8Dlt8Dl+KhYtwowF58qwEqDAHPxNTnuG48S0Fj8NMxToLQVP85ToDgUf2oBcih+hKfA/30T9L7P6d4EEwXUfgD9nRcuwIujchBgRUmdycpBAAAAAEB58APNSQqlY9LfoAAAAABJRU5ErkJggg==" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/Categories.svg" alt="categorias">
                         </div>
                         <span class="ml-2 text-xl"> {{ categoria.nombre }} </span>
                         <div class="ml-2">
-                          <svg *ngIf="!categoria.isExpanded" width="20" height="20" viewBox="0 -2 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="20" height="20" fill="url(#pattern0_277_685)" />
-                            <defs>
-                              <pattern id="pattern0_277_685" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_277_685" transform="scale(0.015625)" />
-                              </pattern>
-                              <image id="image0_277_685" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7UlEQVR4nO3YSw4BURBG4bskdmOIkWUYWjSOSHSIhGj9uFW3z5f0wET+U22kFEmSJEmSJEnSE7AqS90OHIErcCjJADvgApyGxHdSHeElvtPvCMD67Qt4fN6X4O4bP2xfD71i+F/C6JtJdITJtpLgCJNvJPARZttGwCPMvolAR6i2hQBHqL6BigOqx9ccEia+xqBw8XMOCxs/x8Dw8VMOTRM/xeB08WMOTxs/RkD6+CEhzcT/E9RcfJ+wZuN/CWw+/oc/K1P++fqXD2+77Tff4wjtx385wnLiO8AWOD+ebVkiYHN/au+QJEmSpLI0N1oXQbC/SSywAAAAAElFTkSuQmCC" />
-                            </defs>
-                          </svg>
-                          <svg *ngIf="categoria.isExpanded" width="25" height="25" viewBox="0 -2 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_787_2)" />
-                            <defs>
-                              <pattern id="pattern0_787_2" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_787_2" transform="scale(0.015625)" />
-                              </pattern>
-                              <image id="image0_787_2" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA8klEQVR4nO3YO44CMRRE0bck2M2EDBE7IGTjwB21hDQJID7tz7PvkTqhJauqTNQRkiRJkqS6gJ/liRkBO+B8e3YxE+AXuPDvChxi0vLzjMDj8uOPAOzvlL88+G0fE9z8dbntZ+9iBLxQcNgReKPYcCPwQaFhRuCLIulHYIUCaUdgxeDpRqBA4DQjUDBo9yNQIWC3I1AxWHcj0CBQNyPQMEjzEWgdoGUGOijfLAsdla+eiQ7LV8tGx+WLZyRB+WJZSVR+9czANuvHyicfX7fvHnTMcvMv/BNOnx50zFb+zginbw/aRFKZs0uSJEmSJElSlPAHrM1BjN8sFcsAAAAASUVORK5CYII=" />
-                            </defs>
-                          </svg>
+                          <img *ngIf="!categoria.isExpanded" src="../../../assets/icons/Dropdown.svg" alt="dropdown-subcategorias">
+                          <img *ngIf="categoria.isExpanded" src="../../../assets/icons/closeDropDown.svg" alt="dropdown-subcategorias">
                         </div>
                       </button>
                     </div>
                     <div class="sm:hidden mt-2 flex justify-center ">
                       <div class="justify-between flex w-full">
                         <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ml-2">
-                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_add_hidden)" />
-                            <defs>
-                              <pattern id="pattern0_add_hidden" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_add_hidden" transform="scale(0.0104167)" />
-                              </pattern>
-                              <image id="image0_add_hidden" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAv0lEQVR4nO3TsQ0DMRADQfXf9LqBd2ZAb3AmVqQ9ngMAAAAAADzpi8fH/F4C3JUAAkzLAgSYlgUIMC0LEGBaFiDAtCxAgGlZgADTsgABpmUBAkzLAgSYlgUIMC0LEGBaFiDAtCxAgFdf4pojwF0CXCbAZQJcJsBlZ00+QoBpWYAA07IAAaZlAQJMywIEmJYFCDAtCxBgWhYgwLQsQIBpWYAA07IAAaZlAQJMywIEmJYFCDAtCxAAAAAAAADO//gAoQzE1hg2YpkAAAAASUVORK5CYII=" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
                         </button>
                         <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-6 rounded ml-2">
-                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_edit_hidden)" />
-                            <defs>
-                              <pattern id="pattern0_edit_hidden" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_edit_hidden" transform="scale(0.0104167)" />
-                              </pattern>
-                              <image id="image0_edit_hidden" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                         </button>
                         <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded ml-2 mr-2">
-                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_delete_hidden)" />
-                            <defs>
-                              <pattern id="pattern0_delete_hidden" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_delete_hidden" transform="scale(0.0104167)" />
-                              </pattern>
-                              <image id="image0_delete_hidden" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
                         </button>
                       </div>
                     </div>
@@ -104,85 +56,32 @@
                   <td class="max-sm:hidden border-fix-right">
                     <div class="flex justify-end">
                       <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <rect width="35" height="35" fill="url(#pattern0_208_937)" />
-                          <defs>
-                            <pattern id="pattern0_208_937" patternContentUnits="objectBoundingBox" width="1" height="1">
-                              <use xlink:href="#image0_208_937" transform="scale(0.0104167)" />
-                            </pattern>
-                            <image id="image0_208_937" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAv0lEQVR4nO3TsQ0DMRADQfXf9LqBd2ZAb3AmVqQ9ngMAAAAAADzpi8fH/F4C3JUAAkzLAgSYlgUIMC0LEGBaFiDAtCxAgGlZgADTsgABpmUBAkzLAgSYlgUIMC0LEGBaFiDAtCxAgFdf4pojwF0CXCbAZQJcJsBlZ00+QoBpWYAA07IAAaZlAQJMywIEmJYFCDAtCxBgWhYgwLQsQIBpWYAA07IAAaZlAQJMywIEmJYFCDAtCxAAAAAAAADO//gAoQzE1hg2YpkAAAAASUVORK5CYII=" />
-                          </defs>
-                        </svg>
+                        <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
                       </button>
                       <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <rect width="35" height="35" fill="url(#pattern0_208_938)" />
-                          <defs>
-                            <pattern id="pattern0_208_938" patternContentUnits="objectBoundingBox" width="1" height="1">
-                              <use xlink:href="#image0_208_938" transform="scale(0.0104167)" />
-                            </pattern>
-                            <image id="image0_208_938" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                          </defs>
-                        </svg>
+                        <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                       </button>
                       <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <rect width="35" height="35" fill="url(#pattern0_208_939)" />
-                          <defs>
-                            <pattern id="pattern0_208_939" patternContentUnits="objectBoundingBox" width="1" height="1">
-                              <use xlink:href="#image0_208_939" transform="scale(0.0104167)" />
-                            </pattern>
-                            <image id="image0_208_939" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                          </defs>
-                        </svg>
-
+                        <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar">
                       </button>
                     </div>
 
                   </td>
                 </tr>
                 <ng-container *ngIf="categoria.isExpanded">
-
-                  <tr *ngFor="let subcategoria of categoria.subCategorias" class="borderSub subcategoryColor">
-
-                    <td class="borderSub left right border-fix-left">
+                  <tr *ngFor="let subcategoria of categoria.subCategorias" class="borderSub subcategoryColor" [@slideInOut]>
+                    <td class="borderSub left right border-fix-left ease-in-out duration-300">
                       <div class="flex items-center max-sm:justify-center max-sm:mt-2">
-                        
-                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="20" height="20" fill="url(#pattern0_833_4)" />
-                            <defs>
-                              <pattern id="pattern0_833_4" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_833_4" transform="scale(0.01)" />
-                              </pattern>
-                              <image id="image0_833_4" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVR4nO3cQW7UMBjFcW8qTkAF5RAwI3EKymGgC9o1iON0xbZwB1hwCSoE7aaweCiSI8JoSJw0tl8y/9+mi8b5HL/YdbNwCAAAAAAAAAAAAAAAoChJLyV9knSr9biV9FHSaVgSSe+1fu/CgmZGFSH/s51IeiPpLpb0nylxmVplIC1J57HkVXAn6eYAAnkcS/4M7mqF0ajxnMGdKgoVnjO4IxAzBGKGQMwQiBkCMUMgZgjEDIGYIRAzBGKGQMwQiBkCMUMgZgjEDIGYIRAzBGKGQMwQiBkCMUMgZnRggjsdmOCuRkc1saakZ5K+xeYfJD0YuP6hpM8EkiEQSRtJ17HppaSjgeuPJX2J17c/mSH7jB2ce86Mr5IeEUiPMYMzRxhja1bV11FJW0mvm+Vi5D23fe1SB2eGZep4bM3q/tfROKi/469/NW9q4v22Q+1SBmfOMFJrugdy1t2dNG984v3OhtoNDc7cYaTUXEIgm/iGt2/608T7bYbaJSyTs4YxVNPKwOA0f1BfpYaR2m5gmZw9jL6admp0VHtqzrWbGlPTkkMgyjgz4vVHqw9k6pZ4t2ahMC5XHcjULfFuzdJhrDmQSVviVqddqTCu1x7IpC1xayfMEmFsVx3IfbbEjdJhdGsGdzU6qr+KhNGtGdzVDCTM+39GN4zvkp6PrWnB8WuvZpwZqTVtuH3tVYYwhmouJZDiX3uVKYy+mnZcvvYqYxh9z2nH4WuvMoexr6atGh1Vp+bcu6mUmks54u+kYM1WqTCexDY/grt4rm3jvGDNVtZlqtP2YkmHYJ7Gzt7F0zuzzxT9K1sYcWZcdI6JfRGWoDlkWOv3NixJnClXNY+NzeAmPtMyZgYAAAAAAAAAAAAAAGE9/gCHck7ukOJj7gAAAABJRU5ErkJggg==" />
-                            </defs>
-                          </svg>
-                        
+                        <img src="../../../assets/icons/Subcategory.svg" alt="subcategorias">
                         <span class="ml-2">{{ subcategoria.nombre }}</span>
                       </div>
                       <div class="sm:hidden flex justify-center">
                         <div class="flex w-full justify-between max-w-52 mx-6">
                           <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ">
-                            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <rect width="23" height="23" fill="url(#pattern0_208_938_sub_hidd)" />
-                              <defs>
-                                <pattern id="pattern0_208_938_sub_hidd" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                  <use xlink:href="#image0_208_938_sub_hidd" transform="scale(0.0104167)" />
-                                </pattern>
-                                <image id="image0_208_938_sub_hidd" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                              </defs>
-                            </svg>
+                            <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
                           </button>
                           <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded  mr-2">
-                            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <rect width="23" height="23" fill="url(#pattern0_208_939_sub_hidd)" />
-                              <defs>
-                                <pattern id="pattern0_208_939_sub_hidd" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                  <use xlink:href="#image0_208_939_sub_hidd" transform="scale(0.0104167)" />
-                                </pattern>
-                                <image id="image0_208_939_sub_hidd" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                              </defs>
-                            </svg>
+                            <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
                           </button>
                         </div> 
                       </div>
@@ -190,33 +89,15 @@
                     <td class="borderSub right border-fix-right max-sm:hidden">
                       <div class="flex justify-end">
                         <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 text-white font-bold rounded px-4 py-2 ml-2">
-                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_208_938_sub)" />
-                            <defs>
-                              <pattern id="pattern0_208_938_sub" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_208_938_sub" transform="scale(0.0104167)" />
-                              </pattern>
-                              <image id="image0_208_938_sub" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
                         </button>
                         <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
-                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="25" height="25" fill="url(#pattern0_208_939_sub)" />
-                            <defs>
-                              <pattern id="pattern0_208_939_sub" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                <use xlink:href="#image0_208_939_sub" transform="scale(0.0104167)" />
-                              </pattern>
-                              <image id="image0_208_939_sub" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                            </defs>
-                          </svg>
+                          <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
                         </button>
                       </div>
                     </td>
                   </tr>
-
                 </ng-container>
-
               </ng-container>
             </tbody>
           </table>
@@ -227,7 +108,7 @@
         <ng-container>
           <app-two-button-modal #editModalSub
                                 [title]="'Editar SubCategoria'"
-                                [confirmButtonText]="'Editar'"
+                                [confirmButtonText]="'Confirmar'"
                                 [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
                                 [icon]="customIconEdit"
                                 (confirm)="onEditSubcategory()"
@@ -293,15 +174,7 @@
                 <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
                   <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                   <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || 'https://localhost:7123/' + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
-                  <svg *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="40" height="40" fill="url(#pattern0_268_13)" />
-                      <defs>
-                        <pattern id="pattern0_268_13" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_268_13" transform="scale(0.0111111)" />
-                        </pattern>
-                        <image id="image0_268_13" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEZklEQVR4nO2c3YtVVRTAf/XQnSyC6MEcox5i9CFKG9EUSkzyDwmEImh6qmv40GiPijoGfgz2F0SmhIjgu5pgaeVbT1YPpRYYNGbNjQXrwjDOuefsj/Ox910/WDAwl3PP/Fiz9l77rHvBMAzDMAzDMAzDMAzDMAzDKGEC+AC4AvwFDCwYqIvLwAzQC82i54DrJpay5PpOXXlnsknGSbZXZku5sDKBk4P3fURLTTbRODm45CP6nonGNdHEmTOWzXg5MNE0kzwmGhNN22Xqb+AIsAV4QuM1YA5YsIwmiuRbwCsj/t836GusdBCWyaMkL5VdNbOtRvOwFCkXVTlqovHOaKnJVdlqovEW/aSDaHmtlQ7qF/2UicZKR9djziGjP7OMxlv0gm7dytgI3DfRBGX1rRLZIvlnh+s5MxijWNB98lZdICW2abmomsmtiv4F2KMZM/wDJEM+Bn7tgOA6onHRp4BVI66/Cvi8A2KSFj3r8D6zHZCTpOhPPN6r3wFBSYn2kZybbGealJyTbGfqqsldqNmLwDVgHngP2A6sA1br4NAjwNPAC8DrwNu6/bsK/NeW6JiS65Qtci8C7wKT+PMM8A7wTZOi65AcW/aCbiNfIj7SHxxb1tQ4U0s9alj2F8Dz1I+UnbMpi/aV/ROwi+Z5K2XRrruRr3UhS4Yuia6S2bLY7dUdQxVkxPZNYD/wFXATuAv8ozVXfv5Rf7cP2BFj4DwF0aNkL+o2rQqbdFv3p0dJ+gM4CUyTueiVZIvk3ZQjci4ELq5L47yeRGYrernsTxnN4/rI6t+IkofxADisTU6WooeyzwCPUsx64EYNglf6WMUUmYoWHqMYGVK83YDkYfzuOJCTlOhRktv4xMI9H9mpil7fcCavlNlTuYueAL5tUfIwbuginK3ouQA50qR8CKzR+MjjCfjSOJSr6OnALZyIjfkg4kHF4ZzkRF8I/HeXLF7Os4HXPJeb6E2BQkb9LSHXlK711ZxEz3dUtMTxXET3PA+ImhJ9t6SxSkb0zggy6hQ90Ie/QW/QBfYnIHo2B9FnExB9mprfIGasK7jPm47NSCxcmpofUhK9uuA+b3s2I7HoVzz/KGTQsegV3GeVjIqZyT5NjcyWJPPFKL0A0SGTSWWsDRV9JaPS0ac+9oSWjpkOyB1EXAz7kTN7Uq8ZvBj29FnYoCOxs+A+z0S6fhG1b+/QL83riuyZgnvcl4DoSrPjPf0+t0stL5DzBfe3I/UWPBV6OkHUVdF3yg6VUmI+5WPSlJju8MF/lLGxLnE+UMqkZzNSNkKcHRv1gaivlL5nM1IUci8vkymHA8QsbWpcmpGiOEDGTOjH2gYtx3WXAZpUmdKzhbYk/wa8yJiwpcUhx82MGZs1u5qSfEe/TGUsmWrorObaOJWLUQvkocCtX1HINQ+GfrQiNzboLNxiBMGL2oxku0+OgczCndAJIp86fDzHtpoakRM1Ob6U4RY5mJenIPJYTJoUCfn5e+BLfc0bIadw/wPu2JvSbxz2XAAAAABJRU5ErkJggg==" />
-                      </defs>
-                  </svg>
+                  <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
                 </div>
               </div>
 
@@ -317,7 +190,7 @@
         <ng-container>
           <app-two-button-modal #editModalCatg
                                 [title]="'Editar categoria'"
-                                [confirmButtonText]="'Editar'"
+                                [confirmButtonText]="'Confirmar'"
                                 [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
                                 [icon]="customIconEdit"
                                 (confirm)="onEditCategory()"
@@ -327,15 +200,7 @@
                 <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
                   <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                   <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || 'https://localhost:7123/' + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
-                  <svg *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="40" height="40" fill="url(#pattern0_268_13)" />
-                      <defs>
-                        <pattern id="pattern0_268_13" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_268_13" transform="scale(0.0111111)" />
-                        </pattern>
-                        <image id="image0_268_13" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEZklEQVR4nO2c3YtVVRTAf/XQnSyC6MEcox5i9CFKG9EUSkzyDwmEImh6qmv40GiPijoGfgz2F0SmhIjgu5pgaeVbT1YPpRYYNGbNjQXrwjDOuefsj/Ox910/WDAwl3PP/Fiz9l77rHvBMAzDMAzDMAzDMAzDMAzDKGEC+AC4AvwFDCwYqIvLwAzQC82i54DrJpay5PpOXXlnsknGSbZXZku5sDKBk4P3fURLTTbRODm45CP6nonGNdHEmTOWzXg5MNE0kzwmGhNN22Xqb+AIsAV4QuM1YA5YsIwmiuRbwCsj/t836GusdBCWyaMkL5VdNbOtRvOwFCkXVTlqovHOaKnJVdlqovEW/aSDaHmtlQ7qF/2UicZKR9djziGjP7OMxlv0gm7dytgI3DfRBGX1rRLZIvlnh+s5MxijWNB98lZdICW2abmomsmtiv4F2KMZM/wDJEM+Bn7tgOA6onHRp4BVI66/Cvi8A2KSFj3r8D6zHZCTpOhPPN6r3wFBSYn2kZybbGealJyTbGfqqsldqNmLwDVgHngP2A6sA1br4NAjwNPAC8DrwNu6/bsK/NeW6JiS65Qtci8C7wKT+PMM8A7wTZOi65AcW/aCbiNfIj7SHxxb1tQ4U0s9alj2F8Dz1I+UnbMpi/aV/ROwi+Z5K2XRrruRr3UhS4Yuia6S2bLY7dUdQxVkxPZNYD/wFXATuAv8ozVXfv5Rf7cP2BFj4DwF0aNkL+o2rQqbdFv3p0dJ+gM4CUyTueiVZIvk3ZQjci4ELq5L47yeRGYrernsTxnN4/rI6t+IkofxADisTU6WooeyzwCPUsx64EYNglf6WMUUmYoWHqMYGVK83YDkYfzuOJCTlOhRktv4xMI9H9mpil7fcCavlNlTuYueAL5tUfIwbuginK3ouQA50qR8CKzR+MjjCfjSOJSr6OnALZyIjfkg4kHF4ZzkRF8I/HeXLF7Os4HXPJeb6E2BQkb9LSHXlK711ZxEz3dUtMTxXET3PA+ImhJ9t6SxSkb0zggy6hQ90Ie/QW/QBfYnIHo2B9FnExB9mprfIGasK7jPm47NSCxcmpofUhK9uuA+b3s2I7HoVzz/KGTQsegV3GeVjIqZyT5NjcyWJPPFKL0A0SGTSWWsDRV9JaPS0ac+9oSWjpkOyB1EXAz7kTN7Uq8ZvBj29FnYoCOxs+A+z0S6fhG1b+/QL83riuyZgnvcl4DoSrPjPf0+t0stL5DzBfe3I/UWPBV6OkHUVdF3yg6VUmI+5WPSlJju8MF/lLGxLnE+UMqkZzNSNkKcHRv1gaivlL5nM1IUci8vkymHA8QsbWpcmpGiOEDGTOjH2gYtx3WXAZpUmdKzhbYk/wa8yJiwpcUhx82MGZs1u5qSfEe/TGUsmWrorObaOJWLUQvkocCtX1HINQ+GfrQiNzboLNxiBMGL2oxku0+OgczCndAJIp86fDzHtpoakRM1Ob6U4RY5mJenIPJYTJoUCfn5e+BLfc0bIadw/wPu2JvSbxz2XAAAAABJRU5ErkJggg==" />
-                      </defs>
-                  </svg>
+                  <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
                 </div>
               </div>
 
@@ -364,70 +229,27 @@
             <tr *ngFor="let material of listaMaterial" class=" shadow-md" style="background-color: #221D22;">
               <td class="px-6 py-2 border-fix-left" style=" border:0px;">
                 <div class="text-sm font-medium text-white flex items-center max-sm:justify-center" style="font-size: large;">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="20" height="20" fill="url(#pattern0_769_3)" />
-                    <defs>
-                      <pattern id="pattern0_769_3" patternContentUnits="objectBoundingBox" width="1" height="1">
-                        <use xlink:href="#image0_769_3" transform="scale(0.01)" />
-                      </pattern>
-                      <image id="image0_769_3" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACY0lEQVR4nO3doW5UURSF4f0KJEWA5BUwIyoQJFXU1SJJUEgsshbRJlhkLZKkaiSvgEW0yX2Fn0xygUJ6QgjTnrX3Xl8y/py1Zs7cu2cyE2FmZmZmZpYMsAEu/GCXwUahkBPsh5PZfbiQ37kQMS5EjAsR40LEuBAxLkSMCxHjQsS4EDEShRzPTkHIcSgADoFP9LUFnoeahsVsJYtoWMw2RRGDYj5TxzZlEX/acygL8AX4CLwFXgCPZ+8xlT0G/2T2Xkpw8GL8jBcDPIxkgAPgGfAaOAMuZ6+pBeAB8BR4CZyul+tfbztmZ6+1bfAjs/fQNviR2XtrG/zI7D23DX4kOlEKfiQqyhD8SFQBnO+u44Fr8rle134eVZDDsk5zPwBvdlNd4FFUhJalTfAjDr5XIVfrGX+2zp1286eDu5hrRRVZjhr+cgUYVWQLfiSqyBb8SFRxX2c8Nz67WN9b9mqfay6ByXf50RWi45WoTjX4kagiW/AjUQX5LLdcAdb5Mh66lpZzrdmp0zX4EQdfv5CrGTebUcV/BL8ojVeiimzBj0QV2YIfiSoyDxRv2uf600LoLj86UQp+JCrKEPxIVOEvyokhh6XNeAUtS5vgRxy8GD/jxfioEeMzXozfXMXc9WcX9yHjjx9UmiQcAq+A9+vPS33bvcpnr61t8COz19w2+JHZe2kb/EhUALyjjtPIrFgZuUspWkbOUoqXkauUJmXkKKVZGdqlNC1Ds5TmZWiVAhz9XJIdze7D//Qp+Icu/i/cX1yIGBcixoWIcSFiXIgYiUI2wIUf7DLYzO7DzMzMzMws/tF3WyUlx8WULY4AAAAASUVORK5CYII=" />
-                    </defs>
-                  </svg>
+                  <img src="../../../assets/icons/Material.svg" alt="material">
                   <span class="ml-2 text-xl">{{ material.nombre }}</span>
                 </div>
                 <div class="ml-2 flex justify-center sm:hidden">
                   <div class="flex w-full justify-between max-w-52 mx-6">
                     <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
-                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <rect width="25" height="25" fill="url(#pattern0_edit_hidden)" />
-                        <defs>
-                          <pattern id="pattern0_edit_hidden" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_edit_hidden" transform="scale(0.0104167)" />
-                          </pattern>
-                          <image id="image0_edit_hidden" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                        </defs>
-                      </svg>
+                      <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                     </button>
                     <button (click)="openDeleteModalMats(material)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded ml-2 mr-2">
-                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <rect width="25" height="25" fill="url(#pattern0_delete_hidden)" />
-                        <defs>
-                          <pattern id="pattern0_delete_hidden" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_delete_hidden" transform="scale(0.0104167)" />
-                          </pattern>
-                          <image id="image0_delete_hidden" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                        </defs>
-                      </svg>
-
+                      <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
                     </button>
                   </div>
-
                 </div>
               </td>
               <td class="ml-2 max-sm:hidden border-fix-right">
                 <div class="flex justify-end">
                   <button (click)="openEditMatsModal(material)" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="35" height="35" fill="url(#pattern0_208_938)" />
-                      <defs>
-                        <pattern id="pattern0_208_938" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_208_938" transform="scale(0.0104167)" />
-                        </pattern>
-                        <image id="image0_208_938" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAADpklEQVR4nO2dTW8OURTHp0VLLEhE2qjEWyKVpqva8wHYeEnYqC+gkYgPYEG9JKg2FXYSCxIJNt5q4yVigw1pBVtEEUQTLPzkJrfxpGbu3JlnHrd97v+3nnvmzv+c59zzzJ05kyRCCCGEEEIIIYQQYjYALAHaQs8jCoD5wFbgPPAG+MFfPgBjwACwMvRcmwqgBdgJTOCHccwpYHnouc95gIXARcoxCWwOfQ1zFqATeEp9/AR2h76WOQfQATynGn4Bm0Jf01yL/HEPYZ8Al4CbwLecY99rTahO/FvAhhnjFgEHgSnHuNM+c4gW/MQ/bqoih42NNtqzqiOVqHWIP+hpqw/4nmFjwMdGVOAn/nBBmwcy7Iw17kqau9q5AbQXsNsGfEqxM9nYK2rOamea60Xu+wDX+JffuneUlBK/sBOACxk2liYxQ3nxCzkBeJxRCWVWUU0PfuKftSKXdgLQbdPNTF4nsYKf+KP27mdbWScArcCdjDHnkhihgPg1Y0o5ATjhOH5LEhv4lZpmk6U1ZaxxwlXfEhU45DjupdnUSWKCEpGfYsP3lzCcc8z2JCaoQPyCTnBxOarqhzrSjsOmTzpK4xmwOIkFGiB+HU4w+8grkliggeKXcEJ04ndWlfNzztNi/6y5MPPoTGKB/xD5NeKPKPJrkPgBQZEv8WNdcDuU8yW+QZGfgqodpZ0mA+V8iW9Rzk9BOV9pp8lQzg+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxA+IxJ/9jwu+BboqeGJtNOc8cT0uaACO4cdX2+5rXolztEj8bHHuUoz7wDKJXwE2MtNe18/DNMTr9rQ/kmMrrj3cWoC1lOcjsN5hW2nHwwGm02AaL4ArGS8y1/IqLR1JfP9fwFFX6xfbV+dBjhPu1S7MEr+aBbh/RjPULEdNs69GfOX8Chbg3pTj9+MuUbtUahaL/jUZYk5lvS2eE93vcBPfnywXwI4MoR45xizwWBPSkPgpYg6mSgVnchzX51Ed1RJvne/C0a6l32OsKVF9mJD42SKaxtW+C7CphHqBvbbhhU8TvXHl/GzxVzsW4HagB9gDDAEPHT02s1Dk56SQbY4m1q7Wvj6MK/Lzc/gRGsOEcr4HwG2JHxD7PZUq+GxvZ5hNHf3J8hR/XUmxv9gFecgu0D1RdZiqCvO5DokdEODkDAdM2g8eHLbV0aqQ82t67OebjBN2mR2x0PMRQgghhBBCCCGEEEkR/gDaTz32xAOZjAAAAABJRU5ErkJggg==" />
-                      </defs>
-                    </svg>
+                    <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                   </button>
                   <button (click)="openDeleteModalMats(material)" class="hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2">
-                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <rect width="35" height="35" fill="url(#pattern0_208_939)" />
-                      <defs>
-                        <pattern id="pattern0_208_939" patternContentUnits="objectBoundingBox" width="1" height="1">
-                          <use xlink:href="#image0_208_939" transform="scale(0.0104167)" />
-                        </pattern>
-                        <image id="image0_208_939" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3WP25TcRDE8b1B0hKakJ4eGiIuBRLJPRJuErgDoiKixK2h4U+kpPqip7hI8xQW2Xoz/s2nXls7s/azqyIiIiIiIiIiIoQAh8A58Bm4oe9m89oz4GDpPFaA58CK7fk2vefSuZw++astlv/wCPkmPGbz2NmVd48uMDrun9u78mnpfPL4vx/cf/Vn6XzymLHU+wyHHCAHsMRgSg2DKTUMptQwmFLDYEoNgylllkvv0f72ATDf3z4A5vvbB8B8f/sAmO9vHwDz/e0DYL6/fQDM97cPgPn+7QCYz8tRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstRK4gcwKtQmvNy1AoiB/AqlOa8HLWCyAG8CqU5L0etIHIAr0JpzstxD4D5/vYBMN/fPgDm+9sHwHx/+wCY728fAPP9pwC/ZjI8KXHA05ndf5YL4OtMiDclDng7s/t1uQDez4S4nY4AHJWYaadN+Xczu1+UC+A1++dVOQE+sj+uyg1wDKzx9wM4KUfAS+A7vtbAi3IGPDN9HH2YvsW1L4BT4HL6Owf8Rs+005fp347dD25ERERERERERJSqv/JKz1BTwVm0AAAAAElFTkSuQmCC" />
-                      </defs>
-                    </svg>
-
+                    <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
                   </button>
                 </div>
 
@@ -466,7 +288,7 @@
       <ng-container>
         <app-two-button-modal #editModalMats
                               [title]="'Editar Material'"
-                              [confirmButtonText]="'Editar'"
+                              [confirmButtonText]="'Confirmar'"
                               [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
                               [icon]="customIconEdit"
                               (confirm)="onEditMats()"
