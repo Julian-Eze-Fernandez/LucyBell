@@ -173,7 +173,7 @@
               <div class="flex justify-center m-auto mb-4">
                 <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
                   <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || 'https://localhost:7123/' + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
+                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
                   <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
                 </div>
               </div>
@@ -199,7 +199,7 @@
               <div class="flex justify-center mb-4">
                 <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
                   <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || 'https://localhost:7123/' + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
+                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
                   <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
                 </div>
               </div>

@@ -265,7 +265,7 @@
 					</p>
 				</div>
 				<div *ngIf="categoria.urlImagen.length > 0">
-					<img [src]=" 'https://localhost:7123/' + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+					<img [src]="url + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
 				</div>
 			</div>
 		</div>

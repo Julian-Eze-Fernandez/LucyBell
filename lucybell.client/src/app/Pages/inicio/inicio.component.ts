@@ -5,6 +5,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { register } from 'swiper/element/bundle';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
+import { appsettings } from '../../Settings/appsettings';
 
 import Swiper from 'swiper';
 import { LoginComponent } from '../seguridad/login/login.component';
@@ -34,6 +35,7 @@ export class InicioComponent implements OnInit {
 
   listaCategorias: Categoria[] = [];
   isLargeScreen: boolean = true;
+  url = appsettings.noApiUrl;
   
   private touchStartX: number | null = null;
   private startX: number = 0;
