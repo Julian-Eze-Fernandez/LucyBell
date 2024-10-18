@@ -250,4 +250,12 @@
   font-family: VollkornSC;
 }
 
+.navbarItemBg {
+  background-color: rgba(0, 0, 0, 0.95);
+  font-family: Vol ;
+}
+
+.navbarSubItemRoundedLogin {
+  border-radius: 25px 0px 25px 25px;
+}
 

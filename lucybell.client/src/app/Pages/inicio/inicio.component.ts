@@ -1,19 +1,26 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../navBar/navBar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { register } from 'swiper/element/bundle';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
+import { appsettings } from '../../Settings/appsettings';
 
 import Swiper from 'swiper';
+import { LoginComponent } from '../seguridad/login/login.component';
+import { SeguridadService } from '../../Services/seguridad.service';
+import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
+import { FormsModule } from '@angular/forms';
+import { FormularioAutenticacionComponent } from '../seguridad/formulario-autenticacion/formulario-autenticacion.component';
+import { RouterModule } from '@angular/router';
 
 register();
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, SidebarComponent],
+  imports: [CommonModule, navBarComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
@@ -22,8 +29,13 @@ register();
 
 export class InicioComponent implements OnInit {
 
+  seguridadService = inject(SeguridadService);
+  @ViewChild('loginModal') loginModal!: LoginComponent;
+  showModal: boolean = false;
+
   listaCategorias: Categoria[] = [];
   isLargeScreen: boolean = true;
+  url = appsettings.noApiUrl;
   
   private touchStartX: number | null = null;
   private startX: number = 0;
@@ -87,6 +99,22 @@ export class InicioComponent implements OnInit {
     });
   }
 
+  openLoginModal() {
+    this.showModal = true;
+    this.loginModal.openLoginModal();
+
+  }
+
+  closeLoginModal() {
+    this.showModal = false;
+    this.loginModal.closeLoginModal();
+
+  }
+
+  onSubmitLogin(){
+
+
+  }
 
 
 }

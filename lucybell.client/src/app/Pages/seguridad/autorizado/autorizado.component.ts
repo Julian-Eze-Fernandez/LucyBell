@@ -1,10 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { SeguridadService } from '../../../Services/seguridad.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-autorizado',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './autorizado.component.html',
   styleUrl: './autorizado.component.css'
 })

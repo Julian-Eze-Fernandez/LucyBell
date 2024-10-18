@@ -19,6 +19,7 @@ import { provideAnimations  } from '@angular/platform-browser/animations';
 
 
 
+
 @Component({
   selector: 'app-categorias',
   standalone: true,
@@ -40,7 +41,7 @@ import { provideAnimations  } from '@angular/platform-browser/animations';
 })
 export class CategoriasComponent {
 
-  appsettings = appsettings;
+  url = appsettings.noApiUrl;
 
   @ViewChild('deleteModalCatg') deleteModalCatg!: TwoButtonModalComponent;
   @ViewChild('deleteModalMats') deleteModalMats!: TwoButtonModalComponent;
