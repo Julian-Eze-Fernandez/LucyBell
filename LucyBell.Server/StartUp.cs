@@ -78,7 +78,15 @@ namespace LucyBell.Server
             services.AddAutoMapper(typeof(StartUp));
 
 			//Agregar servicios de Identity
-			services.AddIdentity<IdentityUser, IdentityRole>()
+			services.AddIdentity<IdentityUser, IdentityRole>(options =>
+			{
+				options.Password.RequireDigit = true;
+				options.Password.RequiredLength = 8;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = true;
+				options.Password.RequireLowercase = true;
+				options.Password.RequiredUniqueChars = 1;
+			})
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 

@@ -109,12 +109,14 @@ export class LoginComponent {
   }
 
   openRegisternModal() {
+    this.resetearErrores();
     this.isLoginOpen = false;
     this.isRegisterOpen = true;
     this.animationState = 'open';
   }
 
   closeRegisterModal() {
+    this.resetearErrores();
     this.animationState = 'closed';
     setTimeout(() => {
       this.isRegisterOpen = false;

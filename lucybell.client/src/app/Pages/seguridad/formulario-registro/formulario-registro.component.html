@@ -1,5 +1,7 @@
 <h2 class="flex justify-center font-Julius text-2xl">REGISTRO</h2>
 
+<app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
 <form (submit)="guardarCambios()" [formGroup]="form" class="space-y-4 mt-2 font-volkornSC">
 
     <div class="flex flex-col">

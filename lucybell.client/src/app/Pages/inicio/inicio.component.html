@@ -5,34 +5,75 @@
 <app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
 
 <div *ngIf="!isLargeScreen" class="sticky top-0 z-20 bg-MyBg">
-
 	<div class="relative flex flex-row justify-center">
-		
-		<button 
-		(click)="toggleChildSidebar()" 
+	  <button
+		(click)="toggleChildSidebar()"
 		class="absolute left-1 top-2 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
-		<img src="../../../assets/icons/MenuBlack.svg" alt="Menu">
-		</button>
-           
-        <!-- Logo Container -->
-        <div id="logo-container" class="h-10 my-2 flex justify-center items-center mx-auto" >
-          <img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo">
-        </div>
-		
-		<div class="absolute right-1 top-4 opacity-80">
-			<div class="flex">
-				<button class="px-1 h-full items-center text-3xl">
-					<ion-icon name="person-circle-outline"></ion-icon>
+		<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
+	  </button>
+  
+	  <!-- Logo Container -->
+	  <div id="logo-container" class="h-10 my-2 flex justify-center items-center mx-auto">
+		<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
+	  </div>
+  
+	  <div class="absolute right-1 top-4 opacity-80">
+		<div class="flex">
+		  <app-autorizado class="inline h-full">
+			<ng-container autorizado>
+			  <div class="flex items-center space-x-4 h-full">
+				<ul class="flex items-center h-full">
+				  <li class="h-full group items-center relative z-[101]">
+					<a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">
+					  {{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}
+					</a>
+					<ul class="absolute right-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
+					  <li>
+						<span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 w-full">
+						  {{ seguridadService.obtenerCampoJWT('email') }}
+						</span>
+					  </li>
+					  <li *ngIf="seguridadService.obtenerRol()">
+						<a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+						  Administrar
+						</a>
+					  </li>
+					  <li>
+						<button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+						  Logout
+						</button>
+					  </li>
+					</ul>
+				  </li>
+				</ul>
+			  </div>
+			</ng-container>
+  
+			<ng-container noAutorizado>
+			  <div class="flex items-center h-full">
+				<button class="flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
+				  <ion-icon name="person-circle-outline"></ion-icon>
 				</button>
-				<button class="px-1 h-full items-center text-3xl" >
-					<ion-icon name="cart-outline"></ion-icon>
-				</button>
-			</div>
+			  </div>
+			</ng-container>
+		  </app-autorizado>
+  
+		  <button class="flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
+			<ion-icon name="cart-outline"></ion-icon>
+		  </button>
 		</div>
-
-    </div>
+	  </div>
+	</div>
 	<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+  
+	<ng-container>
+	  <app-login #loginModal
+				 (confirm)="onSubmitLogin()"
+				 (cancel)="closeLoginModal()">
+	  </app-login>
+	</ng-container>
 </div>
+  
 
 
 <section id="tranding" class="max-h-32">
