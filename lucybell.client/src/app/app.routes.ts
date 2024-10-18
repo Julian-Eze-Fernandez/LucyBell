@@ -13,6 +13,8 @@ import { LoginComponent } from './Pages/seguridad/login/login.component';
 import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
 import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 import { ContactoComponent } from './Pages/contacto/contacto.component';
+import { ProductosComponent } from './Pages/productos/productos.component';
+
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
     { path: 'categorias',component:CategoriasComponent, canActivate: [esAdminGuard]},
@@ -25,6 +27,7 @@ export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
     { path: 'usuarios', component: IndiceUsuariosComponent},
     { path: 'contacto', component: ContactoComponent},
+    { path: 'productos', component: ProductosComponent},
 ];
 
 

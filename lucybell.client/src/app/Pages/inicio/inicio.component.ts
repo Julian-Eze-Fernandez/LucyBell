@@ -6,7 +6,6 @@ import { register } from 'swiper/element/bundle';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
 
-
 import Swiper from 'swiper';
 import { LoginComponent } from '../seguridad/login/login.component';
 import { SeguridadService } from '../../Services/seguridad.service';

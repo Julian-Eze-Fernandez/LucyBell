@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { CategoriaService } from '../../Services/categoria.service';
 import { SubcategoriaService } from '../../Services/subcategoria.service';
 import { MaterialService } from '../../Services/material.service';
@@ -73,6 +73,7 @@ export class AgregarProductoComponent implements OnInit {
     this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
       this.selectedCategoriaId = value;
       this.onCategoriaChange();
+      console.log('changed to ', this.selectedCategoriaId)
     });
 
   }
@@ -83,6 +84,8 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   reiniciarForm(){
+    this.selectedCategoriaId = null;
+    console
     setTimeout(() => {
       this.productoForm = this.fb.group({
         nombre: ['', Validators.required],
@@ -97,7 +100,15 @@ export class AgregarProductoComponent implements OnInit {
       });
       this.errorMessage = '';
       this.isAddingColor = false;
+
+      this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
+        this.selectedCategoriaId = value;
+        this.onCategoriaChange();
+        console.log('changed to ', this.selectedCategoriaId)
+      });
+
     }, 200); 
+
   }
 
   GetCategorias() {
