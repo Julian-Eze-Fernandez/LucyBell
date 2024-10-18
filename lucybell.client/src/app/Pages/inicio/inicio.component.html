@@ -1,272 +1,274 @@
-<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80" >
-	<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
-</div>
-
-<app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
-
-<div *ngIf="!isLargeScreen" class="sticky top-0 z-20 bg-MyBg">
-	<div class="relative flex flex-row justify-center">
-	  <button
-		(click)="toggleChildSidebar()"
-		class="absolute left-1 top-2 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
-		<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
-	  </button>
-  
-	  <!-- Logo Container -->
-	  <div id="logo-container" class="h-10 my-2 flex justify-center items-center mx-auto">
-		<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
-	  </div>
-  
-	  <div class="absolute right-1 top-4 opacity-80">
-		<div class="flex">
-		  <app-autorizado class="inline h-full">
-			<ng-container autorizado>
-			  <div class="flex items-center space-x-4 h-full">
-				<ul class="flex items-center h-full">
-				  <li class="h-full group items-center relative z-[101]">
-					<a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">
-					  {{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}
-					</a>
-					<ul class="absolute right-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
-					  <li>
-						<span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 w-full">
-						  {{ seguridadService.obtenerCampoJWT('email') }}
-						</span>
-					  </li>
-					  <li *ngIf="seguridadService.obtenerRol()">
-						<a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-						  Administrar
+<div class="main-content">
+	<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80" >
+		<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
+	</div>
+	
+	<app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
+	
+	<div *ngIf="!isLargeScreen" class="sticky top-0 z-30 bg-MyBg">
+		<div class="relative flex flex-row justify-center">
+		  <button
+			(click)="toggleChildSidebar()"
+			class="absolute left-1 top-1 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
+			<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
+		  </button>
+	  
+		  <!-- Logo Container -->
+		  <div id="logo-container" class="h-9 my-2 flex justify-center items-center mx-auto">
+			<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
+		  </div>
+	  
+		  <div class="absolute right-1 top-3 opacity-80">
+			<div class="flex">
+			  <app-autorizado class="inline h-full">
+				<ng-container autorizado>
+				  <div class="flex items-center space-x-4 h-full">
+					<ul class="flex items-center h-full">
+					  <li class="h-full group items-center relative z-[101]">
+						<a class="flex transition duration-300 navbarHover px-2 items-center justify-center mr-2 w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">
+						  {{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}
 						</a>
-					  </li>
-					  <li>
-						<button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-						  Logout
-						</button>
+						<ul class="absolute right-1 top-10 hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
+						  <li>
+							<span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 w-full">
+							  {{ seguridadService.obtenerCampoJWT('email') }}
+							</span>
+						  </li>
+						  <li *ngIf="seguridadService.obtenerRol()">
+							<a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+							  Administrar
+							</a>
+						  </li>
+						  <li>
+							<button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+							  Logout
+							</button>
+						  </li>
+						</ul>
 					  </li>
 					</ul>
-				  </li>
-				</ul>
-			  </div>
-			</ng-container>
-  
-			<ng-container noAutorizado>
-			  <div class="flex items-center h-full">
-				<button class="px-1 h-full items-center text-3xl" (click)="openLoginModal()">
-					<img src="../../../assets/icons/User.svg" alt="Usuario" class="h-full object-contain">
-				</button>
-			  </div>
-			</ng-container>
-		  </app-autorizado>
-  
-		  <button class="px-1 h-full items-center text-3xl" >
-			<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-full object-contain">
-		</button>
+				  </div>
+				</ng-container>
+	  
+				<ng-container noAutorizado>
+				  <div class="flex items-center h-full">
+					<button class="px-1 h-full items-center text-3xl" (click)="openLoginModal()">
+						<img src="../../../assets/icons/User.svg" alt="Usuario" class="h-8 w-8">
+					</button>
+				  </div>
+				</ng-container>
+			  </app-autorizado>
+	  
+			  <button class="px-1 h-full items-center text-3xl" >
+				<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-8 w-8">
+			</button>
+			</div>
+		  </div>
 		</div>
-	  </div>
+		<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-40 box-border"></div>
+	  
+		<ng-container>
+		  <app-login #loginModal
+					 (confirm)="onSubmitLogin()"
+					 (cancel)="closeLoginModal()">
+		  </app-login>
+		</ng-container>
 	</div>
-	<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
-  
-	<ng-container>
-	  <app-login #loginModal
-				 (confirm)="onSubmitLogin()"
-				 (cancel)="closeLoginModal()">
-	  </app-login>
-	</ng-container>
+	  
+	
+	
+	<section id="tranding" class="max-h-32">
+		<div class="container">
+			<h1 class="text-center section-heading">Destacados</h1>
+		</div>
+		<div class="container">
+			<div class="swiper tranding-slider">
+				<div class="swiper-wrapper">
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+	
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$20</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+					<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$20</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+					<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$40</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+					<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+					<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+					<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+										<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+										<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+										<!-- Slide-end -->
+					<!-- Slide-start -->
+					<div class="swiper-slide tranding-slide">
+						<div class="tranding-slide-img">
+							<img
+								src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
+								alt="Tranding"
+								loading="lazy"
+							/>
+						</div>
+						<div class="tranding-slide-content">
+							<h1 class="price">$15</h1>
+							<div class="tranding-slide-content-bottom">
+								<h2 class="prod-name">Collar de perlas</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="tranding-slider-control">
+					<button class="swiper-button-prev slider-arrow z-100">
+						<img src="../../../assets/icons/Back-chevron.svg" alt="Atras" class="h-10 w-10" />
+					</button>
+					<button class="swiper-button-next slider-arrow z-100">
+						<img src="../../../assets/icons/Forward-chevron.svg" alt="Adelante" class="h-10 w-10" />
+					</button>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 auto-rows-max pb-10 gap-4 slider-size">
+		<div *ngFor="let categoria of listaCategorias">
+			<div class="relative w-full aspect-[4/6] overflow-hidden rounded-lg max-w-sm">
+				<div class="flex h-full w-full absolute justify-center items-center">
+					<h3 class="text-white text-2xl z-20 volSC"> {{categoria.nombre}} </h3>
+				</div>			  
+				<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
+				<div *ngIf="categoria.urlImagen.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
+					<p class="text-white">
+						Imagen no encontrada
+					</p>
+				</div>
+				<div *ngIf="categoria.urlImagen.length > 0">
+					<img [src]=" 'https://localhost:7123/' + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+				</div>
+			</div>
+		</div>
+	</div>
+		
 </div>
-  
-
-
-<section id="tranding" class="max-h-32">
-	<div class="container">
-		<h1 class="text-center section-heading">Destacados</h1>
-	</div>
-	<div class="container">
-		<div class="swiper tranding-slider">
-			<div class="swiper-wrapper">
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$20</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$20</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$40</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-									<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-									<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-									<!-- Slide-end -->
-				<!-- Slide-start -->
-				<div class="swiper-slide tranding-slide">
-					<div class="tranding-slide-img">
-						<img
-							src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-							alt="Tranding"
-							loading="lazy"
-						/>
-					</div>
-					<div class="tranding-slide-content">
-						<h1 class="price">$15</h1>
-						<div class="tranding-slide-content-bottom">
-							<h2 class="prod-name">Collar de perlas</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="tranding-slider-control">
-				<button class="swiper-button-prev slider-arrow z-100">
-					<img src="../../../assets/icons/Back-chevron.svg" alt="Atras" class="h-10 w-10" />
-				</button>
-				<button class="swiper-button-next slider-arrow z-100">
-					<img src="../../../assets/icons/Forward-chevron.svg" alt="Adelante" class="h-10 w-10" />
-				</button>
-				<div class="swiper-pagination"></div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 auto-rows-max pb-10 gap-4 slider-size">
-	<div *ngFor="let categoria of listaCategorias">
-		<div class="relative w-full aspect-[4/6] overflow-hidden rounded-lg max-w-sm">
-			<div class="flex h-full w-full absolute justify-center items-center">
-				<h3 class="text-white text-2xl z-20 volSC"> {{categoria.nombre}} </h3>
-			</div>			  
-			<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
-			<div *ngIf="categoria.urlImagen.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
-				<p class="text-white">
-					Imagen no encontrada
-				</p>
-			</div>
-			<div *ngIf="categoria.urlImagen.length > 0">
-				<img [src]=" 'https://localhost:7123/' + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
-			</div>
-		</div>
-	</div>
-</div>
-
