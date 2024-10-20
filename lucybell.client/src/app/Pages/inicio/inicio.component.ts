@@ -14,13 +14,14 @@ import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.componen
 import { FormsModule } from '@angular/forms';
 import { FormularioAutenticacionComponent } from '../seguridad/formulario-autenticacion/formulario-autenticacion.component';
 import { RouterModule } from '@angular/router';
+import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-responsive.component';
 
 register();
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule],
+  imports: [CommonModule, navBarComponent,NavBarResponsiveComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
