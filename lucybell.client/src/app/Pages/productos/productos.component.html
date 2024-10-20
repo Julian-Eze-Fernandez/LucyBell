@@ -1,4 +1,4 @@
-<div class="flex-grow p-6">
+<div class="flex-grow">
 
 	<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80" >
 		<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
@@ -6,17 +6,24 @@
 	
 	<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
 
-	<div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 auto-rows-max pb-10 gap-4">
-		<div *ngFor="let producto of productos">
-			<div class="relative w-full aspect-[4/6] overflow-hidden rounded-lg max-w-sm">
-				<div class="flex reverse h-full w-full absolute justify-end">
-					<h3 class="text-white text-2xl z-20 volSC"> {{producto.nombre}} </h3>
-				</div>			  
-				<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
-				<div *ngIf="producto.imagenesProductos">
-					<img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+	<div class="p-2 grid grid-cols-2 md:grid-cols-3 auto-rows-max pb-10 gap-4">
+		<div *ngFor="let producto of productos" class="rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
+			<div class="flex-col border border-black rounded-lg">
+				<div class="relative bg-black w-full aspect-[4/4] overflow-hidden rounded-t-lg">	  
+					
+					<div *ngIf="producto.imagenesProductos">
+						<img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+					</div>
+				</div>
+				<div class="p-2 h-16 bg-MyColor w-full border-t rounded-b-lg border-black">
+					
+					<div class="flex-col items-center text-center rounded-b-lg text-white">
+						<h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
+						<h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+					</div>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 
