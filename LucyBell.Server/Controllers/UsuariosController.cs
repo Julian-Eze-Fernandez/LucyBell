@@ -96,6 +96,7 @@ namespace LucyBell.Server.Controllers
 			}
 		}
 
+
 		[HttpPost("HacerAdmin")]
 		public async Task<IActionResult> HacerAdmin(EditarClaimDTO editarClaimDTO)
 		{
