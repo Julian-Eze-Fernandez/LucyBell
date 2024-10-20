@@ -1,19 +1,13 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../navBar/navBar.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { register } from 'swiper/element/bundle';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
 import { appsettings } from '../../Settings/appsettings';
-
 import Swiper from 'swiper';
-import { LoginComponent } from '../seguridad/login/login.component';
 import { SeguridadService } from '../../Services/seguridad.service';
 import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
-import { FormsModule } from '@angular/forms';
-import { FormularioAutenticacionComponent } from '../seguridad/formulario-autenticacion/formulario-autenticacion.component';
-import { RouterModule } from '@angular/router';
 import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-responsive.component';
 
 register();
@@ -21,7 +15,7 @@ register();
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent,NavBarResponsiveComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule],
+  imports: [CommonModule, navBarComponent,NavBarResponsiveComponent,  AutorizadoComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
@@ -31,7 +25,6 @@ register();
 export class InicioComponent implements OnInit {
 
   seguridadService = inject(SeguridadService);
-  @ViewChild('loginModal') loginModal!: LoginComponent;
   showModal: boolean = false;
 
   listaCategorias: Categoria[] = [];
@@ -42,7 +35,6 @@ export class InicioComponent implements OnInit {
   private startX: number = 0;
   private endX: number = 0;
   
-  @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
 
   constructor(private categoriaService:CategoriaService){}
 
@@ -85,10 +77,6 @@ export class InicioComponent implements OnInit {
     this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
   }
 
-  toggleChildSidebar(): void {
-    this.sidebar.toggleSidebar();
-  }
-
   obtenerCategorias() {
     this.categoriaService.GetCategoriasLista().subscribe({
       next: (data) => {
@@ -99,23 +87,5 @@ export class InicioComponent implements OnInit {
       }
     });
   }
-
-  openLoginModal() {
-    this.showModal = true;
-    this.loginModal.openLoginModal();
-
-  }
-
-  closeLoginModal() {
-    this.showModal = false;
-    this.loginModal.closeLoginModal();
-
-  }
-
-  onSubmitLogin(){
-
-
-  }
-
 
 }

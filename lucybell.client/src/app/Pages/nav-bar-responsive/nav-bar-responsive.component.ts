@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, ViewChild, OnInit } from '@angular/core';
 import { SeguridadService } from '../../Services/seguridad.service';
 import { LoginComponent } from '../seguridad/login/login.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -16,7 +16,7 @@ import { FormularioAutenticacionComponent } from '../seguridad/formulario-autent
   templateUrl: './nav-bar-responsive.component.html',
   styleUrl: './nav-bar-responsive.component.css'
 })
-export class NavBarResponsiveComponent {
+export class NavBarResponsiveComponent implements OnInit {
   seguridadService = inject(SeguridadService);
   @ViewChild('loginModal') loginModal!: LoginComponent;
   showModal: boolean = false;
@@ -24,6 +24,10 @@ export class NavBarResponsiveComponent {
   isLargeScreen: boolean = true;
   
   @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
+
+  ngOnInit(): void {
+    this.checkScreenSize(); 
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {

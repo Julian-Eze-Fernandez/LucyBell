@@ -26,10 +26,11 @@ export class navBarComponent implements OnInit {
 
   categorias: any[] = [];
 
-  isMobile = window.innerWidth < 640;
+  isLargeScreen: boolean = true;
 
   ngOnInit(): void {
     this.GetCategorias()
+    this.checkScreenSize()
   }
 
   GetCategorias() {
@@ -54,7 +55,7 @@ export class navBarComponent implements OnInit {
         if (scrollPosition > 5) {
 
           setTimeout(() => {
-            logoContainer.classList.remove('h-36', 'sm:h-44', 'lg:h-64');
+            logoContainer.classList.remove('h-36', 'md:h-44', 'lg:h-64');
             logoContainer.classList.add('h-16');
   
             logoContainerVine1.classList.remove('h-24', 'md:h-48', 'lg:h-64');
@@ -68,7 +69,7 @@ export class navBarComponent implements OnInit {
         } else {
           setTimeout(() => {
             logoContainer.classList.remove('h-16');
-            logoContainer.classList.add('h-36', 'sm:h-44', 'lg:h-64');
+            logoContainer.classList.add('h-36', 'md:h-44', 'lg:h-64');
   
             logoContainerVine1.classList.remove('h-24');
             logoContainerVine1.classList.add('h-24', 'md:h-48', 'lg:h-64');
@@ -98,5 +99,14 @@ export class navBarComponent implements OnInit {
     onSubmitLogin(){
 
   
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+      this.checkScreenSize(); 
+    }
+  
+    checkScreenSize(): void {
+      this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
     }
 }
