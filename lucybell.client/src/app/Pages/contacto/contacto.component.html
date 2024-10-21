@@ -1,49 +1,49 @@
-<div class="sticky top-0 z-50 bg-white shadow-md">
-    <app-navBar></app-navBar>
+<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80">
+    <app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
 </div>
 
+<app-nav-bar-responsive></app-nav-bar-responsive>
 
-<div id="navBar-Placeholder" class="h-48 sm:h-60 lg:h-80 transition-all duration-300"></div>
-
-
-<div class="flex h-screen">
+<div class="md:flex h-screen">
 <!-- Parte derecha -->
     <div class="flex-1 p-4 flex flex-col items-center">
-        <form class="space-y-4 mt-4 w-full mx-20 px-20">
-            <h2 class="text-2xl mb-4 font-medium contactFont">Envía un mensaje!</h2>
-
+        <form class="space-y-4 mt-4 w-full px-4 md:px-10 lg:mx-20" action="https://formsubmit.co/iaccjulian00@gmail.com" method="POST">
+            <h2 class="text-xl sm:text-2xl mb-4 font-medium contactFont">Envía un mensaje!</h2>
             <div>
                 <label for="name" class="block mb-1 font-bold">Nombre</label>
-                <input id="name" type="text" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
+                <input id="name" type="text" name="name" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
             </div>
 
             <div>
                 <label for="email" class="block mb-1 font-bold">Email</label>
-                <input id="email" type="email" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
+                <input id="email" type="email" name="email" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
             </div>
 
             <div>
                 <label for="phone" class="block mb-1 font-bold">Teléfono</label>
-                <input id="phone" type="tel" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
+                <input id="phone" type="tel" name="phone" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300">
             </div>
 
             <div>
                 <label for="mensaje" class="block mb-1 font-bold">Mensaje</label>
-                <textarea id="mensaje" cols="30" rows="5" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300"></textarea>
+                <textarea id="mensaje" name="mensaje" cols="30" rows="5" class="border rounded p-2 w-full focus:outline-none focus:border-black transition-colors duration-300"></textarea>
             </div>
 
+            <!-- Inputs del formulario -->
+
             <div class="flex">
-                <input class="ml-auto bg-purple-500 text-white rounded p-2 cursor-pointer hover:bg-purple-300 transition-colors duration-300" type="submit" value="Enviar">
+                <input class="ml-auto bg-purple-500 text-white rounded p-2 w-full md:w-auto cursor-pointer hover:bg-purple-300 transition-colors duration-300" type="submit" value="Enviar">
             </div>
         </form>
     </div>
 
-    <div class="mt-20 h-80 w-px bg-gradient-to-t from-transparent via-black to-transparent"></div>
+    <div class="hidden md:block mt-20 h-96 w-px bg-gradient-to-t from-transparent via-black to-transparent"></div>
 
     <!-- Parte izquierda -->
-    <div class="flex-1 p-4 mt-4 px-10 mx-10 flex flex-col items-start">
-        <h2 class="text-2xl mb-4 font-medium contactFont">También puedes encontrarme en:</h2>
+    <div class="flex-1 p-4 mt-4 px-4 sm:px-6 md:px-10 mx-4 sm:mx-6 md:mx-10 flex flex-col items-start">
+        <h2 class="text-xl sm:text-2xl mb-4 font-medium contactFont">También puedes encontrarme en:</h2>
 
+        <!-- Información de contacto y redes sociales -->
         <div class="mb-4">
             <p class="mb-2 font-bold">Redes:</p>
             <div class="flex items-center space-x-2">
@@ -81,5 +81,3 @@
         </div>
     </div>
 </div>
-
-

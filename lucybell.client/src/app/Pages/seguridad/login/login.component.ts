@@ -36,6 +36,7 @@ export class LoginComponent {
     this.seguridadService.login(credenciales)
     .subscribe({
       next: () => {
+        this.closeLoginModal();
         this.router.navigate(['/']);
       },
       error: err => {

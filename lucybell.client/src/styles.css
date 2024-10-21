@@ -38,6 +38,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   color: white;
 }
 
+.volSC{
+  font-family: 'VollkornSC';
+}
+
+.inter{
+  font-family: 'Inter';
+}
+
 .crossBg {
 
   --s: 30px; /* control the size*/

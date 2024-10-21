@@ -26,6 +26,7 @@ import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componen
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { ContactoComponent } from './Pages/contacto/contacto.component';
 import { ProductosComponent } from './Pages/productos/productos.component';
+import { NavBarResponsiveComponent } from './Pages/nav-bar-responsive/nav-bar-responsive.component';
 
 register();
 
@@ -53,6 +54,7 @@ register();
     
   
     
+  
   ],
   imports: [
     AppComponent,
@@ -79,7 +81,8 @@ register();
     IndiceUsuariosComponent,
     ListadoGenericoComponent,
     ContactoComponent,
-    ProductosComponent
+    ProductosComponent,
+    NavBarResponsiveComponent
   ],
   providers: [],
   bootstrap: [],

@@ -1,81 +1,9 @@
-<div class="main-content">
+<div class="flex-grow">
 	<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-80" >
 		<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
 	</div>
-	
-	<app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
-	
-	<div *ngIf="!isLargeScreen" class="sticky top-0 z-30 bg-MyBg">
-		<div class="relative flex flex-row justify-center">
-		  <button
-			(click)="toggleChildSidebar()"
-			class="absolute left-1 top-1 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
-			<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
-		  </button>
 	  
-		  <!-- Logo Container -->
-		  <div id="logo-container" class="h-9 my-2 flex justify-center items-center mx-auto">
-			<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
-		  </div>
-	  
-		  <div class="absolute right-1 top-3 opacity-80">
-			<div class="flex">
-			  <app-autorizado class="inline h-full">
-				<ng-container autorizado>
-				  <div class="flex items-center space-x-4 h-full">
-					<ul class="flex items-center h-full">
-					  <li class="h-full group items-center relative z-[101]">
-						<a class="flex transition duration-300 navbarHover px-2 items-center justify-center mr-2 w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">
-						  {{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}
-						</a>
-						<ul class="absolute right-1 top-10 hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
-						  <li>
-							<span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 w-full">
-							  {{ seguridadService.obtenerCampoJWT('email') }}
-							</span>
-						  </li>
-						  <li *ngIf="seguridadService.obtenerRol()">
-							<a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-							  Administrar
-							</a>
-						  </li>
-						  <li>
-							<button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-							  Logout
-							</button>
-						  </li>
-						</ul>
-					  </li>
-					</ul>
-				  </div>
-				</ng-container>
-	  
-				<ng-container noAutorizado>
-				  <div class="flex items-center h-full">
-					<button class="px-1 h-full items-center text-3xl" (click)="openLoginModal()">
-						<img src="../../../assets/icons/User.svg" alt="Usuario" class="h-8 w-8">
-					</button>
-				  </div>
-				</ng-container>
-			  </app-autorizado>
-	  
-			  <button class="px-1 h-full items-center text-3xl" >
-				<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-8 w-8">
-			</button>
-			</div>
-		  </div>
-		</div>
-		<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-40 box-border"></div>
-	  
-		<ng-container>
-		  <app-login #loginModal
-					 (confirm)="onSubmitLogin()"
-					 (cancel)="closeLoginModal()">
-		  </app-login>
-		</ng-container>
-	</div>
-	  
-	
+	<app-nav-bar-responsive></app-nav-bar-responsive>
 	
 	<section id="tranding" class="max-h-32">
 		<div class="container">
@@ -259,12 +187,7 @@
 					<h3 class="text-white text-2xl z-20 volSC"> {{categoria.nombre}} </h3>
 				</div>			  
 				<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
-				<div *ngIf="categoria.urlImagen.length == 0" class="flex text-center items-center justify-center w-full h-full border-2 border-stone-700 rounded-lg">
-					<p class="text-white">
-						Imagen no encontrada
-					</p>
-				</div>
-				<div *ngIf="categoria.urlImagen.length > 0">
+				<div *ngIf="categoria.urlImagen">
 					<img [src]="url + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
 				</div>
 			</div>
