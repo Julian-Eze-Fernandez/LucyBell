@@ -46,12 +46,12 @@ export class InicioComponent implements OnInit {
       centeredSlides: true,
       loop: true,
       slidesPerView: 'auto',
+      loopAdditionalSlides: 3,
       coverflowEffect: {
         rotate: 0,
         stretch: 0,
         depth: 100,
         modifier: 2.5,
-        
       },
       pagination: {
         el: '.swiper-pagination',
@@ -60,8 +60,14 @@ export class InicioComponent implements OnInit {
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-      }
+      },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
     });
+
+    TrandingSlider.autoplay.start();
 
     this.checkScreenSize(); 
     this.obtenerCategorias();

@@ -203,6 +203,8 @@
     background: var(--primary);
   }
 
+  
+
   ::-webkit-scrollbar {
     width: 1.3rem;
   }
@@ -228,6 +230,20 @@
 
 .slider-size{
   margin-top: 580px;
+}
+
+.fade-slider{
+  position: relative;
+  max-width: 1600px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the container */
+  overflow: hidden; /* Hide content outside the container */
+  
+  /* Apply a mask-image to fade the edges of the container */
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0));
+}
+
+@media (max-width:1050px){
+  .fade-slider{mask-image:none}
 }
 
 @media (max-width:640px){
