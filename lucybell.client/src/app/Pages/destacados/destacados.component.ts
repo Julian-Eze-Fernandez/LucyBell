@@ -1,5 +1,7 @@
 import { Component,  CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Producto } from '../../Models/Producto';
+import { ProductoService } from '../../Services/producto.service';
 import Swiper from 'swiper';
 
 @Component({
@@ -12,7 +14,13 @@ import Swiper from 'swiper';
 })
 export class DestacadosComponent implements OnInit {
 
+  productos: Producto[] = [];
+
+  constructor( private productoService: ProductoService) {}
 ngOnInit(): void {
+
+  this.cargarProductos()
+  
   var TrandingSlider = new Swiper('.tranding-slider', {
     effect: 'coverflow',
     grabCursor: true,
@@ -41,7 +49,13 @@ ngOnInit(): void {
   });
 
   TrandingSlider.autoplay.start();
+}
 
+cargarProductos(): void {
+  this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
+    // Filter the products where the 'destacados' property is true
+    this.productos = data.filter(producto => producto.destacado === true);
+  });
 }
 
 }

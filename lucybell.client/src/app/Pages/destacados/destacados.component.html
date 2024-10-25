@@ -6,23 +6,25 @@
         <div class="container">
             <div class="swiper tranding-slider">
                 <div class="swiper-wrapper">
-                    <!-- Slide-start -->
-                    <div class="swiper-slide tranding-slide">
+                    <ng-container *ngFor="let producto of productos">
+                        <div class="swiper-slide tranding-slide">
     
-                        <div class="tranding-slide-img">
-                            <img
-                                src="../../../assets/Captura de pantalla_9-5-2024_174637_www.instagram.com.jpeg"
-                                alt="Tranding"
-                                loading="lazy"
-                            />
-                        </div>
-                        <div class="tranding-slide-content">
-                            <h1 class="price">$20</h1>
-                            <div class="tranding-slide-content-bottom">
-                                <h2 class="prod-name">Collar de perlas</h2>
+                            <div class="tranding-slide-img">
+                                <img
+                                    [src]="producto.imagenesProductos[0].urlImagen"
+                                    alt="Tranding"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="tranding-slide-content">
+                                <h1 class="price">${{producto.precio}}</h1>
+                                <div class="tranding-slide-content-bottom max-w-72">
+                                    <h2 class="prod-name truncate">{{producto.nombre}}</h2>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
+                    
                     <!-- Slide-end -->
                     <!-- Slide-start -->
                     <div class="swiper-slide tranding-slide">

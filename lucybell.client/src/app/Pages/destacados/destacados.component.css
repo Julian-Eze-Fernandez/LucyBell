@@ -256,6 +256,11 @@
   .slider-size{
     margin-top: 460px;
   }
+
+  .max-w-72{
+    max-width: 225px;
+  }
+
 }
 
 .julius{
