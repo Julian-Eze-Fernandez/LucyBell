@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241020213846_inicio")]
+    [Migration("20241025155754_inicio")]
     partial class inicio
     {
         /// <inheritdoc />
@@ -331,6 +331,9 @@ namespace LucyBell.Server.Migrations
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Destacado")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("MaterialId")
                         .HasColumnType("int");

@@ -44,9 +44,10 @@ export class EditProductoComponent implements OnInit, OnChanges{
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form with only the necessary fields for editing
+    
     this.productoForm = this.fb.group({
       nombre: ['', Validators.required],
+      destacado: [false, Validators.required],
       categoria: ['', Validators.required],
       material: [''],
       subcategoria: [{ value: ''}],
@@ -60,8 +61,6 @@ export class EditProductoComponent implements OnInit, OnChanges{
     
     this.GetMateriales();
 
-    
-    // Pre-fill the form with product data
 
     this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
       this.selectedCategoriaId = value;
@@ -81,6 +80,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
     if(this.product){
       this.productoForm.patchValue({
         nombre: this.product.nombre,
+        destacado: this.product.destacado,
         categoria: this.product.categoriaId,
         material: this.product.materialId, 
         subcategoria: this.product.subCategoriaId,
@@ -92,19 +92,18 @@ export class EditProductoComponent implements OnInit, OnChanges{
 
       this.imageUrls = this.arrayImages.map((image) => image.urlImagen);
 
-
     }
   }
 
   onFileSelected(event: any, index: number): void {
     const file: File = event.target.files[0];
     if (file) {
-      // Replace the image at the specific index with the new one
+
       this.imagenesSeleccionadas[index] = file;
-      // Generate a preview URL for the newly selected image
+
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imageUrls[index] = e.target.result; // Update the image URL for preview
+        this.imageUrls[index] = e.target.result; 
       };
       reader.readAsDataURL(file);
     }
@@ -189,6 +188,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
     setTimeout(() => {
       this.productoForm = this.fb.group({
         nombre: ['', Validators.required],
+        destacado: [false, Validators.required],
         categoria: ['', Validators.required],
         material: [''],
         subcategoria: [{ value: ''}],
@@ -212,6 +212,8 @@ export class EditProductoComponent implements OnInit, OnChanges{
     const formData = new FormData();
 
     formData.append('nombre', this.productoForm.get('nombre')?.value);
+
+    formData.append('destacado', this.productoForm.get('destacado')?.value);
 
     if (this.selectedCategoriaId) {
       formData.append('categoriaId', this.selectedCategoriaId.toString());

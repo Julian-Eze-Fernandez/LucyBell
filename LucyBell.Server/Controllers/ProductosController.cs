@@ -44,6 +44,7 @@ namespace LucyBell.Server.Controllers
 				Precio = producto.Precio,
 				Descripcion = producto.Descripcion,
 				CategoriaId = producto.CategoriaId,
+				Destacado = producto.Destacado,
                 CategoriaNombre = producto.Categoria.Nombre,
                 SubCategoriaId = producto.SubCategoriaId,
 				MaterialId = producto.MaterialId,

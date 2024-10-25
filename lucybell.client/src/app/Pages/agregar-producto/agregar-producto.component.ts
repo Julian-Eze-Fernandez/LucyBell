@@ -60,6 +60,7 @@ export class AgregarProductoComponent implements OnInit {
 
     this.productoForm = this.fb.group({
       nombre: ['', Validators.required],
+      destacado: [false, Validators.required],
       categoria: ['', Validators.required],
       material: [''],
       subcategoria: [{ value: '', disabled: true }],
@@ -89,6 +90,7 @@ export class AgregarProductoComponent implements OnInit {
     setTimeout(() => {
       this.productoForm = this.fb.group({
         nombre: ['', Validators.required],
+        destacado: [false, Validators.required],
         categoria: ['', Validators.required],
         material: [''],
         subcategoria: [{ value: '', disabled: true }],
@@ -189,6 +191,7 @@ export class AgregarProductoComponent implements OnInit {
 
     // Append product data
     formData.append('nombre', this.productoForm.get('nombre')?.value);
+    formData.append('destacado', this.productoForm.get('destacado')?.value);
     formData.append('precio', this.productoForm.get('precio')?.value);
     formData.append('descripcion', this.productoForm.get('descripcion')?.value);
 

@@ -27,7 +27,7 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 grid-flow-row auto-rows-max max-md:mx-2 p-10">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 grid-flow-row auto-rows-max max-md:mx-2 sm:p-10">
       <div *ngFor="let producto of productos" class="item-background rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
         <div class="p-2">
           <div class="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
@@ -42,17 +42,16 @@
             </div>
           </div>
         </div>
-        <div class="mb-2 flex items-center justify-center text-white font-medium">
-          {{producto.nombre}}
+        <div class="mb-2 mx-4 flex items-center justify-center text-white font-medium">
+          <p class="truncate">{{producto.nombre}}</p>
         </div>
         <div class="flex items-center justify-evenly text-white text-sm">
-          <p>Stock: {{getTotalStock(producto)}}</p>
-          <p>${{producto.precio}}</p>
+          <p class="text-purple-300">Stock: {{getTotalStock(producto)}}</p>
+          <p class="text-purple-300">${{producto.precio}}</p>
         </div>
         <div class="flex items-center justify-between text-white text-sm p-2">
-          <p class="text-orange-200"> {{ producto.categoriaNombre }} </p>
+          <p class="text-orange-200 truncate max-sm:max-w-16 max-w-24"> {{ producto.categoriaNombre }} </p>
           <div class="flex">
-
              <button (click)="openEditModal(producto)" class="hover:scale-125 transition duration-150 ease-in-out">
               <img src="../../../assets/icons/BlueEdit.svg" alt="Editar" />
              </button>

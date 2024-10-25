@@ -1,3 +1,15 @@
 .item-background {
     background-color: #221D22;
   }
+
+@media (max-width: 480px) {
+    .max-w-36 {
+      max-width: 60px;
+    }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+}

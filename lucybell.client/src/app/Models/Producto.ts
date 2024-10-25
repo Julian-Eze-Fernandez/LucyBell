@@ -5,6 +5,7 @@ export interface Producto {
   nombre: string;
   precio: number;
   descripcion?: string;
+  destacado: boolean;
   categoriaId: number;
   categoriaNombre: string;
   subCategoriaId: number;
@@ -16,6 +17,7 @@ export interface Producto {
 export interface ProductoCreacion {
   nombre: string;
   precio: number;
+  destacado: boolean;
   descripcion?: string;
 }
 
