@@ -7,20 +7,22 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FormularioAutenticacionComponent } from "../seguridad/formulario-autenticacion/formulario-autenticacion.component";
 import { LoginComponent } from "../seguridad/login/login.component";
+import { CarritoComponent } from '../carrito/carrito.component';
+import { CarritoService } from '../../Services/carrito.service';
 
 @Component({
   selector: 'app-navBar',
   templateUrl: './navBar.component.html',
   standalone: true,
-  imports: [CommonModule, AutorizadoComponent, RouterModule, FormsModule, FormularioAutenticacionComponent, LoginComponent],
+  imports: [CommonModule, AutorizadoComponent, RouterModule, FormsModule, FormularioAutenticacionComponent, LoginComponent, CarritoComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './navBar.component.css'
 })
 export class navBarComponent implements OnInit {
   seguridadService = inject(SeguridadService);
+  carritoService = inject(CarritoService);
   @ViewChild('loginModal') loginModal!: LoginComponent;
   showModal: boolean = false;
-
 
   constructor(private categoriaService: CategoriaService) {}
 
@@ -42,6 +44,12 @@ export class navBarComponent implements OnInit {
         console.log(err.message);
       }
     });
+  }
+
+  cartOpen = false;
+
+  toggleCart() {
+    this.cartOpen = !this.cartOpen;
   }
 
   @HostListener('window:scroll', ['$event'])

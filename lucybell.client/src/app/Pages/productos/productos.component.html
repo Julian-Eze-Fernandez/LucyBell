@@ -19,7 +19,15 @@
 					
 					<div class="flex-col items-center text-center rounded-b-lg text-white">
 						<h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
-						<h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+						<div class="flex justify-between items-center">
+							<h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+							<div class="ml-4">
+								<button class="button bg-violet text-white flex items-center p-2 h-7 w-full" (click)="agregarProducto(producto)">
+									<img src="../../../assets/icons/CartWhite.svg" alt="Carrito" />
+									Agregar
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,0 +1,72 @@
+<!-- Background backdrop -->
+<div *ngIf="cartOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" (click)="toggleCart()"></div>
+
+<!-- Carrito de compras -->
+<div [ngClass]="{'translate-x-full': !cartOpen, 'translate-x-0': cartOpen}" class="fixed right-0 top-0 w-96 h-full bg-MyBg shadow-lg z-100 transition-transform duration-300 transform">
+    
+    <div class="p-4 flex justify-between items-center">
+      <h2 class="text-xl font-bold">Carrito de Compras</h2>
+      <button (click)="toggleCart()" class="text-gray-500 text-4xl">
+        &times;
+      </button>
+    </div>
+
+    <div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+    <div class="p-2 flex justify-between items-center text-xs font-bold">
+      <p>Productos</p>
+      <p>Subtotal</p>
+    </div>
+    <div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+
+    <div *ngFor="let item of listCarrito; let i = index" class="p-4 border-b border-gray-300 flex items-center justify-between">
+      <div class="flex items-center">
+        <img [src]="item.producto.imagenesProductos[0].urlImagen" alt="Imagen del producto" class="w-16 h-16 object-cover rounded-lg mr-4" />
+        <div>
+          <h4 class="text-md font-bold">{{ item.producto.nombre }}</h4>
+        </div>
+      </div>
+    
+      <div class="flex items-center space-x-4">
+        <button (click)="disminuirCantidad(i)" class="bg-gray-200 p-2 rounded-full">
+          <img src="../../../assets/icons/minus.svg" alt="Disminuir" class="w-4 h-4"/>
+        </button>
+    
+        <span class="font-bold">{{ item.cantidad }}</span>
+    
+        <button (click)="aumentarCantidad(i)" class="bg-gray-200 p-2 rounded-full">
+          <img src="../../../assets/icons/plus.svg" alt="Aumentar" class="w-4 h-4"/>
+        </button>
+      </div>
+
+      <div class="flex items-center space-x-2">
+          <p>{{ (item.producto.precio * item.cantidad) | number: '1.2-2'}}</p>
+      </div>
+
+      <button (click)="eliminarItem(i)" class="hover:scale-125 transition duration-150 ease-in-out">
+        <img src="../../../assets/icons/RedDelete.svg" alt="Eliminar" />
+      </button>
+  </div>
+
+  <div *ngIf="listCarrito.length === 0" class="p-4 text-center">
+      <p>El carrito está vacío.</p>
+  </div>
+
+  <div class="p-4 bg-white">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="text-lg font-bold">RESUMEN COMPRA</h5>
+        <hr class="my-2"/>
+
+        <div class="flex justify-between mb-4">
+          <p class="mb-2">Total</p>
+          <p class="mb-2">${{carritoService.total() | number: '1.2-2'}}</p>
+        </div>
+
+        <button [disabled]="listCarrito.length ==0" type="button" class="btn bg-black text-white w-full py-2">
+          <span>PROCESAR</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

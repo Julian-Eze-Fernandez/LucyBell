@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../navBar/navBar.component';
 import { SeguridadService } from '../../Services/seguridad.service';
@@ -7,6 +7,7 @@ import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-respons
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../Models/Producto';
 import { appsettings } from '../../Settings/appsettings';
+import { CarritoService } from '../../Services/carrito.service';
 
 @Component({
   selector: 'app-productos',
@@ -18,7 +19,7 @@ import { appsettings } from '../../Settings/appsettings';
 export class ProductosComponent implements OnInit  {
 
   constructor( private productoService: ProductoService) {}
-  
+  private carritoService = inject(CarritoService);
   isLargeScreen: boolean = true;
   productos: Producto[] = [];
   appsettings = appsettings;
@@ -43,7 +44,9 @@ export class ProductosComponent implements OnInit  {
     });
   }
 
-
+  agregarProducto(item: Producto){
+    this.carritoService.agregar(item);
+  }
 
 
 }

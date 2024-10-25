@@ -76,13 +76,15 @@
                                         </ul>
                                     </li>
                                     <li class="h-full">
-                                        <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
-                                            <img src="../../../assets/icons/Cart.svg" alt="Carrito" />
+                                        <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="toggleCart()">
+                                            <img src="../../../assets/icons/Cart.svg" alt="Carrito" /> 
+                                            <span class="text-lg text-black">({{carritoService.cantidad()}})</span>
                                         </button>
                                     </li>
+                                    
+                                    <app-carrito [cartOpen]="cartOpen"></app-carrito>       
+
                                 </ul>
-                            
-                                <!-- <span class="saludo">Hola, {{seguridadService.obtenerCampoJWT('email')}}</span> -->
                                 
                             </div>
                         </ng-container>
@@ -94,7 +96,6 @@
                                 <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
                                     <img src="../../../assets/icons/Cart.svg" alt="Carrito" />
                                 </button>
-                                <!-- <a routerLink="/registrar" class="flex items-center transition duration-300 navbarHover h-full px-4">Registro</a> -->
                             </div>
                         </ng-container>
                     </app-autorizado>

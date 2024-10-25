@@ -8,11 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { navBarComponent } from '../navBar/navBar.component';
 import { FormularioAutenticacionComponent } from '../seguridad/formulario-autenticacion/formulario-autenticacion.component';
+import { CarritoComponent } from "../carrito/carrito.component";
 
 @Component({
   selector: 'app-nav-bar-responsive',
   standalone: true,
-  imports: [CommonModule, navBarComponent,NavBarResponsiveComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule, CarritoComponent],
   templateUrl: './nav-bar-responsive.component.html',
   styleUrl: './nav-bar-responsive.component.css'
 })
@@ -57,5 +58,11 @@ export class NavBarResponsiveComponent implements OnInit {
   onSubmitLogin(){
 
 
+  }
+
+  cartOpen = false;
+
+  toggleCart() {
+    this.cartOpen = !this.cartOpen;
   }
 }
