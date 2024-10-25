@@ -27,6 +27,7 @@ import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 import { ContactoComponent } from './Pages/contacto/contacto.component';
 import { ProductosComponent } from './Pages/productos/productos.component';
 import { NavBarResponsiveComponent } from './Pages/nav-bar-responsive/nav-bar-responsive.component';
+import { DestacadosComponent } from './Pages/destacados/destacados.component';
 
 register();
 
@@ -55,8 +56,11 @@ register();
   
     
   
+  
+    
   ],
   imports: [
+    DestacadosComponent,
     AppComponent,
     TwoButtonModalComponent,
     OneButtonModalComponent,

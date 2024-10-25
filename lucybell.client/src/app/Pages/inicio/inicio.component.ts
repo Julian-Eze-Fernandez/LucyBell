@@ -1,26 +1,22 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../navBar/navBar.component';
-import { register } from 'swiper/element/bundle';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
 import { appsettings } from '../../Settings/appsettings';
-import Swiper from 'swiper';
 import { SeguridadService } from '../../Services/seguridad.service';
 import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
 import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-responsive.component';
+import { DestacadosComponent } from '../destacados/destacados.component';
 
-register();
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent,NavBarResponsiveComponent,  AutorizadoComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, AutorizadoComponent, DestacadosComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
-
 
 export class InicioComponent implements OnInit {
 
@@ -39,35 +35,6 @@ export class InicioComponent implements OnInit {
   constructor(private categoriaService:CategoriaService){}
 
   ngOnInit(): void {  
-
-    var TrandingSlider = new Swiper('.tranding-slider', {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      loop: true,
-      slidesPerView: 'auto',
-      loopAdditionalSlides: 3,
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 100,
-        modifier: 2.5,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
-    });
-
-    TrandingSlider.autoplay.start();
 
     this.checkScreenSize(); 
     this.obtenerCategorias();
