@@ -8,9 +8,9 @@
           <div class="collapse-title text-xl font-medium bg-base-100">Productos</div>
           <div class="collapse-content p-0 ">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
               <div *ngFor="let category of listaCategorias" class="z-0">
-                <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
+                <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
               </div>
             </div>
           </div>
@@ -20,9 +20,9 @@
           <div class="collapse-title text-xl font-medium bg-base-100">Tipo</div>
           <div class="collapse-content p-0">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
               <div *ngFor="let subCategory of filteredSubcategories">
-               <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+               <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
               </div>
             </div>
           </div>
@@ -30,13 +30,12 @@
         </div>
         <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
           <input type="radio" name="categAccordion" />
-
           <div class="collapse-title text-xl font-medium bg-base-100">Material</div>
           <div class="collapse-content p-0">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
               <div *ngFor="let material of listaMateriales">
-              <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
               </div>
             </div>
           </div>

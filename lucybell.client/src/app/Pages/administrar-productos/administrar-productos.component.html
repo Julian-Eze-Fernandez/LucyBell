@@ -15,12 +15,124 @@
           <div class="gradient-line-title mb-4"></div>
         </h1>
       </div>
-      <div class="flex mb-6 max-md:ml-4">
+      <div class="flex mb-2 max-md:ml-4">
         <p>Administra los productos agregados</p>
 
-        <div class="mb-4 ml-4">
+        <div class="ml-4">
           <button (click)="openAddProdModal()" class=" bg-lime-600  rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
         </div>
+      </div>
+      <div class="flex md:hidden mb-4">
+        <div class="ml-4 z-20">
+          <details class="dropdown dropdown-bottom">
+            <summary class="btn bg-primary">Filtros</summary>
+            <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow">
+              <div class="join join-vertical w-full">
+                <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                  <input type="radio" name="categAccordion" checked="checked" />
+                  <div class="collapse-title text-xl font-medium bg-base-100">Productos</div>
+                  <div class="collapse-content p-0 ">
+                    <div class="join join-vertical w-full rounded-none z-10">
+                      <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
+                      <div *ngFor="let category of listaCategorias" class="z-0">
+                        <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                  <input type="radio" name="categAccordion" />
+                  <div class="collapse-title text-xl font-medium bg-base-100">Tipo</div>
+                  <div class="collapse-content p-0">
+                    <div class="join join-vertical w-full rounded-none z-10">
+                      <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+                      <div *ngFor="let subCategory of filteredSubcategories">
+                       <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                  <input type="radio" name="categAccordion" />
+                  <div class="collapse-title text-xl font-medium bg-base-100">Material</div>
+                  <div class="collapse-content p-0">
+                    <div class="join join-vertical w-full rounded-none z-10">
+                      <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
+                      <div *ngFor="let material of listaMateriales">
+                      <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+                      </div>
+                    </div>
+                  </div>
+        
+                </div>
+              </div>
+            </ul>
+          </details>
+        </div>
+        <label class="input input-bordered input-primary flex items-center gap-2 ml-2">
+          <input type="text" class="grow" placeholder="Buscar" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70">
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd" />
+          </svg>
+        </label>
+      </div>
+
+      <label class="input input-bordered input-primary flex items-center gap-2 ml-2 max-md:hidden mb-2 max-w-96">
+        <input type="text" class="grow" placeholder="Buscar" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70">
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd" />
+        </svg>
+      </label>
+      
+      <div class="flex ml-2 max-sm:mb-4 max-md:hidden">
+        <label class="form-control min-w-20 max-w-40">
+          <div class="label">
+            <span class="label-text">Categoria</span>
+          </div>
+          <select class="select select-bordered min-w-20 max-w-40" #categorySelect (change)="onCategoryChange(+categorySelect.value)">
+            <option value="null" >Todos</option>
+            <ng-container *ngFor="let categoria of listaCategorias">
+              <option [value]="categoria.id" class="truncate">{{ categoria.nombre }}</option>
+            </ng-container>
+          </select>
+        </label>
+        <label class="form-control min-w-20 max-w-40 ml-4">
+          <div class="label">
+            <span class="label-text">Subcategoria</span>
+          </div>
+          <select class="select select-bordered min-w-20 max-w-40" #subcateorySelect (change)="onSubCategoryChange(+subcateorySelect.value)">
+            <option value="null" >Todos</option>
+            <ng-container *ngFor="let subcategoria of filteredSubcategories">
+              <option [value]="subcategoria.id" class="truncate">{{ subcategoria.nombre }}</option>
+            </ng-container>
+          </select>
+        </label>
+        <label class="form-control min-w-20 max-w-40 ml-4">
+          <div class="label">
+            <span class="label-text">Materiales</span>
+          </div>
+          <select class="select select-bordered min-w-20 max-w-40" #materialSelect (change)="onMaterialChange(+materialSelect.value)">
+            <option value="null" >Todos</option>
+            <ng-container *ngFor="let material of listaMateriales">
+              <option [value]="material.id" class="truncate">{{ material.nombre }}</option>
+            </ng-container>
+          </select>
+        </label>
       </div>
     </div>
 
