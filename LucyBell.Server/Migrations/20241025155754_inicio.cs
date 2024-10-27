@@ -286,6 +286,7 @@ namespace LucyBell.Server.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Destacado = table.Column<bool>(type: "bit", nullable: false),
                     CategoriaId = table.Column<int>(type: "int", nullable: false),
                     SubCategoriaId = table.Column<int>(type: "int", nullable: true),
                     MaterialId = table.Column<int>(type: "int", nullable: true)

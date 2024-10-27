@@ -32,7 +32,7 @@
                         <div>
                           <img src="../../../assets/icons/Categories.svg" alt="categorias">
                         </div>
-                        <span class="ml-2 text-xl"> {{ categoria.nombre }} </span>
+                        <label class="ml-2 text-xl max-sm:max-w-28 max-md:max-w-56 max-lg:max-w-40 max-xl:max-w-80 max-w-96 truncate"> {{ categoria.nombre }} </label>
                         <div class="ml-2">
                           <img *ngIf="!categoria.isExpanded" src="../../../assets/icons/Dropdown.svg" alt="dropdown-subcategorias">
                           <img *ngIf="categoria.isExpanded" src="../../../assets/icons/closeDropDown.svg" alt="dropdown-subcategorias">

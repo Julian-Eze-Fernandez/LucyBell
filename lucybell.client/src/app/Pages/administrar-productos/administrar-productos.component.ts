@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild, OnChanges, HostListener  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { ProductoService } from '../../Services/producto.service';
 import { CategoriaService } from '../../Services/categoria.service';
 import {Producto} from '../../Models/Producto';
-import {Categoria} from '../../Models/Categoria';
+import {CategoriaName} from '../../Models/Categoria';
 import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.component';
-
+import { Material } from '../../Models/Material';
+import {MaterialService} from '../../Services/material.service';
 import { AgregarProductoComponent } from "../agregar-producto/agregar-producto.component";
 import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
 import  {VariantesProductoService} from '../../Services/variantes-producto.service';
-import { Validators } from '@angular/forms';
-import { timeout } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { SubCategoria } from '../../Models/SubCategoria';
 
 @Component({
   selector: 'app-administrar-productos',
@@ -32,8 +33,10 @@ export class AdministrarProductosComponent implements OnInit {
 
   productos: Producto[] = [];
   selectedProducto: Producto | null = null;
-  categorias: Categoria[] = []
-  categoriasMap: { [id: number]: string } = {};
+  listaCategorias: CategoriaName[] = []
+  listaSubCategorias: SubCategoria[] = []
+  filteredSubcategories: any[] = [];
+  listaMateriales: Material[] = [];
   showModal: boolean = false;
   isSuccess: boolean = false;
   initialFormValues: any;
@@ -48,18 +51,119 @@ export class AdministrarProductosComponent implements OnInit {
 
   tieneVariantes: boolean = false;
 
-  constructor(private productoService: ProductoService, private categoriaService: CategoriaService, private VariantesProductoService: VariantesProductoService) { }
+
+  selectedCategoryId: number | null | undefined;
+  selectedSubCategoryId: number | null | undefined;
+  selectedMaterialId: number | null | undefined;
+  currentPage: number | undefined;
+  pageSize: number = 12;
+  totalCount: number = 0;
+  totalPages: number = 0;
+
+  constructor(private productoService: ProductoService, private categoriaService: CategoriaService, private materialService: MaterialService) { }
 
   ngOnInit(): void {
-    this.cargarProductos()
-
+    this.loadProducts();
+    this.loadCategoriesAndSubcategories();
+    this.loadMaterials();
   }
 
-  cargarProductos(): void {
-    this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
-      this.productos = data;
-    });
+  loadCategoriesAndSubcategories(): void {
+    this.categoriaService.GetCategoriasLista().subscribe({
+      next: (data) => {
 
+        this.listaCategorias = data.map(category => ({
+          id: category.id,
+          nombre: category.nombre,
+        }));
+
+        data.forEach(category => {
+          if (category.subCategorias) { // 
+            category.subCategorias.forEach(subcategory => {
+              this.listaSubCategorias.push({
+                id: subcategory.id,
+                nombre: subcategory.nombre,
+                categoriaId: category.id 
+              });
+            });
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    });
+  }
+
+  loadMaterials(): void {
+    this.materialService.GetMaterialesLista().subscribe({
+      next: (data) => {
+        this.listaMateriales = data.map(c => ({ ...c, isExpanded: false }));
+
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    });
+  }
+
+  loadProducts(): void {
+    this.productoService.GetFilteredProducts(
+      this.selectedCategoryId,
+      this.selectedSubCategoryId,
+      this.selectedMaterialId,
+      this.currentPage,
+      this.pageSize
+    ).subscribe((response: HttpResponse<Producto[]>) => {  
+      this.productos = response.body || [];
+      this.totalCount = +response.headers.get('X-Total-Count')!;
+
+      console.log("Response Headers:", response.headers.keys());
+      console.log("X-Total-Count:", response.headers.get('X-Total-Count'));
+      
+      this.calculateTotalPages();
+    });
+  }
+
+  onCategoryChange(categoryId: number | null ): void {
+    if (categoryId === null) {
+      this.selectedCategoryId = null;
+      this.selectedSubCategoryId = null;
+      this.loadProducts();
+      this.filteredSubcategories = this.listaSubCategorias.filter(
+        subCategory => subCategory.categoriaId === this.selectedCategoryId
+      )
+      return;
+    }
+    this.selectedCategoryId = categoryId;
+    this.selectedSubCategoryId = null;
+    this.loadProducts();
+
+    this.filteredSubcategories = this.listaSubCategorias.filter(
+      subCategory => subCategory.categoriaId === this.selectedCategoryId
+    )
+    console.log("filteredSubcategories", this.filteredSubcategories);
+    console.log("listaCategorias", this.listaSubCategorias);
+  }
+
+  onSubCategoryChange(subCategoryId: number | null): void {
+    this.selectedSubCategoryId = subCategoryId;
+    this.loadProducts();
+  }
+
+  onMaterialChange(materialId: number | null): void {
+    this.selectedMaterialId = materialId;
+    this.loadProducts();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadProducts();
+  }
+
+  calculateTotalPages(): void {
+    this.totalPages = Math.ceil(this.totalCount / this.pageSize);
+    console.log("totalCount", this.totalCount);
   }
 
   openEditModal(producto: any): void {
@@ -71,8 +175,8 @@ export class AdministrarProductosComponent implements OnInit {
   closeEditModal(): void {
     this.selectedProducto = null;
     this.showModal = false;
+    this.editProductoComponent.reiniciarForm();
     this.editModalProd.closeModal();
-    this.editProductoComponent.limpiarForm();
   }
 
   onEdit(): void {
@@ -82,7 +186,7 @@ export class AdministrarProductosComponent implements OnInit {
           if (response) {
             this.closeEditModal();
             setTimeout(() => {
-              this.cargarProductos();
+              this.loadProducts();
             } , 200)
           }
         },
@@ -93,14 +197,10 @@ export class AdministrarProductosComponent implements OnInit {
     }
   }
 
-
   getTotalStock(producto: Producto): number {
     return producto.variantesProducto.reduce((acc, variante) => acc + variante.cantidad, 0);
   }
 
-  getCategoryName(id: number): string {
-    return this.categoriasMap[id] || 'Desconocido';
-  }
 
   openAddProdModal() {
     this.showModal = true;
@@ -112,7 +212,7 @@ export class AdministrarProductosComponent implements OnInit {
     this.addModalProd.closeModal();
     this.agregarProductoComponent.reiniciarForm();
     this.agregarProductoComponent.limpiarImgenes();
-    this.cargarProductos();
+    this.loadProducts();
 
   }
 
@@ -142,7 +242,7 @@ export class AdministrarProductosComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.closeDeleteProdModal();
-            this.cargarProductos();
+            this.loadProducts();
           }
         },
         error: (err) => {
@@ -152,14 +252,14 @@ export class AdministrarProductosComponent implements OnInit {
     }
 
   }
-
+  
   onSubmitProd(){
     this.agregarProductoComponent.onSubmitProd()
 
     if(this.agregarProductoComponent.productoForm.valid){
     this.closeAddProdModal();  
     setTimeout(() => {
-    this.cargarProductos();}, 200);
+    this.loadProducts();}, 300);
     }
 
   }

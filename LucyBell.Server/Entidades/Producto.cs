@@ -16,6 +16,7 @@ namespace LucyBell.Server.Entidades
 		public List<Carrousel> Carrouseles { get; set; }
 		public List<DetallePedido> DetallesPedido { get; set; }
         public List<ImagenProducto> ImagenesProductos { get; set; }
+		public bool Destacado { get; set; }
         public int CategoriaId { get; set; }
 		public Categoria Categoria { get; set; }
 		public int? SubCategoriaId { get; set; }

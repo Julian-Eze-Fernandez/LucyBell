@@ -12,6 +12,11 @@ export interface CategoriaABM {
   urlImagen: string;
 }
 
+export interface CategoriaName{
+  id : number;
+  nombre: string;
+}
+
 export interface CategoriaCreacionDTO {
   nombre: string;
 }

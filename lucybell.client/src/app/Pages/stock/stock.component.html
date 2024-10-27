@@ -42,14 +42,12 @@
                   </div>
                 </div>
 
-                <div class="flex-col max-sm:text-sm  flex-grow">
-                  <div class="inline">
-                    <h3 class="font-bold ">{{ item.productoNombre }}</h3>
-
-                    <p > ({{ item.variante.color }})</p>
+                <div class="flex-col max-sm:text-sm flex-grow">
+                  <div class="relative group block sm:max-w-28 max-w-36"> 
+                    <p class="line-clamp-2 break-words">{{item.productoNombre}}</p> 
                   </div>
                   <div>
-                    <p>Stock: {{ item.variante.cantidad }} </p>
+                    <p class="text-purple-300">Stock: {{ item.variante.cantidad }} </p>
                   </div>
                 </div>
               </div>

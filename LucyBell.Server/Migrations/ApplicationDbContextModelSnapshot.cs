@@ -329,6 +329,9 @@ namespace LucyBell.Server.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Destacado")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 

@@ -1,0 +1,40 @@
+<section id="tranding" class="max-h-32">
+    <div class="fade-slider">
+        <div class="container">
+            <h1 class="text-center section-heading">Destacados</h1>
+        </div>
+        <div class="container">
+            <div class="swiper tranding-slider">
+                <div class="swiper-wrapper">
+                    <ng-container *ngFor="let producto of productos" >
+                        <div class="swiper-slide tranding-slide">
+                            <div class="tranding-slide-img">
+                                <img
+                                    [src]="producto.imagenesProductos[0].urlImagen"
+                                    alt="Tranding"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="tranding-slide-content">
+                                <h1 class="price">${{producto.precio}}</h1>
+                                <div class="tranding-slide-content-bottom max-w-72">
+                                    <h2 class="prod-name truncate">{{producto.nombre}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+    
+                <div class="tranding-slider-control">
+                    <button class="swiper-button-prev slider-arrow z-100">
+                        <img src="../../../assets/icons/Back-chevron.svg" alt="Atras" class="h-10 w-10" />
+                    </button>
+                    <button class="swiper-button-next slider-arrow z-100">
+                        <img src="../../../assets/icons/Forward-chevron.svg" alt="Adelante" class="h-10 w-10" />
+                    </button>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
