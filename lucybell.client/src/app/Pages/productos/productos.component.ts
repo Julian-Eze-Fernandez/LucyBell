@@ -7,6 +7,7 @@ import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-respons
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../Models/Producto';
 import { appsettings } from '../../Settings/appsettings';
+import { CarritoService } from '../../Services/carrito.service';
 import { ListaProductosComponent } from '../lista-productos/lista-productos.component';
 
 @Component({
@@ -18,7 +19,7 @@ import { ListaProductosComponent } from '../lista-productos/lista-productos.comp
 })
 export class ProductosComponent implements OnInit  {
 
-  constructor( private productoService: ProductoService) {}
+  constructor( private productoService: ProductoService, private carritoService: CarritoService) {}
   
   isLargeScreen: boolean = true;
   productos: Producto[] = [];
@@ -44,7 +45,9 @@ export class ProductosComponent implements OnInit  {
     });
   }
 
-
+  agregarProducto(item: Producto){
+    this.carritoService.agregar(item);
+  }
 
 
 }
