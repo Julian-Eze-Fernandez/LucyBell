@@ -1,8 +1,9 @@
-import { Component,  CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component,  CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Producto } from '../../Models/Producto';
 import { ProductoService } from '../../Services/producto.service';
 import Swiper from 'swiper';
+import { timeout } from 'rxjs';
 
 @Component({
   standalone:true,
@@ -18,16 +19,18 @@ export class DestacadosComponent implements OnInit {
 
   constructor( private productoService: ProductoService) {}
 ngOnInit(): void {
-
   this.cargarProductos()
-  
+}
+
+intializeSwiper(): void {
+  console.log(this.productos.length);
   var TrandingSlider = new Swiper('.tranding-slider', {
     effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
     loop: true,
+    loopAdditionalSlides: 2,
     slidesPerView: 'auto',
-    loopAdditionalSlides: 3,
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
@@ -46,15 +49,16 @@ ngOnInit(): void {
       delay: 2500,
       disableOnInteraction: false,
     },
-  });
-
-  TrandingSlider.autoplay.start();
+  }); 
+  TrandingSlider.autoplay.start(); 
 }
 
 cargarProductos(): void {
   this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
-    // Filter the products where the 'destacados' property is true
     this.productos = data.filter(producto => producto.destacado === true);
+    setTimeout(() => {
+      this.intializeSwiper();
+    },100)
   });
 }
 

@@ -23,7 +23,8 @@ namespace LucyBell.Server.Controllers
 		public async Task<ActionResult<List<SubCategoriaDTO>>> GetSubCategoriasLista()
 		{
 			var subCategorias = await context.SubCategorias.ToListAsync();
-			return mapper.Map<List<SubCategoriaDTO>>(subCategorias);
+
+            return mapper.Map<List<SubCategoriaDTO>>(subCategorias);
 		}
 
 		[HttpGet]

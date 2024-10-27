@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges, HostListener  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
 import { ProductoService } from '../../Services/producto.service';
@@ -10,8 +10,6 @@ import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.co
 import { AgregarProductoComponent } from "../agregar-producto/agregar-producto.component";
 import  {EditProductoComponent} from '../edit-producto/edit-producto.component';
 import  {VariantesProductoService} from '../../Services/variantes-producto.service';
-import { Validators } from '@angular/forms';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-administrar-productos',
@@ -51,8 +49,7 @@ export class AdministrarProductosComponent implements OnInit {
   constructor(private productoService: ProductoService, private categoriaService: CategoriaService, private VariantesProductoService: VariantesProductoService) { }
 
   ngOnInit(): void {
-    this.cargarProductos()
-
+    this.cargarProductos();
   }
 
   cargarProductos(): void {
@@ -71,8 +68,8 @@ export class AdministrarProductosComponent implements OnInit {
   closeEditModal(): void {
     this.selectedProducto = null;
     this.showModal = false;
+    this.editProductoComponent.reiniciarForm();
     this.editModalProd.closeModal();
-    this.editProductoComponent.limpiarForm();
   }
 
   onEdit(): void {
@@ -159,7 +156,7 @@ export class AdministrarProductosComponent implements OnInit {
     if(this.agregarProductoComponent.productoForm.valid){
     this.closeAddProdModal();  
     setTimeout(() => {
-    this.cargarProductos();}, 200);
+    this.cargarProductos();}, 300);
     }
 
   }

@@ -70,9 +70,9 @@ namespace LucyBell.Server
                     {
 						builder.AllowAnyOrigin() // replace with your frontend and backend ports
 							   .AllowAnyHeader()
-							   .AllowAnyMethod();	   
-								
-								
+							   .AllowAnyMethod()	   
+								.WithExposedHeaders("X-Total-Count", "X-Total-Pages");
+
                     });
             });
 

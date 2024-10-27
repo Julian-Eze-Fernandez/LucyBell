@@ -12,6 +12,13 @@ export interface Producto {
   materialId: number;
   imagenesProductos: ImagenProductoDTO[];
   variantesProducto: VariantesProducto[];
+  
+}
+
+export interface PaginatedProductos {
+  productos: Producto[];
+  totalCount: number;
+  totalPages: number;
 }
 
 export interface ProductoCreacion {

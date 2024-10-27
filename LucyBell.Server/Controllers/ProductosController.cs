@@ -64,7 +64,77 @@ namespace LucyBell.Server.Controllers
 			return Ok(productosDTO);
 		}
 
-		[HttpGet]
+        [HttpGet("filtrado")]
+        public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompleto(
+		int? categoriaId = null,
+		int? subCategoriaId = null,
+		int? materialId = null,
+		int page = 1,
+		int pageSize = 12)
+        {
+            // Base query including necessary related entities
+            var query = context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .AsQueryable();
+
+            // Apply filters if parameters are provided
+            if (categoriaId.HasValue)
+            {
+                query = query.Where(p => p.CategoriaId == categoriaId.Value);
+            }
+
+            if (subCategoriaId.HasValue)
+            {
+                query = query.Where(p => p.SubCategoriaId == subCategoriaId.Value);
+            }
+
+            if (materialId.HasValue)
+            {
+                query = query.Where(p => p.MaterialId == materialId.Value);
+            }
+
+            // Calculate total count before applying pagination
+            var totalProducts = await query.CountAsync();
+
+            // Apply pagination
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+
+            // Execute the query and project results to DTO
+            var productos = await query.ToListAsync();
+            var productosDTO = productos.Select(producto => new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen
+                }).ToList(),
+                VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            }).ToList();
+
+            // Return products along with pagination info in headers
+            Response.Headers.Append("X-Total-Count", totalProducts.ToString());
+            Response.Headers.Append("X-Total-Pages", Math.Ceiling((double)totalProducts / pageSize).ToString());
+
+            return Ok(productosDTO);
+        }
+
+        [HttpGet]
 		public async Task<ActionResult<List<ProductoDTO>>> GetProductoFiltrado(
 		int? categoriaId = null,
 		int? subCategoriaId = null,

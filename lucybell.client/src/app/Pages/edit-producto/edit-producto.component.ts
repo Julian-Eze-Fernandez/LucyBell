@@ -50,21 +50,20 @@ export class EditProductoComponent implements OnInit, OnChanges{
       destacado: [false, Validators.required],
       categoria: ['', Validators.required],
       material: [''],
-      subcategoria: [{ value: ''}],
+      subcategoria: [''],
       descripcion: [''],
       precio: [0, Validators.required],
       nuevoColor: ['']
-      
     });
 
     this.GetCategorias();
     
     this.GetMateriales();
 
-
     this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
       this.selectedCategoriaId = value;
       this.onCategoriaChange();
+      console.log('changed to ', this.selectedCategoriaId)
     });
 
   }
@@ -73,10 +72,11 @@ export class EditProductoComponent implements OnInit, OnChanges{
     if (changes['product'] && changes['product'].currentValue) {  
       this.fillWithData();
     }
-    console.log(this.product);
   };
 
   fillWithData(){
+    this.subcategorias = [];
+
     if(this.product){
       this.productoForm.patchValue({
         nombre: this.product.nombre,
@@ -87,6 +87,10 @@ export class EditProductoComponent implements OnInit, OnChanges{
         descripcion: this.product.descripcion,
         precio: this.product.precio
       });
+
+      console.log("subcategorias ", this.subcategorias.length);
+
+      console.log("subcategoriaID de este prod", this.product.subCategoriaId);
       
       this.arrayImages = this.product.imagenesProductos || [];    
 
@@ -150,6 +154,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
     } else {
       this.subcategorias = [];
     }
+
   }
 
   addColor(): void {
@@ -184,22 +189,29 @@ export class EditProductoComponent implements OnInit, OnChanges{
     } 
   }
 
-  limpiarForm(): void {
+  reiniciarForm(): void {
     setTimeout(() => {
       this.productoForm = this.fb.group({
         nombre: ['', Validators.required],
         destacado: [false, Validators.required],
         categoria: ['', Validators.required],
         material: [''],
-        subcategoria: [{ value: ''}],
+        subcategoria: [''],
         descripcion: [''],
         precio: [0, Validators.required],
         nuevoColor: ['']
       });
       this.errorMessage = '';
       this.variantes = [];
+
+      this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
+        this.selectedCategoriaId = value;
+        this.onCategoriaChange();
+        console.log('categoria cambio a ', this.selectedCategoriaId)
+      });
+
     }, 200);
-    
+
   }
 
   // Handle form submission to update product

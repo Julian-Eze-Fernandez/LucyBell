@@ -17,14 +17,11 @@
       </div>
       <div class="flex mb-6 max-md:ml-4">
         <p>Administra los productos agregados</p>
+
+        <div class="mb-4 ml-4">
+          <button (click)="openAddProdModal()" class=" bg-lime-600  rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
+        </div>
       </div>
-    </div>
-    
-    <div class="mb-4 max-md:ml-4">
-      <button type="button" class="addButton" (click)="openAddProdModal()">
-        <span class="addButton__text">Nuevo </span>
-        <span class="addButton__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-      </button>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 grid-flow-row auto-rows-max max-md:mx-2 sm:p-10">
