@@ -79,6 +79,7 @@ export class SeguridadService {
   logout(){
     localStorage.removeItem(this.llaveToken);
     localStorage.removeItem(this.llaveExpiracion);
+    localStorage.removeItem('carrito'); 
   }
 
   obtenerRol(): string {
