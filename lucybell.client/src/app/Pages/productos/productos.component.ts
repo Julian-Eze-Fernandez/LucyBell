@@ -27,7 +27,6 @@ export class ProductosComponent implements OnInit  {
 
   ngOnInit(): void {
     this.checkScreenSize();
-    this.cargarProductos(); 
   }
   
   @HostListener('window:resize', ['$event'])
@@ -39,15 +38,8 @@ export class ProductosComponent implements OnInit  {
     this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
   }
 
-  cargarProductos(): void {
-    this.productoService.GetProductoCompleto().subscribe((data: Producto[]) => {
-      this.productos = data;
-    });
-  }
-
   agregarProducto(item: Producto){
     this.carritoService.agregar(item);
   }
-
 
 }

@@ -11,6 +11,7 @@ import { Categoria } from '../../Models/Categoria';
 import { CategoriaName } from '../../Models/Categoria';
 import { SubCategoria } from '../../Models/SubCategoria';
 import { Material } from '../../Models/Material';
+import { CarritoService } from '../../Services/carrito.service';
 
 @Component({
   selector: 'app-lista-productos',
@@ -21,7 +22,7 @@ import { Material } from '../../Models/Material';
 })
 export class ListaProductosComponent implements OnInit {
 
-  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService ) {}
+  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private carritoService: CarritoService ) {}
 
   productos: Producto[] = [];
   listaCategorias: CategoriaName[] = [];
@@ -29,7 +30,7 @@ export class ListaProductosComponent implements OnInit {
   listaMateriales: Material[] = [];
   appsettings = appsettings;
   currentPage: number = 1;
-  pageSize: number = 12;
+  pageSize: number = 10;
   totalCount: number = 0;
   totalPages: number = 0;
 
@@ -139,6 +140,10 @@ export class ListaProductosComponent implements OnInit {
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
     console.log("totalCount", this.totalCount);
+  }
+
+  agregarProducto(item: Producto) {
+    this.carritoService.agregar(item);
   }
 
 }

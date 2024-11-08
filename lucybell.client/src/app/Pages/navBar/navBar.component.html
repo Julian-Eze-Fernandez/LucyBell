@@ -1,19 +1,15 @@
 <div *ngIf="isLargeScreen" class="fixed top-0 w-full z-50 navbar-bg">
     <div class="relative flex flex-row justify-between">
-        
         <div id="logo-container-vine2" class=" z-100 absolute bottom-0 left-0 transition-all duration-500 ease-in-out h-24 md:h-48 lg:h-64" >
             <img src="../../../assets/Vines2.svg" alt="Logo" class="h-full object-contain logo">
         </div>
-        
         <!-- Logo Container -->
         <div id="logo-container" class="transition-all duration-500 ease-in-out h-36 md:h-44 lg:h-64 my-4 flex justify-center items-center mx-auto" >
           <img src="../../../assets/LucybellLogo.svg" alt="Logo" class="h-full object-contain logo">
         </div>
-
         <div id="logo-container-vine1"  class=" z-100 absolute top-0 right-0 transition-all duration-500 ease-in-out h-24 md:h-48 lg:h-64" >
             <img src="../../../assets/vines1.svg" alt="Logo" class="h-full object-contain logo">
         </div>
-        
     </div>
     <!-- Navbar -->
     <div >
@@ -50,10 +46,7 @@
                             </li>
                         </ul>
                     </li>
-                    
-
-                </ul>
-                
+                </ul>       
                 <li class="absolute xl:right-32 lg:right-20 right-0 flex items-center space-x-4 h-full">
                     <app-autorizado class=" inline h-full">
                         <ng-container autorizado>
@@ -81,11 +74,8 @@
                                             <span class="text-lg text-black">({{carritoService.cantidad()}})</span>
                                         </button>
                                     </li>
-                                    
                                     <app-carrito [cartOpen]="cartOpen"></app-carrito>       
-
-                                </ul>
-                                
+                                </ul> 
                             </div>
                         </ng-container>
                         <ng-container noAutorizado>
@@ -100,14 +90,10 @@
                         </ng-container>
                     </app-autorizado>
                 </li>
-
             </div>
-            
-
         </nav>
         <div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
     </div>
-
     <ng-container>
         <app-login #loginModal
                 (confirm)="onSubmitLogin()"

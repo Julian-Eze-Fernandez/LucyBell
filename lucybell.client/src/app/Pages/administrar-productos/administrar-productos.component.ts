@@ -55,8 +55,8 @@ export class AdministrarProductosComponent implements OnInit {
   selectedCategoryId: number | null | undefined;
   selectedSubCategoryId: number | null | undefined;
   selectedMaterialId: number | null | undefined;
-  currentPage: number | undefined;
-  pageSize: number = 12;
+  currentPage: number = 1;
+  pageSize: number = 10;
   totalCount: number = 0;
   totalPages: number = 0;
 

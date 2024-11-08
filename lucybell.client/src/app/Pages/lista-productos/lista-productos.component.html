@@ -1,7 +1,7 @@
 <div class="fixed bottom-4 right-4 md:hidden z-20">
   <details class="dropdown dropdown-top dropdown-end">
     <summary class="btn bg-primary">Filtros</summary>
-    <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow">
+    <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow bg-base-300">
       <div class="join join-vertical w-full">
         <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
           <input type="radio" name="categAccordion" checked="checked" />
@@ -102,17 +102,19 @@
               
               <div class="flex-col items-center text-center rounded-b-lg text-white">
                 <h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
-                <h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+                <div class="flex justify-center items-center">
+                  <h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div #sentinel></div>
       <div class="flex md:justify-center mt-4 mb-5 ">
         <div class=" join mt-4">
           <button class="join-item btn" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">«</button>
-          <button class="join-item btn">Page {{ currentPage }} of {{ totalPages }}</button>
+          <button class="join-item btn">Pagina {{ currentPage }} de {{ totalPages }}</button>
           <button class="join-item btn" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages">»</button>
         </div>
       </div>
