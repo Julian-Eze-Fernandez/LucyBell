@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="flex max-md:pb-8">
     <app-sidebarAdmin class="sidebar"></app-sidebarAdmin>
     <button 
       (click)="toggleChildSidebar()" 
@@ -44,8 +44,9 @@
 
                 <div class="flex-col max-sm:text-sm flex-grow">
                   <div class="relative group block sm:max-w-28 max-w-36"> 
-                    <p class="line-clamp-2 break-words">{{item.productoNombre}}</p> 
+                    <p class="line-clamp-2 break-words">{{item.productoNombre}}</p>
                   </div>
+                  <p class="italic">{{item.variante.color}}</p>  
                   <div>
                     <p class="text-purple-300">Stock: {{ item.variante.cantidad }} </p>
                   </div>

@@ -1,14 +1,13 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CredencialesUsuarioDTO } from '../seguridad';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MostrarErroresComponent } from "../mostrar-errores/mostrar-errores.component";
 
 @Component({
   selector: 'app-formulario-autenticacion',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CommonModule, MostrarErroresComponent],
+  imports: [ReactiveFormsModule, CommonModule, MostrarErroresComponent],
   templateUrl: './formulario-autenticacion.component.html',
   styleUrl: './formulario-autenticacion.component.css'
 })

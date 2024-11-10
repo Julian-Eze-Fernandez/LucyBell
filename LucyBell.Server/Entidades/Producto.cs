@@ -11,10 +11,7 @@ namespace LucyBell.Server.Entidades
 		[Required(ErrorMessage = "El campo {0} es requerido")]
 		public decimal Precio { get; set; }
 		public string? Descripcion { get; set; }
-		public List<DetalleCarrito> DetallesCarrito { get; set; }
 		public List<VarianteProducto> VariantesProducto { get; set; }
-		public List<Carrousel> Carrouseles { get; set; }
-		public List<DetallePedido> DetallesPedido { get; set; }
         public List<ImagenProducto> ImagenesProductos { get; set; }
 		public bool Destacado { get; set; }
         public int CategoriaId { get; set; }

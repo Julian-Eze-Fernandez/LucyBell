@@ -1,19 +1,18 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { navBarComponent } from '../navBar/navBar.component';
+import { navBarComponent } from '../Components/navBar/navBar.component';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
 import { appsettings } from '../../Settings/appsettings';
 import { SeguridadService } from '../../Services/seguridad.service';
-import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
-import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-responsive.component';
-import { DestacadosComponent } from '../destacados/destacados.component';
+import { NavBarResponsiveComponent } from '../Components/nav-bar-responsive/nav-bar-responsive.component';
+import { DestacadosComponent } from '../Components/destacados/destacados.component';
 
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, AutorizadoComponent, DestacadosComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, DestacadosComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })

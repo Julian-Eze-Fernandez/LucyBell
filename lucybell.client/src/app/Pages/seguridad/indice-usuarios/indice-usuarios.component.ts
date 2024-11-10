@@ -1,16 +1,15 @@
 import { Component, HostListener, inject, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { PaginacionDTO } from '../compartidos/modelos/PaginacionDTO';
 import { UsuarioDTO } from '../seguridad';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { ListadoGenericoComponent } from "../compartidos/componentes/listado-generico/listado-generico.component";
 import { CommonModule } from '@angular/common';
-import { SidebarAdminComponent } from "../../sidebarAdmin/sidebarAdmin.component";
+import { SidebarAdminComponent } from "../../Components/sidebarAdmin/sidebarAdmin.component";
 
 @Component({
   selector: 'app-indice-usuarios',
   standalone: true,
-  imports: [RouterLink, ListadoGenericoComponent, CommonModule, SidebarAdminComponent],
+  imports: [ ListadoGenericoComponent, CommonModule, SidebarAdminComponent],
   templateUrl: './indice-usuarios.component.html',
   styleUrls: ['./indice-usuarios.component.css'] // Cambié `styleUrl` a `styleUrls` para el plural
 })
