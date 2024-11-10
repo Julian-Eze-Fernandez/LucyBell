@@ -10,7 +10,7 @@ import { CarritoComponent } from "../carrito/carrito.component";
 @Component({
   selector: 'app-nav-bar-responsive',
   standalone: true,
-  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule],
+  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule, SidebarComponent],
   templateUrl: './nav-bar-responsive.component.html',
   styleUrl: './nav-bar-responsive.component.css'
 })
