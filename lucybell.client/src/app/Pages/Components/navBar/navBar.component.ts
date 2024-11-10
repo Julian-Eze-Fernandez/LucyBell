@@ -1,20 +1,18 @@
 import { Component, HostListener, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoriaService } from '../../Services/categoria.service';
-import { SeguridadService } from '../../Services/seguridad.service';
-import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
+import { CategoriaService } from '../../../Services/categoria.service';
+import { SeguridadService } from '../../../Services/seguridad.service';
+import { AutorizadoComponent } from "../../seguridad/autorizado/autorizado.component";
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { FormularioAutenticacionComponent } from "../seguridad/formulario-autenticacion/formulario-autenticacion.component";
-import { LoginComponent } from "../seguridad/login/login.component";
+import { LoginComponent } from "../../seguridad/login/login.component";
 import { CarritoComponent } from '../carrito/carrito.component';
-import { CarritoService } from '../../Services/carrito.service';
+import { CarritoService } from '../../../Services/carrito.service';
 
 @Component({
   selector: 'app-navBar',
   templateUrl: './navBar.component.html',
   standalone: true,
-  imports: [CommonModule, AutorizadoComponent, RouterModule, FormsModule, FormularioAutenticacionComponent, LoginComponent, CarritoComponent],
+  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './navBar.component.css'
 })

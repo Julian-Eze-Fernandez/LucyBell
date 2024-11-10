@@ -1,19 +1,16 @@
 import { Component, HostListener, inject, ViewChild, OnInit } from '@angular/core';
-import { SeguridadService } from '../../Services/seguridad.service';
-import { LoginComponent } from '../seguridad/login/login.component';
+import { SeguridadService } from '../../../Services/seguridad.service';
+import { LoginComponent } from '../../seguridad/login/login.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
+import { AutorizadoComponent } from '../../seguridad/autorizado/autorizado.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { navBarComponent } from '../navBar/navBar.component';
-import { FormularioAutenticacionComponent } from '../seguridad/formulario-autenticacion/formulario-autenticacion.component';
 import { CarritoComponent } from "../carrito/carrito.component";
 
 @Component({
   selector: 'app-nav-bar-responsive',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, SidebarComponent, AutorizadoComponent, FormsModule, FormularioAutenticacionComponent, LoginComponent, RouterModule, CarritoComponent],
+  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule],
   templateUrl: './nav-bar-responsive.component.html',
   styleUrl: './nav-bar-responsive.component.css'
 })

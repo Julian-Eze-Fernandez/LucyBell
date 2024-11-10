@@ -5,9 +5,9 @@ import { MaterialService } from '../../Services/material.service';
 import {  CategoriaABM, CategoriaGetSubCategorias } from '../../Models/Categoria';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TwoButtonModalComponent } from '../two-button-modal/two-button-modal.component';
-import { OneButtonModalComponent } from '../one-button-modal/one-button-modal.component';
-import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component'
+import { TwoButtonModalComponent } from '../Components/two-button-modal/two-button-modal.component';
+import { OneButtonModalComponent } from '../Components/one-button-modal/one-button-modal.component';
+import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
 import { Material } from '../../Models/Material';
 import { SubCategoria, SubCategoriaCreacionDTO } from '../../Models/SubCategoria';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ import { provideAnimations  } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [CommonModule, TwoButtonModalComponent, OneButtonModalComponent, FormsModule, SidebarAdminComponent],
+  imports: [CommonModule, TwoButtonModalComponent, FormsModule, SidebarAdminComponent],
   providers: [provideAnimations()],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css',

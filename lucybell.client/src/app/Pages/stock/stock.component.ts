@@ -1,11 +1,11 @@
 import { Component, HostListener, OnInit, ViewChild  } from '@angular/core';
-import { SidebarAdminComponent } from '../sidebarAdmin/sidebarAdmin.component';
+import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
 import { CommonModule, } from '@angular/common';
 import {VariantesProductoService} from '../../Services/variantes-producto.service';
 import {VarianteProductoDTO} from '../../Models/VariantesProducto';
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../Models/Producto';
-import { TwoButtonModalComponent } from '../../Pages/two-button-modal/two-button-modal.component'
+import { TwoButtonModalComponent } from '../Components/two-button-modal/two-button-modal.component'
 import { FormsModule } from '@angular/forms';
 
 @Component({

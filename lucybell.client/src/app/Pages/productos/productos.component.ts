@@ -1,19 +1,17 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { navBarComponent } from '../navBar/navBar.component';
-import { SeguridadService } from '../../Services/seguridad.service';
-import { AutorizadoComponent } from '../seguridad/autorizado/autorizado.component';
-import { NavBarResponsiveComponent } from '../nav-bar-responsive/nav-bar-responsive.component';
+import { navBarComponent } from '../Components/navBar/navBar.component';
+import { NavBarResponsiveComponent } from '../Components/nav-bar-responsive/nav-bar-responsive.component';
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../Models/Producto';
 import { appsettings } from '../../Settings/appsettings';
 import { CarritoService } from '../../Services/carrito.service';
-import { ListaProductosComponent } from '../lista-productos/lista-productos.component';
+import { ListaProductosComponent } from '../Components/lista-productos/lista-productos.component';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, navBarComponent, AutorizadoComponent, NavBarResponsiveComponent, ListaProductosComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, ListaProductosComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })

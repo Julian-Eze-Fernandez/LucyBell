@@ -1,8 +1,8 @@
 import { Component, HostListener, ViewChild, OnInit } from '@angular/core';
-import { navBarComponent } from "../navBar/navBar.component";
+import { navBarComponent } from "../Components/navBar/navBar.component";
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavBarResponsiveComponent } from "../nav-bar-responsive/nav-bar-responsive.component";
+import { SidebarComponent } from '../Components/sidebar/sidebar.component';
+import { NavBarResponsiveComponent } from "../Components/nav-bar-responsive/nav-bar-responsive.component";
 
 @Component({
   selector: 'app-contacto',

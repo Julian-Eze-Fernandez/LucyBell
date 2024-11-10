@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CategoriaService } from '../../Services/categoria.service';
-import { SubcategoriaService } from '../../Services/subcategoria.service';
-import { MaterialService } from '../../Services/material.service';
-import { ProductoService } from '../../Services/producto.service';
+import { CategoriaService } from '../../../Services/categoria.service';
+import { SubcategoriaService } from '../../../Services/subcategoria.service';
+import { MaterialService } from '../../../Services/material.service';
+import { ProductoService } from '../../../Services/producto.service';
 import { FormsModule, Validators, FormGroup, FormBuilder, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { VariantesProductoService } from '../../Services/variantes-producto.service';
-import { VariantesProductoCreacionDTO } from '../../Models/VariantesProducto';
-import { Producto } from '../../Models/Producto';
+import { VariantesProductoService } from '../../../Services/variantes-producto.service';
+import { VariantesProductoCreacionDTO } from '../../../Models/VariantesProducto';
+import { Producto } from '../../../Models/Producto';
 @Component({
   selector: 'app-edit-producto',
   standalone: true,

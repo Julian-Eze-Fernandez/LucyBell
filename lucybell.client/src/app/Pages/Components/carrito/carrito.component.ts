@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CarritoService } from '../../Services/carrito.service';
-import { Carrito } from '../../Models/Carrito';
+import { CarritoService } from '../../../Services/carrito.service';
+import { Carrito } from '../../../Models/Carrito';
 
 @Component({
   selector: 'app-carrito',

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductoService } from '../../Services/producto.service';
-import { PaginatedProductos, Producto } from '../../Models/Producto';
-import { appsettings } from '../../Settings/appsettings';
+import { ProductoService } from '../../../Services/producto.service';
+import { PaginatedProductos, Producto } from '../../../Models/Producto';
+import { appsettings } from '../../../Settings/appsettings';
 import { HttpResponse } from '@angular/common/http';
-import { CategoriaService } from '../../Services/categoria.service';
-import { SubcategoriaService } from '../../Services/subcategoria.service';
-import { MaterialService } from '../../Services/material.service';
-import { Categoria } from '../../Models/Categoria';
-import { CategoriaName } from '../../Models/Categoria';
-import { SubCategoria } from '../../Models/SubCategoria';
-import { Material } from '../../Models/Material';
-import { CarritoService } from '../../Services/carrito.service';
+import { CategoriaService } from '../../../Services/categoria.service';
+import { SubcategoriaService } from '../../../Services/subcategoria.service';
+import { MaterialService } from '../../../Services/material.service';
+import { Categoria } from '../../../Models/Categoria';
+import { CategoriaName } from '../../../Models/Categoria';
+import { SubCategoria } from '../../../Models/SubCategoria';
+import { Material } from '../../../Models/Material';
+import { CarritoService } from '../../../Services/carrito.service';
 
 @Component({
   selector: 'app-lista-productos',

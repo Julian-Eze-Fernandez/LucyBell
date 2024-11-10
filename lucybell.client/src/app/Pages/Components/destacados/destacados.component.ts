@@ -1,7 +1,7 @@
 import { Component,  CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Producto } from '../../Models/Producto';
-import { ProductoService } from '../../Services/producto.service';
+import { Producto } from '../../../Models/Producto';
+import { ProductoService } from '../../../Services/producto.service';
 import Swiper from 'swiper';
 import { timeout } from 'rxjs';
 

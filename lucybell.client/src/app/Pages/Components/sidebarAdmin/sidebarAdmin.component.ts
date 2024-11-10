@@ -1,50 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { AutorizadoComponent } from "../seguridad/autorizado/autorizado.component";
-import { CategoriaService } from '../../Services/categoria.service';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-
-
+import { AutorizadoComponent } from "../../seguridad/autorizado/autorizado.component";
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css',
+  selector: 'app-sidebarAdmin',
+  templateUrl: './sidebarAdmin.component.html',
+  styleUrl: './sidebarAdmin.component.css',
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
     AutorizadoComponent
 ]
 })
-
-export class SidebarComponent implements OnInit {
+export class SidebarAdminComponent implements OnInit {
 
   isSidebarOpen = false;
-  categorias: any[] = [];
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor() { }
 
   ngOnInit(): void {
-    this.GetCategorias()
-  }
-
-  GetCategorias() {
-    this.categoriaService.GetCategoriasLista().subscribe({
-      next: (data) => {
-        this.categorias = data;
-      },
-      error: (err) => {
-        console.log(err.message);
-      }
-    });
   }
 
   dropdownStates: { [key: string]: boolean } = {};
 
+
   isDropdownOpen(key: string): boolean {
     return this.dropdownStates[key];
   }
+
 
   toggleSidebar(): void {
     const sidebar = document.getElementById('default-sidebar');
@@ -70,3 +53,6 @@ export class SidebarComponent implements OnInit {
   }
 
 }
+
+
+
