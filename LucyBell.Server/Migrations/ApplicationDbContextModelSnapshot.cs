@@ -22,48 +22,6 @@ namespace LucyBell.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LucyBell.Server.Entidades.Carrito", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaActualizacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("Carritos");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.Carrousel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("Carrouseles");
-                });
-
             modelBuilder.Entity("LucyBell.Server.Entidades.Categoria", b =>
                 {
                     b.Property<int>("Id")
@@ -85,88 +43,6 @@ namespace LucyBell.Server.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("LucyBell.Server.Entidades.Cliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clientes");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.Contacto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaEnvio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Mensaje")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contactos");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.DetalleCarrito", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CarritoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PrecioUnitario")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarritoId");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("DetallesCarrito");
-                });
-
             modelBuilder.Entity("LucyBell.Server.Entidades.DetallePedido", b =>
                 {
                     b.Property<int>("Id")
@@ -178,20 +54,10 @@ namespace LucyBell.Server.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PrecioUnitario")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.HasIndex("ProductoId");
 
                     b.ToTable("DetallesPedido");
                 });
@@ -295,9 +161,6 @@ namespace LucyBell.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -309,8 +172,6 @@ namespace LucyBell.Server.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
 
                     b.ToTable("Pedidos");
                 });
@@ -602,66 +463,6 @@ namespace LucyBell.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LucyBell.Server.Entidades.Carrito", b =>
-                {
-                    b.HasOne("LucyBell.Server.Entidades.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.Carrousel", b =>
-                {
-                    b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
-                        .WithMany("Carrouseles")
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Producto");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.DetalleCarrito", b =>
-                {
-                    b.HasOne("LucyBell.Server.Entidades.Carrito", "Carrito")
-                        .WithMany("DetallesCarrito")
-                        .HasForeignKey("CarritoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
-                        .WithMany("DetallesCarrito")
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Carrito");
-
-                    b.Navigation("Producto");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.DetallePedido", b =>
-                {
-                    b.HasOne("LucyBell.Server.Entidades.Pedido", "Pedido")
-                        .WithMany()
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
-                        .WithMany("DetallesPedido")
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pedido");
-
-                    b.Navigation("Producto");
-                });
-
             modelBuilder.Entity("LucyBell.Server.Entidades.ImagenProducto", b =>
                 {
                     b.HasOne("LucyBell.Server.Entidades.Producto", "Producto")
@@ -693,17 +494,6 @@ namespace LucyBell.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("Productos");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.Pedido", b =>
-                {
-                    b.HasOne("LucyBell.Server.Entidades.Cliente", "Cliente")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Producto", b =>
@@ -802,21 +592,11 @@ namespace LucyBell.Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LucyBell.Server.Entidades.Carrito", b =>
-                {
-                    b.Navigation("DetallesCarrito");
-                });
-
             modelBuilder.Entity("LucyBell.Server.Entidades.Categoria", b =>
                 {
                     b.Navigation("Productos");
 
                     b.Navigation("SubCategorias");
-                });
-
-            modelBuilder.Entity("LucyBell.Server.Entidades.Cliente", b =>
-                {
-                    b.Navigation("Pedidos");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Material", b =>
@@ -826,12 +606,6 @@ namespace LucyBell.Server.Migrations
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Producto", b =>
                 {
-                    b.Navigation("Carrouseles");
-
-                    b.Navigation("DetallesCarrito");
-
-                    b.Navigation("DetallesPedido");
-
                     b.Navigation("ImagenesProductos");
 
                     b.Navigation("VariantesProducto");

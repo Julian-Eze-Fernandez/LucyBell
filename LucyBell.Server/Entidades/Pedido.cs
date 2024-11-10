@@ -6,7 +6,5 @@
 		public DateTime FechaPedido { get; set; }
 		public decimal Total { get; set; }
 		public string Estado { get; set; }
-		public int ClienteId { get; set; }
-		public Cliente Cliente { get; set; }
 	}
 }
