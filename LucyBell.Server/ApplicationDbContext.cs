@@ -14,12 +14,7 @@ namespace LucyBell.Server
 
 		}
 
-		public DbSet<Carrito> Carritos { get; set; }
-		public DbSet<Carrousel> Carrouseles { get; set; }
 		public DbSet<Categoria> Categorias { get; set; }
-		public DbSet<Cliente> Clientes { get; set; }
-		public DbSet<Contacto> Contactos { get; set; }
-		public DbSet<DetalleCarrito> DetallesCarrito { get; set; }
 		public DbSet<DetallePedido> DetallesPedido { get; set; }
 		public DbSet<Material> Materiales { get; set; }
 		public DbSet<Pedido> Pedidos { get; set; }
