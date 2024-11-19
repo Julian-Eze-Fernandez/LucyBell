@@ -30,6 +30,7 @@ import { NavBarResponsiveComponent } from './Pages/Components/nav-bar-responsive
 import { CarritoComponent } from './Pages/Components/carrito/carrito.component';
 import { DestacadosComponent } from './Pages/Components/destacados/destacados.component';
 import { ListaProductosComponent } from './Pages/Components/lista-productos/lista-productos.component';
+import { ProductoComponent } from './Pages/producto/producto.component';
 
 register();
 
@@ -37,30 +38,6 @@ register();
 @NgModule({
   declarations: [
 
-  
-    
-  
-    
-  
-    
-  
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-    
-  
-  
-    
-  
     
   ],
   imports: [
@@ -92,7 +69,8 @@ register();
     ContactoComponent,
     ProductosComponent,
     NavBarResponsiveComponent,
-    CarritoComponent
+    CarritoComponent,
+    ProductoComponent
   ],
   providers: [],
   bootstrap: [],

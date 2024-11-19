@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener, inject } from '@angular/core';
+import { Component, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { navBarComponent } from '../Components/navBar/navBar.component';
 import { Categoria } from '../../Models/Categoria';
