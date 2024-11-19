@@ -9,11 +9,10 @@ import { navBarComponent } from './Pages/Components/navBar/navBar.component';
 import { InicioComponent } from './Pages/inicio/inicio.component'
 import { Component } from '@angular/core';
 import { esAdminGuard } from './Pages/seguridad/compartidos/guards/es-admin.guard';
-import { LoginComponent } from './Pages/seguridad/login/login.component';
-import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
 import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 import { ContactoComponent } from './Pages/contacto/contacto.component';
 import { ProductosComponent } from './Pages/productos/productos.component';
+import { ProductoComponent } from './Pages/producto/producto.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -28,6 +27,7 @@ export const routes: Routes = [
     { path: 'usuarios', component: IndiceUsuariosComponent},
     { path: 'contacto', component: ContactoComponent},
     { path: 'productos', component: ProductosComponent},
+    { path: 'productos/:id', component: ProductoComponent},
 ];
 
 

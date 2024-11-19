@@ -2,41 +2,41 @@
 
 <app-mostrar-errores [errores]="errores"></app-mostrar-errores>
 
-<form (submit)="guardarCambios()" [formGroup]="form" class="space-y-4 mt-2 font-volkornSC">
+<form (submit)="guardarCambios()" [formGroup]="form" class="space-y-4 mt-2 font-volkornSC mb-1">
 
     <div class="flex flex-col">
         <label for="nombre" class="mb-1 text-xl text-gray-800">Nombre</label>
-        <input id="nombre" type="text" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.nombre" />
+        <input id="nombre" type="text" class="inter border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.nombre" />
 
-        <span class="text-red-500 text-sm" *ngIf="form.controls.nombre.invalid && form.controls.nombre.touched">{{obtenerMensajeErrorNombre()}}</span>
+        <span class="text-red-500 text-sm inter" *ngIf="form.controls.nombre.invalid && form.controls.nombre.touched">{{obtenerMensajeErrorNombre()}}</span>
     </div>
 
     <div class="flex flex-col">
       <label for="email" class="mb-1 text-xl text-gray-800">Email</label>
-      <input id="email" type="email" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.email" />
+      <input id="email" type="email" class="inter border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.email" />
 
-      <span class="text-red-500 text-sm" *ngIf="form.controls.email.invalid && form.controls.email.touched">{{obtenerMensajeErrorEmail()}}</span>
+      <span class="text-red-500 text-sm inter" *ngIf="form.controls.email.invalid && form.controls.email.touched">{{obtenerMensajeErrorEmail()}}</span>
     </div>
   
     <div class="flex flex-col">
       <label for="password" class="mb-1 text-xl text-gray-800">Constraseña</label>
-      <input id="password" type="password" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.password" />
+      <input id="password" type="password" class="inter border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.password" />
 
-      <span class="text-red-500 text-sm" *ngIf="form.controls.password.invalid && form.controls.password.touched">{{obtenerMensajeErrorPassword()}}</span>
+      <span class="text-red-500 text-sm inter" *ngIf="form.controls.password.invalid && form.controls.password.touched">{{obtenerMensajeErrorPassword()}}</span>
     </div>
 
     <div class="flex flex-col">
       <label for="repetirPassword" class="mb-1 text-xl text-gray-800">Repetir Contraseña</label>
-      <input id="repetirPassword" type="password" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.repetirPassword" />
+      <input id="repetirPassword" type="password" class="inter border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.repetirPassword" />
 
-      <span class="text-red-500 text-sm" *ngIf="form.controls.repetirPassword.invalid && form.controls.repetirPassword.touched || form.hasError('noCoinciden')">{{obtenerMensajeErrorRepetirPassword()}}</span>
+      <span class="text-red-500 text-sm inter" *ngIf="form.controls.repetirPassword.invalid && form.controls.repetirPassword.touched || form.hasError('noCoinciden')">{{obtenerMensajeErrorRepetirPassword()}}</span>
     </div>
 
     <div class="flex flex-col">
         <label for="telefono" class="mb-1 text-xl text-gray-800">Telefono</label>
-        <input id="telefono" type="text" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.telefono" />
+        <input id="telefono" type="text" class="inter border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500" [formControl]="form.controls.telefono" />
 
-        <span class="text-red-500 text-sm" *ngIf="form.controls.telefono.invalid && form.controls.telefono.touched">{{obtenerMensajeErrorTelefono()}}</span>
+        <span class="text-red-500 text-sm inter" *ngIf="form.controls.telefono.invalid && form.controls.telefono.touched">{{obtenerMensajeErrorTelefono()}}</span>
     </div>
   
     <div class="flex justify-center">

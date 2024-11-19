@@ -12,11 +12,12 @@ import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
 import { CarritoService } from '../../../Services/carrito.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lista-productos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './lista-productos.component.html',
   styleUrl: './lista-productos.component.css'
 })

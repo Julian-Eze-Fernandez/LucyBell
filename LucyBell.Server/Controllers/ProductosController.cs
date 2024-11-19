@@ -134,62 +134,49 @@ namespace LucyBell.Server.Controllers
             return Ok(productosDTO);
         }
 
-        [HttpGet]
-		public async Task<ActionResult<List<ProductoDTO>>> GetProductoFiltrado(
-		int? categoriaId = null,
-		int? subCategoriaId = null,
-		int? materialId = null)
-		{
-			var query = context.Productos.AsQueryable();
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductoCompletoDTO>> GetProductoCompletoById(int id)
+        {
+            var producto = await context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .FirstOrDefaultAsync(productoBD => productoBD.Id == id);
 
-			if (categoriaId.HasValue)
-			{
-				var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId.Value);
+            if (producto == null)
+            {
+                return NotFound();
+            }
 
-				if (!existeCategoria)
-				{
-					return NotFound($"No se encontró la categoría con Id {categoriaId}");
-				}
+            var productoDTO = new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria?.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen
+                }).ToList(),
+                VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            };
 
-				query = query.Where(productoDB => productoDB.CategoriaId == categoriaId.Value);
-			}
-
-			if (subCategoriaId.HasValue)
-			{
-				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId.Value);
-
-				if (!existeSubCategoria)
-				{
-					return NotFound($"No se encontró la subcategoría con Id {subCategoriaId}");
-				}
-
-				query = query.Where(productoDB => productoDB.SubCategoriaId == subCategoriaId.Value);
-			}
-
-			if (materialId.HasValue)
-			{
-				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId.Value);
-
-				if (!existeMaterial)
-				{
-					return NotFound($"No se encontró el material con Id {materialId}");
-				}
-
-				query = query.Where(productoDB => productoDB.MaterialId == materialId.Value);
-			}
-
-			var productos = await query.ToListAsync();
-
-			if (productos == null || productos.Count == 0)
-			{
-				return NotFound("No se encontraron productos con los filtros especificados.");
-			}
-
-			return Ok(mapper.Map<List<ProductoDTO>>(productos));
-		}
+            return Ok(productoDTO);
+        }
 
 
-		[HttpPost]
+        [HttpPost]
 		public async Task<ActionResult> PostProducto(
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,

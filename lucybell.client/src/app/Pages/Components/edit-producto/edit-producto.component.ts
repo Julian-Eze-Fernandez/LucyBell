@@ -100,7 +100,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
   }
 
   onFileSelected(event: any, index: number): void {
-    const file: File = event.target.files[0];
+    const file = event.target.files[0];
     if (file) {
 
       this.imagenesSeleccionadas[index] = file;
@@ -159,6 +159,8 @@ export class EditProductoComponent implements OnInit, OnChanges{
 
   addColor(): void {
     this.nuevoColor = this.productoForm.get('nuevoColor')?.value;
+
+    console.log(this.imagenesSeleccionadas);
 
     if (this.nuevoColor == '') {
       this.errorMessage = 'El campo color no puede estar vacio';
@@ -265,7 +267,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
       }
     }
 
-
+    console.log(this.imagenesSeleccionadas);
 
     return of(null);
   }

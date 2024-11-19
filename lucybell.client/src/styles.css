@@ -46,6 +46,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   font-family: 'Inter';
 }
 
+.julius{
+  font-family: 'Julius';
+}
 .crossBg {
 
   --s: 30px; /* control the size*/

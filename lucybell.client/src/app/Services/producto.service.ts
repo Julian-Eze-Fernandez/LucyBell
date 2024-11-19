@@ -27,6 +27,10 @@ export class ProductoService {
     return this.http.get<Producto[]>(`${this.apiUrl}/completo`)
   }
 
+  GetProductoById(id: number){
+    return this.http.get<Producto>(`${this.apiUrl}/${id}`)
+  }
+
   GetFilteredProducts(
     categoriaId?: number | null,
     subCategoriaId?: number | null,
