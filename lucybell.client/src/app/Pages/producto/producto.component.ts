@@ -59,8 +59,20 @@ export class ProductoComponent implements OnInit {
     }
   }
   
-  agregarProducto(item: Producto){
-    this.carritoService.agregar(item);
+  agregarProducto(item: Producto) {
+    const selectedVariante = item.variantesProducto.find(
+      (variante) => variante.color === this.selectedColor
+    );
+  
+    this.carritoService.agregar(item, this.quantity, selectedVariante);
+    console.log(
+      'Producto agregado al carrito:',
+      item,
+      'Cantidad:',
+      this.quantity,
+      'Variante:',
+      selectedVariante
+    );
   }
 
   increaseQuantity(): void {

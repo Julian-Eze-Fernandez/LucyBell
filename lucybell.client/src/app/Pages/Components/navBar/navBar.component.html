@@ -74,7 +74,7 @@
                                             <span class="text-lg text-black">({{carritoService.cantidad()}})</span>
                                         </button>
                                     </li>
-                                    <app-carrito [cartOpen]="cartOpen"></app-carrito>       
+                                    <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>       
                                 </ul> 
                             </div>
                         </ng-container>

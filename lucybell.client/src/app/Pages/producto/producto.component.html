@@ -52,19 +52,20 @@
                 <div class="label">
                   <span class="label-text font-medium ">Color</span>
                 </div>
-                <select class="select select-secondary select-bordered bg-white">
-                  <option *ngFor="let variante of product.variantesProducto" [value]="variante.id">{{ variante.color }}</option>
+                <select [(ngModel)]="selectedColor" class="select select-secondary select-bordered bg-white">
+                  <option *ngFor="let variante of product.variantesProducto" [value]="variante.color">{{ variante.color }}</option>
                 </select>
               </label>
           </div>
 
-          <div class="space-y-2">
-            <label for="quantity" class="label-text font-medium ">Cantidad</label>
-            <div class="flex items-center space-x-2">
-              <button (click)="decreaseQuantity()" class="btn btn-circle btn-outline" aria-label="Reducir cantidad">-</button>
-              <input type="number" id="quantity" [(ngModel)]="quantity" class="w-16 text-center border border-1 border-secondary rounded-md p-2" min="1">
-              <button (click)="increaseQuantity()" class="btn btn-circle btn-outline" aria-label="Aumentar cantidad">+</button>
-            </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="quantity" class="label-text font-medium ">Cantidad</label>
+          <div class="flex items-center space-x-2">
+            <button (click)="decreaseQuantity()" class="btn btn-circle btn-outline" aria-label="Reducir cantidad">-</button>
+            <input type="number" id="quantity" [(ngModel)]="quantity" class="w-16 text-center border border-1 border-secondary rounded-md p-2" min="1">
+            <button (click)="increaseQuantity()" class="btn btn-circle btn-outline" aria-label="Aumentar cantidad">+</button>
           </div>
         </div>
   

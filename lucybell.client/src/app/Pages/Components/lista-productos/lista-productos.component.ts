@@ -11,7 +11,6 @@ import { Categoria } from '../../../Models/Categoria';
 import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
-import { CarritoService } from '../../../Services/carrito.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -23,7 +22,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ListaProductosComponent implements OnInit {
 
-  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private carritoService: CarritoService ) {}
+  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService) {}
 
   productos: Producto[] = [];
   listaCategorias: CategoriaName[] = [];
@@ -142,9 +141,4 @@ export class ListaProductosComponent implements OnInit {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
     console.log("totalCount", this.totalCount);
   }
-
-  agregarProducto(item: Producto) {
-    this.carritoService.agregar(item);
-  }
-
 }
