@@ -47,7 +47,7 @@ export class CarritoComponent implements OnInit {
       if (item.cantidad < stockDisponible) {
         item.cantidad += 1;
         this.actualizarCarrito(item, index);
-        this.mensajeError = null; // Limpia el mensaje de error si todo está bien
+        this.mensajeError = null;
       } else {
         this.mostrarMensajeError(
           `No hay stock suficiente para agregar esa cantidad al carrito.`
@@ -60,7 +60,7 @@ export class CarritoComponent implements OnInit {
         item.cantidad += 1;
         item.varianteSeleccionada = varianteUnica;
         this.actualizarCarrito(item, index);
-        this.mensajeError = null; // Limpia el mensaje de error si todo está bien
+        this.mensajeError = null;
       } else {
         this.mostrarMensajeError(
           `No hay stock suficiente para agregar esa cantidad al carrito.`
@@ -76,12 +76,10 @@ export class CarritoComponent implements OnInit {
   mostrarMensajeError(mensaje: string) {
     this.mensajeError = mensaje;
   
-    // Oculta el mensaje después de 3 segundos
     setTimeout(() => {
       this.mensajeError = null;
-    }, 3000); // 3000 ms = 3 segundos
+    }, 3000);
   }
-  
 
   disminuirCantidad(index: number) {
     if (this.listCarrito[index].cantidad > 1) {  

@@ -60,7 +60,7 @@
 
         </div>
 
-        <div class="space-y-2">
+        <!-- <div class="space-y-2">
           <label for="quantity" class="label-text font-medium ">Cantidad</label>
           <div class="flex items-center space-x-2">
             <button (click)="decreaseQuantity()" class="btn btn-circle btn-outline" aria-label="Reducir cantidad">-</button>
@@ -70,6 +70,19 @@
         </div>
   
         <button (click)="agregarProducto(product)" class="w-full lg:w-auto btn btn-primary font-medium text-base px-6 ">
+          Agregar al carrito
+        </button> -->
+        <div class="space-y-2">
+          <label for="quantity" class="label-text font-medium">Cantidad</label>
+          <div class="flex items-center space-x-2">
+            <button (click)="decreaseQuantity()" class="btn btn-circle btn-outline" aria-label="Reducir cantidad">-</button>
+            <input type="number" id="quantity" [(ngModel)]="quantity" class="w-16 text-center border border-1 border-secondary rounded-md p-2" min="1">
+            <button (click)="increaseQuantity()" class="btn btn-circle btn-outline" aria-label="Aumentar cantidad">+</button>
+          </div>
+          <p *ngIf="errorMessage" class="text-red-500 text-sm mt-1">{{ errorMessage }}</p>
+        </div>
+        
+        <button (click)="agregarProducto(product)" class="w-full lg:w-auto btn btn-primary font-medium text-base px-6">
           Agregar al carrito
         </button>
       </div>

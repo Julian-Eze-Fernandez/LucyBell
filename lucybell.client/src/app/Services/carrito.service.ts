@@ -25,12 +25,15 @@ export class CarritoService {
     return this.listCarrito;
   }
 
-  agregar(producto: Producto, cantidad: number = 1, varianteSeleccionada?: VariantesProducto) {
+  agregar(
+    producto: Producto,
+    cantidad: number = 1,
+    varianteSeleccionada?: VariantesProducto
+  ): boolean {
     this.obtenerSesion();
   
-    // Si no se seleccionó una variante, pero el producto tiene una única variante
     if (!varianteSeleccionada && producto.variantesProducto.length === 1) {
-      varianteSeleccionada = producto.variantesProducto[0]; // Asignar la variante única
+      varianteSeleccionada = producto.variantesProducto[0];
     }
   
     const index = this.listCarrito.findIndex(
@@ -39,30 +42,26 @@ export class CarritoService {
         (!varianteSeleccionada || item.varianteSeleccionada?.id === varianteSeleccionada.id)
     );
   
-    if (index === -1) {
-      // Si es un producto nuevo en el carrito
-      const stockDisponible = varianteSeleccionada?.cantidad ?? 0;
+    const stockDisponible = varianteSeleccionada?.cantidad ?? 0;
   
+    if (index === -1) {
       if (cantidad > stockDisponible) {
-        alert(`No puedes agregar más. Stock disponible: ${stockDisponible}`);
-        return; // Cancela la operación si no hay suficiente stock
+        return false;
       }
       const item = new Carrito(producto, cantidad, varianteSeleccionada);
       this.listCarrito.push(item);
     } else {
-      // Si el producto ya está en el carrito, actualizar la cantidad
-      const stockDisponible = varianteSeleccionada?.cantidad ?? 0;
       const nuevoTotal = this.listCarrito[index].cantidad + cantidad;
-  
       if (nuevoTotal > stockDisponible) {
-        alert(`No puedes agregar más. Stock disponible: ${stockDisponible}`);
-        return; // Cancela la operación si se supera el stock
+        return false;
       }
       this.actualizar(index, nuevoTotal);
     }
   
     this.guardarSesion();
     this.carritoSubject.next(this.listCarrito);
+  
+    return true; // Operación exitosa
   }
 
   actualizar(index: number , cantidad: number){
