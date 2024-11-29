@@ -7,12 +7,13 @@ import { appsettings } from '../../Settings/appsettings';
 import { SeguridadService } from '../../Services/seguridad.service';
 import { NavBarResponsiveComponent } from '../Components/nav-bar-responsive/nav-bar-responsive.component';
 import { DestacadosComponent } from '../Components/destacados/destacados.component';
+import { FooterComponent } from '../Components/footer/footer.component';
 
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, DestacadosComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, DestacadosComponent, FooterComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })

@@ -31,6 +31,7 @@ import { CarritoComponent } from './Pages/Components/carrito/carrito.component';
 import { DestacadosComponent } from './Pages/Components/destacados/destacados.component';
 import { ListaProductosComponent } from './Pages/Components/lista-productos/lista-productos.component';
 import { ProductoComponent } from './Pages/producto/producto.component';
+import { FooterComponent } from './Pages/Components/footer/footer.component';
 
 register();
 
@@ -39,8 +40,11 @@ register();
   declarations: [
 
     
+  
+    
   ],
   imports: [
+    FooterComponent,
     ListaProductosComponent,
     DestacadosComponent,
     AppComponent,

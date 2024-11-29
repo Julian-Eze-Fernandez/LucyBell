@@ -5,7 +5,7 @@
     <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
 
       <div class="flex justify-between gap-4 mb-6">
-        <!-- Image Uploads -->
+        
         <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
           <input type="file" (change)="onFileSelected($event, 0)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
           <img *ngIf="imageUrls[0]" [src]="imageUrls[0]" alt="Selected Image 1" class="object-cover w-full h-full" />
@@ -29,7 +29,7 @@
 
       </div>
 
-      <!-- Nombre -->
+      
       <div class="mb-4">
         <div class="flex justify-between">
           <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
@@ -44,7 +44,7 @@
         </div>
       </div>
     
-      <!-- Categoria -->
+
       <div class="mb-4">
         <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
         <select id="categoria" formControlName="categoria" (change)="onCategoriaChange()" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
@@ -56,7 +56,7 @@
         </div>
       </div>
     
-      <!-- Material -->
+
       <div class="mb-4">
         <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
         <select id="material" formControlName="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
@@ -64,8 +64,7 @@
           <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
         </select>
       </div>
-    
-      <!-- Subcategoria -->
+
       <div class="mb-4">
         <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
         <select id="subcategoria" formControlName="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white">
@@ -74,13 +73,12 @@
         </select>
       </div>
     
-      <!-- Descripcion -->
+
       <div class="mb-4">
         <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion</label>
         <textarea id="descripcion" formControlName="descripcion" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese descripcion"></textarea>
       </div>
     
-      <!-- Precio -->
       <div class="mb-4">
         <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
         <input type="number" id="precio" formControlName="precio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio">
@@ -115,7 +113,6 @@
         
       </div>
     
-      <!-- Submit Button -->
       <div class="flex justify-end">
         <button type="submit" class="bg-blue-500 hidden hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Actualizar Producto</button>
       </div>

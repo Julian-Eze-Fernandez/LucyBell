@@ -97,11 +97,11 @@
                 <img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
               </div>
             </div>
-            <div class="p-2 h-16 bg-MyColor w-full border-t rounded-b-lg border-black">
-              <div class="flex-col items-center text-center rounded-b-lg text-white">
-                <h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
+            <div class="p-2 pt-4 bg-MyColor w-full border-t rounded-b-lg border-black">
+              <div class="flex-col items-center text-center rounded-b-lg text-white inter">
+                <h4 class="text-white max-md:text-sm truncate font-semibold">{{producto.nombre}}</h4>
                 <div class="flex justify-center items-center">
-                  <h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+                  <h4 class="text-white ">${{producto.precio.toLocaleString('es-AR')}},00</h4>
                 </div>
               </div>
             </div>

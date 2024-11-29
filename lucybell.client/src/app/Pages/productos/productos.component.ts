@@ -7,11 +7,12 @@ import { Producto } from '../../Models/Producto';
 import { appsettings } from '../../Settings/appsettings';
 import { CarritoService } from '../../Services/carrito.service';
 import { ListaProductosComponent } from '../Components/lista-productos/lista-productos.component';
+import { FooterComponent } from '../Components/footer/footer.component';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, ListaProductosComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, ListaProductosComponent, FooterComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })

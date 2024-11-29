@@ -1,39 +1,20 @@
-<div class="flex-grow">
+<div class="flex flex-col min-h-screen">
+	<div class="flex-grow">
 
-	<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-96" >
-		<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
-	</div>
-	
-	<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
-
-	<!-- <div class="p-2 grid grid-cols-2 md:grid-cols-3 auto-rows-max pb-10 gap-4">
-		<div *ngFor="let producto of productos" class="rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
-			<div class="flex-col border border-black rounded-lg">
-				<div class="relative bg-black w-full aspect-[4/4] overflow-hidden rounded-t-lg">	  
-					
-					<div *ngIf="producto.imagenesProductos">
-						<img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
-					</div>
-				</div>
-				<div class="p-2 h-16 bg-MyColor w-full border-t rounded-b-lg border-black">
-					
-					<div class="flex-col items-center text-center rounded-b-lg text-white">
-						<h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
-						<div class="flex justify-between items-center">
-							<h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
-							<div class="ml-4">
-								<button class="button bg-violet text-white flex items-center p-2 h-7 w-full" (click)="agregarProducto(producto)">
-									<img src="../../../assets/icons/CartWhite.svg" alt="Carrito" />
-									Agregar
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
+		<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-96" >
+			<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
 		</div>
-	</div> -->
-	<app-lista-productos ></app-lista-productos>
-
+		
+		<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
+	
+		<section>
+			<app-lista-productos ></app-lista-productos>
+		</section>
+	
+		<app-footer style="
+			position: absolute;
+			bottom: 0;
+			width: 100%;"></app-footer>
+	</div>
 </div>
+

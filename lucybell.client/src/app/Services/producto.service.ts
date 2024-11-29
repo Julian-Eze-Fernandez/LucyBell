@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { ResponseAPI } from '../Models/ResponseAPI';
-import { Producto, PaginatedProductos } from '../Models/Producto';
+import { Producto, ProductoSinVariantesDTO } from '../Models/Producto';
 import { appsettings } from '../Settings/appsettings';
 import { Observable } from 'rxjs'; // agregado por mi
 
@@ -37,7 +37,7 @@ export class ProductoService {
     materialId?: number | null,
     page: number = 1,
     pageSize: number = 10
-  ): Observable<HttpResponse<Producto[]>> {  // Explicitly set return type
+  ): Observable<HttpResponse<Producto[]>> { 
     let params = new HttpParams();
     if (categoriaId) params = params.append('categoriaId', categoriaId.toString());
     if (subCategoriaId) params = params.append('subCategoriaId', subCategoriaId.toString());
@@ -47,6 +47,10 @@ export class ProductoService {
   
     // Return full HTTP response
     return this.http.get<Producto[]>(`${this.apiUrl}/filtrado`, { params, observe: 'response' });
+  }
+
+  GetRelatedProducts(id:number, count: number = 4) {
+    return this.http.get<ProductoSinVariantesDTO[]>(`${this.apiUrl}/Related?id=${id}&count=${count}`);
   }
 
   PutProducto(id: number, categoriaId: number, subCategoriaId: number | null, materialId: number | null, formData: FormData): Observable<any> {

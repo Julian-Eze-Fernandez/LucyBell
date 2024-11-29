@@ -3,11 +3,12 @@ import { navBarComponent } from "../Components/navBar/navBar.component";
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../Components/sidebar/sidebar.component';
 import { NavBarResponsiveComponent } from "../Components/nav-bar-responsive/nav-bar-responsive.component";
+import { FooterComponent } from '../Components/footer/footer.component';
 
 @Component({
   selector: 'app-contacto',
   standalone: true,
-  imports: [navBarComponent, CommonModule, NavBarResponsiveComponent],
+  imports: [navBarComponent, CommonModule, NavBarResponsiveComponent, FooterComponent],
   templateUrl: './contacto.component.html',
   styleUrl: './contacto.component.css'
 })
