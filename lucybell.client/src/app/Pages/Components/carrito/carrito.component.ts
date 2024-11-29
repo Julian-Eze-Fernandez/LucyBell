@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { CarritoService } from '../../../Services/carrito.service';
 import { Carrito } from '../../../Models/Carrito';
 
@@ -14,7 +14,10 @@ export class CarritoComponent implements OnInit {
   carritoService = inject(CarritoService);
   listCarrito: Carrito[] = [];
   @Input() cartOpen: boolean = false;
-  
+  @Output() cartClose: EventEmitter<void> = new EventEmitter();
+
+  mensajeError: string | null = null;
+
   
   ngOnInit(): void {
     this.getListCarrito();
@@ -23,8 +26,8 @@ export class CarritoComponent implements OnInit {
     });
   }
 
-  toggleCart() {
-    this.cartOpen = !this.cartOpen;
+  cerrarCarrito() {
+    this.cartClose.emit();
   }
 
   getListCarrito(){
@@ -36,12 +39,46 @@ export class CarritoComponent implements OnInit {
     this.getListCarrito();
   }
 
-   aumentarCantidad(index: number) {
-    if (this.listCarrito[index].cantidad < 99) {  
-      this.listCarrito[index].cantidad += 1;
-      this.actualizarCarrito(this.listCarrito[index], index);
+  aumentarCantidad(index: number) {
+    const item = this.listCarrito[index];
+  
+    if (item.varianteSeleccionada) {
+      const stockDisponible = item.varianteSeleccionada.cantidad;
+      if (item.cantidad < stockDisponible) {
+        item.cantidad += 1;
+        this.actualizarCarrito(item, index);
+        this.mensajeError = null;
+      } else {
+        this.mostrarMensajeError(
+          `No hay stock suficiente para agregar esa cantidad al carrito.`
+        );
+      }
+    } else if (item.producto.variantesProducto.length === 1) {
+      const varianteUnica = item.producto.variantesProducto[0];
+      const stockDisponible = varianteUnica.cantidad;
+      if (item.cantidad < stockDisponible) {
+        item.cantidad += 1;
+        item.varianteSeleccionada = varianteUnica;
+        this.actualizarCarrito(item, index);
+        this.mensajeError = null;
+      } else {
+        this.mostrarMensajeError(
+          `No hay stock suficiente para agregar esa cantidad al carrito.`
+        );
+      }
+    } else {
+      this.mostrarMensajeError("Debes seleccionar una variante antes de aumentar la cantidad.");
     }
+  
     this.actualizarTotal();
+  }
+  
+  mostrarMensajeError(mensaje: string) {
+    this.mensajeError = mensaje;
+  
+    setTimeout(() => {
+      this.mensajeError = null;
+    }, 3000);
   }
 
   disminuirCantidad(index: number) {

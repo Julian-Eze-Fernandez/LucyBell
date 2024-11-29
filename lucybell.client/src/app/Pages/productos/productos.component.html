@@ -1,20 +1,16 @@
 <div class="flex flex-col min-h-screen">
 	<div class="flex-grow">
 
-		<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-96" >
-			<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
-		</div>
-		
-		<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
-	
-		<section>
-			<app-lista-productos ></app-lista-productos>
-		</section>
-	
-		<app-footer style="
-			position: absolute;
-			bottom: 0;
-			width: 100%;"></app-footer>
+	<div *ngIf="isLargeScreen" class="mb-48 sm:mb-60 lg:mb-96" >
+		<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
 	</div>
+	
+	<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
+	
+	<app-lista-productos ></app-lista-productos>
+	
+	<app-footer style="
+	position: absolute;
+	bottom: 0;
+	width: 100%;"></app-footer>
 </div>
-

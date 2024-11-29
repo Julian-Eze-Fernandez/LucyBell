@@ -1,3 +1,22 @@
 .z-100 {
     z-index: 999;
   }
+
+  .alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .alert-danger {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    background-color: #ee4654;
+    border-color: #d62435;
+  }
+  
+  .alert.escondida {
+    opacity: 0;
+  }

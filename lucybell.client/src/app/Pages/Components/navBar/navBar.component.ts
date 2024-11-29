@@ -50,6 +50,10 @@ export class navBarComponent implements OnInit {
     this.cartOpen = !this.cartOpen;
   }
 
+  closeCart() {
+    this.cartOpen = false;
+  }
+
   @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
       const logoContainer = document.getElementById('logo-container');

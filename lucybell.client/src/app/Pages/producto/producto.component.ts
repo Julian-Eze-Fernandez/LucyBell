@@ -27,6 +27,7 @@ export class ProductoComponent implements OnInit {
   isLargeScreen: boolean = true;
   relatedProducts: ProductoSinVariantesDTO[] = [];
   private routeSubscription!: Subscription;
+  errorMessage: string = '';
 
   colors = ['Blanco', 'Morado', 'Azul'];
   selectedColor = 'Blanco';
@@ -90,8 +91,35 @@ export class ProductoComponent implements OnInit {
     }
   }
   
-  agregarProducto(item: Producto){
-    this.carritoService.agregar(item);
+  agregarProducto(item: Producto): void {
+    const selectedVariante = item.variantesProducto.find(
+      (variante) => variante.color === this.selectedColor
+    );
+  
+    const agregado = this.carritoService.agregar(item, this.quantity, selectedVariante);
+  
+    if (!agregado) {
+      const stockDisponible = selectedVariante?.cantidad ?? 0;
+      this.addErrorMessage(
+        `No hay stock suficiente para agregar esta cantidad al carrito.`
+      );
+    } else {
+      console.log(
+        'Producto agregado al carrito:',
+        item,
+        'Cantidad:',
+        this.quantity,
+        'Variante:',
+        selectedVariante
+      );
+    }
+  }
+  
+  addErrorMessage(message: string): void {
+    this.errorMessage = message;
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 3000);
   }
 
   increaseQuantity(): void {

@@ -80,6 +80,8 @@ export class SeguridadService {
     localStorage.removeItem(this.llaveToken);
     localStorage.removeItem(this.llaveExpiracion);
     localStorage.removeItem('carrito'); 
+
+    window.location.reload();
   }
 
   obtenerRol(): string {
@@ -87,7 +89,7 @@ export class SeguridadService {
     if (esAdmin) {
       return 'admin'
     } else {
-    return 'admin';
+    return '';
     }
   }
 }
