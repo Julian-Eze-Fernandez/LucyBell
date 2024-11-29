@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CategoriaService } from '../../../Services/categoria.service';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { AutorizadoComponent } from "../../seguridad/autorizado/autorizado.component";
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { LoginComponent } from "../../seguridad/login/login.component";
 import { CarritoComponent } from '../carrito/carrito.component';
 import { CarritoService } from '../../../Services/carrito.service';
@@ -22,7 +22,7 @@ export class navBarComponent implements OnInit {
   @ViewChild('loginModal') loginModal!: LoginComponent;
   showModal: boolean = false;
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private categoriaService: CategoriaService, private router: Router) {}
 
   categorias: any[] = [];
 
@@ -31,6 +31,10 @@ export class navBarComponent implements OnInit {
   ngOnInit(): void {
     this.GetCategorias()
     this.checkScreenSize()
+  }
+
+  goToCategory(categoryId: number) {
+    this.router.navigate(['/productos'], { queryParams: { category: categoryId } });
   }
 
   GetCategorias() {

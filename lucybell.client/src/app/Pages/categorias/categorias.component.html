@@ -12,208 +12,201 @@
       <div class="gradient-line-title mb-4"></div>
     </h1>
     <p class="mb-10 ml-4"> Permite agregar categorias y subcategorias para clasificar tus productos </p>
-    <!-- <div class="table-background rounded-sm shadow-md border border-x-orange-200"> -->
-      <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4 py-4">
-        <div class="flex justify-between items-center">
-          <h2 style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
-          <button (click)="openAddCategoryModal()" class=" bg-lime-600  rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
-        </div>
-        <div class="overflow-y-auto table-width flex justify-center">
-          <table class=" table-spacing">
-            <tbody>
-              <ng-container *ngIf="listaCategoria.length === 0">
-                <p class="text-center text-gray-500 py-4"> No existen categorias en el sistema</p> 
-              </ng-container>
-              <ng-container *ngFor="let categoria of listaCategoria">
-                <tr style="background-color: #221D22;">
-                  <td class="px-6 py-2 border-fix-left" style=" border:0px;">
-                    <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
-                      <button (click)="toggleSubcategories(categoria)" class="flex hover:scale-105 transition duration-150 ease-in-out">
-                        <div>
-                          <img src="../../../assets/icons/Categories.svg" alt="categorias">
-                        </div>
-                        <label class="ml-2 text-xl max-sm:max-w-28 max-md:max-w-56 max-lg:max-w-40 max-xl:max-w-80 max-w-96 truncate"> {{ categoria.nombre }} </label>
-                        <div class="ml-2">
-                          <img *ngIf="!categoria.isExpanded" src="../../../assets/icons/Dropdown.svg" alt="dropdown-subcategorias">
-                          <img *ngIf="categoria.isExpanded" src="../../../assets/icons/closeDropDown.svg" alt="dropdown-subcategorias">
-                        </div>
-                      </button>
-                    </div>
-                    <div class="sm:hidden mt-2 flex justify-center ">
-                      <div class="justify-between flex w-full">
-                        <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ml-2 ">
-                          <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
-                        </button>
-                        <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-6 rounded ml-2">
-                          <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
-                        </button>
-                        <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded ml-2 mr-2">
-                          <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
-                        </button>
+    <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4 py-4">
+      <div class="flex justify-between items-center">
+        <h2 style="font-family: VollkornSC; font-size: x-large;"> Productos </h2>
+        <button (click)="openAddCategoryModal()" class=" bg-lime-600  rounded px-4 py-1 font-medium text-white hover:bg-lime-700 hover:scale-105 transition duration-150 ease-in-out mr-1"> AGREGAR </button>
+      </div>
+      <div class="overflow-y-auto table-width flex justify-center">
+        <table class=" table-spacing">
+          <tbody>
+            <ng-container *ngIf="listaCategoria.length === 0">
+              <p class="text-center text-gray-500 py-4"> No existen categorias en el sistema</p> 
+            </ng-container>
+            <ng-container *ngFor="let categoria of listaCategoria">
+              <tr style="background-color: #221D22;">
+                <td class="px-6 py-2 border-fix-left" style=" border:0px;">
+                  <div class="font-medium text-white flex items-center max-sm:justify-center" style="border-radius: 12px 0px 0px 12px;" style="font-size: large;">
+                    <button (click)="toggleSubcategories(categoria)" class="flex hover:scale-105 transition duration-150 ease-in-out">
+                      <div>
+                        <img src="../../../assets/icons/Categories.svg" alt="categorias">
                       </div>
-                    </div>
-                  </td>
-                  <td class="max-sm:hidden border-fix-right">
-                    <div class="flex justify-end">
-                      <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold rounded-lg px-4 py-2 ml-2">
+                      <label class="ml-2 text-xl max-sm:max-w-28 max-md:max-w-56 max-lg:max-w-40 max-xl:max-w-80 max-w-96 truncate"> {{ categoria.nombre }} </label>
+                      <div class="ml-2">
+                        <img *ngIf="!categoria.isExpanded" src="../../../assets/icons/Dropdown.svg" alt="dropdown-subcategorias">
+                        <img *ngIf="categoria.isExpanded" src="../../../assets/icons/closeDropDown.svg" alt="dropdown-subcategorias">
+                      </div>
+                    </button>
+                  </div>
+                  <div class="sm:hidden mt-2 flex justify-center ">
+                    <div class="justify-between flex w-full">
+                      <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 text-white font-bold rounded px-6 py-2 ml-2 ">
                         <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
                       </button>
-                      <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2">
+                      <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 text-white font-bold py-2 px-6 rounded ml-2">
                         <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
                       </button>
-                      <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2 mr-2">
-                        <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar">
+                      <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded ml-2 mr-2">
+                        <img src="../../../assets/icons/DeleteWhite.svg" alt="Eliminar">
                       </button>
                     </div>
+                  </div>
+                </td>
+                <td class="max-sm:hidden border-fix-right">
+                  <div class="flex justify-end">
+                    <button (click)="openAddSubCategoryModal(categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold rounded-lg px-4 py-2 ml-2">
+                      <img src="../../../assets/icons/AddWhite.svg" alt="agregar">
+                    </button>
+                    <button (click)="openEditCategoryModal(categoria)" class="hover:bg-blue-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2">
+                      <img src="../../../assets/icons/EditWhite.svg" alt="Editar">
+                    </button>
+                    <button (click)="openDeleteModalCatg(categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-110 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded-lg ml-2 mr-2">
+                      <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar">
+                    </button>
+                  </div>
 
-                  </td>
-                </tr>
-                <ng-container *ngIf="categoria.isExpanded">
-                  <tr *ngFor="let subcategoria of categoria.subCategorias" class="borderSub subcategoryColor" [@slideInOut]>
-                    <td class="borderSub left right border-fix-left ease-in-out duration-300">
-                      <div class="flex items-center max-sm:justify-center max-sm:mt-2">
-                        <img src="../../../assets/icons/Subcategory.svg" alt="subcategorias">
-                        <span class="ml-2 ">{{ subcategoria.nombre }}</span>
-                      </div>
-                      <div class="sm:hidden flex justify-center">
-                        <div class="flex w-full justify-between max-w-52 mx-6">
-                          <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700  text-white font-bold rounded px-6 py-2 ">
-                            <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
-                          </button>
-                          <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded  mr-2">
-                            <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
-                          </button>
-                        </div> 
-                      </div>
-                    </td>
-                    <td class="borderSub right border-fix-right max-sm:hidden">
-                      <div class="flex justify-end">
-                        <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold rounded px-4 py-2 ml-2">
+                </td>
+              </tr>
+              <ng-container *ngIf="categoria.isExpanded">
+                <tr *ngFor="let subcategoria of categoria.subCategorias" class="borderSub subcategoryColor" [@slideInOut]>
+                  <td class="borderSub left right border-fix-left ease-in-out duration-300">
+                    <div class="flex items-center max-sm:justify-center max-sm:mt-2">
+                      <img src="../../../assets/icons/Subcategory.svg" alt="subcategorias">
+                      <span class="ml-2 ">{{ subcategoria.nombre }}</span>
+                    </div>
+                    <div class="sm:hidden flex justify-center">
+                      <div class="flex w-full justify-between max-w-52 mx-6">
+                        <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700  text-white font-bold rounded px-6 py-2 ">
                           <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
                         </button>
-                        <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                        <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 text-white font-bold py-2 px-6 rounded  mr-2">
                           <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-container>
+                      </div> 
+                    </div>
+                  </td>
+                  <td class="borderSub right border-fix-right max-sm:hidden">
+                    <div class="flex justify-end">
+                      <button (click)="openEditSubCategoryModal(subcategoria, categoria)" class="hover:bg-green-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold rounded px-4 py-2 ml-2">
+                        <img src="../../../assets/icons/EditWhite.svg" alt="Editar" class="h-6 w-6">
+                      </button>
+                      <button (click)="openDeleteSubCategoryModal(subcategoria, categoria)" class="hover:bg-red-700 hover:bg-opacity-70 hover:scale-105 transition duration-150 ease-in-out text-white font-bold py-2 px-4 rounded ml-2 mr-2">
+                        <img src="../../../assets/icons/DeleteWhite.svg" alt="eliminar" class="h-6 w-6">
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               </ng-container>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Modals for categories -->
-
-        <ng-container>
-          <app-two-button-modal #editModalSub
-                                [title]="'Editar SubCategoria'"
-                                [confirmButtonText]="'Confirmar'"
-                                [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
-                                [icon]="customIconEdit"
-                                (confirm)="onEditSubcategory()"
-                                (cancel)="closeEditSubCategoryModal()">
-            <form>
-              <label for="SubCategoryName" class="block text-sm font-medium text-gray-700">Nombre de Subcategoria</label>
-              <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="editSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
-            </form>
-          </app-two-button-modal>
-        </ng-container>
-
-        <ng-container>
-          <app-two-button-modal #addModalSub
-                                [title]="'Añadir SubCategoria '" 
-                                [confirmButtonText]="'Añadir'"
-                                [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
-                                [icon]="customIconAdd"
-                                (confirm)="onAddSubcategory()"
-                                (cancel)="closeAddSubCategoryModal()">
-              <p class="mb-2 font-semibold text-gray-700"> Categoria: {{selectedCategoria?.nombre}}</p>                  
-            <form>
-              <label for="SubCategoryName" class="block text-sm font-medium text-gray-600">Nombre de Subcategoria</label>
-              <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="newSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
-            </form>
-          </app-two-button-modal>
-        </ng-container>
-
-        <ng-container>
-          <app-two-button-modal #deleteModalSub
-                                [title]="'Borrar SubCategoria'"
-                                [confirmButtonText]="'Borrar'"
-                                [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
-                                [icon]="customIconDelete"
-                                (confirm)="onConfirmDeleteSubcategory()"
-                                (cancel)="closeDeleteSubCategoryModal()">
-            <p>¿Está seguro de que desea borrar la subcategoria <strong>"{{ selectedSubCategoria?.nombre }}"</strong>?</p>
-          </app-two-button-modal>
-        </ng-container>
-
-        <ng-container>
-          <app-two-button-modal #deleteModalCatg
-                                [title]="'Borrar Categoria'"
-                                [confirmButtonText]="'Borrar'"
-                                [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
-                                [icon]="customIconDelete"
-                                (confirm)="onConfirmDeleteCatg()"
-                                (cancel)="closeDeleteModalCatg()">
-            <p>¿Está seguro de que desea borrar la categoria <strong>"{{ selectedCategoria?.nombre }}"</strong>?</p>
-          </app-two-button-modal>
-        </ng-container>
-
-        <ng-container>
-          <app-two-button-modal #addModalCatg
-                                [title]="'Agregar categoria'"
-                                [confirmButtonText]="'Añadir'"
-                                [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
-                                [icon]="customIconAdd"
-                                (confirm)="onAddCategory()"
-                                (cancel)="closeAddCategoryModal()">
-            <form enctype="multipart/form-data">
-
-              <div class="flex justify-center m-auto mb-4">
-                <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
-                  <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
-                  <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
-                </div>
-              </div>
-
-              <label for="categoryName" class="block text-sm font-medium text-gray-700">Nombre de categoria</label>
-              <input id="categoryName" name="categoryName" [(ngModel)]="newCategoryName" type="text" required class="mt-1 mb-2 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
-
-              
-
-            </form>
-          </app-two-button-modal>
-        </ng-container>
-
-        <ng-container>
-          <app-two-button-modal #editModalCatg
-                                [title]="'Editar categoria'"
-                                [confirmButtonText]="'Confirmar'"
-                                [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
-                                [icon]="customIconEdit"
-                                (confirm)="onEditCategory()"
-                                (cancel)="closeEditCategoryModal()">
-            <form>
-              <div class="flex justify-center mb-4">
-                <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
-                  <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                  <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
-                  <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
-                </div>
-              </div>
-
-              <label for="categoryName" class="block text-sm font-medium text-gray-700">Nombre de categoria</label>
-              <input id="categoryName" name="categoryName" [(ngModel)]="editCategoryName" type="text" required  class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 mb-2" />
-            </form>
-          </app-two-button-modal>
-        </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
-  <!-- </div> -->
 
+      <ng-container>
+        <app-two-button-modal #editModalSub
+                              [title]="'Editar SubCategoria'"
+                              [confirmButtonText]="'Confirmar'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconEdit"
+                              (confirm)="onEditSubcategory()"
+                              (cancel)="closeEditSubCategoryModal()">
+          <form>
+            <label for="SubCategoryName" class="block text-sm font-medium text-gray-700">Nombre de Subcategoria</label>
+            <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="editSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
 
+      <ng-container>
+        <app-two-button-modal #addModalSub
+                              [title]="'Añadir SubCategoria '" 
+                              [confirmButtonText]="'Añadir'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconAdd"
+                              (confirm)="onAddSubcategory()"
+                              (cancel)="closeAddSubCategoryModal()">
+            <p class="mb-2 font-semibold text-gray-700"> Categoria: {{selectedCategoria?.nombre}}</p>                  
+          <form>
+            <label for="SubCategoryName" class="block text-sm font-medium text-gray-600">Nombre de Subcategoria</label>
+            <input id="SubCategoryName" name="SubCategoryName" [(ngModel)]="newSubCategoryName" type="text" required class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
 
+      <ng-container>
+        <app-two-button-modal #deleteModalSub
+                              [title]="'Borrar SubCategoria'"
+                              [confirmButtonText]="'Borrar'"
+                              [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                              [icon]="customIconDelete"
+                              (confirm)="onConfirmDeleteSubcategory()"
+                              (cancel)="closeDeleteSubCategoryModal()">
+          <p>¿Está seguro de que desea borrar la subcategoria <strong>"{{ selectedSubCategoria?.nombre }}"</strong>?</p>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #deleteModalCatg
+                              [title]="'Borrar Categoria'"
+                              [confirmButtonText]="'Borrar'"
+                              [confirmButtonColor]="'bg-red-600 hover:bg-red-700'"
+                              [icon]="customIconDelete"
+                              (confirm)="onConfirmDeleteCatg()"
+                              (cancel)="closeDeleteModalCatg()">
+          <p>¿Está seguro de que desea borrar la categoria <strong>"{{ selectedCategoria?.nombre }}"</strong>?</p>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #addModalCatg
+                              [title]="'Agregar categoria'"
+                              [confirmButtonText]="'Añadir'"
+                              [confirmButtonColor]="'bg-green-600 hover:bg-green-700'"
+                              [icon]="customIconAdd"
+                              (confirm)="onAddCategory()"
+                              (cancel)="closeAddCategoryModal()">
+          <form enctype="multipart/form-data">
+
+            <div class="flex justify-center m-auto mb-4">
+              <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+                <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
+                <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
+              </div>
+            </div>
+
+            <label for="categoryName" class="block text-sm font-medium text-gray-700">Nombre de categoria</label>
+            <input id="categoryName" name="categoryName" [(ngModel)]="newCategoryName" type="text" required class="mt-1 mb-2 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 " />
+
+            
+
+          </form>
+        </app-two-button-modal>
+      </ng-container>
+
+      <ng-container>
+        <app-two-button-modal #editModalCatg
+                              [title]="'Editar categoria'"
+                              [confirmButtonText]="'Confirmar'"
+                              [confirmButtonColor]="'bg-blue-600 hover:bg-blue-700'"
+                              [icon]="customIconEdit"
+                              (confirm)="onEditCategory()"
+                              (cancel)="closeEditCategoryModal()">
+          <form>
+            <div class="flex justify-center mb-4">
+              <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+                <input type="file" (change)="imagenSeleccionada($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                <img *ngIf="imageUrl || selectedCategoriaEdit.urlImagen" [src]="imageUrl || url + selectedCategoriaEdit.urlImagen" alt="Selected Image" class="object-cover w-full h-full" />
+                <img *ngIf="!imageUrl && !selectedCategoriaEdit.urlImagen" src="../../../assets/icons/AddImg.svg" alt="AgregarImg">
+              </div>
+            </div>
+
+            <label for="categoryName" class="block text-sm font-medium text-gray-700">Nombre de categoria</label>
+            <input id="categoryName" name="categoryName" [(ngModel)]="editCategoryName" type="text" required  class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm border-2 mb-2" />
+          </form>
+        </app-two-button-modal>
+      </ng-container>
+    </div>
 
     <div class="ml-4 overflow-x-auto md:m-auto table-title max-md:pr-4">
       <div class="flex justify-between items-center mt-10">

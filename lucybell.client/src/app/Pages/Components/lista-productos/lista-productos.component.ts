@@ -11,7 +11,7 @@ import { Categoria } from '../../../Models/Categoria';
 import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-productos',
@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ListaProductosComponent implements OnInit {
 
-  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService) {}
+  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private router: Router, private route: ActivatedRoute) {}
 
   productos: Producto[] = [];
   listaCategorias: CategoriaName[] = [];
@@ -42,8 +42,14 @@ export class ListaProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMaterials();  
-    this.loadProducts();
     this.loadCategoriesAndSubcategories();
+
+    this.route.queryParams.subscribe((params) => {
+
+      this.selectedCategoryId = params['category'] ? +params['category'] : null;
+
+      this.loadProducts();
+    });
   }
 
   loadCategoriesAndSubcategories(): void {
@@ -109,17 +115,28 @@ export class ListaProductosComponent implements OnInit {
       this.filteredSubcategories = this.listaSubCategorias.filter(
         subCategory => subCategory.categoriaId === this.selectedCategoryId
       )
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { category: this.selectedCategoryId },
+        queryParamsHandling: 'merge', 
+      });
+  
       return;
     }
     this.selectedCategoryId = categoryId;
     this.selectedSubCategoryId = null;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: this.selectedCategoryId },
+      queryParamsHandling: 'merge', 
+    });
+
     this.loadProducts();
 
     this.filteredSubcategories = this.listaSubCategorias.filter(
       subCategory => subCategory.categoriaId === this.selectedCategoryId
     )
-    console.log("filteredSubcategories", this.filteredSubcategories);
-    console.log("listaCategorias", this.listaSubCategorias);
   }
 
   onSubCategoryChange(subCategoryId: number | null): void {

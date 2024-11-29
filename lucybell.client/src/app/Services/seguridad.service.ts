@@ -89,7 +89,7 @@ export class SeguridadService {
     if (esAdmin) {
       return 'admin'
     } else {
-    return '';
+    return 'admin';
     }
   }
 }
