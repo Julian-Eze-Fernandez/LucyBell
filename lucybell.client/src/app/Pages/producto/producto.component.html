@@ -91,7 +91,7 @@
       <h2 class="text-2xl font-bold mb-6 julius">OTROS PRODUCTOS</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div *ngFor="let product of relatedProducts" >
-          <div class="border rounded-lg overflow-hidden shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out border-black bg-MyColor" [routerLink]="['/productos', product.id]" (click)="onProductClick(product)">
+          <div class="border rounded-lg overflow-hidden shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out border-black bg-MyColor cursor-pointer" [routerLink]="['/productos', product.id]" (click)="onProductClick(product)">
             <div class="aspect-square relative mb-4">
               <img [src]="product.imagenesProductos[0].urlImagen" [alt]="product.nombre" class="object-cover w-full h-full">
             </div>

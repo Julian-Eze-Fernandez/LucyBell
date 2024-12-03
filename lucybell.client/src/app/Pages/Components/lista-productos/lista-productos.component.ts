@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../Services/producto.service';
 import { PaginatedProductos, Producto } from '../../../Models/Producto';
@@ -40,9 +40,12 @@ export class ListaProductosComponent implements OnInit {
   selectedSubCategoryId?: number | null;
   selectedMaterialId?: number | null;
 
+  isLargeScreen: boolean = true;
+
   ngOnInit(): void {
     this.loadMaterials();  
     this.loadCategoriesAndSubcategories();
+    this.checkScreenSize(); 
 
     this.route.queryParams.subscribe((params) => {
 
@@ -100,9 +103,6 @@ export class ListaProductosComponent implements OnInit {
     ).subscribe((response: HttpResponse<Producto[]>) => {  
       this.productos = response.body || [];
       this.totalCount = +response.headers.get('X-Total-Count')!;
-
-      console.log("Response Headers:", response.headers.keys());
-      console.log("X-Total-Count:", response.headers.get('X-Total-Count'));
       
       this.calculateTotalPages();
     });
@@ -156,6 +156,13 @@ export class ListaProductosComponent implements OnInit {
 
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-    console.log("totalCount", this.totalCount);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize(); 
+  }
+  checkScreenSize(): void {
+    this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
   }
 }

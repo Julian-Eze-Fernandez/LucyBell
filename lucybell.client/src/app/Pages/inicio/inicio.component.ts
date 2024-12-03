@@ -8,6 +8,7 @@ import { SeguridadService } from '../../Services/seguridad.service';
 import { NavBarResponsiveComponent } from '../Components/nav-bar-responsive/nav-bar-responsive.component';
 import { DestacadosComponent } from '../Components/destacados/destacados.component';
 import { FooterComponent } from '../Components/footer/footer.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class InicioComponent implements OnInit {
   private endX: number = 0;
   
 
-  constructor(private categoriaService:CategoriaService){}
+  constructor(private categoriaService:CategoriaService, private router: Router){}
 
   ngOnInit(): void {  
 
@@ -59,6 +60,10 @@ export class InicioComponent implements OnInit {
         console.log(err.message);
       }
     });
+  }
+
+  goToCategory(categoryId: number) {
+    this.router.navigate(['/productos'], { queryParams: { category: categoryId } });
   }
 
 }

@@ -46,7 +46,7 @@
                   </a>
                 </li>
                 <li *ngFor="let categoria of categorias">
-                  <a href="productos"
+                  <a (click)="goToCategory(categoria.id)" 
                     class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
                     <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">
                       {{ categoria.nombre }}</span>
@@ -63,7 +63,7 @@
             </a>
           </li>
           <li>
-            <a href="sobre mi"
+            <a href="sobre-mi"
               class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
               <img src="../../../assets/icons/AboutMe.svg" alt="Sobre mi" />
               <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Sobre mi</span>

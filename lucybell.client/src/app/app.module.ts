@@ -33,6 +33,8 @@ import { ListaProductosComponent } from './Pages/Components/lista-productos/list
 import { ProductoComponent } from './Pages/producto/producto.component';
 import { FooterComponent } from './Pages/Components/footer/footer.component';
 import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
+import { MetricasComponent } from './Pages/metricas/metricas.component';
+import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 
 register();
 
@@ -45,8 +47,12 @@ register();
     
   
     
+  
+
   ],
   imports: [
+    MetricasComponent,
+    SobreMiComponent,
     VentasActivasComponent,
     FooterComponent,
     ListaProductosComponent,
