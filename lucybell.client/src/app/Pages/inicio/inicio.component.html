@@ -15,7 +15,7 @@
 				</div>			  
 				<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
 				<div *ngIf="categoria.urlImagen">
-					<img [src]="url + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
+					<img [ngSrc]="url + categoria.urlImagen" alt="imagen de {{categoria.nombre}}" class="absolute inset-0 w-full h-full object-cover" fill/>
 				</div>
 			</div>
 		</div>

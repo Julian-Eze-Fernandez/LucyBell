@@ -10,9 +10,10 @@
                         <div class="swiper-slide tranding-slide" [routerLink]="['/productos', producto.id]">
                             <div class="tranding-slide-img">
                                 <img
-                                    [src]="producto.imagenesProductos[0].urlImagen"
+                                    [ngSrc]="producto.imagenesProductos[0].urlImagen"
                                     alt="Tranding"
-                                    loading="lazy"
+                                    fill
+                                    priority
                                 />
                             </div>
                             <div class="tranding-slide-content">

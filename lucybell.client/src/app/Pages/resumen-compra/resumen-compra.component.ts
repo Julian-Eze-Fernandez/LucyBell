@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CarritoService } from '../../Services/carrito.service';
-import { Carrito } from '../../Models/Carrito';
 import { PedidoService } from '../../Services/pedido.service';
 import { DetallePedidoDTO, EnvioDTO, PedidoCreacionDTO, RetiroDTO } from '../../Models/Pedido';
 import { SeguridadService } from '../../Services/seguridad.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resumen-compra',
@@ -15,13 +15,12 @@ import { SeguridadService } from '../../Services/seguridad.service';
   styleUrl: './resumen-compra.component.css'
 })
 export class ResumenCompraComponent implements OnInit {
-  puntosDeRetiro: string[] = ['Punto A', 'Punto B', 'Punto C'];
+  puntosDeRetiro: string[] = ['Barrio Talleres', 'Patio Olmos', 'Nuevo Centro Shopping'];
   puntoRetiroSeleccionado: string = this.puntosDeRetiro[0];
   mediosDePago: string[] = ['Efectivo', 'Transferencia'];
   medioPagoSeleccionado: string = this.mediosDePago[0];
   carrito: any[] = [];
   montoProductos: number = 0;
-  tarifaServicio: number = 500;
   total: number = 0;
   esEnvio: boolean = true;
   direccionEnvio: string = '';
@@ -35,7 +34,8 @@ export class ResumenCompraComponent implements OnInit {
   constructor(
     private carritoService: CarritoService,
     private pedidoService: PedidoService,
-    private seguridadService: SeguridadService
+    private seguridadService: SeguridadService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class ResumenCompraComponent implements OnInit {
       (total, item) => total + item.producto.precio * item.cantidad,
       0
     );
-    this.total = this.montoProductos + this.tarifaServicio;
+    this.total = this.montoProductos;
   }
 
   confirmarCompra(): void {
@@ -130,4 +130,9 @@ export class ResumenCompraComponent implements OnInit {
       },
     });
   }
+
+  volverTienda() {
+    this.router.navigate(['/productos']);
+  }
+
 }

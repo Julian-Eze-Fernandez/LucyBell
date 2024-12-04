@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage  } from '@angular/common';
 import { navBarComponent } from '../Components/navBar/navBar.component';
 import { Categoria } from '../../Models/Categoria';
 import { CategoriaService } from '../../Services/categoria.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, DestacadosComponent, FooterComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, DestacadosComponent, FooterComponent, NgOptimizedImage ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
