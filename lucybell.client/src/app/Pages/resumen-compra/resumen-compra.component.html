@@ -1,0 +1,134 @@
+<!-- <div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">Resumen de Compra</h1>
+
+  <form (ngSubmit)="confirmarCompra()" #pedidoForm="ngForm"> -->
+
+    <!-- Método de pago -->
+    <!-- <div class="mb-4">
+      <label for="metodoPago" class="block text-sm font-medium text-gray-700">Método de Pago</label>
+      <select id="metodoPago" [(ngModel)]="medioPagoSeleccionado" name="metodoPago" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md">
+        <option value="Efectivo">Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+    </div> -->
+
+    <!-- Envío o Retiro -->
+    <!-- <div class="mb-4">
+      <label for="esEnvio" class="block text-sm font-medium text-gray-700">Tipo de Envío</label>
+      <div class="flex items-center space-x-4">
+        <label class="inline-flex items-center">
+          <input type="radio" name="esEnvio" [(ngModel)]="esEnvio" value="true" class="form-radio">
+          <span class="ml-2">Envío a Domicilio</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" name="esEnvio" [(ngModel)]="esEnvio" value="false" class="form-radio">
+          <span class="ml-2">Retiro en Punto</span>
+        </label>
+      </div>
+    </div> -->
+
+    <!-- Formulario de Envío a Domicilio -->
+    <!-- <div *ngIf="esEnvio" class="space-y-4">
+      <div class="mb-4">
+        <label for="direccionEnvio" class="block text-sm font-medium text-gray-700">Dirección</label>
+        <input id="direccionEnvio" type="text" [(ngModel)]="direccionEnvio" name="direccionEnvio" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="ciudadEnvio" class="block text-sm font-medium text-gray-700">Ciudad</label>
+        <input id="ciudadEnvio" type="text" [(ngModel)]="ciudadEnvio" name="ciudadEnvio" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="provinciaEnvio" class="block text-sm font-medium text-gray-700">Provincia</label>
+        <input id="provinciaEnvio" type="text" [(ngModel)]="provinciaEnvio" name="provinciaEnvio" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="codigoPostal" class="block text-sm font-medium text-gray-700">Código Postal</label>
+        <input id="codigoPostal" type="text" [(ngModel)]="codigoPostal" name="codigoPostal" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+    </div> -->
+
+    <!-- Formulario de Retiro en Punto -->
+    <!-- <div *ngIf="!esEnvio" class="space-y-4">
+      <div class="mb-4">
+        <label for="puntoRetiro" class="block text-sm font-medium text-gray-700">Punto de Retiro</label>
+        <select id="puntoRetiro" [(ngModel)]="puntoRetiroSeleccionado" name="puntoRetiro" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md">
+          <option *ngFor="let punto of puntosDeRetiro" [value]="punto">{{ punto }}</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="nombreRetira" class="block text-sm font-medium text-gray-700">Nombre para Retiro</label>
+        <input id="nombreRetira" type="text" [(ngModel)]="nombreRetira" name="nombreRetira" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="documentoRetira" class="block text-sm font-medium text-gray-700">Documento para Retiro</label>
+        <input id="documentoRetira" type="text" [(ngModel)]="documentoRetira" name="documentoRetira" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md" required>
+      </div>
+    </div> -->
+
+    <!-- Resumen del Pedido -->
+    <!-- <div class="mt-6 text-xl font-semibold">
+      <p>Total: ${{ total }}</p>
+    </div> -->
+
+    <!-- Botón de Confirmación -->
+    <!-- <div class="mt-4">
+      <button type="submit" [disabled]="procesando" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md disabled:bg-gray-400">
+        {{ procesando ? 'Procesando...' : 'Confirmar Compra' }}
+      </button>
+    </div>
+  </form>
+</div> -->
+
+<div class="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-2xl">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-6">Resumen de Compra</h2>
+
+  <div class="space-y-4">
+    <!-- Resumen del carrito -->
+    <div *ngFor="let item of carrito" class="flex justify-between items-center border-b pb-4">
+      <p class="text-lg text-gray-700">{{ item.producto.nombre }}</p>
+      <p class="text-lg text-gray-600">{{ item.cantidad }} x ${{ item.producto.precio }}</p>
+    </div>
+
+    <div class="flex justify-between items-center pt-4">
+      <p class="text-xl font-semibold text-gray-900">Total:</p>
+      <p class="text-xl font-semibold text-gray-900">${{ total }}</p>
+    </div>
+  </div>
+
+  <div class="mt-6 space-y-4">
+    <!-- Método de pago -->
+    <div>
+      <label for="metodoPago" class="block text-sm font-medium text-gray-700">Método de pago</label>
+      <select id="metodoPago" [(ngModel)]="metodoPago" class="mt-2 block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="tarjeta">Tarjeta</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+    </div>
+
+    <!-- Envío o Retiro -->
+    <div class="flex items-center space-x-4">
+      <label for="esEnvio" class="block text-sm font-medium text-gray-700">¿Es envío?</label>
+      <input type="checkbox" id="esEnvio" [(ngModel)]="esEnvio" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-2 focus:ring-indigo-500" />
+    </div>
+
+    <div *ngIf="esEnvio" class="mt-4">
+      <label for="direccionEnvio" class="block text-sm font-medium text-gray-700">Dirección de Envío</label>
+      <input type="text" id="direccionEnvio" [(ngModel)]="direccionEnvio" class="mt-2 block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    </div>
+
+    <div *ngIf="!esEnvio" class="mt-4">
+      <label for="puntoRetiro" class="block text-sm font-medium text-gray-700">Punto de Retiro</label>
+      <input type="text" id="puntoRetiro" [(ngModel)]="puntoRetiro" class="mt-2 block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    </div>
+  </div>
+
+  <!-- Botón para confirmar compra -->
+  <div class="mt-6">
+    <button (click)="confirmarCompra()" class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Confirmar Compra</button>
+  </div>
+</div>
+
+
+
+
+

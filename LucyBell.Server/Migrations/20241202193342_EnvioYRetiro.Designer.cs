@@ -4,6 +4,7 @@ using LucyBell.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LucyBell.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241202193342_EnvioYRetiro")]
+    partial class EnvioYRetiro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.DetallePedido", b =>
@@ -74,7 +77,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("VarianteProductoId");
 
-                    b.ToTable("DetallesPedido", (string)null);
+                    b.ToTable("DetallesPedido");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Envio", b =>
@@ -112,7 +115,7 @@ namespace LucyBell.Server.Migrations
                     b.HasIndex("PedidoId")
                         .IsUnique();
 
-                    b.ToTable("Envios", (string)null);
+                    b.ToTable("Envios");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.ImagenProducto", b =>
@@ -134,7 +137,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("ImagenesProducto", (string)null);
+                    b.ToTable("ImagenesProducto");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.IngresoProducto", b =>
@@ -158,7 +161,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("VarianteProductoId");
 
-                    b.ToTable("IngresosProducto", (string)null);
+                    b.ToTable("IngresosProducto");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Material", b =>
@@ -176,7 +179,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materiales", (string)null);
+                    b.ToTable("Materiales");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.ModificacionPrecio", b =>
@@ -203,7 +206,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("ModificacionesPrecio", (string)null);
+                    b.ToTable("ModificacionesPrecio");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Pedido", b =>
@@ -242,7 +245,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Pedidos", (string)null);
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Producto", b =>
@@ -284,7 +287,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("SubCategoriaId");
 
-                    b.ToTable("Productos", (string)null);
+                    b.ToTable("Productos");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.Retiro", b =>
@@ -318,7 +321,7 @@ namespace LucyBell.Server.Migrations
                     b.HasIndex("PedidoId")
                         .IsUnique();
 
-                    b.ToTable("Retiros", (string)null);
+                    b.ToTable("Retiros");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.SubCategoria", b =>
@@ -341,7 +344,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("SubCategorias", (string)null);
+                    b.ToTable("SubCategorias");
                 });
 
             modelBuilder.Entity("LucyBell.Server.Entidades.VarianteProducto", b =>
@@ -365,7 +368,7 @@ namespace LucyBell.Server.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("VariantesProducto", (string)null);
+                    b.ToTable("VariantesProducto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

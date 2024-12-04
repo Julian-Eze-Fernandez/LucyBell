@@ -45,35 +45,9 @@ export class SeguridadService {
     )
   }
 
-  obtenerCampoJWT(campo: string): string {
-    const token = localStorage.getItem(this.llaveToken);
-    if (!token) {return ''}
-    var dataToken = JSON.parse(atob(token.split('.')[1]))
-    return dataToken[campo];
-  }
-
   guardarToken(respuestaAutenticacionDTO: RespuestaAutenticacionDTO){
     localStorage.setItem(this.llaveToken, respuestaAutenticacionDTO.token);
     localStorage.setItem(this.llaveExpiracion, respuestaAutenticacionDTO.expiracion.toString());
-  }
-
-  estaLogueado(): boolean {
-
-    const token = localStorage.getItem(this.llaveToken)
-
-    if (!token) {
-      return false;
-    }
-
-    const expiracion = localStorage.getItem(this.llaveExpiracion)!;
-    const expiracionFecha = new Date(expiracion);
-
-    if (expiracionFecha <= new Date()) {
-      this.logout();
-      return false;
-    }
-
-    return true;
   }
 
   logout(){
@@ -91,5 +65,45 @@ export class SeguridadService {
     } else {
     return '';
     }
+  }
+
+  obtenerToken(): string | null {
+    return localStorage.getItem(this.llaveToken);
+  }
+
+  decodificarToken(token: string): any {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  }
+
+  obtenerCampoJWT(campo: string): string {
+    const token = this.obtenerToken();
+    if (!token) {
+      return '';
+    }
+    const dataToken = this.decodificarToken(token);
+    return dataToken[campo];
+  }
+
+  obtenerUsuarioId(): string {
+    return this.obtenerCampoJWT("sub");
+  }
+
+  estaLogueado(): boolean {
+    const token = this.obtenerToken();
+
+    if (!token) {
+      return false;
+    }
+
+    const expiracion = localStorage.getItem(this.llaveExpiracion)!;
+    const expiracionFecha = new Date(expiracion);
+
+    if (expiracionFecha <= new Date()) {
+      this.logout();
+      return false;
+    }
+
+    return true;
   }
 }

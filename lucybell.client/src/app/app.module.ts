@@ -31,6 +31,7 @@ import { CarritoComponent } from './Pages/Components/carrito/carrito.component';
 import { DestacadosComponent } from './Pages/Components/destacados/destacados.component';
 import { ListaProductosComponent } from './Pages/Components/lista-productos/lista-productos.component';
 import { ProductoComponent } from './Pages/producto/producto.component';
+import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
 
 register();
 
@@ -39,6 +40,7 @@ register();
   declarations: [
 
     
+  
   ],
   imports: [
     ListaProductosComponent,
@@ -70,7 +72,8 @@ register();
     ProductosComponent,
     NavBarResponsiveComponent,
     CarritoComponent,
-    ProductoComponent
+    ProductoComponent,
+    ResumenCompraComponent
   ],
   providers: [],
   bootstrap: [],

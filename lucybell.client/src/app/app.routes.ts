@@ -13,6 +13,7 @@ import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indic
 import { ContactoComponent } from './Pages/contacto/contacto.component';
 import { ProductosComponent } from './Pages/productos/productos.component';
 import { ProductoComponent } from './Pages/producto/producto.component';
+import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     { path: 'contacto', component: ContactoComponent},
     { path: 'productos', component: ProductosComponent},
     { path: 'productos/:id', component: ProductoComponent},
+    { path: 'resumenCompra', component: ResumenCompraComponent},
 ];
 
 
