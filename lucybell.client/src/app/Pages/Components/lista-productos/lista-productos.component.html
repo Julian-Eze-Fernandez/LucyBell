@@ -1,4 +1,4 @@
-<div class="fixed bottom-4 right-4 md:hidden z-20">
+<div *ngIf="!isLargeScreen" class="fixed bottom-4 right-4 md:hidden z-20">
   <details class="dropdown dropdown-top dropdown-end">
     <summary class="btn bg-primary">Filtros</summary>
     <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow bg-base-300">
@@ -8,9 +8,9 @@
           <div class="collapse-title text-xl font-medium bg-base-100">Productos</div>
           <div class="collapse-content p-0 ">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categoriasResponsive" aria-label="Todos" (click)="onCategoryChange(null)" [checked]="!selectedCategoryId"/>
               <div *ngFor="let category of listaCategorias" class="z-0">
-                <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
+                <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categoriasResponsive" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" [checked]="selectedCategoryId === category.id" />
               </div>
             </div>
           </div>
@@ -20,9 +20,9 @@
           <div class="collapse-title text-xl font-medium bg-base-100">Tipo</div>
           <div class="collapse-content p-0">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="SubcategoriasResponsive" aria-label="Todos" (click)="onSubCategoryChange(null)" />
               <div *ngFor="let subCategory of filteredSubcategories">
-               <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+               <input class="join-item btn w-full max-w-48 truncate" type="radio" name="SubcategoriasResponsive" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
               </div>
             </div>
           </div>
@@ -33,9 +33,9 @@
           <div class="collapse-title text-xl font-medium bg-base-100">Material</div>
           <div class="collapse-content p-0">
             <div class="join join-vertical w-full rounded-none z-10">
-              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="MaterialesResponsive" aria-label="Todos" (click)="onMaterialChange(null)" />
               <div *ngFor="let material of listaMateriales">
-              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="MaterialesResponsive" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
               </div>
             </div>
           </div>
@@ -48,15 +48,15 @@
 
 
 <div class="flex justify-center"> 
-  <div class="max-w-80 p-6 max-md:hidden">
+  <div *ngIf="isLargeScreen" class="max-w-80 p-6 max-md:hidden">
     <div class="collapse mb-2 collapse-arrow">
-      <input type="checkbox" />
+      <input type="checkbox" checked />
       <div class="collapse-title text-xl font-medium bg-secondary text-white border-2 border-neutral">Filtrar por producto</div>
       <div class="collapse-content pb-0 p-0">
         <div class="join join-vertical pb-0 w-full rounded-t-none border border-neutral border-t-0 z-10">
-          <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
+          <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" aria-label="Todos" (change)="onCategoryChange(null)" [checked]="!selectedCategoryId"/>
           <div *ngFor="let category of listaCategorias" class="z-0">
-            <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
+            <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" [checked]="selectedCategoryId === category.id" />
           </div>
         </div>
       </div>
@@ -90,18 +90,18 @@
   </div>
     <div class="md:w-[75%] w-[85%]">
       <div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max pb-10 gap-4">
-        <div *ngFor="let producto of productos" class="rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
+        <div *ngFor="let producto of productos" class="rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
           <div class="flex-col border border-black rounded-lg" [routerLink]="['/productos', producto.id]">
             <div class="relative bg-black w-full aspect-[4/4] overflow-hidden rounded-t-lg">	  
               <div *ngIf="producto.imagenesProductos">
                 <img [src]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" />
               </div>
             </div>
-            <div class="p-2 h-16 bg-MyColor w-full border-t rounded-b-lg border-black">
-              <div class="flex-col items-center text-center rounded-b-lg text-white">
-                <h4 class="text-white volSC max-md:text-sm truncate">{{producto.nombre}}</h4>
+            <div class="p-2 pt-4 bg-MyColor w-full border-t rounded-b-lg border-black">
+              <div class="flex-col items-center text-center rounded-b-lg text-white inter">
+                <h4 class="text-white max-md:text-sm truncate font-semibold">{{producto.nombre}}</h4>
                 <div class="flex justify-center items-center">
-                  <h4 class="text-white md:text-2xl inter">{{producto.precio}}$</h4>
+                  <h4 class="text-white ">${{producto.precio.toLocaleString('es-AR')}},00</h4>
                 </div>
               </div>
             </div>

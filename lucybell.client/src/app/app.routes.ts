@@ -13,6 +13,9 @@ import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indic
 import { ContactoComponent } from './Pages/contacto/contacto.component';
 import { ProductosComponent } from './Pages/productos/productos.component';
 import { ProductoComponent } from './Pages/producto/producto.component';
+import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
+import { MetricasComponent } from './Pages/metricas/metricas.component';
+import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -22,12 +25,16 @@ export const routes: Routes = [
     { path: 'administrarProductos', component: AdministrarProductosComponent, canActivate: [esAdminGuard]},
     { path: 'editarProducto/:id', component:EditProductoComponent, canActivate: [esAdminGuard]},
     { path: 'stock', component:StockComponent, canActivate: [esAdminGuard]},
+    { path: 'metricas', component: MetricasComponent, canActivate: [esAdminGuard]},
     { path: 'navBar', component: navBarComponent },
     { path: 'inicio', component: InicioComponent },
     { path: 'usuarios', component: IndiceUsuariosComponent},
     { path: 'contacto', component: ContactoComponent},
     { path: 'productos', component: ProductosComponent},
     { path: 'productos/:id', component: ProductoComponent},
+    { path: 'ventasActivas', component: VentasActivasComponent},
+    { path: 'sobre-mi', component: SobreMiComponent},
+
 ];
 
 

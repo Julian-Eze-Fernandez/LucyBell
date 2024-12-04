@@ -7,4 +7,5 @@ export interface ImagenProducto{
 export interface ImagenProductoDTO{
     id : number;
     urlImagen: string;
+    slotIndex: number;
 }

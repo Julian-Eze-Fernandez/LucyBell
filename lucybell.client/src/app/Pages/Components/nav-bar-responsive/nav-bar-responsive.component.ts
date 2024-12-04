@@ -23,6 +23,8 @@ export class NavBarResponsiveComponent implements OnInit {
   
   @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
 
+  constructor(){}
+
   ngOnInit(): void {
     this.checkScreenSize(); 
   }
@@ -53,7 +55,6 @@ export class NavBarResponsiveComponent implements OnInit {
   }
 
   onSubmitLogin(){
-
 
   }
 

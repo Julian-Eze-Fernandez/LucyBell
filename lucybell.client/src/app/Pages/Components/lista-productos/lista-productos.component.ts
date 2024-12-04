@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../Services/producto.service';
 import { PaginatedProductos, Producto } from '../../../Models/Producto';
@@ -11,8 +11,7 @@ import { Categoria } from '../../../Models/Categoria';
 import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
-import { CarritoService } from '../../../Services/carrito.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-productos',
@@ -23,7 +22,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ListaProductosComponent implements OnInit {
 
-  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private carritoService: CarritoService ) {}
+  constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private router: Router, private route: ActivatedRoute) {}
 
   productos: Producto[] = [];
   listaCategorias: CategoriaName[] = [];
@@ -41,10 +40,19 @@ export class ListaProductosComponent implements OnInit {
   selectedSubCategoryId?: number | null;
   selectedMaterialId?: number | null;
 
+  isLargeScreen: boolean = true;
+
   ngOnInit(): void {
     this.loadMaterials();  
-    this.loadProducts();
     this.loadCategoriesAndSubcategories();
+    this.checkScreenSize(); 
+
+    this.route.queryParams.subscribe((params) => {
+
+      this.selectedCategoryId = params['category'] ? +params['category'] : null;
+
+      this.loadProducts();
+    });
   }
 
   loadCategoriesAndSubcategories(): void {
@@ -95,9 +103,6 @@ export class ListaProductosComponent implements OnInit {
     ).subscribe((response: HttpResponse<Producto[]>) => {  
       this.productos = response.body || [];
       this.totalCount = +response.headers.get('X-Total-Count')!;
-
-      console.log("Response Headers:", response.headers.keys());
-      console.log("X-Total-Count:", response.headers.get('X-Total-Count'));
       
       this.calculateTotalPages();
     });
@@ -110,17 +115,28 @@ export class ListaProductosComponent implements OnInit {
       this.filteredSubcategories = this.listaSubCategorias.filter(
         subCategory => subCategory.categoriaId === this.selectedCategoryId
       )
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { category: this.selectedCategoryId },
+        queryParamsHandling: 'merge', 
+      });
+  
       return;
     }
     this.selectedCategoryId = categoryId;
     this.selectedSubCategoryId = null;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: this.selectedCategoryId },
+      queryParamsHandling: 'merge', 
+    });
+
     this.loadProducts();
 
     this.filteredSubcategories = this.listaSubCategorias.filter(
       subCategory => subCategory.categoriaId === this.selectedCategoryId
     )
-    console.log("filteredSubcategories", this.filteredSubcategories);
-    console.log("listaCategorias", this.listaSubCategorias);
   }
 
   onSubCategoryChange(subCategoryId: number | null): void {
@@ -140,11 +156,13 @@ export class ListaProductosComponent implements OnInit {
 
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-    console.log("totalCount", this.totalCount);
   }
 
-  agregarProducto(item: Producto) {
-    this.carritoService.agregar(item);
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize(); 
   }
-
+  checkScreenSize(): void {
+    this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
+  }
 }

@@ -1,0 +1,4 @@
+.tableHover:hover {
+    background: linear-gradient(to right, rgb(63 41 81), rgb(90 63 112), rgb(63 41 81));
+    color: white;
+  }

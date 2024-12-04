@@ -76,6 +76,7 @@ export class EditProductoComponent implements OnInit, OnChanges{
 
   fillWithData(){
     this.subcategorias = [];
+    this.imageUrls = new Array(4).fill('');
 
     if(this.product){
       this.productoForm.patchValue({
@@ -91,10 +92,20 @@ export class EditProductoComponent implements OnInit, OnChanges{
       console.log("subcategorias ", this.subcategorias.length);
 
       console.log("subcategoriaID de este prod", this.product.subCategoriaId);
-      
-      this.arrayImages = this.product.imagenesProductos || [];    
 
-      this.imageUrls = this.arrayImages.map((image) => image.urlImagen);
+      this.arrayImages = new Array(4).fill(null);
+
+      // Populate arrayImages based on SlotIndex
+if (this.product.imagenesProductos) {
+  this.product.imagenesProductos.forEach(image => {
+    this.arrayImages[image.slotIndex] = image; // Place images at the correct index
+    this.imageUrls[image.slotIndex] = image.urlImagen; // Populate corresponding imageUrls
+  });
+}
+      
+      // this.arrayImages = this.product.imagenesProductos || [];
+      console.log(this.arrayImages);    
+
 
     }
   }
@@ -250,7 +261,8 @@ export class EditProductoComponent implements OnInit, OnChanges{
 
     this.imagenesSeleccionadas.forEach((file, index) => {
       if (file) {
-        formData.append(`imagenes[${index}]`, file, file.name);
+        formData.append('imagenes', file, file.name);
+        formData.append('indices', index.toString());
       }
     });
 

@@ -26,7 +26,7 @@
                                 <a href="productos" class="flex items-center navbarHover transition duration-300 h-full px-4">Productos</a>
                                 <ul class="absolute left-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md navbarSubItemRounded w-64">
                                     <li *ngFor="let categoria of categorias">
-                                        <a href="#" class="block px-4 py-2 navbarSubItemRounded transition duration-300 navbarItemHover ">{{ categoria.nombre }}</a>
+                                        <a (click)="goToCategory(categoria.id)" class="block px-4 py-2 navbarSubItemRounded transition duration-300 navbarItemHover">{{ categoria.nombre }}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -35,7 +35,7 @@
                                 <a href="contacto" class="flex items-center transition duration-300 navbarHover h-full px-4">Contacto</a>
                             </li >
                             <li>
-                                <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4">Sobre mi</a>
+                                <a href="sobre-mi" class="flex items-center transition duration-300 navbarHover h-full px-4">Sobre mi</a>
                             </li>
                             <li class="relative group flex items-center h-full z-[101]">
                                 <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4" >Ayuda</a>
@@ -48,34 +48,41 @@
                     </li>
                 </ul>       
                 <li class="absolute xl:right-32 lg:right-20 right-0 flex items-center space-x-4 h-full">
-                    <app-autorizado class=" inline h-full">
+                    <app-autorizado class="inline h-full">
                         <ng-container autorizado>
                             <div class="flex items-center space-x-4 h-full">
                                 <ul class="flex items-center h-full">
-                                    <li class="h-full group items-center relative z-[101]">
-                                        <a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
-                                        <ul class="absolute right-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
+                                    <div class="dropdown dropdown-end inter">
+                                        <div tabindex="0" role="button" >
+                                            <a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
+                                        </div>
+                                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow">
+    
+                                            <span class="block px-4 py-2 rounded-xl transition   w-full">{{seguridadService.obtenerCampoJWT('email')}}</span>
                                             <li>
-                                                <span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300  w-full">{{seguridadService.obtenerCampoJWT('email')}}</span>
+                                                <a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+                                                  Perfil
+                                                </a>
                                             </li>
                                             <li *ngIf="seguridadService.obtenerRol()">
-                                                <a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
+                                                <a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
                                                   Administrar
                                                 </a>
                                             </li>
                                             <li>
-                                                <button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">Logout</button>
+                                                <button (click)="seguridadService.logout()" class="block px-4 py-2 rounded-xl transition duration-300  w-full">Cerrar sesion</button>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </div>
                                     <li class="h-full">
                                         <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="toggleCart()">
                                             <img src="../../../assets/icons/Cart.svg" alt="Carrito" /> 
                                             <span class="text-lg text-black">({{carritoService.cantidad()}})</span>
                                         </button>
                                     </li>
-                                    <app-carrito [cartOpen]="cartOpen"></app-carrito>       
-                                </ul> 
+                                    <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>       
+                                </ul>
+                                
                             </div>
                         </ng-container>
                         <ng-container noAutorizado>

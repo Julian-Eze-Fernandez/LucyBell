@@ -5,6 +5,8 @@
         public int Id { get; set; }
         public string UrlImagen { get; set; }
         public int ProductoId { get; set; }
+        public int SlotIndex { get; set; }
         public Producto Producto { get; set; }
+
     }
 }

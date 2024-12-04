@@ -31,6 +31,10 @@ import { CarritoComponent } from './Pages/Components/carrito/carrito.component';
 import { DestacadosComponent } from './Pages/Components/destacados/destacados.component';
 import { ListaProductosComponent } from './Pages/Components/lista-productos/lista-productos.component';
 import { ProductoComponent } from './Pages/producto/producto.component';
+import { FooterComponent } from './Pages/Components/footer/footer.component';
+import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
+import { MetricasComponent } from './Pages/metricas/metricas.component';
+import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 
 register();
 
@@ -39,8 +43,18 @@ register();
   declarations: [
 
     
+  
+    
+  
+    
+  
+
   ],
   imports: [
+    MetricasComponent,
+    SobreMiComponent,
+    VentasActivasComponent,
+    FooterComponent,
     ListaProductosComponent,
     DestacadosComponent,
     AppComponent,

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Producto } from '../../../Models/Producto';
 import { ProductoService } from '../../../Services/producto.service';
 import Swiper from 'swiper';
-import { timeout } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone:true,
   selector: 'app-destacados',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './destacados.component.html',
   styleUrl: './destacados.component.css'
@@ -29,7 +29,7 @@ intializeSwiper(): void {
     grabCursor: true,
     centeredSlides: true,
     loop: true,
-    loopAdditionalSlides: 2,
+    loopAdditionalSlides: 1,
     slidesPerView: 'auto',
     coverflowEffect: {
       rotate: 0,
