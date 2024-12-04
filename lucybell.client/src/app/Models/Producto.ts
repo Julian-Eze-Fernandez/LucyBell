@@ -32,5 +32,5 @@ export interface ProductoSinVariantesDTO {
   id: number;
   nombre: string;
   precio: number;
-  descripcion?: string;
+  imagenesProductos: ImagenProductoDTO[];
 }

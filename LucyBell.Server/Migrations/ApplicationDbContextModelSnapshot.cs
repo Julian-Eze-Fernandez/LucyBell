@@ -122,6 +122,9 @@ namespace LucyBell.Server.Migrations
                     b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SlotIndex")
+                        .HasColumnType("int");
+
                     b.Property<string>("UrlImagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

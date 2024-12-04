@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../Services/categoria.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +18,7 @@ export class SidebarComponent implements OnInit {
   isSidebarOpen = false;
   categorias: any[] = [];
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private categoriaService: CategoriaService, private router: Router) {}
 
   ngOnInit(): void {
     this.GetCategorias()
@@ -62,5 +63,8 @@ export class SidebarComponent implements OnInit {
 
     this.dropdownStates[dropdownId] = !this.dropdownStates[dropdownId];
   }
-
+  
+  goToCategory(categoryId: number) {
+    this.router.navigate(['/productos'], { queryParams: { category: categoryId } });
+  }
 }

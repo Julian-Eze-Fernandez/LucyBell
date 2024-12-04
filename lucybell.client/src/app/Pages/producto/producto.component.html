@@ -6,7 +6,6 @@
 
 <div class="container mx-auto px-4 py-8">
 
-    <!-- Breadcrumb -->
     <nav class="flex items-center space-x-2 text-sm mb-8">
       <a routerLink="/" class="text-gray-500 hover:text-gray-700">Inicio</a>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,9 +18,9 @@
       <a routerLink="/productos" class="text-gray-500 hover:text-gray-700">Producto</a>
     </nav>
   
-    <!-- Product Section -->
+
     <div *ngIf="product;" class="grid md:grid-cols-2 gap-8 mb-16">
-      <!-- Image Gallery -->
+
       <div class="space-y-4">
         <div class="aspect-square relative overflow-hidden rounded-lg border max-w-[650px]">
           <img [src]="selectedImage" alt="Pulsera de Cristales" class="object-cover w-full h-full">
@@ -34,11 +33,10 @@
         </div>
       </div>
   
-      <!-- Product Info -->
       <div class="space-y-6">
         <div>
           <h1 class="text-3xl font-black mb-2 julius">{{product.nombre}}</h1>
-          <p class="text-2xl font-medium">${{product.precio}}</p>
+          <p class="text-2xl font-medium">${{product.precio.toLocaleString('es-AR')}},00</p>
           <p class="text-sm text-gray-500">Coste de envío: $xxxx,xx</p>
         </div>
   
@@ -89,19 +87,22 @@
     </div>
   
     <!-- Related Products -->
-    <!-- <section>
+    <section>
       <h2 class="text-2xl font-bold mb-6 julius">OTROS PRODUCTOS</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div *ngFor="let product of relatedProducts" class="border rounded-lg overflow-hidden shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
-          <div class="aspect-square relative mb-4">
-            <img [src]="product.image" [alt]="product.title" class="object-cover w-full h-full">
-          </div>
-          <div class="p-4 ">
-            <h3 class="font-medium">{{ product.title }}</h3>
-            <p class="text-sm font-semibold">${{ product.price.toLocaleString('es-AR') }},00</p>
+        <div *ngFor="let product of relatedProducts" >
+          <div class="border rounded-lg overflow-hidden shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out border-black bg-MyColor cursor-pointer" [routerLink]="['/productos', product.id]" (click)="onProductClick(product)">
+            <div class="aspect-square relative mb-4">
+              <img [src]="product.imagenesProductos[0].urlImagen" [alt]="product.nombre" class="object-cover w-full h-full">
+            </div>
+            <div class="p-4 text-white inter">
+              <h3 class="font-medium">{{ product.nombre }}</h3>
+              <p class="text-sm font-semibold">${{ product.precio.toLocaleString('es-AR') }},00</p>
+            </div>
           </div>
         </div>
       </div>
 
-    </section> -->
+    </section>
   </div>
+  <app-footer></app-footer>

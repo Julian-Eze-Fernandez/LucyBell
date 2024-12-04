@@ -222,7 +222,10 @@ export class AgregarProductoComponent implements OnInit {
 
 
     this.imagenesSeleccionadas.forEach((file, index) => {
-      formData.append('imagenes', file, file.name);
+      if (file) {
+        formData.append('imagenes', file, file.name);
+        formData.append('indices', index.toString());
+      }
     });
    
 

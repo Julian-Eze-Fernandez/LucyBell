@@ -1,6 +1,6 @@
 <app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
 	
-	<div *ngIf="!isLargeScreen" class="sticky top-0 z-30 bg-MyBg">
+	<div *ngIf="!isLargeScreen" class="sticky top-0 z-[20] bg-MyBg">
 		<div class="relative flex flex-row justify-center">
 		  <button
 			(click)="toggleChildSidebar()"
@@ -8,39 +8,38 @@
 			<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
 		  </button>
 	  
-		  <!-- Logo Container -->
 		  <div id="logo-container" class="h-9 my-2 flex justify-center items-center mx-auto">
 			<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
 		  </div>
 	  
-		  <div class="absolute right-1 top-3 opacity-80">
+		  <div class="absolute right-1 top-3">
 			<div class="flex">
 			  <app-autorizado class="inline h-full">
 				<ng-container autorizado>
 				  <div class="flex items-center space-x-4 h-full">
 					<ul class="flex items-center h-full">
-					  <li class="h-full group items-center relative z-[101]">
-						<a class="flex transition duration-300 navbarHover px-2 items-center justify-center mr-2 w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">
-						  {{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}
-						</a>
-						<ul class="absolute right-1 top-10 hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRoundedLogin text-sm">
-						  <li>
-							<span class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 w-full">
-							  {{ seguridadService.obtenerCampoJWT('email') }}
-							</span>
-						  </li>
-						  <li *ngIf="seguridadService.obtenerRol()">
-							<a routerLink="/categorias" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-							  Administrar
-							</a>
-						  </li>
-						  <li>
-							<button (click)="seguridadService.logout()" class="block px-4 py-2 navbarSubItemRoundedLogin transition duration-300 navbarItemHoverLogin w-full">
-							  Logout
-							</button>
-						  </li>
-						</ul>
-					  </li>
+						<div class="dropdown dropdown-end inter ">
+							<div tabindex="0" role="button" >
+								<a class="flex transition duration-300 navbarHover px-2 items-center mr-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
+							</div>
+							<ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow opacity-100 ">
+
+								<span class="block px-4 py-2 rounded-xl transition   w-full">{{seguridadService.obtenerCampoJWT('email')}}</span>
+								<li>
+									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									  Perfil
+									</a>
+								</li>
+								<li *ngIf="seguridadService.obtenerRol()">
+									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									  Administrar
+									</a>
+								</li>
+								<li>
+									<button (click)="seguridadService.logout()" class="block px-4 py-2 rounded-xl transition duration-300  w-full">Cerrar sesion</button>
+								</li>
+							</ul>
+						</div>
 					</ul>
 				  </div>
 				</ng-container>

@@ -9,9 +9,9 @@
 	
 	<div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 auto-rows-max pb-10 gap-4 slider-size">
 		<div *ngFor="let categoria of listaCategorias">
-			<div class="relative w-full aspect-[4/6] overflow-hidden rounded-lg max-w-sm">
+			<div class="relative w-full aspect-[4/6] overflow-hidden rounded-lg max-w-sm hover:scale-105 transition duration-300 ease-in-out cursor-pointer" (click)="goToCategory(categoria.id)" >
 				<div class="flex h-full w-full absolute justify-center items-center">
-					<h3 class="text-white text-2xl z-20 volSC"> {{categoria.nombre}} </h3>
+					<h3 class="text-white text-2xl z-[19] volSC"> {{categoria.nombre}} </h3>
 				</div>			  
 				<div class="flex z-10 bg-black absolute opacity-60 w-full h-full"></div>
 				<div *ngIf="categoria.urlImagen">
@@ -21,4 +21,5 @@
 		</div>
 	</div>
 		
+	<app-footer></app-footer>
 </div>

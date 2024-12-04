@@ -1,0 +1,52 @@
+<div class="flex">
+    <app-sidebarAdmin class="sidebar"></app-sidebarAdmin>
+    <button 
+    (click)="toggleChildSidebar()" 
+    class="animate-pulse md:hidden fixed bottom-4 left-4 items-center text-sm p-2 text-gray-500  rounded-full bg-MyColor bg-MyHover outline outline-violet-400 z-20">
+    <span class="sr-only">Open sidebar</span>
+    <img src="../../../assets/icons/Menu.svg" alt="Menu">
+    </button>
+    <div class="p-4 sm:p-6 w-full">
+      <div class="rounded-lg border p-4 sm:p-8 border-black md:ml-10">
+        <h2 class="mb-4 sm:mb-6 text-xl sm:text-2xl font-semibold">Metricas</h2>
+        <div class="flex flex-col items-center gap-4">
+          <div class="w-full sm:w-48 rounded-lg border bg-card text-card-foreground shadow-sm border-black">
+            <div class="p-4 sm:p-6">
+              <div class="text-center">
+                <h3 class="font-medium">Ventas activas</h3>
+                <p class="mt-2 text-xl sm:text-2xl font-bold">XXX</p>
+              </div>
+            </div>
+          </div>
+    
+          <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full sm:w-auto">
+            <div  class="w-full sm:w-48 rounded-lg border bg-card text-card-foreground shadow-sm border-black">
+              <div class="p-4 sm:p-6">
+                <div class="text-center">
+                  <h3 class="font-medium">Envios pendientes</h3>
+                  <p class="mt-2 text-xl sm:text-2xl font-bold">XXX</p>
+                </div>
+              </div>
+            </div>
+            <div  class="w-full sm:w-48 rounded-lg border bg-card text-card-foreground shadow-sm border-black">
+              <div class="p-4 sm:p-6">
+                <div class="text-center">
+                  <h3 class="font-medium">Retiros pendientes</h3>
+                  <p class="mt-2 text-xl sm:text-2xl font-bold">XXX</p>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="w-full sm:w-48 rounded-lg border bg-card text-card-foreground shadow-sm border-black">
+            <div class="p-4 sm:p-6">
+              <div class="text-center">
+                <h3 class="font-medium">Clientes</h3>
+                <p class="mt-2 text-xl sm:text-2xl font-bold">XXX</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

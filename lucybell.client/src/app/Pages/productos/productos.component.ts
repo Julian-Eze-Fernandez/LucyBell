@@ -5,11 +5,12 @@ import { NavBarResponsiveComponent } from '../Components/nav-bar-responsive/nav-
 import { ProductoService } from '../../Services/producto.service';
 import { appsettings } from '../../Settings/appsettings';
 import { ListaProductosComponent } from '../Components/lista-productos/lista-productos.component';
+import { FooterComponent } from '../Components/footer/footer.component';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, ListaProductosComponent],
+  imports: [CommonModule, navBarComponent, NavBarResponsiveComponent, ListaProductosComponent, FooterComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
