@@ -26,6 +26,40 @@ namespace LucyBell.Server.Controllers
 			if (pedidoCreacionDTO == null)
 				return BadRequest("El pedido es nulo.");
 
+			// Buscar todas las variantes involucradas en el pedido
+			var variantesIds = pedidoCreacionDTO.Detalles
+				.Where(d => d.VarianteProductoId.HasValue)
+				.Select(d => d.VarianteProductoId.Value)
+				.ToList();
+
+			var variantes = await context.VariantesProducto
+				.Where(v => variantesIds.Contains(v.Id))
+				.ToListAsync();
+
+			// Verificar stock
+			foreach (var detalle in pedidoCreacionDTO.Detalles)
+			{
+				if (detalle.VarianteProductoId.HasValue)
+				{
+					var variante = variantes.FirstOrDefault(v => v.Id == detalle.VarianteProductoId.Value);
+					if (variante == null)
+						return BadRequest($"La variante con ID {detalle.VarianteProductoId} no existe.");
+
+					if (variante.Cantidad < detalle.Cantidad)
+						return BadRequest($"No hay suficiente stock para la variante con ID {detalle.VarianteProductoId}. Stock actual: {variante.Cantidad}");
+				}
+			}
+
+			// Reducir stock
+			foreach (var detalle in pedidoCreacionDTO.Detalles)
+			{
+				if (detalle.VarianteProductoId.HasValue)
+				{
+					var variante = variantes.First(v => v.Id == detalle.VarianteProductoId.Value);
+					variante.Cantidad -= detalle.Cantidad;
+				}
+			}
+
 			var pedido = new Pedido
 			{
 				Estado = pedidoCreacionDTO.Estado,
@@ -45,9 +79,9 @@ namespace LucyBell.Server.Controllers
 				Envio = pedidoCreacionDTO.Envio != null ? new Envio
 				{
 					Direccion = pedidoCreacionDTO.Envio.Direccion,
-					Ciudad = pedidoCreacionDTO.Envio.Ciudad,
-					Provincia = pedidoCreacionDTO.Envio.Provincia,
+					Barrio = pedidoCreacionDTO.Envio.Barrio,
 					CodigoPostal = pedidoCreacionDTO.Envio.CodigoPostal,
+					Observacion = pedidoCreacionDTO.Envio.Observacion,
 					FechaEstimada = pedidoCreacionDTO.Envio.FechaEstimada
 				} : null,
 				Retiro = pedidoCreacionDTO.Retiro != null ? new Retiro
@@ -58,6 +92,8 @@ namespace LucyBell.Server.Controllers
 					FechaRetiro = pedidoCreacionDTO.Retiro.FechaRetiro
 				} : null
 			};
+
+
 
 			context.Pedidos.Add(pedido);
 			await context.SaveChangesAsync();
@@ -99,9 +135,9 @@ namespace LucyBell.Server.Controllers
 				Envio = p.Envio != null ? new EnvioDTO
 				{
 					Direccion = p.Envio.Direccion,
-					Ciudad = p.Envio.Ciudad,
-					Provincia = p.Envio.Provincia,
+					Barrio = p.Envio.Barrio,
 					CodigoPostal = p.Envio.CodigoPostal,
+					Observacion = p.Envio.Observacion,
 					FechaEstimada = p.Envio.FechaEstimada
 				} : null,
 				Retiro = p.Retiro != null ? new RetiroDTO
@@ -165,9 +201,9 @@ namespace LucyBell.Server.Controllers
 				Envio = pedido.Envio != null ? new EnvioDTO
 				{
 					Direccion = pedido.Envio.Direccion,
-					Ciudad = pedido.Envio.Ciudad,
-					Provincia = pedido.Envio.Provincia,
+					Barrio = pedido.Envio.Barrio,
 					CodigoPostal = pedido.Envio.CodigoPostal,
+					Observacion = pedido.Envio.Observacion,
 					FechaEstimada = pedido.Envio.FechaEstimada
 				} : null,
 				Retiro = pedido.Retiro != null ? new RetiroDTO
