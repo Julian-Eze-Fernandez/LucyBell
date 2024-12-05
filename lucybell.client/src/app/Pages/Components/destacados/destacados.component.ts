@@ -1,5 +1,5 @@
 import { Component,  CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Producto } from '../../../Models/Producto';
 import { ProductoService } from '../../../Services/producto.service';
 import Swiper from 'swiper';
@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   standalone:true,
   selector: 'app-destacados',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './destacados.component.html',
   styleUrl: './destacados.component.css'

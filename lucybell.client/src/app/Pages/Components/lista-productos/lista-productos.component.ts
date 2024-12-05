@@ -1,13 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ProductoService } from '../../../Services/producto.service';
-import { PaginatedProductos, Producto } from '../../../Models/Producto';
+import { Producto } from '../../../Models/Producto';
 import { appsettings } from '../../../Settings/appsettings';
 import { HttpResponse } from '@angular/common/http';
 import { CategoriaService } from '../../../Services/categoria.service';
 import { SubcategoriaService } from '../../../Services/subcategoria.service';
 import { MaterialService } from '../../../Services/material.service';
-import { Categoria } from '../../../Models/Categoria';
 import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
@@ -16,7 +15,7 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-lista-productos',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   templateUrl: './lista-productos.component.html',
   styleUrl: './lista-productos.component.css'
 })
