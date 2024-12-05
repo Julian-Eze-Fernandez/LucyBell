@@ -108,4 +108,10 @@ export class CarritoService {
       }      
     }
   }
+
+  eliminarCarrito() {
+    this.listCarrito = [];
+    this.guardarSesion();
+    this.carritoSubject.next(this.listCarrito);
+  }
 }

@@ -16,6 +16,7 @@ import { ProductoComponent } from './Pages/producto/producto.component';
 import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
 import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
+import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -35,6 +36,7 @@ export const routes: Routes = [
     { path: 'ventasActivas', component: VentasActivasComponent},
     { path: 'sobre-mi', component: SobreMiComponent},
 
+    { path: 'resumenCompra', component: ResumenCompraComponent},
 ];
 
 

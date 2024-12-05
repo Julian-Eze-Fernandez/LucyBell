@@ -137,11 +137,11 @@ namespace LucyBell.Server.Controllers
 		{
 			var claims = new List<Claim>
 			{
-				new Claim("email", identityUser.Email)
+				new Claim("email", identityUser.Email),
+				new Claim("sub", identityUser.Id)
 			};
 
 			var claimsDB = await userManager.GetClaimsAsync(identityUser);
-
 			claims.AddRange(claimsDB);
 
 			var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["llavejwt"]!));
@@ -149,8 +149,13 @@ namespace LucyBell.Server.Controllers
 
 			var expiracion = DateTime.UtcNow.AddYears(1);
 
-			var tokenDeSeguridad = new JwtSecurityToken(issuer: null, audience: null, claims: claims,
-				expires: expiracion, signingCredentials: creds);
+			var tokenDeSeguridad = new JwtSecurityToken(
+				issuer: null,
+				audience: null,
+				claims: claims,
+				expires: expiracion,
+				signingCredentials: creds
+			);
 
 			var token = new JwtSecurityTokenHandler().WriteToken(tokenDeSeguridad);
 

@@ -1,5 +1,5 @@
 import { Component, HostListener, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { CategoriaService } from '../../../Services/categoria.service';
 import { SeguridadService } from '../../../Services/seguridad.service';
 import { AutorizadoComponent } from "../../seguridad/autorizado/autorizado.component";
@@ -12,7 +12,7 @@ import { CarritoService } from '../../../Services/carrito.service';
   selector: 'app-navBar',
   templateUrl: './navBar.component.html',
   standalone: true,
-  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule],
+  imports: [CommonModule, AutorizadoComponent, LoginComponent, CarritoComponent, RouterModule, NgOptimizedImage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrl: './navBar.component.css'
 })

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { CarritoService } from '../../../Services/carrito.service';
 import { Carrito } from '../../../Models/Carrito';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -18,6 +19,7 @@ export class CarritoComponent implements OnInit {
 
   mensajeError: string | null = null;
 
+  constructor(private router: Router) {}
   
   ngOnInit(): void {
     this.getListCarrito();
@@ -95,5 +97,9 @@ export class CarritoComponent implements OnInit {
 
   actualizarCarrito(item: Carrito , index: number){
     this.carritoService.actualizar(index, item.cantidad);
+  }
+
+  navegarAlResumen() {
+    this.router.navigate(['/resumenCompra']);
   }
 }

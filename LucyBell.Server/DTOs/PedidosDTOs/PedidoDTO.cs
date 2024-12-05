@@ -1,4 +1,6 @@
 ﻿using LucyBell.Server.DTOs.DetallesPedidoDTOs;
+using LucyBell.Server.DTOs.EnviosDTOs;
+using LucyBell.Server.DTOs.RetiroDTOs;
 
 namespace LucyBell.Server.DTOs.PedidosDTOs
 {
@@ -7,10 +9,12 @@ namespace LucyBell.Server.DTOs.PedidosDTOs
 		public int Id { get; set; }
 		public string Estado { get; set; }
 		public decimal Total { get; set; }
-		public string Envio { get; set; } // Dirección de envío
+		public string MetodoPago { get; set; }
 		public DateTime FechaCreacion { get; set; }
 		public DateTime FechaActualizacion { get; set; }
-		public string UsuarioId { get; set; }
+		public bool EsEnvio { get; set; }
 		public List<DetallePedidoDTO> Detalles { get; set; }
+		public EnvioDTO? Envio { get; set; }
+		public RetiroDTO? Retiro { get; set; }
 	}
 }
