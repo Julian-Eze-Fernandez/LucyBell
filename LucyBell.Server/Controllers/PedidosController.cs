@@ -1,4 +1,5 @@
-﻿using LucyBell.Server.DTOs.DetallesPedidoDTOs;
+﻿using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using LucyBell.Server.DTOs.DetallesPedidoDTOs;
 using LucyBell.Server.DTOs.EnviosDTOs;
 using LucyBell.Server.DTOs.PedidosDTOs;
 using LucyBell.Server.DTOs.RetiroDTOs;
@@ -127,9 +128,13 @@ namespace LucyBell.Server.Controllers
 			var pedidosPendientes = await context.Pedidos
 				.Where(p => p.Estado == "Pendiente")
 				.Include(p => p.DetallesPedido)
-				.ThenInclude(d => d.Producto)
+					.ThenInclude(d => d.Producto)
 				.Include(p => p.Envio)
 				.Include(p => p.Retiro)
+				.Join(context.Users,
+					  pedido => pedido.UsuarioId,
+					  usuario => usuario.Id,
+					  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
 				.ToListAsync();
 
 			if (!pedidosPendientes.Any())
@@ -137,14 +142,14 @@ namespace LucyBell.Server.Controllers
 
 			var pedidosDTO = pedidosPendientes.Select(p => new PedidoDTO
 			{
-				Id = p.Id,
-				Estado = p.Estado,
-				Total = p.Total,
-				MetodoPago = p.MetodoPago,
-				FechaCreacion = p.FechaCreacion,
-				FechaActualizacion = p.FechaActualizacion,
-				EsEnvio = p.EsEnvio,
-				Detalles = p.DetallesPedido.Select(d => new DetallePedidoDTO
+				Id = p.Pedido.Id,
+				Estado = p.Pedido.Estado,
+				Total = p.Pedido.Total,
+				MetodoPago = p.Pedido.MetodoPago,
+				FechaCreacion = p.Pedido.FechaCreacion,
+				FechaActualizacion = p.Pedido.FechaActualizacion,
+				EsEnvio = p.Pedido.EsEnvio,
+				Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
 				{
 					Id = d.Id,
 					Cantidad = d.Cantidad,
@@ -152,21 +157,27 @@ namespace LucyBell.Server.Controllers
 					ProductoId = d.ProductoId,
 					VarianteProductoId = d.VarianteProductoId
 				}).ToList(),
-				Envio = p.Envio != null ? new EnvioDTO
+				Envio = p.Pedido.Envio != null ? new EnvioDTO
 				{
-					Direccion = p.Envio.Direccion,
-					Barrio = p.Envio.Barrio,
-					CodigoPostal = p.Envio.CodigoPostal,
-					Observacion = p.Envio.Observacion,
-					FechaEstimada = p.Envio.FechaEstimada
+					Direccion = p.Pedido.Envio.Direccion,
+					Barrio = p.Pedido.Envio.Barrio,
+					CodigoPostal = p.Pedido.Envio.CodigoPostal,
+					Observacion = p.Pedido.Envio.Observacion,
+					FechaEstimada = p.Pedido.Envio.FechaEstimada
 				} : null,
-				Retiro = p.Retiro != null ? new RetiroDTO
+				Retiro = p.Pedido.Retiro != null ? new RetiroDTO
 				{
-					PuntoRetiro = p.Retiro.PuntoRetiro,
-					NombreRetira = p.Retiro.NombreRetira,
-					DocumentoRetira = p.Retiro.DocumentoRetira,
-					FechaRetiro = p.Retiro.FechaRetiro
-				} : null
+					PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
+					NombreRetira = p.Pedido.Retiro.NombreRetira,
+					DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
+					FechaRetiro = p.Pedido.Retiro.FechaRetiro
+				} : null,
+				Usuario = new UsuarioDTO
+				{
+					Email = p.Usuario.Email,
+					Nombre = p.Usuario.UserName,
+					Telefono = p.Usuario.PhoneNumber
+				}
 			}).ToList();
 
 			return pedidosDTO;
@@ -179,9 +190,13 @@ namespace LucyBell.Server.Controllers
 			var pedidosFinalizados = await context.Pedidos
 				.Where(p => estadosFinalizados.Contains(p.Estado))
 				.Include(p => p.DetallesPedido)
-				.ThenInclude(d => d.Producto)
+					.ThenInclude(d => d.Producto)
 				.Include(p => p.Envio)
 				.Include(p => p.Retiro)
+				.Join(context.Users,
+					  pedido => pedido.UsuarioId,
+					  usuario => usuario.Id,
+					  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
 				.ToListAsync();
 
 			if (!pedidosFinalizados.Any())
@@ -189,14 +204,14 @@ namespace LucyBell.Server.Controllers
 
 			var pedidosDTO = pedidosFinalizados.Select(p => new PedidoDTO
 			{
-				Id = p.Id,
-				Estado = p.Estado,
-				Total = p.Total,
-				MetodoPago = p.MetodoPago,
-				FechaCreacion = p.FechaCreacion,
-				FechaActualizacion = p.FechaActualizacion,
-				EsEnvio = p.EsEnvio,
-				Detalles = p.DetallesPedido.Select(d => new DetallePedidoDTO
+				Id = p.Pedido.Id,
+				Estado = p.Pedido.Estado,
+				Total = p.Pedido.Total,
+				MetodoPago = p.Pedido.MetodoPago,
+				FechaCreacion = p.Pedido.FechaCreacion,
+				FechaActualizacion = p.Pedido.FechaActualizacion,
+				EsEnvio = p.Pedido.EsEnvio,
+				Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
 				{
 					Id = d.Id,
 					Cantidad = d.Cantidad,
@@ -204,21 +219,27 @@ namespace LucyBell.Server.Controllers
 					ProductoId = d.ProductoId,
 					VarianteProductoId = d.VarianteProductoId
 				}).ToList(),
-				Envio = p.Envio != null ? new EnvioDTO
+				Envio = p.Pedido.Envio != null ? new EnvioDTO
 				{
-					Direccion = p.Envio.Direccion,
-					Barrio = p.Envio.Barrio,
-					CodigoPostal = p.Envio.CodigoPostal,
-					Observacion = p.Envio.Observacion,
-					FechaEstimada = p.Envio.FechaEstimada
+					Direccion = p.Pedido.Envio.Direccion,
+					Barrio = p.Pedido.Envio.Barrio,
+					CodigoPostal = p.Pedido.Envio.CodigoPostal,
+					Observacion = p.Pedido.Envio.Observacion,
+					FechaEstimada = p.Pedido.Envio.FechaEstimada
 				} : null,
-				Retiro = p.Retiro != null ? new RetiroDTO
+				Retiro = p.Pedido.Retiro != null ? new RetiroDTO
 				{
-					PuntoRetiro = p.Retiro.PuntoRetiro,
-					NombreRetira = p.Retiro.NombreRetira,
-					DocumentoRetira = p.Retiro.DocumentoRetira,
-					FechaRetiro = p.Retiro.FechaRetiro
-				} : null
+					PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
+					NombreRetira = p.Pedido.Retiro.NombreRetira,
+					DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
+					FechaRetiro = p.Pedido.Retiro.FechaRetiro
+				} : null,
+				Usuario = new UsuarioDTO
+				{
+					Email = p.Usuario.Email,
+					Nombre = p.Usuario.UserName,
+					Telefono = p.Usuario.PhoneNumber
+				}
 			}).ToList();
 
 			return pedidosDTO;

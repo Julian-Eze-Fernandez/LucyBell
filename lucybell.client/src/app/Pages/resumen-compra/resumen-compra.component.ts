@@ -119,7 +119,8 @@ export class ResumenCompraComponent implements OnInit {
         const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensajeWhatsApp)}`;
         window.open(urlWhatsApp, '_blank');
 
-        this.router.navigate(['/']);
+        this.volverTienda();
+
       },
       error: (error) => {
         console.error('Error al registrar la compra:', error);
@@ -152,5 +153,9 @@ export class ResumenCompraComponent implements OnInit {
   
     mensaje += `\nMétodo de Pago: ${this.medioPagoSeleccionado}\n`;
     return mensaje;
+  }
+
+  volverTienda(): void{
+    this.router.navigate(['/']);
   }
 }
