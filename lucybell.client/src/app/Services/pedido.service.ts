@@ -27,7 +27,7 @@ export class PedidoService {
   }
 
   actualizarEstadoPedido(id: number, estado: string): Observable<void> {
-  return this.http.put<void>(`${this.apiUrl}/${id}/estado`, { estado });
+  return this.http.put<void>(`${this.apiUrl}/${id}/estado?nuevoEstado=${estado}`, { estado });
   }
 
 }

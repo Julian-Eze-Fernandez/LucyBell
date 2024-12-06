@@ -158,8 +158,4 @@ export class ResumenCompraComponent implements OnInit {
     mensaje += `\nMétodo de Pago: ${this.medioPagoSeleccionado}\n`;
     return mensaje;
   }
-
-  volverTienda(): void{
-    this.router.navigate(['/']);
-  }
 }

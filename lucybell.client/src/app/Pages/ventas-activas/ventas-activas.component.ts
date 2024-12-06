@@ -37,9 +37,14 @@ export class VentasActivasComponent implements OnInit {
   PedidosEnvio: any[] = [];
   PedidosRetiro: any[] = [];
   pedidoSeleccinadoNombre: string = '';
-  pedidoSeleccinadoId: number = 0;
+  pedidoSeleccinadoId: number = -1;
+
+  modalMsj: string = '';
+
+  confirmarVenta:boolean = false;
 
   constructor(private pedidoService: PedidoService) {}
+
 
   ngOnInit(): void {
     this.GetPedidosYFiltrados();
@@ -57,6 +62,7 @@ export class VentasActivasComponent implements OnInit {
             this.PedidosRetiro.push(obj);
           }
         }
+        console.log(this.PedidosActivos)
       },
       error: (err) => {
         console.log(err.message);
@@ -73,16 +79,30 @@ export class VentasActivasComponent implements OnInit {
     // Implementar lógica para mostrar detalles
   }
 
-  confirmarVenta(id: number, nombre:string): void {
-    this.pedidoSeleccinadoId = id;
-    this.pedidoSeleccinadoNombre = nombre;
+  openConfirmarVentaModal(pedido: any): void {
+    this.pedidoSeleccinadoId = pedido.id;
+    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
 
+    this.modalMsj = '¿Está seguro de que desea confirmar que esta venta se ha completado con éxito?'
+    this.confirmarVenta = true
+  }
+
+  ventaExitosa(id: number): void {
+    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe()
+  }
+
+  openCancelarVentaModal(pedido: any): void {
+    this.pedidoSeleccinadoId = pedido.id;
+    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
+    this.confirmarVenta = false;
+
+    this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
   }
 
   cancelarVenta(id: number): void {
-    console.log('Cancelar venta:', id);
-    // Implementar lógica de cancelación
+    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe()
   }
+
 
 }
 
