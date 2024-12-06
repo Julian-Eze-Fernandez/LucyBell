@@ -8,7 +8,13 @@
 
 
 html, body { height: 100%; }
+
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#fbede0; }
+
+:root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+  scrollbar-gutter: auto !important;
+}
 
 .sidebar {
   width: 16rem;
