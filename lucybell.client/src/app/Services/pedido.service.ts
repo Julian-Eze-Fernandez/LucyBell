@@ -18,12 +18,16 @@ export class PedidoService {
   return this.http.post<PedidoDTO>(this.apiUrl, pedido);
   }
 
-  obtenerPedidos(usuarioId: string): Observable<PedidoDTO[]> {
+  obtenerPedidosPorUsuario(usuarioId: string): Observable<PedidoDTO[]> {
   return this.http.get<PedidoDTO[]>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 
+  obtenerPedidosActivos(): Observable<PedidoDTO[]> {
+  return this.http.get<PedidoDTO[]>(`${this.apiUrl}/pendientes`);
+  }
+
   actualizarEstadoPedido(id: number, estado: string): Observable<void> {
-  return this.http.put<void>(`${this.apiUrl}/${id}/estado`, { estado });
+  return this.http.put<void>(`${this.apiUrl}/${id}/estado?nuevoEstado=${estado}`, { estado });
   }
 
 }

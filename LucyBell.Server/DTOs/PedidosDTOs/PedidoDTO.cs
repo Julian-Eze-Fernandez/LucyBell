@@ -1,4 +1,5 @@
-﻿using LucyBell.Server.DTOs.DetallesPedidoDTOs;
+﻿using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using LucyBell.Server.DTOs.DetallesPedidoDTOs;
 using LucyBell.Server.DTOs.EnviosDTOs;
 using LucyBell.Server.DTOs.RetiroDTOs;
 
@@ -16,5 +17,6 @@ namespace LucyBell.Server.DTOs.PedidosDTOs
 		public List<DetallePedidoDTO> Detalles { get; set; }
 		public EnvioDTO? Envio { get; set; }
 		public RetiroDTO? Retiro { get; set; }
+		public UsuarioDTO Usuario { get; set; }
 	}
 }
