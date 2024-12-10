@@ -130,6 +130,10 @@ export class ResumenCompraComponent implements OnInit {
     });
   }
 
+  volverTienda(): void {
+    this.router.navigate(['/productos']);
+  } 
+
   generarMensajeWhatsApp(): string {
     let mensaje = `Hola, me gustaria confirmar mi pedido!\n\nDetalles del Pedido:\n`;
     this.carrito.forEach((item, index) => {
@@ -153,9 +157,5 @@ export class ResumenCompraComponent implements OnInit {
   
     mensaje += `\nMétodo de Pago: ${this.medioPagoSeleccionado}\n`;
     return mensaje;
-  }
-
-  volverTienda(): void{
-    this.router.navigate(['/']);
   }
 }

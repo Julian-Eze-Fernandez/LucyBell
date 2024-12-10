@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
 import { AdministrarProductosComponent } from "../administrar-productos/administrar-productos.component";
+import { PedidoService } from '../../Services/pedido.service';
 
 interface Sale {
   id: number;
@@ -28,98 +29,80 @@ interface Sale2 {
   templateUrl: './ventas-activas.component.html',
   styleUrl: './ventas-activas.component.css'
 })
-export class VentasActivasComponent {
+export class VentasActivasComponent implements OnInit {
 
   @ViewChild(SidebarAdminComponent) sidebarAdmin!: SidebarAdminComponent;
+
+  PedidosActivos: any[] = []; // This is the array fetched from the service
+  PedidosEnvio: any[] = [];
+  PedidosRetiro: any[] = [];
+  pedidoSeleccinadoNombre: string = '';
+  pedidoSeleccinadoId: number = -1;
+
+  modalMsj: string = '';
+
+  confirmarVenta:boolean = false;
+
+  constructor(private pedidoService: PedidoService) {}
+
+
+  ngOnInit(): void {
+    this.GetPedidosYFiltrados();
+
+  }
+
+  GetPedidosYFiltrados() {
+    this.pedidoService.obtenerPedidosActivos().subscribe({
+      next: (data) => {
+        this.PedidosActivos=data;
+        for (const obj of this.PedidosActivos) {
+          if (obj.esEnvio) {
+            this.PedidosEnvio.push(obj);
+          } else {
+            this.PedidosRetiro.push(obj);
+          }
+        }
+        console.log(this.PedidosActivos)
+      },
+      error: (err) => {
+        console.log(err.message);
+      }
+    })
+  }
 
   toggleChildSidebar(): void {
     this.sidebarAdmin.toggleSidebar();
   }
-
-  sales: Sale[] = [
-    {
-      id: 1,
-      nombre: 'Ana Vázquez Olmos',
-      fecha: '10/05/24',
-      ubicacion: 'Patio Olmos',
-      entrega: '14/05/24 19:00',
-      total: 8000.00,
-    },
-    {
-      id: 2,
-      nombre: 'Dergazarian Thomas',
-      fecha: '12/05/24',
-      ubicacion: 'Barrio Talleres',
-      entrega: '14/05/24 20:00',
-      total: 12000.00,
-    },
-    {
-      id: 3,
-      nombre: 'Rocío Martina García',
-      fecha: '13/05/24',
-      ubicacion: 'Patio Olmos',
-      entrega: '18/05/24 21:00',
-      total: 6000.00,
-    },
-    {
-      id: 4,
-      nombre: 'Agustina Lara Bustos',
-      fecha: '13/05/24',
-      ubicacion: 'Barrio Talleres',
-      entrega: '16/05/24 20:00',
-      total: 9000.00,
-    }
-  ];
-
-  sales2: Sale2[] = [
-    {
-      id: 1,
-      nombre: 'Ana Vázquez Olmos',
-      fecha: '10/05/24',
-      envio: 'En proceso',
-      intentos: 0,
-      total: 8000.00,
-    },
-    {
-      id: 2,
-      nombre: 'Dergazarian Thomas',
-      fecha: '12/05/24',
-      envio: 'Pendiente',
-      intentos: 1,
-      total: 12000.00,
-    },
-    {
-      id: 3,
-      nombre: 'Rocío Martina García',
-      fecha: '13/05/24',
-      envio: 'Patio Olmos',
-      intentos: 0,
-      total: 6000.00,
-    },
-    {
-      id: 4,
-      nombre: 'Agustina Lara Bustos',
-      fecha: '13/05/24',
-      envio: 'Recibido',
-      intentos: 2,
-      total: 9000.00,
-    }
-  ];
 
   verDetalles(id: number): void {
     console.log('Ver detalles de la venta:', id);
     // Implementar lógica para mostrar detalles
   }
 
-  confirmarVenta(id: number): void {
-    console.log('Confirmar venta:', id);
-    // Implementar lógica de confirmación
+  openConfirmarVentaModal(pedido: any): void {
+    this.pedidoSeleccinadoId = pedido.id;
+    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
+
+    this.modalMsj = '¿Está seguro de que desea confirmar que esta venta se ha completado con éxito?'
+    this.confirmarVenta = true
+  }
+
+  ventaExitosa(id: number): void {
+    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe()
+  }
+
+  openCancelarVentaModal(pedido: any): void {
+    this.pedidoSeleccinadoId = pedido.id;
+    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
+    this.confirmarVenta = false;
+
+    this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
   }
 
   cancelarVenta(id: number): void {
-    console.log('Cancelar venta:', id);
-    // Implementar lógica de cancelación
+    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe()
   }
+
 
 }
 

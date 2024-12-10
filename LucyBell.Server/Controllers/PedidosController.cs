@@ -487,7 +487,7 @@ namespace LucyBell.Server.Controllers
 		}
 
 		[HttpPut("{id}/estado")]
-		public async Task<ActionResult> ActualizarEstadoPedido(int id, [FromBody] string nuevoEstado)
+		public async Task<ActionResult> ActualizarEstadoPedido(int id, string nuevoEstado)
 		{
 			var pedido = await context.Pedidos.FindAsync(id);
 
