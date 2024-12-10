@@ -187,9 +187,9 @@
         <div class="flex justify-center gap-2">
           <form method="dialog">
             <button class="btn">Cancelar</button>
+            <button class="btn btn-success ml-2" (click)="ventaExitosa(pedidoSeleccinadoId)" *ngIf="confirmarVenta">Confirmar</button>
+            <button class="btn btn-success ml-2" (click)="cancelarVenta(pedidoSeleccinadoId)" *ngIf="!confirmarVenta">Confirmar</button>
           </form>
-          <button class="btn btn-success" (click)="ventaExitosa(pedidoSeleccinadoId)" *ngIf="confirmarVenta">Confirmar</button>
-          <button class="btn btn-success" (click)="cancelarVenta(pedidoSeleccinadoId)" *ngIf="!confirmarVenta">Confirmar</button>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">

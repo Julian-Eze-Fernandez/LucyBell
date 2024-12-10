@@ -55,6 +55,9 @@ export class VentasActivasComponent implements OnInit {
   }
 
   GetPedidosYFiltrados() {
+    this.PedidosActivos = [];
+    this.PedidosEnvio = [];
+    this.PedidosRetiro = [];
     this.pedidoService.obtenerPedidosActivos().subscribe({
       next: (data) => {
         this.PedidosActivos=data;
@@ -93,12 +96,17 @@ export class VentasActivasComponent implements OnInit {
   }
 
   ventaExitosa(id: number): void {
-    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe()
+    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe({
+      next:() => {
+        this.GetPedidosYFiltrados();
+      }
+    })
+    this.GetPedidosYFiltrados();
   }
 
   openCancelarVentaModal(pedido: any): void {
     this.pedidoSeleccinado = pedido;
-    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
+    this.pedidoSeleccinadoId = pedido.id;
     this.confirmarVenta = false;
 
     this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
@@ -108,7 +116,12 @@ export class VentasActivasComponent implements OnInit {
   }
 
   cancelarVenta(id: number): void {
-    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe()
+    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe({
+      next:() => {
+        this.GetPedidosYFiltrados();
+      }
+    })
+    this.GetPedidosYFiltrados();
   }
 
 
