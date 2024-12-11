@@ -9,25 +9,119 @@
 
     <div class="main-content flex-1 p-4">
 
-      <div class="flex">
+      <div class="flex flex-col">
         <div class="block">
           <h1 class="text-3xl inline-block absolute; max-md:pl-4 max-md:text-2xl max-md:pt-4" style="font-family: VollkornSC; display: inline-block;">
             Stock
             <div class="gradient-line-title mb-4"></div>
           </h1>
-          <div class="flex">
-            <p class="mb-10 max-md:ml-4">Administra el stock de tus productos</p>
+          <div class="flex mb-6 ">
+            <p class="max-md:ml-4">Administra el stock de tus productos</p>
           </div>
+        </div>
+        <div class="flex md:hidden mb-4">
+          <div class="ml-4 z-20">
+            <details class="dropdown dropdown-bottom">
+              <summary class="btn bg-primary">Filtros</summary>
+              <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow">
+                <div class="join join-vertical w-full">
+                  <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                    <input type="radio" name="categAccordion" checked="checked" />
+                    <div class="collapse-title text-xl font-medium bg-base-100">Productos</div>
+                    <div class="collapse-content p-0 ">
+                      <div class="join join-vertical w-full rounded-none z-10">
+                        <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" aria-label="Todos" (click)="onCategoryChange(null)" />
+                        <div *ngFor="let category of listaCategorias" class="z-0">
+                          <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                    <input type="radio" name="categAccordion" />
+                    <div class="collapse-title text-xl font-medium bg-base-100">Tipo</div>
+                    <div class="collapse-content p-0">
+                      <div class="join join-vertical w-full rounded-none z-10">
+                        <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+                        <div *ngFor="let subCategory of filteredSubcategories">
+                          <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                  <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+                    <input type="radio" name="categAccordion" />
+                    <div class="collapse-title text-xl font-medium bg-base-100">Material</div>
+                    <div class="collapse-content p-0">
+                      <div class="join join-vertical w-full rounded-none z-10">
+                        <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
+                        <div *ngFor="let material of listaMateriales">
+                          <input class="join-item btn w-full max-w-48 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+              </ul>
+            </details>
+          </div>
+          <label class="input input-bordered input-primary flex items-center gap-2 ml-2">
+            <input type="text" class="grow" placeholder="Buscar" />
+            <img src="../../../assets/icons/Search.svg" alt="Search" class="h-4 w-4 opacity-70 ml-2">
+          </label>
+        </div>
+  
+        <label class="input input-bordered input-primary flex items-center gap-2 ml-2 max-md:hidden mb-2 max-w-96">
+          <input type="text" class="grow" placeholder="Buscar" />
+          <img src="../../../assets/icons/Search.svg" alt="Search" class="h-4 w-4 opacity-70">
+        </label>
+  
+        <div class="flex ml-2 max-sm:mb-4 max-md:hidden">
+          <label class="form-control min-w-20 max-w-40">
+            <div class="label">
+              <span class="label-text">Categoria</span>
+            </div>
+            <select class="select select-bordered min-w-20 max-w-40" #categorySelect (change)="onCategoryChange(+categorySelect.value)">
+              <option value="null">Todos</option>
+              <ng-container *ngFor="let categoria of listaCategorias">
+                <option [value]="categoria.id" class="truncate">{{ categoria.nombre }}</option>
+              </ng-container>
+            </select>
+          </label>
+          <label class="form-control min-w-20 max-w-40 ml-4">
+            <div class="label">
+              <span class="label-text">Subcategoria</span>
+            </div>
+            <select class="select select-bordered min-w-20 max-w-40" #subcateorySelect (change)="onSubCategoryChange(+subcateorySelect.value)">
+              <option value="null">Todos</option>
+              <ng-container *ngFor="let subcategoria of filteredSubcategories">
+                <option [value]="subcategoria.id" class="truncate">{{ subcategoria.nombre }}</option>
+              </ng-container>
+            </select>
+          </label>
+          <label class="form-control min-w-20 max-w-40 ml-4">
+            <div class="label">
+              <span class="label-text">Materiales</span>
+            </div>
+            <select class="select select-bordered min-w-20 max-w-40" #materialSelect (change)="onMaterialChange(+materialSelect.value)">
+              <option value="null">Todos</option>
+              <ng-container *ngFor="let material of listaMateriales">
+                <option [value]="material.id" class="truncate">{{ material.nombre }}</option>
+              </ng-container>
+            </select>
+          </label>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 grid-flow-row auto-rows-max max-md:pr-2 max-md:ml-2">
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 grid-flow-row auto-rows-max max-md:pr-2 max-md:ml-2 md:mt-8">
         <div *ngFor="let item of variantesConProducto" class="flex flex-col h-full shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out">
           
           <div class="item-background p-4 shadow rounded text-white center flex-col h-full">
             <div>
               <div class="md:hidden flex justify-center mb-2">
-                <div class="min-w-10 min-h-10 max-w-35 overflow-hidden rounded-full aspect-[4/4] ">
+                <div class="min-w-10 min-h-10 max-w-28 overflow-hidden rounded-full aspect-[4/4] ">
                   <img *ngIf="item.imagen" [src]="item.imagen" alt="imagen de {{item.productoNombre}}" class="w-full h-full object-cover" />
                 </div>
               </div>
@@ -63,6 +157,9 @@
             </div>
           </div>
         </div>
+
+
+
         <ng-container>
           <app-two-button-modal #deleteModalStock
                                 [title]="'Eliminar Stock'"
@@ -95,6 +192,14 @@
             </form>
           </app-two-button-modal>
         </ng-container>
+      </div>
+
+      <div class="flex justify-center mt-4 mb-5 ">
+        <div class=" join mt-4">
+          <button class="join-item btn" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">«</button>
+          <button class="join-item btn">Pagina {{ currentPage }} de {{ totalPages }}</button>
+          <button class="join-item btn" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages">»</button>
+        </div>
       </div>
       
     </div>

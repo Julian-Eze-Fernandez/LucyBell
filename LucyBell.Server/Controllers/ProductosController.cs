@@ -96,14 +96,13 @@ namespace LucyBell.Server.Controllers
 		int page = 1,
 		int pageSize = 12)
         {
-            // Base query including necessary related entities
+           
             var query = context.Productos
                 .Include(productoBD => productoBD.ImagenesProductos)
                 .Include(productoBD => productoBD.VariantesProducto)
                 .Include(productoBD => productoBD.Categoria)
                 .AsQueryable();
 
-            // Apply filters if parameters are provided
             if (categoriaId.HasValue)
             {
                 query = query.Where(p => p.CategoriaId == categoriaId.Value);
@@ -119,13 +118,10 @@ namespace LucyBell.Server.Controllers
                 query = query.Where(p => p.MaterialId == materialId.Value);
             }
 
-            // Calculate total count before applying pagination
             var totalProducts = await query.CountAsync();
 
-            // Apply pagination
             query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
-            // Execute the query and project results to DTO
             var productos = await query.ToListAsync();
             var productosDTO = productos.Select(producto => new ProductoCompletoDTO
             {
@@ -153,12 +149,86 @@ namespace LucyBell.Server.Controllers
                 }).ToList(),
             }).ToList();
 
-            // Return products along with pagination info in headers
             Response.Headers.Append("X-Total-Count", totalProducts.ToString());
             Response.Headers.Append("X-Total-Pages", Math.Ceiling((double)totalProducts / pageSize).ToString());
 
             return Ok(productosDTO);
         }
+
+        [HttpGet("filtradoVariantes")]
+        public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompletoVariantes(
+        int? categoriaId = null,
+        int? subCategoriaId = null,
+        int? materialId = null,
+        int page = 1,
+        int pageSize = 20)
+        {
+            var query = context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .AsQueryable();
+
+            if (categoriaId.HasValue)
+            {
+                query = query.Where(p => p.CategoriaId == categoriaId.Value);
+            }
+
+            if (subCategoriaId.HasValue)
+            {
+                query = query.Where(p => p.SubCategoriaId == subCategoriaId.Value);
+            }
+
+            if (materialId.HasValue)
+            {
+                query = query.Where(p => p.MaterialId == materialId.Value);
+            }
+
+            var allVariantsQuery = query.SelectMany(p => p.VariantesProducto);
+
+            var totalVariants = await allVariantsQuery.CountAsync();
+
+            var variantsPage = allVariantsQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var variants = await variantsPage;
+
+            var productoIds = variants.Select(v => v.ProductoId).Distinct();
+            var productos = await query.Where(p => productoIds.Contains(p.Id)).ToListAsync();
+
+            var productosDTO = productos.Select(producto => new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                    SlotIndex = img.SlotIndex
+                }).ToList(),
+                VariantesProducto = variants.Where(v => v.ProductoId == producto.Id).Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            }).ToList();
+
+            Response.Headers.Append("X-Total-Count", totalVariants.ToString());
+            Response.Headers.Append("X-Total-Pages", Math.Ceiling((double)totalVariants / pageSize).ToString());
+
+            return Ok(productosDTO);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductoCompletoDTO>> GetProductoCompletoById(int id)

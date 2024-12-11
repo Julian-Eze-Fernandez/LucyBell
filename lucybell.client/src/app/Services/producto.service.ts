@@ -49,6 +49,24 @@ export class ProductoService {
     return this.http.get<Producto[]>(`${this.apiUrl}/filtrado`, { params, observe: 'response' });
   }
 
+  GetFilteredProductsVariants(
+    categoriaId?: number | null,
+    subCategoriaId?: number | null,
+    materialId?: number | null,
+    page: number = 1,
+    pageSize: number = 20
+  ): Observable<HttpResponse<Producto[]>> { 
+    let params = new HttpParams();
+    if (categoriaId) params = params.append('categoriaId', categoriaId.toString());
+    if (subCategoriaId) params = params.append('subCategoriaId', subCategoriaId.toString());
+    if (materialId) params = params.append('materialId', materialId.toString());
+    params = params.append('page', page.toString());
+    params = params.append('pageSize', pageSize.toString());
+  
+    // Return full HTTP response
+    return this.http.get<Producto[]>(`${this.apiUrl}/filtradoVariantes`, { params, observe: 'response' });
+  }
+
   GetRelatedProducts(id:number, count: number = 4) {
     return this.http.get<ProductoSinVariantesDTO[]>(`${this.apiUrl}/Related?id=${id}&count=${count}`);
   }

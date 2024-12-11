@@ -55,7 +55,7 @@ export class AdministrarProductosComponent implements OnInit {
   selectedSubCategoryId: number | null | undefined;
   selectedMaterialId: number | null | undefined;
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 12;
   totalCount: number = 0;
   totalPages: number = 0;
 
@@ -116,10 +116,7 @@ export class AdministrarProductosComponent implements OnInit {
     ).subscribe((response: HttpResponse<Producto[]>) => {  
       this.productos = response.body || [];
       this.totalCount = +response.headers.get('X-Total-Count')!;
-
-      console.log("Response Headers:", response.headers.keys());
-      console.log("X-Total-Count:", response.headers.get('X-Total-Count'));
-      
+      console.log(this.totalCount);
       this.calculateTotalPages();
     });
   }
@@ -141,8 +138,7 @@ export class AdministrarProductosComponent implements OnInit {
     this.filteredSubcategories = this.listaSubCategorias.filter(
       subCategory => subCategory.categoriaId === this.selectedCategoryId
     )
-    console.log("filteredSubcategories", this.filteredSubcategories);
-    console.log("listaCategorias", this.listaSubCategorias);
+
   }
 
   onSubCategoryChange(subCategoryId: number | null): void {
@@ -162,7 +158,6 @@ export class AdministrarProductosComponent implements OnInit {
 
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-    console.log("totalCount", this.totalCount);
   }
 
   openEditModal(producto: any): void {
