@@ -18,6 +18,7 @@ export class VentasActivasComponent implements OnInit {
   PedidosEnvio: any[] = [];
   PedidosRetiro: any[] = [];
   pedidoSeleccinadoId: number = -1;
+  modalImage: string = '';
 
   pedidoSeleccinado: any;
 
@@ -71,6 +72,7 @@ export class VentasActivasComponent implements OnInit {
 
     this.modalMsj = '¿Está seguro de que desea confirmar que esta venta se ha completado con éxito?'
     this.modalTitle = 'Confirmar venta exitosa';
+    this.modalImage = '../../../assets/icons/DoneBlack.svg';
     this.confirmarVenta = true
   }
 
@@ -90,6 +92,7 @@ export class VentasActivasComponent implements OnInit {
 
     this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
     this.modalTitle = 'Cancelar Venta';
+    this.modalImage = '../../../assets/icons/Close.svg';
 
     console.log(this.pedidoSeleccinado)
   }
