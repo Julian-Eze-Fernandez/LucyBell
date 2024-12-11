@@ -129,4 +129,5 @@ export class LoginComponent {
   resetearErrores() {
     this.errores = [];
   }
+  
 }

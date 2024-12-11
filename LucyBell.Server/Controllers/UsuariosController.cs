@@ -165,6 +165,75 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
+		[HttpPost("cambiar-contrasena")]
+		[Authorize]
+		public async Task<IActionResult> CambiarContrasena([FromBody] CambiarContrasenaDTO cambiarContrasenaDTO)
+		{
+			var usuario = await userManager.GetUserAsync(User);
+			if (usuario == null)
+			{
+				return NotFound("Usuario no encontrado.");
+			}
+
+			var resultado = await userManager.ChangePasswordAsync(usuario, cambiarContrasenaDTO.PasswordActual, cambiarContrasenaDTO.NuevaPassword);
+
+			if (resultado.Succeeded)
+			{
+				return Ok("La contraseña se cambió correctamente.");
+			}
+
+			return BadRequest(resultado.Errors);
+		}
+
+		[HttpPost("solicitar-restablecimiento-contrasena")]
+		[AllowAnonymous]
+		public async Task<IActionResult> SolicitarRestablecimientoContrasena([FromBody] SolicitarRestablecimientoDTO solicitarRestablecimientodDTO)
+		{
+			Console.WriteLine($"Solicitud de restablecimiento para: {solicitarRestablecimientodDTO.Email}");
+
+			var usuario = await userManager.FindByEmailAsync(solicitarRestablecimientodDTO.Email);
+			if (usuario == null)
+			{
+				return BadRequest("No se encontró un usuario con ese correo electrónico.");
+			}
+
+			var token = await userManager.GeneratePasswordResetTokenAsync(usuario);
+
+			var enlace = $"https://127.0.0.1:4200/restablecer-contrasena?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(usuario.Email)}";
+
+			var emailBody = $"<p>Por favor, restablezca su contraseña haciendo clic en este enlace: <a href='{enlace}'>Restablecer contraseña</a></p>";
+			await emailService.SendEmailAsync(solicitarRestablecimientodDTO.Email, "Restablecimiento de Contraseña", emailBody);
+
+			return Ok("Se ha enviado un enlace para restablecer la contraseña.");
+		}
+
+		[HttpPost("restablecer-contrasena")]
+		[AllowAnonymous]
+		public async Task<IActionResult> RestablecerContrasena([FromBody] RestablecerContrasenaDTO restablecerContrasenaDTO)
+		{
+			var usuario = await userManager.FindByEmailAsync(restablecerContrasenaDTO.Email);
+			if (usuario == null)
+			{
+				return BadRequest("No se encontró un usuario con ese correo electrónico.");
+			}
+
+			var decodedToken = Uri.UnescapeDataString(restablecerContrasenaDTO.Token);
+
+			var resultado = await userManager.ResetPasswordAsync(usuario, decodedToken, restablecerContrasenaDTO.NuevaContrasena);
+			if (resultado.Succeeded)
+			{
+				return Ok("La contraseña se ha restablecido correctamente.");
+			}
+
+			foreach (var error in resultado.Errors)
+			{
+				Console.WriteLine($"Error: {error.Code}, {error.Description}");
+			}
+			return BadRequest(resultado.Errors);
+		}
+
+
+
 		private IEnumerable<IdentityError> ConstruirLoginIncorrecto()
 		{
 			var identityError = new IdentityError() { Description = "Email o contraseña incorrecta" };

@@ -111,6 +111,11 @@ namespace LucyBell.Server
 				};
 			});
 
+			services.Configure<DataProtectionTokenProviderOptions>(options =>
+			{
+				options.TokenLifespan = TimeSpan.FromHours(24);
+			});
+
 			services.AddAuthorization(opciones =>
 			{
 				opciones.AddPolicy("esadmin", politica => politica.RequireClaim("esadmin"));

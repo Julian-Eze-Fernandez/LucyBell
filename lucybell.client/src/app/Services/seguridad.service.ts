@@ -106,4 +106,13 @@ export class SeguridadService {
 
     return true;
   }
+
+  restablecerContrasena(data: { email: string; token: string; nuevaContrasena: string }): Observable<string> {
+    return this.http.post<string>(`${this.urlBase}/restablecer-contrasena`, data, { responseType: 'text' as 'json' });
+  }
+
+  solicitarRestablecimientoContrasena(email: string): Observable<any> {
+    return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
+  }
+
 }

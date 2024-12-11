@@ -18,6 +18,8 @@ import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
 import { ConfirmarEmailComponent } from './Pages/confirmar-email/confirmar-email.component';
+import { RestablecerContrasenaComponent } from './Pages/restablecer-contrasena/restablecer-contrasena.component';
+import { RestablecerContrasenaSolicitudComponent } from './Pages/restablecer-contrasena-solicitud/restablecer-contrasena-solicitud.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -39,6 +41,8 @@ export const routes: Routes = [
 
     { path: 'resumenCompra', component: ResumenCompraComponent},
     { path: 'confirmar-email', component: ConfirmarEmailComponent},
+    { path: 'restablecer-contrasena', component: RestablecerContrasenaComponent},
+    { path: 'solicitud-restablecer-contrasena', component: RestablecerContrasenaSolicitudComponent}
 ];
 
 
