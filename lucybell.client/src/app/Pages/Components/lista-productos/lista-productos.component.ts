@@ -11,11 +11,12 @@ import { CategoriaName } from '../../../Models/Categoria';
 import { SubCategoria } from '../../../Models/SubCategoria';
 import { Material } from '../../../Models/Material';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lista-productos',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgOptimizedImage],
+  imports: [CommonModule, RouterLink, NgOptimizedImage, FormsModule],
   templateUrl: './lista-productos.component.html',
   styleUrl: './lista-productos.component.css'
 })
@@ -23,11 +24,13 @@ export class ListaProductosComponent implements OnInit {
 
   constructor( private productoService: ProductoService, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private materialService: MaterialService, private router: Router, private route: ActivatedRoute) {}
 
+  appsettings = appsettings;
   productos: Producto[] = [];
   listaCategorias: CategoriaName[] = [];
   listaSubCategorias: SubCategoria[] = [];
   listaMateriales: Material[] = [];
-  appsettings = appsettings;
+
+  searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 10;
   totalCount: number = 0;
@@ -40,6 +43,7 @@ export class ListaProductosComponent implements OnInit {
   selectedMaterialId?: number | null;
 
   isLargeScreen: boolean = true;
+  showSearchInput: boolean = false;
 
   ngOnInit(): void {
     this.loadMaterials();  
@@ -97,6 +101,7 @@ export class ListaProductosComponent implements OnInit {
       this.selectedCategoryId,
       this.selectedSubCategoryId,
       this.selectedMaterialId,
+      this.searchTerm,
       this.currentPage,
       this.pageSize
     ).subscribe((response: HttpResponse<Producto[]>) => {  
@@ -106,10 +111,18 @@ export class ListaProductosComponent implements OnInit {
       this.calculateTotalPages();
     });
   }
+
+  onSearch(): void {
+    this.currentPage = 1;
+    this.loadProducts();
+    console.log(this.searchTerm);
+  }
+
   onCategoryChange(categoryId: number | null ): void {
     if (categoryId === null) {
       this.selectedCategoryId = null;
       this.selectedSubCategoryId = null;
+      this.currentPage = 1;
       this.loadProducts();
       this.filteredSubcategories = this.listaSubCategorias.filter(
         subCategory => subCategory.categoriaId === this.selectedCategoryId
@@ -140,11 +153,13 @@ export class ListaProductosComponent implements OnInit {
 
   onSubCategoryChange(subCategoryId: number | null): void {
     this.selectedSubCategoryId = subCategoryId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
   onMaterialChange(materialId: number | null): void {
     this.selectedMaterialId = materialId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
@@ -163,5 +178,9 @@ export class ListaProductosComponent implements OnInit {
   }
   checkScreenSize(): void {
     this.isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
+  }
+
+  toggleSearchInput(): void {
+    this.showSearchInput = !this.showSearchInput;
   }
 }

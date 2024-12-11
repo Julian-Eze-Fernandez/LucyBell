@@ -44,6 +44,7 @@ export class StockComponent implements OnInit {
   selectedCategoryId: number | null | undefined;
   selectedSubCategoryId: number | null | undefined;
   selectedMaterialId: number | null | undefined;
+  searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 20;
   totalCount: number = 0;
@@ -108,6 +109,7 @@ cargarStockFiltrado(): void {
     this.selectedCategoryId,
     this.selectedSubCategoryId,
     this.selectedMaterialId,
+    this.searchTerm,
     this.currentPage,
     this.pageSize
   ).subscribe((response: HttpResponse<Producto[]>) => {
@@ -147,6 +149,7 @@ onCategoryChange(categoryId: number | null ): void {
   }
   this.selectedCategoryId = categoryId;
   this.selectedSubCategoryId = null;
+  this.currentPage = 1;
   this.cargarStockFiltrado();
 
   this.filteredSubcategories = this.listaSubCategorias.filter(
@@ -156,17 +159,26 @@ onCategoryChange(categoryId: number | null ): void {
 
 onSubCategoryChange(subCategoryId: number | null): void {
   this.selectedSubCategoryId = subCategoryId;
+  this.currentPage = 1;
   this.cargarStockFiltrado();
 }
 
 onMaterialChange(materialId: number | null): void {
   this.selectedMaterialId = materialId;
+  this.currentPage = 1;
   this.cargarStockFiltrado();
+  
 }
 
 onPageChange(page: number): void {
   this.currentPage = page;
   this.cargarStockFiltrado();
+}
+
+onSearch(): void {
+  this.currentPage = 1;
+  this.cargarStockFiltrado();
+  console.log(this.searchTerm);
 }
 
 calculateTotalPages(): void {

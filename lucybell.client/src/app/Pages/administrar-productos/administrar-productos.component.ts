@@ -12,11 +12,12 @@ import { AgregarProductoComponent } from "../Components/agregar-producto/agregar
 import  {EditProductoComponent} from '../Components/edit-producto/edit-producto.component';
 import { HttpResponse } from '@angular/common/http';
 import { SubCategoria } from '../../Models/SubCategoria';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-administrar-productos',
   standalone: true,
-  imports: [CommonModule, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent, SidebarAdminComponent],
+  imports: [CommonModule, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent, SidebarAdminComponent, FormsModule],
   templateUrl: './administrar-productos.component.html',
   styleUrl: './administrar-productos.component.css'
 })
@@ -54,6 +55,7 @@ export class AdministrarProductosComponent implements OnInit {
   selectedCategoryId: number | null | undefined;
   selectedSubCategoryId: number | null | undefined;
   selectedMaterialId: number | null | undefined;
+  searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 12;
   totalCount: number = 0;
@@ -111,6 +113,7 @@ export class AdministrarProductosComponent implements OnInit {
       this.selectedCategoryId,
       this.selectedSubCategoryId,
       this.selectedMaterialId,
+      this.searchTerm,
       this.currentPage,
       this.pageSize
     ).subscribe((response: HttpResponse<Producto[]>) => {  
@@ -133,6 +136,7 @@ export class AdministrarProductosComponent implements OnInit {
     }
     this.selectedCategoryId = categoryId;
     this.selectedSubCategoryId = null;
+    this.currentPage = 1;
     this.loadProducts();
 
     this.filteredSubcategories = this.listaSubCategorias.filter(
@@ -143,17 +147,25 @@ export class AdministrarProductosComponent implements OnInit {
 
   onSubCategoryChange(subCategoryId: number | null): void {
     this.selectedSubCategoryId = subCategoryId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
   onMaterialChange(materialId: number | null): void {
     this.selectedMaterialId = materialId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
   onPageChange(page: number): void {
     this.currentPage = page;
     this.loadProducts();
+  }
+
+  onSearch(): void {
+    this.currentPage = 1;
+    this.loadProducts();
+    console.log(this.searchTerm);
   }
 
   calculateTotalPages(): void {

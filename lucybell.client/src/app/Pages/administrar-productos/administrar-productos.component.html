@@ -71,13 +71,13 @@
           </details>
         </div>
         <label class="input input-bordered input-primary flex items-center gap-2 ml-2">
-          <input type="text" class="grow" placeholder="Buscar" />
+          <input type="text" class="grow" placeholder="Buscar" [(ngModel)]="searchTerm" (change)="onSearch()"/>
           <img src="../../../assets/icons/Search.svg" alt="Search" class="h-4 w-4 opacity-70 ml-2">
         </label>
       </div>
 
       <label class="input input-bordered input-primary flex items-center gap-2 ml-2 max-md:hidden mb-2 max-w-96">
-        <input type="text" class="grow" placeholder="Buscar" />
+        <input type="text" class="grow" placeholder="Buscar" [(ngModel)]="searchTerm" (change)="onSearch()"/>
         <img src="../../../assets/icons/Search.svg" alt="Search" class="h-4 w-4 opacity-70">
       </label>
 

@@ -93,7 +93,8 @@ namespace LucyBell.Server.Controllers
 		int? categoriaId = null,
 		int? subCategoriaId = null,
 		int? materialId = null,
-		int page = 1,
+        string? searchTerm = null,
+        int page = 1,
 		int pageSize = 12)
         {
            
@@ -116,6 +117,11 @@ namespace LucyBell.Server.Controllers
             if (materialId.HasValue)
             {
                 query = query.Where(p => p.MaterialId == materialId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Nombre.Contains(searchTerm));
             }
 
             var totalProducts = await query.CountAsync();
@@ -160,6 +166,7 @@ namespace LucyBell.Server.Controllers
         int? categoriaId = null,
         int? subCategoriaId = null,
         int? materialId = null,
+        string? searchTerm = null,
         int page = 1,
         int pageSize = 20)
         {
@@ -182,6 +189,11 @@ namespace LucyBell.Server.Controllers
             if (materialId.HasValue)
             {
                 query = query.Where(p => p.MaterialId == materialId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Nombre.Contains(searchTerm));
             }
 
             var allVariantsQuery = query.SelectMany(p => p.VariantesProducto);
