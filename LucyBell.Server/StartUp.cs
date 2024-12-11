@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using LucyBell.Server.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -87,6 +88,7 @@ namespace LucyBell.Server
 				options.Password.RequireUppercase = true;
 				options.Password.RequireLowercase = true;
 				options.Password.RequiredUniqueChars = 1;
+				options.SignIn.RequireConfirmedEmail = true;
 			})
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
@@ -113,6 +115,9 @@ namespace LucyBell.Server
 			{
 				opciones.AddPolicy("esadmin", politica => politica.RequireClaim("esadmin"));
 			});
+
+			services.AddTransient<IEmailService, EmailService>();
+
 
 		}
 

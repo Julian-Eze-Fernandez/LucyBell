@@ -1,14 +1,13 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CredencialesUsuarioCreacionDTO } from '../seguridad';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MostrarErroresComponent } from '../mostrar-errores/mostrar-errores.component';
 
 @Component({
   selector: 'app-formulario-registro',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CommonModule, MostrarErroresComponent],
+  imports: [ReactiveFormsModule, CommonModule, MostrarErroresComponent],
   templateUrl: './formulario-registro.component.html',
   styleUrl: './formulario-registro.component.css'
 })
@@ -33,6 +32,9 @@ export class FormularioRegistroComponent {
 
   @Output()
   posteoFormulario = new EventEmitter<CredencialesUsuarioCreacionDTO>();
+
+  @Output()
+  cerrarModal = new EventEmitter<void>();
 
   obtenerMensajeErrorNombre(): string{
     let campo = this.form.controls.nombre;
@@ -99,6 +101,7 @@ export class FormularioRegistroComponent {
 
     const credenciales = this.form.value as CredencialesUsuarioCreacionDTO;
     this.posteoFormulario.emit(credenciales);
+    this.cerrarModal.emit();
   }
 
   passwordsCoinciden(formGroup: any) {

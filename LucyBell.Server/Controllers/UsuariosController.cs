@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using LucyBell.Server.Services;
 using LucyBell.Server.Utilidades;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,18 +24,21 @@ namespace LucyBell.Server.Controllers
 		private readonly SignInManager<IdentityUser> signInManager;
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;
+		private readonly IEmailService emailService;
 
 		public UsuariosController(UserManager<IdentityUser> userManager,
 			IConfiguration configuration,
 			SignInManager<IdentityUser> signInManager,
 			ApplicationDbContext context,
-			IMapper mapper)
+			IMapper mapper,
+			IEmailService emailService)
 		{
 			this.userManager = userManager;
 			this.configuration = configuration;
 			this.signInManager = signInManager;
 			this.context = context;
 			this.mapper = mapper;
+			this.emailService = emailService;
 		}
 
 		[HttpGet("ListadoUsuarios")]
@@ -62,11 +66,45 @@ namespace LucyBell.Server.Controllers
 
 			if (resultado.Succeeded)
 			{
+				var token = await userManager.GenerateEmailConfirmationTokenAsync(usuario);
+				var callbackUrl = Url.Action(
+					nameof(ConfirmarEmail),
+					"Usuarios",
+					new { userId = usuario.Id, token },
+					protocol: HttpContext.Request.Scheme);
+
+
+				var emailBody = $"<p>Por favor confirme su cuenta haciendo clic en este enlace: <a href='{callbackUrl}'>Confirmar cuenta</a></p>";
+				await emailService.SendEmailAsync(credencialesUsuarioCreacionDTO.Email, "Confirma tu cuenta", emailBody);
+
 				return await ConstruirToken(usuario);
 			}
 			else
 			{
 				return BadRequest(resultado.Errors);
+			}
+		}
+
+		[HttpGet("confirmarEmail")]
+		[AllowAnonymous]
+		public async Task<IActionResult> ConfirmarEmail(string userId, string token)
+		{
+			var usuario = await userManager.FindByIdAsync(userId);
+
+			if (usuario == null)
+			{
+				return NotFound("Usuario no encontrado.");
+			}
+
+			var resultado = await userManager.ConfirmEmailAsync(usuario, token);
+
+			if (resultado.Succeeded)
+			{
+				return Redirect("https://127.0.0.1:4200/confirmar-email");
+			}
+			else
+			{
+				return BadRequest("Error al confirmar el email.");
 			}
 		}
 
@@ -78,8 +116,12 @@ namespace LucyBell.Server.Controllers
 
 			if (usuario is null)
 			{
-				var errores = ConstruirLoginIncorrecto();
-				return BadRequest(errores);
+				return BadRequest(new { mensaje = "El usuario no existe o el email es incorrecto." });
+			}
+
+			if (!await userManager.IsEmailConfirmedAsync(usuario))
+			{
+				return BadRequest(new { mensaje = "Debes confirmar tu correo electrónico antes de iniciar sesión." });
 			}
 
 			var resultado = await signInManager.CheckPasswordSignInAsync(usuario,
@@ -91,11 +133,9 @@ namespace LucyBell.Server.Controllers
 			}
 			else
 			{
-				var errores = ConstruirLoginIncorrecto();
-				return BadRequest(errores);
+				return BadRequest(new { mensaje = "La contraseña es incorrecta." });
 			}
 		}
-
 
 		[HttpPost("HacerAdmin")]
 		public async Task<IActionResult> HacerAdmin(EditarClaimDTO editarClaimDTO)

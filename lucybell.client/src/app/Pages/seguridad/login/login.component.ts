@@ -31,6 +31,7 @@ export class LoginComponent {
   seguridadService = inject(SeguridadService);
   router = inject(Router);
   errores: string[] = [];
+  mensajeExito: string = '';
 
   loguear(credenciales: CredencialesUsuarioDTO){
     this.seguridadService.login(credenciales)
@@ -46,18 +47,18 @@ export class LoginComponent {
     })
   }
 
-  registrar(credenciales: CredencialesUsuarioCreacionDTO){
+  registrar(credenciales: CredencialesUsuarioCreacionDTO) {
     this.seguridadService.registrar(credenciales)
-    .subscribe({
-      next: () => {
-        this.isRegisterOpen = false;
-        this.router.navigate(['/']);
-      },
-      error: err => {
-        const errores = extraerErroresIdentity(err);
-        this.errores = errores;
-      }
-    })
+      .subscribe({
+        next: () => {
+          this.closeRegisterModal();
+          this.mensajeExito = 'Registro exitoso. Por favor, confirma tu correo electrónico antes de iniciar sesión.';
+        },
+        error: err => {
+          const errores = extraerErroresIdentity(err);
+          this.errores = errores;
+        }
+      });
   }
 
   constructor(private sanitizer: DomSanitizer) {}
@@ -127,5 +128,5 @@ export class LoginComponent {
 
   resetearErrores() {
     this.errores = [];
-}
+  }
 }
