@@ -36,6 +36,7 @@ import { FooterComponent } from './Pages/Components/footer/footer.component';
 import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
 import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
+import { HistorialVentasComponent } from './Pages/historial-ventas/historial-ventas.component';
 
 register();
 
@@ -45,6 +46,8 @@ register();
 
     
   
+  
+    
   ],
   imports: [
     MetricasComponent,
@@ -81,7 +84,8 @@ register();
     NavBarResponsiveComponent,
     CarritoComponent,
     ProductoComponent,
-    ResumenCompraComponent
+    ResumenCompraComponent,
+    HistorialVentasComponent
   ],
   providers: [],
   bootstrap: [],

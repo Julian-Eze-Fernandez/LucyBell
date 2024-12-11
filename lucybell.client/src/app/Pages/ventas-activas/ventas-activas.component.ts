@@ -1,26 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
-import { AdministrarProductosComponent } from "../administrar-productos/administrar-productos.component";
 import { PedidoService } from '../../Services/pedido.service';
-
-interface Sale {
-  id: number;
-  nombre: string;
-  fecha: string;
-  ubicacion: string;
-  entrega: string;
-  total: number;
-}
-
-interface Sale2 {
-  id: number;
-  nombre: string;
-  fecha: string;
-  envio: string;
-  intentos: number;
-  total: number;
-}
 
 @Component({
   selector: 'app-ventas-activas',
@@ -36,7 +17,6 @@ export class VentasActivasComponent implements OnInit {
   PedidosActivos: any[] = []; // This is the array fetched from the service
   PedidosEnvio: any[] = [];
   PedidosRetiro: any[] = [];
-  pedidoSeleccinadoNombre: string = '';
   pedidoSeleccinadoId: number = -1;
 
   pedidoSeleccinado: any;
@@ -51,7 +31,6 @@ export class VentasActivasComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetPedidosYFiltrados();
-
   }
 
   GetPedidosYFiltrados() {
@@ -123,9 +102,6 @@ export class VentasActivasComponent implements OnInit {
     })
     this.GetPedidosYFiltrados();
   }
-
-
-
 }
 
 

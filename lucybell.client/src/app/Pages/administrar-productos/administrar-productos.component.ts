@@ -10,7 +10,6 @@ import { Material } from '../../Models/Material';
 import {MaterialService} from '../../Services/material.service';
 import { AgregarProductoComponent } from "../Components/agregar-producto/agregar-producto.component";
 import  {EditProductoComponent} from '../Components/edit-producto/edit-producto.component';
-import  {VariantesProductoService} from '../../Services/variantes-producto.service';
 import { HttpResponse } from '@angular/common/http';
 import { SubCategoria } from '../../Models/SubCategoria';
 

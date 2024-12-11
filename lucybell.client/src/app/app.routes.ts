@@ -17,6 +17,7 @@ import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.co
 import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
+import { HistorialVentasComponent } from './Pages/historial-ventas/historial-ventas.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -27,15 +28,15 @@ export const routes: Routes = [
     { path: 'editarProducto/:id', component:EditProductoComponent, canActivate: [esAdminGuard]},
     { path: 'stock', component:StockComponent, canActivate: [esAdminGuard]},
     { path: 'metricas', component: MetricasComponent, canActivate: [esAdminGuard]},
+    { path: 'ventasActivas', component: VentasActivasComponent, canActivate: [esAdminGuard]},
+    { path: 'historialVentas', component: HistorialVentasComponent, canActivate: [esAdminGuard]},
     { path: 'navBar', component: navBarComponent },
     { path: 'inicio', component: InicioComponent },
     { path: 'usuarios', component: IndiceUsuariosComponent},
     { path: 'contacto', component: ContactoComponent},
     { path: 'productos', component: ProductosComponent},
     { path: 'productos/:id', component: ProductoComponent},
-    { path: 'ventasActivas', component: VentasActivasComponent},
     { path: 'sobre-mi', component: SobreMiComponent},
-
     { path: 'resumenCompra', component: ResumenCompraComponent},
 ];
 
