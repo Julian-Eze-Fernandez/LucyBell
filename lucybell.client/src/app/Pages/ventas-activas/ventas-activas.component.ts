@@ -39,6 +39,9 @@ export class VentasActivasComponent implements OnInit {
   pedidoSeleccinadoNombre: string = '';
   pedidoSeleccinadoId: number = -1;
 
+  pedidoSeleccinado: any;
+
+  modalTitle: string = '';
   modalMsj: string = '';
 
   confirmarVenta:boolean = false;
@@ -52,6 +55,9 @@ export class VentasActivasComponent implements OnInit {
   }
 
   GetPedidosYFiltrados() {
+    this.PedidosActivos = [];
+    this.PedidosEnvio = [];
+    this.PedidosRetiro = [];
     this.pedidoService.obtenerPedidosActivos().subscribe({
       next: (data) => {
         this.PedidosActivos=data;
@@ -74,34 +80,50 @@ export class VentasActivasComponent implements OnInit {
     this.sidebarAdmin.toggleSidebar();
   }
 
-  verDetalles(id: number): void {
-    console.log('Ver detalles de la venta:', id);
-    // Implementar lógica para mostrar detalles
+  openInfoModal(pedido:any): void {
+    this.pedidoSeleccinado = pedido;
+
+    console.log(this.pedidoSeleccinado)
   }
 
   openConfirmarVentaModal(pedido: any): void {
+    this.pedidoSeleccinado = pedido;
     this.pedidoSeleccinadoId = pedido.id;
-    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
 
     this.modalMsj = '¿Está seguro de que desea confirmar que esta venta se ha completado con éxito?'
+    this.modalTitle = 'Confirmar venta exitosa';
     this.confirmarVenta = true
   }
 
   ventaExitosa(id: number): void {
-    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe()
+    this.pedidoService.actualizarEstadoPedido(id, 'Pagado').subscribe({
+      next:() => {
+        this.GetPedidosYFiltrados();
+      }
+    })
+    this.GetPedidosYFiltrados();
   }
 
   openCancelarVentaModal(pedido: any): void {
+    this.pedidoSeleccinado = pedido;
     this.pedidoSeleccinadoId = pedido.id;
-    this.pedidoSeleccinadoNombre = pedido.usuario.nombre;
     this.confirmarVenta = false;
 
     this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
+    this.modalTitle = 'Cancelar Venta';
+
+    console.log(this.pedidoSeleccinado)
   }
 
   cancelarVenta(id: number): void {
-    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe()
+    this.pedidoService.actualizarEstadoPedido(id, 'Cancelado').subscribe({
+      next:() => {
+        this.GetPedidosYFiltrados();
+      }
+    })
+    this.GetPedidosYFiltrados();
   }
+
 
 
 }

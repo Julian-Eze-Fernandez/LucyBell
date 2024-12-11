@@ -136,7 +136,6 @@ namespace LucyBell.Server
 
             app.UseStaticFiles();
 
-            // Serve static files from custom directory (Imagenes in your case)
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
