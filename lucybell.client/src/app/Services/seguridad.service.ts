@@ -48,12 +48,22 @@ export class SeguridadService {
     return this.http.post(`${this.urlBase}/removeradmin`, {email});
   }
 
-  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  // registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  //   return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
+  //   .pipe(
+  //     tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
+  //   )
+  // }
+
+  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO> {
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
-    .pipe(
-      tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
-    )
+      .pipe(
+        tap(respuestaAutenticacion => {
+          // No se guarda el token aquí, se omite guardar el token
+        })
+      );
   }
+  
 
   login(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/login`, credenciales)
@@ -129,6 +139,14 @@ export class SeguridadService {
   }
 
   solicitarRestablecimientoContrasena(email: string): Observable<any> {
+    return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
+  }
+
+  solicitarRestablecimientoParaUsuarioActual(): Observable<any> {
+    const email = this.obtenerCampoJWT('email');
+    if (!email) {
+      throw new Error('No se pudo obtener el email del usuario logueado.');
+    }
     return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
   }
 }

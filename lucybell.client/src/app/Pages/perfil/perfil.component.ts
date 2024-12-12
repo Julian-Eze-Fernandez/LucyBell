@@ -20,6 +20,7 @@ export class PerfilComponent implements OnInit {
   pedidos: any[] = [];
   pedidosCompletados: any[] = [];
   pedidosPendientes: any[] = [];
+  mensaje: string | null = null;
 
 
   constructor(private seguridadService: SeguridadService, private pedidoService: PedidoService, private router: Router) { }
@@ -81,7 +82,13 @@ export class PerfilComponent implements OnInit {
 
   volverTienda(): void {
     this.router.navigate(['/']);
-  } 
+  }
+  
+  enviarCambioContrasena(): void {
+    this.seguridadService.solicitarRestablecimientoParaUsuarioActual().subscribe();
+
+    this.mensaje = 'Se ha enviado un enlace para restablecer tu contraseña, este proceso puede tardar unos minutos.';
+  }
 
 }
 
