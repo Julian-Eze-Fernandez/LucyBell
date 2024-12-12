@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CredencialesUsuarioDTO } from '../seguridad';
 import { CommonModule } from '@angular/common';
 import { MostrarErroresComponent } from "../mostrar-errores/mostrar-errores.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-autenticacion',
@@ -12,6 +13,10 @@ import { MostrarErroresComponent } from "../mostrar-errores/mostrar-errores.comp
   styleUrl: './formulario-autenticacion.component.css'
 })
 export class FormularioAutenticacionComponent {
+
+  constructor(
+    private router: Router
+  ) {}
 
   private formBuilder = inject(FormBuilder);
 
@@ -62,4 +67,7 @@ export class FormularioAutenticacionComponent {
     this.posteoFormulario.emit(credenciales);
   }
 
+  NavegarSolicitudCambioContraseña(): void {
+    this.router.navigate(['/solicitud-restablecer-contrasena']);
+  } 
 }

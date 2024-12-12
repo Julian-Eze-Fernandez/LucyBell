@@ -19,7 +19,6 @@ import { AutorizadoComponent } from './Pages/seguridad/autorizado/autorizado.com
 import { LoginComponent } from './Pages/seguridad/login/login.component';
 import { FormularioAutenticacionComponent } from './Pages/seguridad/formulario-autenticacion/formulario-autenticacion.component';
 import { MostrarErroresComponent } from './Pages/seguridad/mostrar-errores/mostrar-errores.component';
-import { RegistroComponent } from './Pages/seguridad/registro/registro.component';
 import { FormularioRegistroComponent } from './Pages/seguridad/formulario-registro/formulario-registro.component';
 import { IndiceUsuariosComponent } from './Pages/seguridad/indice-usuarios/indice-usuarios.component';
 import { ListadoGenericoComponent } from './Pages/seguridad/compartidos/componentes/listado-generico/listado-generico.component';
@@ -36,6 +35,11 @@ import { FooterComponent } from './Pages/Components/footer/footer.component';
 import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.component';
 import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
+import { ConfirmarEmailComponent } from './Pages/confirmar-email/confirmar-email.component';
+import { RestablecerContrasenaComponent } from './Pages/restablecer-contrasena/restablecer-contrasena.component';
+import { RestablecerContrasenaSolicitudComponent } from './Pages/restablecer-contrasena-solicitud/restablecer-contrasena-solicitud.component';
+import { HistorialVentasComponent } from './Pages/historial-ventas/historial-ventas.component';
+import { PerfilComponent } from './Pages/perfil/perfil.component';
 
 register();
 
@@ -47,6 +51,7 @@ register();
   
   ],
   imports: [
+    PerfilComponent,
     MetricasComponent,
     SobreMiComponent,
     VentasActivasComponent,
@@ -72,7 +77,6 @@ register();
     LoginComponent,
     FormularioAutenticacionComponent,
     MostrarErroresComponent,
-    RegistroComponent,
     FormularioRegistroComponent,
     IndiceUsuariosComponent,
     ListadoGenericoComponent,
@@ -81,7 +85,12 @@ register();
     NavBarResponsiveComponent,
     CarritoComponent,
     ProductoComponent,
-    ResumenCompraComponent
+    ResumenCompraComponent,
+    HistorialVentasComponent
+    ResumenCompraComponent,
+    ConfirmarEmailComponent,
+    RestablecerContrasenaComponent,
+    RestablecerContrasenaSolicitudComponent
   ],
   providers: [],
   bootstrap: [],

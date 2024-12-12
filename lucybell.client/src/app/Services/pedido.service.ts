@@ -26,6 +26,10 @@ export class PedidoService {
   return this.http.get<PedidoDTO[]>(`${this.apiUrl}/pendientes`);
   }
 
+  obtenerPedidosFinalizados(): Observable<PedidoDTO[]> {
+    return this.http.get<PedidoDTO[]>(`${this.apiUrl}/finalizados`);
+    }
+
   actualizarEstadoPedido(id: number, estado: string): Observable<void> {
   return this.http.put<void>(`${this.apiUrl}/${id}/estado?nuevoEstado=${estado}`, { estado });
   }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
 import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO, UsuarioDTO } from '../Pages/seguridad/seguridad';
@@ -23,6 +23,23 @@ export class SeguridadService {
     return this.http.get<UsuarioDTO[]>(`${this.urlBase}/ListadoUsuarios`, { params: queryParams, observe: 'response' });
   }
 
+  obtenerUsuarioActual(): Observable<UsuarioDTO> {
+    const token = this.obtenerToken();
+    if (!token) {
+      throw new Error('No se encontró un token de autenticación.');
+    }
+
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    return this.http.get<UsuarioDTO>(`${this.urlBase}/me`, { headers });
+  }
+
+  obtenerCantidadUsuarios(): Observable<number> {
+    return this.http.get<number>(`${this.urlBase}/CantidadUsuarios`);
+  }
+
   hacerAdmin(email: string){
     return this.http.post(`${this.urlBase}/haceradmin`, {email});
   }
@@ -31,12 +48,22 @@ export class SeguridadService {
     return this.http.post(`${this.urlBase}/removeradmin`, {email});
   }
 
-  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  // registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  //   return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
+  //   .pipe(
+  //     tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
+  //   )
+  // }
+
+  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO> {
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
-    .pipe(
-      tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
-    )
+      .pipe(
+        tap(respuestaAutenticacion => {
+          // No se guarda el token aquí, se omite guardar el token
+        })
+      );
   }
+  
 
   login(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/login`, credenciales)
@@ -105,5 +132,21 @@ export class SeguridadService {
     }
 
     return true;
+  }
+
+  restablecerContrasena(data: { email: string; token: string; nuevaContrasena: string }): Observable<string> {
+    return this.http.post<string>(`${this.urlBase}/restablecer-contrasena`, data, { responseType: 'text' as 'json' });
+  }
+
+  solicitarRestablecimientoContrasena(email: string): Observable<any> {
+    return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
+  }
+
+  solicitarRestablecimientoParaUsuarioActual(): Observable<any> {
+    const email = this.obtenerCampoJWT('email');
+    if (!email) {
+      throw new Error('No se pudo obtener el email del usuario logueado.');
+    }
+    return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
   }
 }

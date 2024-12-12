@@ -24,14 +24,14 @@
 							</div>
 							<ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow opacity-100 ">
 
-								<span class="block px-4 py-2 rounded-xl transition   w-full">{{seguridadService.obtenerCampoJWT('email')}}</span>
+								<span class="block px-4 py-2 rounded-xl transition w-full truncate">{{seguridadService.obtenerCampoJWT('email')}}</span>
 								<li>
-									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									<a routerLink="/perfil" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
 									  Perfil
 									</a>
 								</li>
 								<li *ngIf="seguridadService.obtenerRol()">
-									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									<a routerLink="/metricas" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
 									  Administrar
 									</a>
 								</li>
@@ -55,11 +55,12 @@
 
 				<button class="flex transition duration-300 pr-1 h-full items-center text-3xl " (click)="toggleCart()">
 					<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-8"/>
+					<span class="text-lg text-black">({{carritoService.cantidad()}})</span>
 				</button>
 			        
 			</div>
 		  </div>
-		  <app-carrito [cartOpen]="cartOpen"></app-carrito>
+		  <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>
 		</div>
 		<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-40 box-border"></div>
 	  

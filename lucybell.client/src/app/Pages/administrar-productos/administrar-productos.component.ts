@@ -10,14 +10,14 @@ import { Material } from '../../Models/Material';
 import {MaterialService} from '../../Services/material.service';
 import { AgregarProductoComponent } from "../Components/agregar-producto/agregar-producto.component";
 import  {EditProductoComponent} from '../Components/edit-producto/edit-producto.component';
-import  {VariantesProductoService} from '../../Services/variantes-producto.service';
 import { HttpResponse } from '@angular/common/http';
 import { SubCategoria } from '../../Models/SubCategoria';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-administrar-productos',
   standalone: true,
-  imports: [CommonModule, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent, SidebarAdminComponent],
+  imports: [CommonModule, TwoButtonModalComponent, AgregarProductoComponent, EditProductoComponent, SidebarAdminComponent, FormsModule],
   templateUrl: './administrar-productos.component.html',
   styleUrl: './administrar-productos.component.css'
 })
@@ -55,8 +55,9 @@ export class AdministrarProductosComponent implements OnInit {
   selectedCategoryId: number | null | undefined;
   selectedSubCategoryId: number | null | undefined;
   selectedMaterialId: number | null | undefined;
+  searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 12;
   totalCount: number = 0;
   totalPages: number = 0;
 
@@ -112,15 +113,13 @@ export class AdministrarProductosComponent implements OnInit {
       this.selectedCategoryId,
       this.selectedSubCategoryId,
       this.selectedMaterialId,
+      this.searchTerm,
       this.currentPage,
       this.pageSize
     ).subscribe((response: HttpResponse<Producto[]>) => {  
       this.productos = response.body || [];
       this.totalCount = +response.headers.get('X-Total-Count')!;
-
-      console.log("Response Headers:", response.headers.keys());
-      console.log("X-Total-Count:", response.headers.get('X-Total-Count'));
-      
+      console.log(this.totalCount);
       this.calculateTotalPages();
     });
   }
@@ -137,22 +136,24 @@ export class AdministrarProductosComponent implements OnInit {
     }
     this.selectedCategoryId = categoryId;
     this.selectedSubCategoryId = null;
+    this.currentPage = 1;
     this.loadProducts();
 
     this.filteredSubcategories = this.listaSubCategorias.filter(
       subCategory => subCategory.categoriaId === this.selectedCategoryId
     )
-    console.log("filteredSubcategories", this.filteredSubcategories);
-    console.log("listaCategorias", this.listaSubCategorias);
+
   }
 
   onSubCategoryChange(subCategoryId: number | null): void {
     this.selectedSubCategoryId = subCategoryId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
   onMaterialChange(materialId: number | null): void {
     this.selectedMaterialId = materialId;
+    this.currentPage = 1;
     this.loadProducts();
   }
 
@@ -161,9 +162,14 @@ export class AdministrarProductosComponent implements OnInit {
     this.loadProducts();
   }
 
+  onSearch(): void {
+    this.currentPage = 1;
+    this.loadProducts();
+    console.log(this.searchTerm);
+  }
+
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-    console.log("totalCount", this.totalCount);
   }
 
   openEditModal(producto: any): void {

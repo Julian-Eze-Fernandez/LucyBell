@@ -35,6 +35,7 @@ export class ProductoService {
     categoriaId?: number | null,
     subCategoriaId?: number | null,
     materialId?: number | null,
+    searchTerm?: string | null,
     page: number = 1,
     pageSize: number = 10
   ): Observable<HttpResponse<Producto[]>> { 
@@ -42,11 +43,32 @@ export class ProductoService {
     if (categoriaId) params = params.append('categoriaId', categoriaId.toString());
     if (subCategoriaId) params = params.append('subCategoriaId', subCategoriaId.toString());
     if (materialId) params = params.append('materialId', materialId.toString());
+    if (searchTerm) params = params.append('searchTerm', searchTerm.toString());
     params = params.append('page', page.toString());
     params = params.append('pageSize', pageSize.toString());
   
     // Return full HTTP response
     return this.http.get<Producto[]>(`${this.apiUrl}/filtrado`, { params, observe: 'response' });
+  }
+
+  GetFilteredProductsVariants(
+    categoriaId?: number | null,
+    subCategoriaId?: number | null,
+    materialId?: number | null,
+    searchTerm?: string | null,
+    page: number = 1,
+    pageSize: number = 20
+  ): Observable<HttpResponse<Producto[]>> { 
+    let params = new HttpParams();
+    if (categoriaId) params = params.append('categoriaId', categoriaId.toString());
+    if (subCategoriaId) params = params.append('subCategoriaId', subCategoriaId.toString());
+    if (materialId) params = params.append('materialId', materialId.toString());
+    if (searchTerm) params = params.append('searchTerm', searchTerm.toString());
+    params = params.append('page', page.toString());
+    params = params.append('pageSize', pageSize.toString());
+  
+    // Return full HTTP response
+    return this.http.get<Producto[]>(`${this.apiUrl}/filtradoVariantes`, { params, observe: 'response' });
   }
 
   GetRelatedProducts(id:number, count: number = 4) {

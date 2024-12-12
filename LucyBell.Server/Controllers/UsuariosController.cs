@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using LucyBell.Server.DTOs.AdministracionesUsuarioDTOs;
+using LucyBell.Server.Services;
 using LucyBell.Server.Utilidades;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,18 +24,21 @@ namespace LucyBell.Server.Controllers
 		private readonly SignInManager<IdentityUser> signInManager;
 		private readonly ApplicationDbContext context;
 		private readonly IMapper mapper;
+		private readonly IEmailService emailService;
 
 		public UsuariosController(UserManager<IdentityUser> userManager,
 			IConfiguration configuration,
 			SignInManager<IdentityUser> signInManager,
 			ApplicationDbContext context,
-			IMapper mapper)
+			IMapper mapper,
+			IEmailService emailService)
 		{
 			this.userManager = userManager;
 			this.configuration = configuration;
 			this.signInManager = signInManager;
 			this.context = context;
 			this.mapper = mapper;
+			this.emailService = emailService;
 		}
 
 		[HttpGet("ListadoUsuarios")]
@@ -47,6 +51,38 @@ namespace LucyBell.Server.Controllers
 
 			return usuarios;
 		}
+
+        [HttpGet("CantidadUsuarios")]
+        public async Task<ActionResult<int>> ObtenerCantidadUsuarios()
+        {
+            var cantidadUsuarios = await context.Users.CountAsync();
+            return Ok(cantidadUsuarios);
+        }
+
+        [HttpGet("me")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<UsuarioDTO>> ObtenerUsuarioActual()
+        {
+            // Obtener el ID del usuario desde los claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("No se pudo identificar al usuario.");
+            }
+
+            // Buscar al usuario en la base de datos
+            var usuario = await userManager.FindByIdAsync(userId);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+
+            // Mapear al DTO
+            var usuarioDTO = mapper.Map<UsuarioDTO>(usuario);
+
+            return Ok(usuarioDTO);
+        }
 
 		[HttpPost("registrar")]
 		public async Task<ActionResult<RespuestaAutenticacionDTO>> Registrar(CredencialesUsuarioCreacionDTO credencialesUsuarioCreacionDTO)
@@ -62,11 +98,45 @@ namespace LucyBell.Server.Controllers
 
 			if (resultado.Succeeded)
 			{
+				var token = await userManager.GenerateEmailConfirmationTokenAsync(usuario);
+				var callbackUrl = Url.Action(
+					nameof(ConfirmarEmail),
+					"Usuarios",
+					new { userId = usuario.Id, token },
+					protocol: HttpContext.Request.Scheme);
+
+
+				var emailBody = $"<p>Por favor confirme su cuenta haciendo clic en este enlace: <a href='{callbackUrl}'>Confirmar cuenta</a></p>";
+				await emailService.SendEmailAsync(credencialesUsuarioCreacionDTO.Email, "Confirma tu cuenta", emailBody);
+
 				return await ConstruirToken(usuario);
 			}
 			else
 			{
 				return BadRequest(resultado.Errors);
+			}
+		}
+
+		[HttpGet("confirmarEmail")]
+		[AllowAnonymous]
+		public async Task<IActionResult> ConfirmarEmail(string userId, string token)
+		{
+			var usuario = await userManager.FindByIdAsync(userId);
+
+			if (usuario == null)
+			{
+				return NotFound("Usuario no encontrado.");
+			}
+
+			var resultado = await userManager.ConfirmEmailAsync(usuario, token);
+
+			if (resultado.Succeeded)
+			{
+				return Redirect("https://127.0.0.1:4200/confirmar-email");
+			}
+			else
+			{
+				return BadRequest("Error al confirmar el email.");
 			}
 		}
 
@@ -78,8 +148,12 @@ namespace LucyBell.Server.Controllers
 
 			if (usuario is null)
 			{
-				var errores = ConstruirLoginIncorrecto();
-				return BadRequest(errores);
+				return BadRequest(new { mensaje = "El usuario no existe o el email es incorrecto." });
+			}
+
+			if (!await userManager.IsEmailConfirmedAsync(usuario))
+			{
+				return BadRequest(new { mensaje = "Debes confirmar tu correo electrónico antes de iniciar sesión." });
 			}
 
 			var resultado = await signInManager.CheckPasswordSignInAsync(usuario,
@@ -91,11 +165,9 @@ namespace LucyBell.Server.Controllers
 			}
 			else
 			{
-				var errores = ConstruirLoginIncorrecto();
-				return BadRequest(errores);
+				return BadRequest(new { mensaje = "La contraseña es incorrecta." });
 			}
 		}
-
 
 		[HttpPost("HacerAdmin")]
 		public async Task<IActionResult> HacerAdmin(EditarClaimDTO editarClaimDTO)
@@ -124,6 +196,55 @@ namespace LucyBell.Server.Controllers
 			await userManager.RemoveClaimAsync(usuario, new Claim("esadmin", "true"));
 			return NoContent();
 		}
+
+		[HttpPost("solicitar-restablecimiento-contrasena")]
+		[AllowAnonymous]
+		public async Task<IActionResult> SolicitarRestablecimientoContrasena([FromBody] SolicitarRestablecimientoDTO solicitarRestablecimientodDTO)
+		{
+			Console.WriteLine($"Solicitud de restablecimiento para: {solicitarRestablecimientodDTO.Email}");
+
+			var usuario = await userManager.FindByEmailAsync(solicitarRestablecimientodDTO.Email);
+			if (usuario == null)
+			{
+				return BadRequest("No se encontró un usuario con ese correo electrónico.");
+			}
+
+			var token = await userManager.GeneratePasswordResetTokenAsync(usuario);
+
+			var enlace = $"https://127.0.0.1:4200/restablecer-contrasena?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(usuario.Email)}";
+
+			var emailBody = $"<p>Por favor, restablezca su contraseña haciendo clic en este enlace: <a href='{enlace}'>Restablecer contraseña</a></p>";
+			await emailService.SendEmailAsync(solicitarRestablecimientodDTO.Email, "Restablecimiento de Contraseña", emailBody);
+
+			return Ok("Se ha enviado un enlace para restablecer la contraseña.");
+		}
+
+		[HttpPost("restablecer-contrasena")]
+		[AllowAnonymous]
+		public async Task<IActionResult> RestablecerContrasena([FromBody] RestablecerContrasenaDTO restablecerContrasenaDTO)
+		{
+			var usuario = await userManager.FindByEmailAsync(restablecerContrasenaDTO.Email);
+			if (usuario == null)
+			{
+				return BadRequest("No se encontró un usuario con ese correo electrónico.");
+			}
+
+			var decodedToken = Uri.UnescapeDataString(restablecerContrasenaDTO.Token);
+
+			var resultado = await userManager.ResetPasswordAsync(usuario, decodedToken, restablecerContrasenaDTO.NuevaContrasena);
+			if (resultado.Succeeded)
+			{
+				return Ok("La contraseña se ha restablecido correctamente.");
+			}
+
+			foreach (var error in resultado.Errors)
+			{
+				Console.WriteLine($"Error: {error.Code}, {error.Description}");
+			}
+			return BadRequest(resultado.Errors);
+		}
+
+
 
 		private IEnumerable<IdentityError> ConstruirLoginIncorrecto()
 		{

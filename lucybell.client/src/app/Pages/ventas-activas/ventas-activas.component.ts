@@ -1,26 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
-import { AdministrarProductosComponent } from "../administrar-productos/administrar-productos.component";
 import { PedidoService } from '../../Services/pedido.service';
-
-interface Sale {
-  id: number;
-  nombre: string;
-  fecha: string;
-  ubicacion: string;
-  entrega: string;
-  total: number;
-}
-
-interface Sale2 {
-  id: number;
-  nombre: string;
-  fecha: string;
-  envio: string;
-  intentos: number;
-  total: number;
-}
 
 @Component({
   selector: 'app-ventas-activas',
@@ -36,8 +17,8 @@ export class VentasActivasComponent implements OnInit {
   PedidosActivos: any[] = []; // This is the array fetched from the service
   PedidosEnvio: any[] = [];
   PedidosRetiro: any[] = [];
-  pedidoSeleccinadoNombre: string = '';
   pedidoSeleccinadoId: number = -1;
+  modalImage: string = '';
 
   pedidoSeleccinado: any;
 
@@ -51,7 +32,6 @@ export class VentasActivasComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetPedidosYFiltrados();
-
   }
 
   GetPedidosYFiltrados() {
@@ -68,7 +48,6 @@ export class VentasActivasComponent implements OnInit {
             this.PedidosRetiro.push(obj);
           }
         }
-        console.log(this.PedidosActivos)
       },
       error: (err) => {
         console.log(err.message);
@@ -82,8 +61,6 @@ export class VentasActivasComponent implements OnInit {
 
   openInfoModal(pedido:any): void {
     this.pedidoSeleccinado = pedido;
-
-    console.log(this.pedidoSeleccinado)
   }
 
   openConfirmarVentaModal(pedido: any): void {
@@ -92,6 +69,7 @@ export class VentasActivasComponent implements OnInit {
 
     this.modalMsj = '¿Está seguro de que desea confirmar que esta venta se ha completado con éxito?'
     this.modalTitle = 'Confirmar venta exitosa';
+    this.modalImage = '../../../assets/icons/DoneBlack.svg';
     this.confirmarVenta = true
   }
 
@@ -111,8 +89,7 @@ export class VentasActivasComponent implements OnInit {
 
     this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
     this.modalTitle = 'Cancelar Venta';
-
-    console.log(this.pedidoSeleccinado)
+    this.modalImage = '../../../assets/icons/Close.svg';
   }
 
   cancelarVenta(id: number): void {
@@ -123,9 +100,6 @@ export class VentasActivasComponent implements OnInit {
     })
     this.GetPedidosYFiltrados();
   }
-
-
-
 }
 
 

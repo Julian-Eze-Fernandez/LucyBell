@@ -102,6 +102,7 @@ export class AgregarProductoComponent implements OnInit {
       });
       this.errorMessage = '';
       this.isAddingColor = false;
+      this.variantes = [];
 
       this.productoForm.get('categoria')?.valueChanges.subscribe(value => {
         this.selectedCategoriaId = value;
@@ -271,7 +272,7 @@ export class AgregarProductoComponent implements OnInit {
         });
       
     } else {
-      const defaultVariante: VariantesProductoCreacionDTO[] = [{ color: null, cantidad: this.currentCantidad }];
+      const defaultVariante: VariantesProductoCreacionDTO[] = [{ color: "base", cantidad: this.currentCantidad }];
 
       this.VariantesProductoService.postVariantesProductos(productoId, defaultVariante)
         .subscribe({
