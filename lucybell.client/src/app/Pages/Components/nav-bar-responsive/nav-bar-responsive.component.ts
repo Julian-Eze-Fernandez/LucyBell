@@ -6,6 +6,7 @@ import { AutorizadoComponent } from '../../seguridad/autorizado/autorizado.compo
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CarritoComponent } from "../carrito/carrito.component";
+import { CarritoService } from '../../../Services/carrito.service';
 
 @Component({
   selector: 'app-nav-bar-responsive',
@@ -16,6 +17,7 @@ import { CarritoComponent } from "../carrito/carrito.component";
 })
 export class NavBarResponsiveComponent implements OnInit {
   seguridadService = inject(SeguridadService);
+  carritoService = inject(CarritoService);
   @ViewChild('loginModal') loginModal!: LoginComponent;
   showModal: boolean = false;
 
@@ -62,5 +64,9 @@ export class NavBarResponsiveComponent implements OnInit {
 
   toggleCart() {
     this.cartOpen = !this.cartOpen;
+  }
+
+  closeCart() {
+    this.cartOpen = false;
   }
 }
