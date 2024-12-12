@@ -165,26 +165,6 @@ namespace LucyBell.Server.Controllers
 			return NoContent();
 		}
 
-		[HttpPost("cambiar-contrasena")]
-		[Authorize]
-		public async Task<IActionResult> CambiarContrasena([FromBody] CambiarContrasenaDTO cambiarContrasenaDTO)
-		{
-			var usuario = await userManager.GetUserAsync(User);
-			if (usuario == null)
-			{
-				return NotFound("Usuario no encontrado.");
-			}
-
-			var resultado = await userManager.ChangePasswordAsync(usuario, cambiarContrasenaDTO.PasswordActual, cambiarContrasenaDTO.NuevaPassword);
-
-			if (resultado.Succeeded)
-			{
-				return Ok("La contraseña se cambió correctamente.");
-			}
-
-			return BadRequest(resultado.Errors);
-		}
-
 		[HttpPost("solicitar-restablecimiento-contrasena")]
 		[AllowAnonymous]
 		public async Task<IActionResult> SolicitarRestablecimientoContrasena([FromBody] SolicitarRestablecimientoDTO solicitarRestablecimientodDTO)

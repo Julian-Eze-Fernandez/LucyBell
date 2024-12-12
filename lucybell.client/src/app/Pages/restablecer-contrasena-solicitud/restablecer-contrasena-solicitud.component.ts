@@ -11,16 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './restablecer-contrasena-solicitud.component.html',
   styleUrl: './restablecer-contrasena-solicitud.component.css'
 })
-// export class RestablecerContrasenaSolicitudComponent {
 
-//   constructor(
-//     private router: Router
-//   ) {}
-
-//   volverTienda(): void {
-//     this.router.navigate(['']);
-//   } 
-// }
 export class RestablecerContrasenaSolicitudComponent {
   formulario: FormGroup;
   mensaje: string | null = null;

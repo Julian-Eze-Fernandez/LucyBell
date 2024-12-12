@@ -42,7 +42,7 @@ export const routes: Routes = [
     { path: 'resumenCompra', component: ResumenCompraComponent},
     { path: 'confirmar-email', component: ConfirmarEmailComponent},
     { path: 'restablecer-contrasena', component: RestablecerContrasenaComponent},
-    { path: 'solicitud-restablecer-contrasena', component: RestablecerContrasenaSolicitudComponent}
+    { path: 'solicitud-restablecer-contrasena', component: RestablecerContrasenaSolicitudComponent},
 ];
 
 

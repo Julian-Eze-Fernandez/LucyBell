@@ -1,63 +1,67 @@
+<div class="relative h-screen bg-MyBg">
+  <!-- Header Section -->
+  <div class="relative mx-auto px-4">
 
+    <button 
+      class="btn btn-primary font-medium text-sm md:text-base px-4 md:px-6 absolute top-4 left-4"
+      (click)="volverTienda()">
+      Volver
+    </button>
 
-  <div class="relative h-screen bg-MyBg">
-    <!-- Header Section -->
-    <div class="relative mx-auto px-4">
-      <!-- Botón en la esquina superior izquierda -->
-      <button 
-        class="w-full lg:w-auto mt-4 btn btn-primary font-medium text-base px-6 absolute top-0 left-0 m-4" (click)="volverTienda()">
-        Volver a la tienda
-        </button>
-      <div class="flex flex-col lg:flex-row lg:space-x-8">
-        <div class="relative w-full">
-          <!-- Vines Image Left -->
-          <div class="fixed bottom-0 left-0 h-16 md:h-32 lg:h-48">
-            <img src="../../../assets/Vines2.svg" alt="Vines Left" class="h-full object-contain">
-          </div>
-  
-          <!-- Logo Center -->
-          <div class="absolute top-0 left-1/2 transform -translate-x-1/2 h-24 md:h-36 lg:h-44 flex justify-center items-center">
-            <img src="../../../assets/nombreLogoVioleta.png" alt="Lucybell Logo" class="h-full">
-          </div>
-  
-          <!-- Vines Image Right -->
-          <div class="absolute top-0 right-0 h-16 md:h-32 lg:h-48">
-            <img src="../../../assets/vines1.svg" alt="Vines Right" class="h-full object-contain">
-          </div>
-        </div>
+    <div class="relative w-full h-full">
+      <!-- Logo Center -->
+      <div class="absolute top-8 left-1/2 transform -translate-x-1/2 h-16 sm:h-20 md:h-28 lg:h-36 xl:h-44 flex justify-center items-center">
+        <img src="../../../assets/nombreLogoVioleta.png" alt="Lucybell Logo" class="h-full">
       </div>
-    </div>
-  
-    <!-- Main Content -->
-    <div class="flex flex-col items-center justify-center h-full">
-      <div class="p-6 bg-white rounded shadow-lg">
-        <h1 class="text-2xl font-bold text-center mb-2">Restablecimiento de Contraseña</h1>
-  
-        <form [formGroup]="formulario" (ngSubmit)="enviarSolicitud()">
-          <div class="mb-4">
-            <label for="email" class="block text-gray-700 font-bold mb-2 mt-4">Ingresa tu Email</label>
-            <input
-              id="email"
-              type="email"
-              formControlName="email"
-              class="border rounded px-4 py-2 w-full"
-            />
-            <p *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched" class="text-red-500 mt-2">
-              Ingresa un correo válido.
-            </p>
-          </div>
-          <div class="flex justify-center">
-            <button
-              type="submit" [disabled]="formulario.invalid" class="btn btn-primary font-medium text-base px-6">
-              Enviar
-            </button>
-          </div>
-        </form>
 
-        <p class="text-center mt-4">Se le enviara un correo con el enlace para cambiar la contraseña.</p>
-        <p class="text-center">Esto puede tomar unos minutos...</p>
-  
-        <p *ngIf="mensaje" class="text-center mt-4 text-green-500">{{ mensaje }}</p>
+      <!-- Vines Image Right -->
+      <div class="absolute top-0 right-0 h-12 sm:h-16 md:h-24 lg:h-32 xl:h-48">
+        <img src="../../../assets/vines1.svg" alt="Vines Right" class="h-full object-contain">
       </div>
     </div>
   </div>
+
+  <!-- Main Content -->
+  <div class="flex flex-col items-center justify-center h-full px-4">
+    <div class="p-4 sm:p-6 md:p-8 bg-white rounded shadow-lg w-full max-w-md lg:max-w-lg">
+      <h1 class="text-xl sm:text-2xl font-bold text-center mb-2">Restablecimiento de Contraseña</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="enviarSolicitud()">
+        <div class="mb-3">
+          <label for="email" class="block text-gray-700 font-bold mb-2">Ingresa tu Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="border rounded px-4 py-2 w-full"
+          />
+          <p *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched" class="text-red-500 mt-1">
+            Ingresa un correo válido.
+          </p>
+        </div>
+        <div class="flex justify-center mt-3">
+          <button
+            type="submit" [disabled]="formulario.invalid" class="btn btn-primary font-medium text-sm md:text-base px-4 md:px-6">
+            Enviar
+          </button>
+        </div>
+      </form>
+
+      <p class="text-center mt-2 text-gray-600">Se le enviará un correo con el enlace para cambiar la contraseña.</p>
+      <p class="text-center text-gray-600">Esto puede tomar unos minutos...</p>
+
+      <p *ngIf="mensaje" class="text-center mt-2 text-green-500">{{ mensaje }}</p>
+    </div>
+  </div>
+
+  <div class="relative w-full">
+    <!-- Vines Image Left -->
+    <div class="absolute bottom-2 left-0 h-12 sm:h-16 md:h-24 xl:h-48">
+      <img src="../../../assets/Vines2.svg" alt="Vines Left" class="h-full object-contain">
+    </div>
+  </div>
+  
+</div>
+
+
+

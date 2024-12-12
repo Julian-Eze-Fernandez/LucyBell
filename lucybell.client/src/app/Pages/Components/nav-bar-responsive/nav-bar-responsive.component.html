@@ -55,11 +55,12 @@
 
 				<button class="flex transition duration-300 pr-1 h-full items-center text-3xl " (click)="toggleCart()">
 					<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-8"/>
+					<span class="text-lg text-black">({{carritoService.cantidad()}})</span>
 				</button>
 			        
 			</div>
 		  </div>
-		  <app-carrito [cartOpen]="cartOpen"></app-carrito>
+		  <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>
 		</div>
 		<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-40 box-border"></div>
 	  

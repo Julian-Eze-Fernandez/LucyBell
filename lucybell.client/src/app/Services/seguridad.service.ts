@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
 import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO, UsuarioDTO } from '../Pages/seguridad/seguridad';
@@ -114,5 +114,4 @@ export class SeguridadService {
   solicitarRestablecimientoContrasena(email: string): Observable<any> {
     return this.http.post(`${this.urlBase}/solicitar-restablecimiento-contrasena`, { email });
   }
-
 }
