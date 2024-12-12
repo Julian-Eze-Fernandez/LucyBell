@@ -23,6 +23,23 @@ export class SeguridadService {
     return this.http.get<UsuarioDTO[]>(`${this.urlBase}/ListadoUsuarios`, { params: queryParams, observe: 'response' });
   }
 
+  obtenerUsuarioActual(): Observable<UsuarioDTO> {
+    const token = this.obtenerToken();
+    if (!token) {
+      throw new Error('No se encontró un token de autenticación.');
+    }
+
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    return this.http.get<UsuarioDTO>(`${this.urlBase}/me`, { headers });
+  }
+
+  obtenerCantidadUsuarios(): Observable<number> {
+    return this.http.get<number>(`${this.urlBase}/CantidadUsuarios`);
+  }
+
   hacerAdmin(email: string){
     return this.http.post(`${this.urlBase}/haceradmin`, {email});
   }

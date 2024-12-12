@@ -18,6 +18,7 @@ import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 import { ResumenCompraComponent } from './Pages/resumen-compra/resumen-compra.component';
 import { HistorialVentasComponent } from './Pages/historial-ventas/historial-ventas.component';
+import { PerfilComponent } from './Pages/perfil/perfil.component';
 
 export const routes: Routes = [
     { path: '',component:InicioComponent  },
@@ -38,6 +39,7 @@ export const routes: Routes = [
     { path: 'productos/:id', component: ProductoComponent},
     { path: 'sobre-mi', component: SobreMiComponent},
     { path: 'resumenCompra', component: ResumenCompraComponent},
+    { path: 'perfil', component: PerfilComponent},
 ];
 
 

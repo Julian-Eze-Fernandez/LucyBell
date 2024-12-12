@@ -127,162 +127,162 @@ namespace LucyBell.Server.Controllers
 		//	return pedidoDTO;
 		//}
 
-		//[HttpGet("pendientes")]
-		//public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosPendientes()
-		//{
-		//	var pedidosPendientes = await context.Pedidos
-		//		.Where(p => p.Estado == "Pendiente")
-		//		.Include(p => p.DetallesPedido)
-		//			.ThenInclude(d => d.Producto)
-		//				.ThenInclude(prod => prod.ImagenesProductos)
-		//		.Include(p => p.Envio)
-		//		.Include(p => p.Retiro)
-		//		.Join(context.Users,
-		//			  pedido => pedido.UsuarioId,
-		//			  usuario => usuario.Id,
-		//			  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
-		//		.ToListAsync();
+		[HttpGet("pendientes")]
+		public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosPendientes()
+		{
+			var pedidosPendientes = await context.Pedidos
+				.Where(p => p.Estado == "Pendiente")
+				.Include(p => p.DetallesPedido)
+					.ThenInclude(d => d.Producto)
+						.ThenInclude(prod => prod.ImagenesProductos)
+				.Include(p => p.Envio)
+				.Include(p => p.Retiro)
+				.Join(context.Users,
+					  pedido => pedido.UsuarioId,
+					  usuario => usuario.Id,
+					  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
+				.ToListAsync();
 
-		//	if (!pedidosPendientes.Any())
-		//		return NotFound("No se encontraron pedidos pendientes.");
+			if (!pedidosPendientes.Any())
+				return NotFound("No se encontraron pedidos pendientes.");
 
-		//	var pedidosDTO = pedidosPendientes.Select(p => new PedidoDTO
-		//	{
-		//		Id = p.Pedido.Id,
-		//		Estado = p.Pedido.Estado,
-		//		Total = p.Pedido.Total,
-		//		MetodoPago = p.Pedido.MetodoPago,
-		//		FechaCreacion = p.Pedido.FechaCreacion,
-		//		FechaActualizacion = p.Pedido.FechaActualizacion,
-		//		EsEnvio = p.Pedido.EsEnvio,
-		//		Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
-		//		{
-		//			Id = d.Id,
-		//			Cantidad = d.Cantidad,
-		//			PrecioUnitario = d.PrecioUnitario,
-		//			ProductoId = d.ProductoId,
-		//			VarianteProductoId = d.VarianteProductoId,
-		//			Producto = new ProductoDTO // Mapeo de datos del producto
-		//			{
-		//				Id = d.Producto.Id,
-		//				Nombre = d.Producto.Nombre,
-		//				Precio = d.Producto.Precio,
-		//				Descripcion = d.Producto.Descripcion,
-		//				CategoriaId = d.Producto.CategoriaId,
-		//				SubCategoriaId = d.Producto.SubCategoriaId,
-		//				MaterialId = d.Producto.MaterialId,
-		//				ImagenesProductos = d.Producto.ImagenesProductos.Select(img => new ImagenProductoDTO
-		//				{
-		//					Id = img.Id,
-		//					UrlImagen = img.UrlImagen,
-		//					SlotIndex = img.SlotIndex
-		//				}).ToList()
-		//			}
-		//		}).ToList(),
-		//		Envio = p.Pedido.Envio != null ? new EnvioDTO
-		//		{
-		//			Direccion = p.Pedido.Envio.Direccion,
-		//			Barrio = p.Pedido.Envio.Barrio,
-		//			CodigoPostal = p.Pedido.Envio.CodigoPostal,
-		//			Observacion = p.Pedido.Envio.Observacion,
-		//			FechaEstimada = p.Pedido.Envio.FechaEstimada
-		//		} : null,
-		//		Retiro = p.Pedido.Retiro != null ? new RetiroDTO
-		//		{
-		//			PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
-		//			NombreRetira = p.Pedido.Retiro.NombreRetira,
-		//			DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
-		//			FechaRetiro = p.Pedido.Retiro.FechaRetiro
-		//		} : null,
-		//		Usuario = new UsuarioDTO
-		//		{
-		//			Email = p.Usuario.Email,
-		//			Nombre = p.Usuario.UserName,
-		//			Telefono = p.Usuario.PhoneNumber
-		//		}
-		//	}).ToList();
+			var pedidosDTO = pedidosPendientes.Select(p => new PedidoDTO
+			{
+				Id = p.Pedido.Id,
+				Estado = p.Pedido.Estado,
+				Total = p.Pedido.Total,
+				MetodoPago = p.Pedido.MetodoPago,
+				FechaCreacion = p.Pedido.FechaCreacion,
+				FechaActualizacion = p.Pedido.FechaActualizacion,
+				EsEnvio = p.Pedido.EsEnvio,
+				Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
+				{
+					Id = d.Id,
+					Cantidad = d.Cantidad,
+					PrecioUnitario = d.PrecioUnitario,
+					ProductoId = d.ProductoId,
+					VarianteProductoId = d.VarianteProductoId,
+					Producto = new ProductoDTO // Mapeo de datos del producto
+					{
+						Id = d.Producto.Id,
+						Nombre = d.Producto.Nombre,
+						Precio = d.Producto.Precio,
+						Descripcion = d.Producto.Descripcion,
+						CategoriaId = d.Producto.CategoriaId,
+						SubCategoriaId = d.Producto.SubCategoriaId,
+						MaterialId = d.Producto.MaterialId,
+						ImagenesProductos = d.Producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+						{
+							Id = img.Id,
+                            UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                            SlotIndex = img.SlotIndex
+						}).ToList()
+					}
+				}).ToList(),
+				Envio = p.Pedido.Envio != null ? new EnvioDTO
+				{
+					Direccion = p.Pedido.Envio.Direccion,
+					Barrio = p.Pedido.Envio.Barrio,
+					CodigoPostal = p.Pedido.Envio.CodigoPostal,
+					Observacion = p.Pedido.Envio.Observacion,
+					FechaEstimada = p.Pedido.Envio.FechaEstimada
+				} : null,
+				Retiro = p.Pedido.Retiro != null ? new RetiroDTO
+				{
+					PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
+					NombreRetira = p.Pedido.Retiro.NombreRetira,
+					DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
+					FechaRetiro = p.Pedido.Retiro.FechaRetiro
+				} : null,
+				Usuario = new UsuarioDTO
+				{
+					Email = p.Usuario.Email,
+					Nombre = p.Usuario.UserName,
+					Telefono = p.Usuario.PhoneNumber
+				}
+			}).ToList();
 
-		//	return pedidosDTO;
-		//}
+			return pedidosDTO;
+		}
 
-		//[HttpGet("finalizados")]
-		//public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosFinalizados()
-		//{
-		//	var estadosFinalizados = new[] { "Pagado", "Cancelado" };
-		//	var pedidosFinalizados = await context.Pedidos
-		//		.Where(p => estadosFinalizados.Contains(p.Estado))
-		//		.Include(p => p.DetallesPedido)
-		//			.ThenInclude(d => d.Producto)
-		//				.ThenInclude(prod => prod.ImagenesProductos)
-		//		.Include(p => p.Envio)
-		//		.Include(p => p.Retiro)
-		//		.Join(context.Users,
-		//			  pedido => pedido.UsuarioId,
-		//			  usuario => usuario.Id,
-		//			  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
-		//		.ToListAsync();
+		[HttpGet("finalizados")]
+		public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosFinalizados()
+		{
+			var estadosFinalizados = new[] { "Pagado", "Cancelado" };
+			var pedidosFinalizados = await context.Pedidos
+				.Where(p => estadosFinalizados.Contains(p.Estado))
+				.Include(p => p.DetallesPedido)
+					.ThenInclude(d => d.Producto)
+						.ThenInclude(prod => prod.ImagenesProductos)
+				.Include(p => p.Envio)
+				.Include(p => p.Retiro)
+				.Join(context.Users,
+					  pedido => pedido.UsuarioId,
+					  usuario => usuario.Id,
+					  (pedido, usuario) => new { Pedido = pedido, Usuario = usuario })
+				.ToListAsync();
 
-		//	if (!pedidosFinalizados.Any())
-		//		return NotFound("No se encontraron pedidos pagados o cancelados.");
+			if (!pedidosFinalizados.Any())
+				return NotFound("No se encontraron pedidos pagados o cancelados.");
 
-		//	var pedidosDTO = pedidosFinalizados.Select(p => new PedidoDTO
-		//	{
-		//		Id = p.Pedido.Id,
-		//		Estado = p.Pedido.Estado,
-		//		Total = p.Pedido.Total,
-		//		MetodoPago = p.Pedido.MetodoPago,
-		//		FechaCreacion = p.Pedido.FechaCreacion,
-		//		FechaActualizacion = p.Pedido.FechaActualizacion,
-		//		EsEnvio = p.Pedido.EsEnvio,
-		//		Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
-		//		{
-		//			Id = d.Id,
-		//			Cantidad = d.Cantidad,
-		//			PrecioUnitario = d.PrecioUnitario,
-		//			ProductoId = d.ProductoId,
-		//			VarianteProductoId = d.VarianteProductoId,
-		//			Producto = new ProductoDTO // Mapeo de datos del producto
-		//			{
-		//				Id = d.Producto.Id,
-		//				Nombre = d.Producto.Nombre,
-		//				Precio = d.Producto.Precio,
-		//				Descripcion = d.Producto.Descripcion,
-		//				CategoriaId = d.Producto.CategoriaId,
-		//				SubCategoriaId = d.Producto.SubCategoriaId,
-		//				MaterialId = d.Producto.MaterialId,
-		//				ImagenesProductos = d.Producto.ImagenesProductos.Select(img => new ImagenProductoDTO
-		//				{
-		//					Id = img.Id,
-		//					UrlImagen = img.UrlImagen,
-		//					SlotIndex = img.SlotIndex
-		//				}).ToList()
-		//			}
-		//		}).ToList(),
-		//		Envio = p.Pedido.Envio != null ? new EnvioDTO
-		//		{
-		//			Direccion = p.Pedido.Envio.Direccion,
-		//			Barrio = p.Pedido.Envio.Barrio,
-		//			CodigoPostal = p.Pedido.Envio.CodigoPostal,
-		//			Observacion = p.Pedido.Envio.Observacion,
-		//			FechaEstimada = p.Pedido.Envio.FechaEstimada
-		//		} : null,
-		//		Retiro = p.Pedido.Retiro != null ? new RetiroDTO
-		//		{
-		//			PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
-		//			NombreRetira = p.Pedido.Retiro.NombreRetira,
-		//			DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
-		//			FechaRetiro = p.Pedido.Retiro.FechaRetiro
-		//		} : null,
-		//		Usuario = new UsuarioDTO
-		//		{
-		//			Email = p.Usuario.Email,
-		//			Nombre = p.Usuario.UserName,
-		//			Telefono = p.Usuario.PhoneNumber
-		//		}
-		//	}).ToList();
+			var pedidosDTO = pedidosFinalizados.Select(p => new PedidoDTO
+			{
+				Id = p.Pedido.Id,
+				Estado = p.Pedido.Estado,
+				Total = p.Pedido.Total,
+				MetodoPago = p.Pedido.MetodoPago,
+				FechaCreacion = p.Pedido.FechaCreacion,
+				FechaActualizacion = p.Pedido.FechaActualizacion,
+				EsEnvio = p.Pedido.EsEnvio,
+				Detalles = p.Pedido.DetallesPedido.Select(d => new DetallePedidoDTO
+				{
+					Id = d.Id,
+					Cantidad = d.Cantidad,
+					PrecioUnitario = d.PrecioUnitario,
+					ProductoId = d.ProductoId,
+					VarianteProductoId = d.VarianteProductoId,
+					Producto = new ProductoDTO // Mapeo de datos del producto
+					{
+						Id = d.Producto.Id,
+						Nombre = d.Producto.Nombre,
+						Precio = d.Producto.Precio,
+						Descripcion = d.Producto.Descripcion,
+						CategoriaId = d.Producto.CategoriaId,
+						SubCategoriaId = d.Producto.SubCategoriaId,
+						MaterialId = d.Producto.MaterialId,
+						ImagenesProductos = d.Producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+						{
+							Id = img.Id,
+                            UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                            SlotIndex = img.SlotIndex
+						}).ToList()
+					}
+				}).ToList(),
+				Envio = p.Pedido.Envio != null ? new EnvioDTO
+				{
+					Direccion = p.Pedido.Envio.Direccion,
+					Barrio = p.Pedido.Envio.Barrio,
+					CodigoPostal = p.Pedido.Envio.CodigoPostal,
+					Observacion = p.Pedido.Envio.Observacion,
+					FechaEstimada = p.Pedido.Envio.FechaEstimada
+				} : null,
+				Retiro = p.Pedido.Retiro != null ? new RetiroDTO
+				{
+					PuntoRetiro = p.Pedido.Retiro.PuntoRetiro,
+					NombreRetira = p.Pedido.Retiro.NombreRetira,
+					DocumentoRetira = p.Pedido.Retiro.DocumentoRetira,
+					FechaRetiro = p.Pedido.Retiro.FechaRetiro
+				} : null,
+				Usuario = new UsuarioDTO
+				{
+					Email = p.Usuario.Email,
+					Nombre = p.Usuario.UserName,
+					Telefono = p.Usuario.PhoneNumber
+				}
+			}).ToList();
 
-		//	return pedidosDTO;
-		//}
+			return pedidosDTO;
+		}
 
 		[HttpGet("usuario/{usuarioId}")]
 		public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosUsuario(string usuarioId)
@@ -319,46 +319,46 @@ namespace LucyBell.Server.Controllers
 			return Ok(pedidoDTO);
 		}
 
-		[HttpGet("pendientes")]
-		public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosPendientes()
-		{
-			var pedidosPendientes = await context.Pedidos
-				.Where(p => p.Estado == "Pendiente")
-				.Include(p => p.DetallesPedido)
-					.ThenInclude(d => d.Producto)
-						.ThenInclude(prod => prod.ImagenesProductos)
-				.Include(p => p.Envio)
-				.Include(p => p.Retiro)
-				.Include(p => p.Usuario)
-				.ToListAsync();
+		//[HttpGet("pendientes")]
+		//public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosPendientes()
+		//{
+		//	var pedidosPendientes = await context.Pedidos
+		//		.Where(p => p.Estado == "Pendiente")
+		//		.Include(p => p.DetallesPedido)
+		//			.ThenInclude(d => d.Producto)
+		//				.ThenInclude(prod => prod.ImagenesProductos)
+		//		.Include(p => p.Envio)
+		//		.Include(p => p.Retiro)
+		//		.Include(p => p.Usuario)
+		//		.ToListAsync();
 
-			if (!pedidosPendientes.Any())
-				return NotFound("No se encontraron pedidos pendientes.");
+		//	if (!pedidosPendientes.Any())
+		//		return NotFound("No se encontraron pedidos pendientes.");
 
-			var pedidosDTO = mapper.Map<List<PedidoDTO>>(pedidosPendientes);
-			return Ok(pedidosDTO);
-		}
+		//	var pedidosDTO = mapper.Map<List<PedidoDTO>>(pedidosPendientes);
+		//	return Ok(pedidosDTO);
+		//}
 
-		[HttpGet("finalizados")]
-		public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosFinalizados()
-		{
-			var estadosFinalizados = new[] { "Pagado", "Cancelado" };
-			var pedidosFinalizados = await context.Pedidos
-				.Where(p => estadosFinalizados.Contains(p.Estado))
-				.Include(p => p.DetallesPedido)
-					.ThenInclude(d => d.Producto)
-						.ThenInclude(prod => prod.ImagenesProductos)
-				.Include(p => p.Envio)
-				.Include(p => p.Retiro)
-				.Include(p => p.Usuario)
-				.ToListAsync();
+		//[HttpGet("finalizados")]
+		//public async Task<ActionResult<List<PedidoDTO>>> ObtenerPedidosFinalizados()
+		//{
+		//	var estadosFinalizados = new[] { "Pagado", "Cancelado" };
+		//	var pedidosFinalizados = await context.Pedidos
+		//		.Where(p => estadosFinalizados.Contains(p.Estado))
+		//		.Include(p => p.DetallesPedido)
+		//			.ThenInclude(d => d.Producto)
+		//				.ThenInclude(prod => prod.ImagenesProductos)
+		//		.Include(p => p.Envio)
+		//		.Include(p => p.Retiro)
+		//		.Include(p => p.Usuario)
+		//		.ToListAsync();
 
-			if (!pedidosFinalizados.Any())
-				return NotFound("No se encontraron pedidos pendientes.");
+		//	if (!pedidosFinalizados.Any())
+		//		return NotFound("No se encontraron pedidos pendientes.");
 
-			var pedidosDTO = mapper.Map<List<PedidoDTO>>(pedidosFinalizados);
-			return Ok(pedidosDTO);
-		}
+		//	var pedidosDTO = mapper.Map<List<PedidoDTO>>(pedidosFinalizados);
+		//	return Ok(pedidosDTO);
+		//}
 
 		//[HttpPost]
 		//public async Task<ActionResult> CrearPedido([FromBody] PedidoCreacionDTO pedidoCreacionDTO)

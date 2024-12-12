@@ -37,8 +37,6 @@ GetPedidosFinalizados() {
 
 openInfoModal(pedido:any): void {
   this.pedidoSeleccionado = pedido;
-
-  console.log(this.pedidoSeleccionado)
 }
 
 toggleChildSidebar(): void {

@@ -1,0 +1,84 @@
+<div class="min-h-screen bg-MyBg py-8 inter">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between">
+            <button class="btn btn-primary" (click)="volverTienda()">Volver</button>
+            <h1 class="text-3xl font-bold julius text-gray-900 mb-8 text-end">Perfil de Usuario</h1>
+        </div>
+
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+        <div class="px-4 py-5 sm:px-6">
+          <h2 class="text-xl font-semibold text-gray-900">Información Personal</h2>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:p-0" *ngIf="usuario">
+          <dl class="sm:divide-y sm:divide-gray-200">
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Nombre</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> {{usuario.nombre}} </dd>
+            </div>
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Correo electrónico</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{usuario.email}}</dd>
+            </div>
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Teléfono</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{usuario.telefono}}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+  
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+        <div class="px-4 py-5 sm:px-6">
+          <h2 class="text-xl font-semibold text-gray-900">Pedidos en Curso</h2>
+        </div>
+        <div class="border-t border-gray-200">
+          <ul class="divide-y divide-gray-200">
+            <li *ngFor="let order of pedidosPendientes" class="px-4 py-4 sm:px-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-indigo-600 truncate">Pedido #{{order.id}}</p>
+                  <p class="mt-1 text-sm text-gray-500">{{order.fechaCreacion | date:'short' }}</p>
+                </div>
+                <div class="ml-2 flex-shrink-0">
+                  <span class="badge {{getStatusClass(order.estado)}}">{{order.estado}}</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">Total: ${{order.total.toLocaleString('es-AR')}}</p>
+                <ul class="mt-1 text-sm text-gray-500 list-disc list-inside">
+                  <li *ngFor="let item of order.detalles">{{ item.producto.nombre }} (x{{ item.cantidad }})</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+          <h2 class="text-xl font-semibold text-gray-900">Historial de Pedidos</h2>
+        </div>
+        <div class="border-t border-gray-200">
+          <ul class="divide-y divide-gray-200">
+            <li *ngFor="let order of pedidosCompletados" class="px-4 py-4 sm:px-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-indigo-600 truncate">Pedido #{{order.id}}</p>
+                  <p class="mt-1 text-sm text-gray-500">{{order.fechaCreacion | date:'short' }}</p>
+                </div>
+                <div class="ml-2 flex-shrink-0">
+                    <span class="badge {{getStatusClass(order.estado)}}">{{order.estado}}</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">Total: ${{order.total.toLocaleString('es-AR')}}</p>
+                <ul class="mt-1 text-sm text-gray-500 list-disc list-inside">
+                  <li *ngFor="let item of order.detalles">{{ item.producto.nombre }} (x{{ item.cantidad }})</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -26,12 +26,12 @@
 
 								<span class="block px-4 py-2 rounded-xl transition w-full truncate">{{seguridadService.obtenerCampoJWT('email')}}</span>
 								<li>
-									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									<a routerLink="/perfil" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
 									  Perfil
 									</a>
 								</li>
 								<li *ngIf="seguridadService.obtenerRol()">
-									<a routerLink="/categorias" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									<a routerLink="/metricas" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
 									  Administrar
 									</a>
 								</li>

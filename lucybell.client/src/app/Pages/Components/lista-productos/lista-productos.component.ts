@@ -181,6 +181,9 @@ export class ListaProductosComponent implements OnInit {
   }
 
   toggleSearchInput(): void {
-    this.showSearchInput = !this.showSearchInput;
+    this.showSearchInput = true;
+  }
+  closeSearchInput(): void {
+    this.showSearchInput = false;
   }
 }

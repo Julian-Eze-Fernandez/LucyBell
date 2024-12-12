@@ -2,14 +2,20 @@
   <div *ngIf="!showSearchInput" class="btn bg-primary h-8 w-10 p-1 opacity-85" (click)="toggleSearchInput()">
     <img src="../../../assets/icons/SearchBlack.svg" alt="Search" >
   </div>
-  <div *ngIf="showSearchInput" class="mt-2">
+  <div *ngIf="showSearchInput" class="relative">
+
     <input
       type="text"
       [(ngModel)]="searchTerm"
       (change)="onSearch()"
       placeholder="Search by name"
-      class="input input-bordered input-primary w-full max-w-xs"
+      class="input input-bordered input-primary w-full max-w-xs relative z-20"
+      (click)="$event.stopPropagation()"
     />
+    <div
+    class="fixed inset-0"
+    (click)="closeSearchInput()"
+  ></div>
   </div>
 </div>
 <div *ngIf="!isLargeScreen" class="fixed bottom-4 right-4 md:hidden z-20 flex-col"> 

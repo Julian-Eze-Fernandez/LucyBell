@@ -48,7 +48,6 @@ export class VentasActivasComponent implements OnInit {
             this.PedidosRetiro.push(obj);
           }
         }
-        console.log(this.PedidosActivos)
       },
       error: (err) => {
         console.log(err.message);
@@ -62,8 +61,6 @@ export class VentasActivasComponent implements OnInit {
 
   openInfoModal(pedido:any): void {
     this.pedidoSeleccinado = pedido;
-
-    console.log(this.pedidoSeleccinado)
   }
 
   openConfirmarVentaModal(pedido: any): void {
@@ -93,8 +90,6 @@ export class VentasActivasComponent implements OnInit {
     this.modalMsj = '¿Está seguro de que desea cancelar esta venta? El stock sera devuelto al inventario.'
     this.modalTitle = 'Cancelar Venta';
     this.modalImage = '../../../assets/icons/Close.svg';
-
-    console.log(this.pedidoSeleccinado)
   }
 
   cancelarVenta(id: number): void {

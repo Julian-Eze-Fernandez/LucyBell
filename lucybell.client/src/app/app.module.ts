@@ -37,6 +37,7 @@ import { VentasActivasComponent } from './Pages/ventas-activas/ventas-activas.co
 import { MetricasComponent } from './Pages/metricas/metricas.component';
 import { SobreMiComponent } from './Pages/sobre-mi/sobre-mi.component';
 import { HistorialVentasComponent } from './Pages/historial-ventas/historial-ventas.component';
+import { PerfilComponent } from './Pages/perfil/perfil.component';
 
 register();
 
@@ -48,8 +49,11 @@ register();
   
   
     
+  
+    
   ],
   imports: [
+    PerfilComponent,
     MetricasComponent,
     SobreMiComponent,
     VentasActivasComponent,

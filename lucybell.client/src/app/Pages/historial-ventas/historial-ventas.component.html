@@ -132,7 +132,7 @@
                 <div *ngFor="let item of pedidoSeleccionado.detalles" class="py-4">
                   <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 w-20 h-20 rounded-md overflow-hidden">
-                      <img [src]=" 'https://localhost:7123/' + item.producto.imagenesProductos[0].urlImagen" alt="{{item.producto}}" class="w-full h-full object-cover">
+                      <img [src]="  item.producto.imagenesProductos[0].urlImagen" alt="{{item.producto}}" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-grow">
                       <h3 class="text-sm font-medium">{{item.producto.nombre}}</h3>
@@ -159,5 +159,4 @@
           <button>close</button>
         </form>
       </dialog>
-
 </div>

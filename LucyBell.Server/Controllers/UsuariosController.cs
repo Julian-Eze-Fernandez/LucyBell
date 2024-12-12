@@ -48,6 +48,38 @@ namespace LucyBell.Server.Controllers
 			return usuarios;
 		}
 
+        [HttpGet("CantidadUsuarios")]
+        public async Task<ActionResult<int>> ObtenerCantidadUsuarios()
+        {
+            var cantidadUsuarios = await context.Users.CountAsync();
+            return Ok(cantidadUsuarios);
+        }
+
+        [HttpGet("me")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<UsuarioDTO>> ObtenerUsuarioActual()
+        {
+            // Obtener el ID del usuario desde los claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("No se pudo identificar al usuario.");
+            }
+
+            // Buscar al usuario en la base de datos
+            var usuario = await userManager.FindByIdAsync(userId);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+
+            // Mapear al DTO
+            var usuarioDTO = mapper.Map<UsuarioDTO>(usuario);
+
+            return Ok(usuarioDTO);
+        }
+
 		[HttpPost("registrar")]
 		public async Task<ActionResult<RespuestaAutenticacionDTO>> Registrar(CredencialesUsuarioCreacionDTO credencialesUsuarioCreacionDTO)
 		{
