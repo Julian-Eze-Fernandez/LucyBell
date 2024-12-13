@@ -52,7 +52,6 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           this.closeRegisterModal();
-          this.mensajeExito = 'Registro exitoso. Por favor, confirma tu correo electrónico antes de iniciar sesión.';
         },
         error: err => {
           const errores = extraerErroresIdentity(err);

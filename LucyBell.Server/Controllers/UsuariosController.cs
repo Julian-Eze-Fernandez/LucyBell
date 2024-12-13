@@ -165,7 +165,7 @@ namespace LucyBell.Server.Controllers
 			}
 			else
 			{
-				return BadRequest(new { mensaje = "La contraseña es incorrecta." });
+				return BadRequest(new { mensaje = "Email o Contraseña incorrecta." });
 			}
 		}
 

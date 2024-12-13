@@ -28,7 +28,5 @@ export function extraerErroresIdentity(obj: any): string[] {
         }
     }
 
-    return mensajesDeError.length > 0
-        ? mensajesDeError
-        : ['Ha ocurrido un error inesperado.'];
+    return mensajesDeError
 }
