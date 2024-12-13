@@ -65,20 +65,6 @@ namespace LucyBell.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DetallesPedido",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
-                    PrecioUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DetallesPedido", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Materiales",
                 columns: table => new
                 {
@@ -89,21 +75,6 @@ namespace LucyBell.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Materiales", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pedidos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FechaPedido = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pedidos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +184,31 @@ namespace LucyBell.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pedidos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MetodoPago = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaActualizacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EsEnvio = table.Column<bool>(type: "bit", nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pedidos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pedidos_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubCategorias",
                 columns: table => new
                 {
@@ -228,6 +224,53 @@ namespace LucyBell.Server.Migrations
                         name: "FK_SubCategorias_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Envios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Barrio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CodigoPostal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaEstimada = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PedidoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Envios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Envios_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
+                        principalTable: "Pedidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Retiros",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PuntoRetiro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreRetira = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DocumentoRetira = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaRetiro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PedidoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Retiros", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Retiros_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
+                        principalTable: "Pedidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -274,7 +317,8 @@ namespace LucyBell.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UrlImagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    SlotIndex = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -328,6 +372,40 @@ namespace LucyBell.Server.Migrations
                         principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DetallesPedido",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PedidoId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    VarianteProductoId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetallesPedido", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetallesPedido_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
+                        principalTable: "Pedidos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DetallesPedido_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DetallesPedido_VariantesProducto_VarianteProductoId",
+                        column: x => x.VarianteProductoId,
+                        principalTable: "VariantesProducto",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -391,6 +469,27 @@ namespace LucyBell.Server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DetallesPedido_PedidoId",
+                table: "DetallesPedido",
+                column: "PedidoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetallesPedido_ProductoId",
+                table: "DetallesPedido",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetallesPedido_VarianteProductoId",
+                table: "DetallesPedido",
+                column: "VarianteProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Envios_PedidoId",
+                table: "Envios",
+                column: "PedidoId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ImagenesProducto_ProductoId",
                 table: "ImagenesProducto",
                 column: "ProductoId");
@@ -406,6 +505,11 @@ namespace LucyBell.Server.Migrations
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pedidos_UsuarioId",
+                table: "Pedidos",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Productos_CategoriaId",
                 table: "Productos",
                 column: "CategoriaId");
@@ -419,6 +523,12 @@ namespace LucyBell.Server.Migrations
                 name: "IX_Productos_SubCategoriaId",
                 table: "Productos",
                 column: "SubCategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Retiros_PedidoId",
+                table: "Retiros",
+                column: "PedidoId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategorias_CategoriaId",
@@ -453,6 +563,9 @@ namespace LucyBell.Server.Migrations
                 name: "DetallesPedido");
 
             migrationBuilder.DropTable(
+                name: "Envios");
+
+            migrationBuilder.DropTable(
                 name: "ImagenesProducto");
 
             migrationBuilder.DropTable(
@@ -462,19 +575,22 @@ namespace LucyBell.Server.Migrations
                 name: "ModificacionesPrecio");
 
             migrationBuilder.DropTable(
-                name: "Pedidos");
+                name: "Retiros");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "VariantesProducto");
 
             migrationBuilder.DropTable(
+                name: "Pedidos");
+
+            migrationBuilder.DropTable(
                 name: "Productos");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Materiales");
