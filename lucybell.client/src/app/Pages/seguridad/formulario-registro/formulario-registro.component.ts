@@ -101,7 +101,6 @@ export class FormularioRegistroComponent {
 
     const credenciales = this.form.value as CredencialesUsuarioCreacionDTO;
     this.posteoFormulario.emit(credenciales);
-    this.cerrarModal.emit();
   }
 
   passwordsCoinciden(formGroup: any) {

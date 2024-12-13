@@ -50,6 +50,9 @@
       <!-- Modal body content -->
       <div class="mt-2 mx-4 sm:mx-10 px-1 overflow-y-auto max-h-[75vh]">
         <app-formulario-registro [errores]="errores" titulo="Registro" (posteoFormulario)="registrar($event)" (cerrarModal)="closeRegisterModal()"></app-formulario-registro>
+        <div *ngIf="mensajeExito" class="alert alert-success">
+          {{ mensajeExito }}
+        </div>
       </div>
     </div>
   </div>
