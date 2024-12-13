@@ -113,7 +113,8 @@ namespace LucyBell.Server.Controllers
 			}
 			else
 			{
-				return BadRequest(resultado.Errors);
+				var errores = resultado.Errors.Select(e => e.Description).ToList();
+				return BadRequest(new { Errors = errores });
 			}
 		}
 
@@ -165,7 +166,7 @@ namespace LucyBell.Server.Controllers
 			}
 			else
 			{
-				return BadRequest(new { mensaje = "La contraseña es incorrecta." });
+				return BadRequest(new { mensaje = "Email o Contraseña incorrecta." });
 			}
 		}
 

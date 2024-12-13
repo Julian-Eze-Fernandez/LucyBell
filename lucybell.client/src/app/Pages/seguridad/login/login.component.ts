@@ -48,17 +48,19 @@ export class LoginComponent {
   }
 
   registrar(credenciales: CredencialesUsuarioCreacionDTO) {
-    this.seguridadService.registrar(credenciales)
-      .subscribe({
-        next: () => {
-          this.closeRegisterModal();
-          this.mensajeExito = 'Registro exitoso. Por favor, confirma tu correo electrónico antes de iniciar sesión.';
-        },
-        error: err => {
-          const errores = extraerErroresIdentity(err);
-          this.errores = errores;
-        }
-      });
+    this.seguridadService.registrar(credenciales).subscribe({
+      next: () => {
+        this.mensajeExito = 'Registro exitoso. Por favor verifica tu correo para confirmar tu cuenta.';
+        setTimeout(() => {
+          this.mensajeExito = ''; // Ocultar el mensaje después de unos segundos
+          this.closeRegisterModal(); // Ahora cerramos el modal solo en caso de éxito
+        }, 3000); // 3 segundos
+      },
+      error: err => {
+        const errores = extraerErroresIdentity(err);
+        this.errores = errores;
+      }
+    });
   }
 
   constructor(private sanitizer: DomSanitizer) {}
