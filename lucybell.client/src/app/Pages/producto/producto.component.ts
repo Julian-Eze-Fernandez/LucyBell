@@ -54,23 +54,20 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to avoid memory leaks
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
   }
 
   private loadProductDetails(productId: number): void {
-    // Fetch product details
     this.productoService.GetProductoById(productId).subscribe({
       next: (product) => {
         this.product = product;
-        this.selectedImage = this.product?.imagenesProductos[0]?.urlImagen; // Safely handle missing images
+        this.selectedImage = this.product?.imagenesProductos[0]?.urlImagen;
       },
       error: (err) => console.error('Error, producto no encontrado', err)
     });
 
-    // Fetch related products
     this.productoService.GetRelatedProducts(productId, 4).subscribe({
       next: (related) => {
         this.relatedProducts = related;
@@ -128,7 +125,6 @@ export class ProductoComponent implements OnInit {
 
   addToCart(): void {
     console.log('Producto agregado al carrito');
-
   }
 
   onProductClick(product:any) {

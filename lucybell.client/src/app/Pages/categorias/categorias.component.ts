@@ -6,7 +6,6 @@ import {  CategoriaABM, CategoriaGetSubCategorias } from '../../Models/Categoria
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TwoButtonModalComponent } from '../Components/two-button-modal/two-button-modal.component';
-import { OneButtonModalComponent } from '../Components/one-button-modal/one-button-modal.component';
 import { SidebarAdminComponent } from '../Components/sidebarAdmin/sidebarAdmin.component';
 import { Material } from '../../Models/Material';
 import { SubCategoria, SubCategoriaCreacionDTO } from '../../Models/SubCategoria';
@@ -14,11 +13,6 @@ import { FormsModule } from '@angular/forms';
 import {appsettings} from '../../Settings/appsettings';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { provideAnimations  } from '@angular/platform-browser/animations';
-
-
-
-
-
 
 @Component({
   selector: 'app-categorias',
@@ -89,8 +83,6 @@ export class CategoriasComponent {
   public listaMaterial: Material[] = [];
   public displayedColumnsMats: string[] = ['nombre', 'accion']
   selectedMaterial: Material | null = null;
-
-  
 
   constructor(private router: Router) {
     this.obtenerCategorias();
