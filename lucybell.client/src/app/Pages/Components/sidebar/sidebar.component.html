@@ -1,0 +1,109 @@
+<div>
+  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"(click)="toggleSidebar()"></div>
+  <aside id="default-sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+    aria-label="Sidenav">
+    <div class="overflow-y-auto py-5 px-3 h-full bg-MyColor">
+      <button (click)="toggleSidebar()" aria-controls="default-sidebar" type="button"
+        class="absolute top-4 right-4 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden bg-MyHover focus:outline-none">
+        <span class="sr-only">close sidebar</span>
+        <img src="../../../assets/icons/Back.svg" alt="Menu" />
+      </button>
+      <div class="flex items-center justify-center mb-2 mt-6">
+        <img src="../assets/Logo.svg" alt="Logo" class="h-auto" />
+      </div>
+      <div class="gradient-line mb-4"></div>
+      <ul class="space-y-2">
+        <ng-container>
+          <li>
+            <a href="inicio"
+              class="flex items-center p-2 text-base font-normal text-gray-200 Inter rounded-lg transition duration-300 bg-MyHover">
+              <img src="../../../assets/icons/Home.svg" alt="Inicio" />
+              <span class="ml-3 text-lg font-medium">Inicio</span>
+            </a>
+          </li>
+          <li>
+            <button (click)="toggleDropdown('dropdown-productos')" type="button"
+              class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover"
+              aria-controls="dropdown-productos">
+              <img src="../../../assets/icons/Products.svg" alt="Product" />
+              <span
+                class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Productos</span>
+              <img *ngIf="!isDropdownOpen('dropdown-productos')" src="../../../assets/icons/Dropdown.svg"
+                alt="DropDown" />
+              <img *ngIf="isDropdownOpen('dropdown-productos')" src="../../../assets/icons/closeDropDown.svg"
+                alt="CloseDropDown" />
+            </button>
+            <div [ngClass]="{
+                myDropdown: true,
+                open: isDropdownOpen('dropdown-productos')}">
+              <ul id="dropdown-productos" class="py-2 space-y-2">
+                <li>
+                  <a href="productos"
+                    class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">
+                    Ver todos</span>
+                  </a>
+                </li>
+                <li *ngFor="let categoria of categorias">
+                  <a (click)="goToCategory(categoria.id)" 
+                    class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">
+                      {{ categoria.nombre }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="contacto"
+              class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+              <img src="../../../assets/icons/Contact.svg" alt="Contacto" />
+              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Contacto</span>
+            </a>
+          </li>
+          <li>
+            <a href="sobre-mi"
+              class="flex items-center p-2 text-base font-normal text-gray-200 rounded-lg transition duration-300 bg-MyHover">
+              <img src="../../../assets/icons/AboutMe.svg" alt="Sobre mi" />
+              <span class="flex-1 ml-3 whitespace-nowrap text-lg font-medium">Sobre mi</span>
+            </a>
+          </li>
+          <li>
+            <button (click)="toggleDropdown('dropdown-ayuda')" type="button"
+              class="flex items-center p-2 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover"
+              aria-controls="dropdown-ayuda">
+              <img src="../../../assets/icons/Help.svg" alt="Ayuda" />
+              <span
+                class="flex-1 ml-3 text-left whitespace-nowrap text-lg group-hover:text-white font-medium">Ayuda</span>
+              <img *ngIf="!isDropdownOpen('dropdown-ayuda')" src="../../../assets/icons/Dropdown.svg"
+                alt="DropDown" />
+              <img *ngIf="isDropdownOpen('dropdown-ayuda')" src="../../../assets/icons/closeDropDown.svg"
+                alt="CloseDropDown" />
+            </button>
+            <div [ngClass]="{
+                myDropdown: true,
+                open: isDropdownOpen('dropdown-ayuda')}">
+              <ul id="dropdown-ayuda" class="py-2 space-y-2">
+                <li>
+                  <a href="envios-y-ventas"
+                    class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">
+                    Envios y ventas</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="devoluciones"
+                    class="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-200 rounded-lg transition duration-300 group bg-MyHover">
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap group-hover:text-white font-medium">
+                      Devoluciones</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </aside>
+</div>

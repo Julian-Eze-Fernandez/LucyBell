@@ -1,0 +1,72 @@
+<app-sidebar *ngIf="!isLargeScreen"></app-sidebar>
+	
+	<div *ngIf="!isLargeScreen" class="sticky top-0 z-[20] bg-MyBg">
+		<div class="relative flex flex-row justify-center">
+		  <button
+			(click)="toggleChildSidebar()"
+			class="absolute left-1 top-1 text-sm p-2 text-gray-500 bg-MyHover opacity-80 rounded-lg">
+			<img src="../../../assets/icons/MenuBlack.svg" alt="Menu" />
+		  </button>
+	  
+		  <div id="logo-container" class="h-9 my-2 flex justify-center items-center mx-auto">
+			<img src="../../../assets/LucybellLogoClean.svg" alt="Logo" class="h-full object-contain logo" />
+		  </div>
+	  
+		  <div class="absolute right-1 top-3">
+			<div class="flex">
+			  <app-autorizado class="inline h-full">
+				<ng-container autorizado>
+				  <div class="flex items-center space-x-4 h-full">
+					<ul class="flex items-center h-full">
+						<div class="dropdown dropdown-end inter ">
+							<div tabindex="0" role="button" >
+								<a class="flex transition duration-300 navbarHover px-2 items-center mr-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
+							</div>
+							<ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow opacity-100 ">
+
+								<span class="block px-4 py-2 rounded-xl transition w-full truncate">{{seguridadService.obtenerCampoJWT('email')}}</span>
+								<li>
+									<a routerLink="/perfil" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									  Perfil
+									</a>
+								</li>
+								<li *ngIf="seguridadService.obtenerRol()">
+									<a routerLink="/metricas" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+									  Administrar
+									</a>
+								</li>
+								<li>
+									<button (click)="seguridadService.logout()" class="block px-4 py-2 rounded-xl transition duration-300  w-full">Cerrar sesion</button>
+								</li>
+							</ul>
+						</div>
+					</ul>
+				  </div>
+				</ng-container>
+	  
+				<ng-container noAutorizado>
+				  <div class="flex items-center h-full">
+					<button class="px-1 h-full items-center text-3xl" (click)="openLoginModal()">
+						<img src="../../../assets/icons/User.svg" alt="Usuario" class="h-8 w-8">
+					</button>
+				  </div>
+				</ng-container>
+			  </app-autorizado>
+
+				<button class="flex transition duration-300 pr-1 h-full items-center text-3xl " (click)="toggleCart()">
+					<img src="../../../assets/icons/Cart.svg" alt="Carrito" class="h-8"/>
+					<span class="text-lg text-black">({{carritoService.cantidad()}})</span>
+				</button>
+			        
+			</div>
+		  </div>
+		  <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>
+		</div>
+		<div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-40 box-border"></div>
+	  
+		<ng-container>
+		  <app-login #loginModal
+					 (confirm)="onSubmitLogin()"
+					 (cancel)="closeLoginModal()">
+		  </app-login>
+		</ng-container>

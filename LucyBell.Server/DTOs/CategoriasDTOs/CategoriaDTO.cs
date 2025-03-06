@@ -7,7 +7,9 @@ namespace LucyBell.Server.DTOs.CategoriasDTOs
 	{
 		public int Id { get; set; }
 		public string Nombre { get; set; }
-		public List<SubCategoriaDTO> SubCategorias { get; set; }
+
+        public string? UrlImagen { get; set; }
+        public List<SubCategoriaDTO> SubCategorias { get; set; }
 		public List<ProductoDTO> Productos { get; set; }
 	}
 }

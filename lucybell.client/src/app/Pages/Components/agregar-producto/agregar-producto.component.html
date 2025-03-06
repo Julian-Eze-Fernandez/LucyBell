@@ -1,0 +1,138 @@
+<div class="flex">
+
+  <div class="main-content">
+
+    <form [formGroup]="productoForm" class="mx-auto" (ngSubmit)="onSubmitProd()" enctype="multipart/form-data">
+  
+      <div class="flex justify-between gap-4 mb-6">
+
+        <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+          <input type="file" (change)="onFileSelected($event, 0)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <img *ngIf="imageUrls[0]" [src]="imageUrls[0]" alt="Selected Image 1" class="object-cover w-full h-full" />
+          <img *ngIf="!imageUrls[0]" src="../../../assets/icons/AddImg.svg" alt="Imagen 1" />
+        </div>
+        <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+          <input type="file" (change)="onFileSelected($event, 1)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <img *ngIf="imageUrls[1]" [src]="imageUrls[1]" alt="Selected Image 1" class="object-cover w-full h-full" />
+          <img *ngIf="!imageUrls[1]" src="../../../assets/icons/AddImg.svg" alt="Imagen 2"  />
+        </div>
+        <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+          <input type="file" (change)="onFileSelected($event, 2)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <img *ngIf="imageUrls[2]" [src]="imageUrls[2]" alt="Selected Image 1" class="object-cover w-full h-full" />
+          <img *ngIf="!imageUrls[2]" src="../../../assets/icons/AddImg.svg" alt="Imagen 3" />
+        </div>
+        <div class="border-dashed border-2 border-gray-500 flex items-center justify-center w-full aspect-[4/3] max-w-72 cursor-pointer relative">
+          <input type="file" (change)="onFileSelected($event, 3)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <img *ngIf="imageUrls[3]" [src]="imageUrls[3]" alt="Selected Image 1" class="object-cover w-full h-full" />
+          <img *ngIf="!imageUrls[3]" src="../../../assets/icons/AddImg.svg" alt="Imagen 4" />
+        </div>
+
+      </div>
+
+    
+      <!-- Nombre -->
+      <div class="mb-4">
+        <div class="flex justify-between">
+          <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+          <div class="mb-2">
+              <input type="checkbox" id="destacado" formControlName="destacado" class="mx-2">
+            <label for="destacado" class="text-violet-500 text-sm font-bold top-0">Destacado?</label>
+          </div>
+        </div>
+        <input type="text" id="nombre" formControlName="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  focus:ring-2 focus:ring-purple-500" placeholder="Ingrese nombre">
+        <div *ngIf="productoForm.get('nombre')?.touched && productoForm.get('nombre')?.invalid">
+          <small class="text-red-600">El nombre es obligatorio.</small>
+        </div>
+      </div>
+    
+      <!-- Categoria -->
+      <div class="mb-4">
+        <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Categoria</label>
+        <select id="categoria" formControlName="categoria" (change)="onCategoriaChange()" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:ring-2 focus:ring-purple-500">
+          <option value="" disabled selected hidden>Seleccione una categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+        </select>
+        <div *ngIf="productoForm.get('categoria')?.touched && productoForm.get('categoria')?.invalid">
+          <small class="text-red-600">La categoria es obligatoria.</small>
+        </div>
+      </div>
+    
+      <!-- Material -->
+      <div class="mb-4">
+        <label for="material" class="block text-gray-700 text-sm font-bold mb-2">Material</label>
+        <select id="material" formControlName="material" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:ring-2 focus:ring-purple-500">
+          <option value="" selected>Seleccione un material</option>
+          <option *ngFor="let material of materiales" [value]="material.id">{{ material.nombre }}</option>
+        </select>
+      </div>
+    
+      <!-- Subcategoria -->
+      <div class="mb-4">
+        <label for="subcategoria" class="block text-gray-700 text-sm font-bold mb-2">Subcategoria</label>
+        <select id="subcategoria" formControlName="subcategoria" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:ring-2 focus:ring-purple-500">
+          <option value="" selected>Seleccione una subcategoria</option>
+          <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{ subcategoria.nombre }}</option>
+        </select>
+      </div>
+    
+      <!-- Descripcion -->
+      <div class="mb-4">
+        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion</label>
+        <textarea id="descripcion" rows="3" formControlName="descripcion" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:ring-2 focus:ring-purple-500" placeholder="Ingrese descripcion"></textarea>
+      </div>
+    
+      <!-- Precio -->
+      <div class="mb-4">
+        <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
+        <input type="number" id="precio" formControlName="precio" class="shadow appearance-none border rounded w-full max-w-md py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 text-2xl" placeholder="Ingrese precio">
+        <div *ngIf="productoForm.get('precio')?.touched && productoForm.get('precio')?.invalid">
+          <small class="text-red-600">El precio es obligatorio.</small>
+        </div>
+      </div>
+ 
+      <div class="space-y-4 mb-6">
+        <!-- Cantidad sin colores  -->
+        <div *ngIf="!isAddingColor" class="flex flex-col">
+          <label for="cantidad" class="block text-gray-700 text-sm font-bold mb-2">Cantidad</label>
+          <input id="cantidad" type="number" formControlName="cantidad" class="shadow appearance-none border rounded w-full max-w-96  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <div *ngIf="productoForm.get('cantidad')?.touched && productoForm.get('cantidad')?.invalid">
+            <small class="text-red-600">La cantidad es obligatoria.</small>
+          </div>
+        </div>
+    
+        <!-- Colores y cantidad -->
+        <div *ngIf="isAddingColor" class="space-y-2">
+          <label for="color" class="block text-gray-700 text-sm font-bold mb-2">Agregar Color y Cantidad</label>
+          <div class="flex items-center space-x-2 max-w-96">
+            <input id="color" type="text" formControlName="currentColor" placeholder="Ej. Azul.."  class="shadow appearance-none border rounded w-full min-w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input id="colorCantidad" type="number" formControlName="currentColorCantidad"  class="shadow appearance-none border rounded w-full max-w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Cantidad" />
+            <div *ngIf="productoForm.get('currentColorCantidad')?.touched && productoForm.get('currentColorCantidad')?.invalid">
+              <small class="text-red-600">La cantidad es obligatoria.</small>
+            </div>
+            <button (click)="addColor()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" type="button">+</button>
+          </div>
+          <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+        </div>
+    
+        <div class="flex justify-between items-center">
+          <button (click)="toggleAddColor()" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+            {{ isAddingColor ? 'Cancelar' : 'Agregar Color' }}
+          </button>
+        </div>
+    
+        <div *ngIf="variantes.length > 0" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 mb-4">
+          <div *ngFor="let variante of variantes" class="p-4 bg-white shadow rounded-full flex justify-between items-center">
+            <span>{{ variante.color }} ({{ variante.cantidad }})</span>
+            <button (click)="removeColor(variante.color || '')" class="text-red-500 hover:text-red-700" type="button">x</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="items-center justify-center hidden">
+        <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline">Agregar Producto</button>
+      </div>
+    
+    </form>
+
+  </div>
+</div>

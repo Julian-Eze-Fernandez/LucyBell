@@ -8,7 +8,13 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#FBEDE0; }
+
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#fbede0; }
+
+:root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+  scrollbar-gutter: auto !important;
+}
 
 .sidebar {
   width: 16rem;
@@ -25,10 +31,49 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   padding: 1rem;
 }
 
-@media (max-width: 640px) {
+.bg-MyColor {
+  background-color: #221D22;
+}
+
+.bg-MyBg {
+  background-color:#fbede0;
+}
+
+.bg-MyHover:hover {
+  background-color: #7B688B;
+  color: white;
+}
+
+.volSC{
+  font-family: 'VollkornSC';
+}
+
+.inter{
+  font-family: 'Inter';
+}
+
+.julius{
+  font-family: 'Julius';
+}
+.crossBg {
+
+  --s: 30px; /* control the size*/
+  --c1: #fbede0;
+  --c2: #e7cbcc;
+  
+  background:
+    conic-gradient(at 60% 60%,var(--c1) 75%,#0000 0)
+      0 0/calc(5*var(--s)/2) calc(5*var(--s)/2),
+    repeating-conic-gradient(var(--c1) 0 25%,#0000 0 50%)
+      0 0/calc(5*var(--s)) calc(5*var(--s)),
+    repeating-conic-gradient(var(--c2) 0 25%,var(--c1) 0 50%)
+      0 0/var(--s) var(--s); ;
+
+}
+
+@media (max-width: 768px) {
   .sidebar {
-    width: 40px;
-    height: 70px;
+    width: 0px;
   }
 
   .main-content {
@@ -43,6 +88,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 }
 @font-face {
   font-family: 'Inter';
-  src: url('../src/assets/Inter-VariableFont_opsz,wght.ttf')
+  src: url('../src/assets/Inter-VariableFont_opsz\,wght.ttf')
 }
 
+@font-face {
+  font-family: 'Julius';
+  src: url('../src/assets/JuliusSansOne-Regular.ttf')
+}

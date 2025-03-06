@@ -1,0 +1,14 @@
+<div class="flex flex-col min-h-screen">
+	<div class="flex-grow">
+
+		<div *ngIf="isLargeScreen" class="mb-48 sm:mb-64 lg:mb-96" >
+			<app-navBar class="sticky top-0 z-50 Bg-MyBg"></app-navBar>
+		</div>
+		
+		<app-nav-bar-responsive *ngIf="!isLargeScreen"></app-nav-bar-responsive>
+		
+		<app-lista-productos ></app-lista-productos>
+
+	</div>
+	<app-footer class="bottom-0"></app-footer>
+</div>

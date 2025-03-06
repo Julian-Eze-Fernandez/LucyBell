@@ -1,0 +1,67 @@
+<div class="relative h-screen bg-MyBg">
+  <!-- Header Section -->
+  <div class="relative mx-auto">
+    <div class="flex flex-col lg:flex-row lg:space-x-8">
+      <div class="relative w-full h-full">
+        <!-- Logo Center -->
+        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 h-16 sm:h-20 md:h-28 lg:h-36 xl:h-44 flex justify-center items-center">
+          <img src="../../../assets/nombreLogoVioleta.png" alt="Lucybell Logo" class="h-full">
+        </div>
+  
+        <!-- Vines Image Right -->
+        <div class="absolute top-0 right-0 h-12 sm:h-16 md:h-24 lg:h-32 xl:h-48">
+          <img src="../../../assets/vines1.svg" alt="Vines Right" class="h-full object-contain">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex flex-col items-center justify-center h-full px-4">
+    <div class="p-4 sm:p-6 md:p-8 bg-white rounded shadow-lg w-full max-w-md lg:max-w-lg">
+      <h1 class="text-xl sm:text-2xl font-bold text-center mb-2">Restablecer contraseña</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="nuevaPassword" class="block text-gray-700 font-bold mb-2">Nueva Contraseña</label>
+          <input
+            id="nuevaPassword"
+            type="password"
+            formControlName="nuevaPassword"
+            class="border rounded px-4 py-2 w-full"
+          />
+
+          <label for="repetirPassword" class="block text-gray-700 font-bold mb-2 mt-3">Repetir Contraseña</label>
+          <input
+            id="repetirPassword"
+            type="password"
+            formControlName="repetirPassword"
+            class="border rounded px-4 py-2 w-full"
+          />
+
+          <div *ngIf="formulario.get('nuevaPassword')?.invalid && formulario.get('nuevaPassword')?.touched" class="mt-1">
+            <small class="text-red-500">La contraseña debe tener al menos 8 caracteres, 1 mayúscula y 1 número.</small>
+          </div>
+          <div *ngIf="formulario.hasError('noCoinciden')" class="mt-1">
+            <small class="text-red-500">Las contraseñas no coinciden.</small>
+          </div>
+        </div>
+
+        <div class="flex justify-center mt-3">
+          <button type="submit" [disabled]="formulario.invalid" class="btn btn-primary font-medium text-sm md:text-base px-4 md:px-6">
+            Restablecer contraseña
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="relative w-full">
+    <!-- Vines Image Left -->
+    <div class="absolute bottom-2 left-0 h-12 sm:h-16 md:h-24 xl:h-48">
+      <img src="../../../assets/Vines2.svg" alt="Vines Left" class="h-full object-contain">
+    </div>
+  </div>
+
+</div>
+

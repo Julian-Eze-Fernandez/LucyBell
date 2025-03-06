@@ -1,0 +1,272 @@
+.container {
+    max-width: 124rem;
+    padding: 50 1rem;
+    margin: 0 auto;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .section-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: Julius;
+    color: var(--primary);
+    padding: 50px 0px 0px 0px;
+  }
+
+  .price{
+    font-family: inter;
+    font-size: 2rem;
+    color: white;
+    background-color: rgba(37, 37, 37, 0.8);
+    border-radius: 5px;
+    padding: 2px 10px;
+  }
+  
+  
+  #tranding .tranding-slider {
+    height: 35rem;
+    padding: 2rem 0;
+    position: relative;
+  }
+  
+  @media (max-width:640px) {
+    #tranding .tranding-slider {
+      height: 33rem;
+    }
+
+  }
+
+  @media (max-width:430px) {
+    #tranding .tranding-slider {
+      height: 28rem;
+    }
+
+  }
+  
+  .tranding-slide {
+    width: 25rem;
+    height: 27rem;
+    position: relative;
+  }
+  
+  @media (max-width:640px) {
+
+
+
+    .tranding-slide {
+      width: 22rem !important;
+      height: 25rem !important;
+    }
+    .tranding-slide .tranding-slide-img img {
+      width: 22rem !important;
+      height: 25rem !important;
+    }
+
+    .price{
+      font-size: 1.5rem;
+    }
+
+    .prod-name{
+      font-size: 1rem !important;
+    }
+  }
+
+  @media (max-width:430px) {
+    .tranding-slide {
+      width: 18rem !important;
+      height: 20rem !important;
+    }
+    .tranding-slide .tranding-slide-img img {
+      width: 18rem !important;
+      height: 20rem !important;
+    }
+  }
+  
+  .tranding-slide .tranding-slide-img img {
+    width: 25rem;
+    height: 27rem;
+    border-radius: 2rem;
+    object-fit: cover;
+  }
+  
+  .tranding-slide .tranding-slide-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .tranding-slide-content .price {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+
+  }
+  
+  .tranding-slide-content .tranding-slide-content-bottom {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: var(--white);
+  }
+
+  .prod-name{
+    font-size: 1.5rem;
+    color: white;
+    font-family: julius;
+    background-color: rgba(37, 37, 37, 0.8);
+    border-radius: 5px;
+    padding: 2px 10px;
+  }
+  
+  .swiper-slide-shadow-left,
+  .swiper-slide-shadow-right {
+    display: none;
+    border-radius: 25px;
+  }
+  
+  .tranding-slider-control {
+    position: relative;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tranding-slider-control .swiper-button-next {
+    left: 58% !important;
+    transform: translateX(-58%) !important;
+  }
+  
+  @media (max-width:990px) {
+    .tranding-slider-control .swiper-button-next {
+      left: 70% !important;
+      transform: translateX(-70%) !important;
+    }
+  }
+  
+  @media (max-width:450px) {
+    .tranding-slider-control .swiper-button-next {
+      left: 80% !important;
+      transform: translateX(-80%) !important;
+    }
+  }
+  
+  @media (max-width:990px) {
+    .tranding-slider-control .swiper-button-prev {
+      left: 30% !important;
+      transform: translateX(-30%) !important;
+    }
+  }
+  
+  @media (max-width:450px) {
+    .tranding-slider-control .swiper-button-prev {
+      left: 20% !important;
+      transform: translateX(-20%) !important;
+    }
+  }
+  
+  .tranding-slider-control .slider-arrow {
+    background: var(--white);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    left: 42%;
+    transform: translateX(-42%);
+    filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+  }
+  
+  .tranding-slider-control .slider-arrow {
+    font-size: 2rem;
+    color: #222224;
+  }
+  
+  .tranding-slider-control .slider-arrow::after {
+    content: '';
+  }
+  
+  .tranding-slider-control .swiper-pagination {
+    position: relative;
+    width: 15rem;
+    top: 5px;
+  }
+  
+  .tranding-slider-control .swiper-pagination .swiper-pagination-bullet {
+    filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+  }
+  
+  .tranding-slider-control .swiper-pagination .swiper-pagination-bullet-active {
+    background: var(--primary);
+  }
+
+  
+
+  ::-webkit-scrollbar {
+    width: 1.3rem;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: #797979;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #222224;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f9f9f9;
+  }
+
+
+.z-100 {
+  z-index: 999;
+}
+
+.slider-size{
+  margin-top: 580px;
+}
+
+.fade-slider{
+  position: relative;
+  max-width: 1600px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the container */
+  overflow: hidden; /* Hide content outside the container */
+  
+  /* Apply a mask-image to fade the edges of the container */
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0));
+}
+
+@media (max-width:1050px){
+  .fade-slider{mask-image:none}
+}
+
+@media (max-width:640px){
+  .slider-size{
+    margin-top: 530px;
+  }
+}
+
+@media (max-width:430px){
+  .slider-size{
+    margin-top: 460px;
+  }
+
+  .max-w-72{
+    max-width: 225px;
+  }
+
+}
+
+.julius{
+  font-family: Julius;
+}
+
+.volSC{
+  font-family: VollkornSC;
+}
