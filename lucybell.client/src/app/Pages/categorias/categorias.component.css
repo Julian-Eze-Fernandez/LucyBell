@@ -1,0 +1,90 @@
+body {
+  display: flex;
+}
+
+.table-background {
+  background-color: #f8efe7; 
+
+}
+
+.table-title {
+  max-width: 90%;
+}
+
+.table-width {
+ 
+  max-height: 30rem;
+}
+
+
+.border-fix-left {
+  border-radius: 12px 0px 0px 12px;
+}
+
+.border-fix-right {
+  border-radius: 0px 12px 12px 0px;
+}
+
+
+.hidden-btn-bg {
+  background-color: #241f24;
+}
+
+.table-spacing {
+  border-collapse: separate;
+  border-spacing: 0px 15px;
+  min-width: 95%;
+}
+
+.subcategoryColor {
+  background: linear-gradient(to right, rgb(63 41 81), rgb(90 63 112), rgb(63 41 81));
+  color: white;
+}
+
+.borderSub {
+  border-bottom: 1px;
+  border-bottom-color: rgb(0, 0, 0, 0.4);
+  border-bottom-style: solid;
+}
+
+  .borderSub .right {
+    border-right-color: transparent;
+    border-right-width: 20px;
+  }
+
+  .borderSub .left {
+    border-left-color: transparent;
+    border-left-width: 20px;
+  }
+
+  .dropdown {
+    overflow: hidden; /* Prevent overflow during transition */
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out; /* Transition for transform and opacity */
+  }
+  
+  .dropdown.collapsed {
+    transform: translateY(-10px); /* Move it up slightly to avoid blank space */
+    opacity: 0;    /* Fully transparent */
+    height: 0;     /* Set height to 0 to avoid any space */
+  }
+  
+  .dropdown.expanded {
+    transform: translateY(0); /* Move back to normal position */
+    opacity: 1;        /* Fully visible */
+    height: auto;      /* Allow it to take natural height */
+  }
+
+@media (max-width: 750px) {
+
+  .table-title {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+
+
+  .border-fix-left {
+    border-radius: 12px 12px 12px 12px;
+  }
+}

@@ -1,0 +1,113 @@
+<div *ngIf="isLargeScreen" class="fixed top-0 w-full z-50 navbar-bg">
+    <div class="relative flex flex-row justify-between">
+        <div id="logo-container-vine2" class=" z-100 absolute bottom-0 left-0 transition-all duration-500 ease-in-out h-24 md:h-48 lg:h-64" >
+            <img src="../../../assets/Vines2.svg" alt="Logo" class="h-full object-contain logo" fill>
+        </div>
+        <!-- Logo Container -->
+        <div id="logo-container" class="transition-all duration-500 ease-in-out h-36 md:h-44 lg:h-64 my-4 flex justify-center items-center mx-auto" >
+          <img ngSrc="../../../assets/LucybellLogo.svg" alt="Logo" class="h-full object-contain logo" fill priority>
+        </div>
+        <div id="logo-container-vine1"  class=" z-100 absolute top-0 right-0 transition-all duration-500 ease-in-out h-24 md:h-48 lg:h-64" >
+            <img src="../../../assets/vines1.svg" alt="Logo" class="h-full object-contain logo" fill>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <div >
+        <div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+        <nav class="text-black bg-custom-navbar text-sm lg:text-xl">
+            <div class="relative w-full h-10 px-4 flex items-center">
+                <ul class="flex justify-center w-full px-4 ">
+                    <li class="flex-grow flex justify-center">
+                        <ul class="flex justify-center space-x-4 h-10">
+                            <li>
+                                <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4">Inicio</a>
+                            </li>
+                            <li class="relative group flex items-center h-full z-[101]">
+                                <a href="productos" class="flex items-center navbarHover transition duration-300 h-full px-4">Productos</a>
+                                <ul class="absolute left-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md navbarSubItemRounded w-64">
+                                    <li *ngFor="let categoria of categorias">
+                                        <a (click)="goToCategory(categoria.id)" class="block px-4 py-2 navbarSubItemRounded transition duration-300 navbarItemHover">{{ categoria.nombre }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="relative group flex items-center h-full">
+            
+                                <a href="contacto" class="flex items-center transition duration-300 navbarHover h-full px-4">Contacto</a>
+                            </li >
+                            <li>
+                                <a href="sobre-mi" class="flex items-center transition duration-300 navbarHover h-full px-4">Sobre mi</a>
+                            </li>
+                            <li class="relative group flex items-center h-full z-[101]">
+                                <a href="#" class="flex items-center transition duration-300 navbarHover h-full px-4" >Ayuda</a>
+                                <ul class="absolute left-0 top-full hidden group-hover:flex flex-col navbarItemBg text-white shadow-md w-48 navbarSubItemRounded">
+                                    <li><a href="#" class="block px-4 py-2 navbarSubItemRounded transition duration-300 navbarItemHover">Envios y ventas</a></li>
+                                    <li><a href="#" class="block px-4 py-2 navbarSubItemRounded transition duration-300 navbarItemHover">Devoluciones</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>       
+                <li class="absolute xl:right-32 lg:right-20 right-0 flex items-center space-x-4 h-full">
+                    <app-autorizado class="inline h-full">
+                        <ng-container autorizado>
+                            <div class="flex items-center space-x-4 h-full">
+                                <ul class="flex items-center h-full">
+                                    <div class="dropdown dropdown-end inter">
+                                        <div tabindex="0" role="button" >
+                                            <a class="flex transition duration-300 navbarHover px-2 items-center mt-1 justify-center w-8 h-8 rounded-full bg-purple-400 text-black text-lg font-bold navbarFont">{{ seguridadService.obtenerCampoJWT('email')[0] | uppercase }}</a>
+                                        </div>
+                                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow">
+    
+                                            <span class="block px-4 py-2 rounded-xl transition w-full truncate">{{seguridadService.obtenerCampoJWT('email')}}</span>
+                                            <li>
+                                                <a routerLink="/perfil" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+                                                  Perfil
+                                                </a>
+                                            </li>
+                                            <li *ngIf="seguridadService.obtenerRol()">
+                                                <a routerLink="/metricas" class="block px-4 py-2 rounded-xl transition duration-300  w-full">
+                                                  Administrar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <button (click)="seguridadService.logout()" class="block px-4 py-2 rounded-xl transition duration-300  w-full">Cerrar sesion</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <li class="h-full">
+                                        <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="toggleCart()">
+                                            <img src="../../../assets/icons/Cart.svg" alt="Carrito" /> 
+                                            <span class="text-lg text-black">({{carritoService.cantidad()}})</span>
+                                        </button>
+                                    </li>
+                                    <app-carrito [cartOpen]="cartOpen" (cartClose)="closeCart()"></app-carrito>       
+                                </ul>
+                                
+                            </div>
+                        </ng-container>
+                        <ng-container noAutorizado>
+                            <div class="flex items-center h-full">
+                                <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
+                                    <img src="../../../assets/icons/User.svg" alt="Usuario" />
+                                </button>
+                                <button class=" flex transition duration-300 navbarHover px-2 h-full items-center text-3xl" (click)="openLoginModal()">
+                                    <img src="../../../assets/icons/Cart.svg" alt="Carrito" />
+                                </button>
+                            </div>
+                        </ng-container>
+                    </app-autorizado>
+                </li>
+            </div>
+        </nav>
+        <div class="absolute w-full h-px bg-gradient-to-r from-transparent via-black z-100 box-border"></div>
+    </div>
+    <ng-container>
+        <app-login #loginModal
+                (confirm)="onSubmitLogin()"
+                (cancel)="closeLoginModal()">
+        </app-login>
+      </ng-container>
+
+</div>
+
+

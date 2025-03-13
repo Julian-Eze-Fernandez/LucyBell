@@ -1,4 +1,5 @@
-﻿using LucyBell.Server.Entidades;
+﻿using LucyBell.Server.DTOs.ImagenesProductoDTOs;
+using LucyBell.Server.Entidades;
 
 namespace LucyBell.Server.DTOs.ProductosDTOs
 {
@@ -11,5 +12,6 @@ namespace LucyBell.Server.DTOs.ProductosDTOs
 		public int CategoriaId { get; set; }
 		public int? SubCategoriaId { get; set; }
 		public int? MaterialId { get; set; }
-	}
+        public List<ImagenProductoDTO> ImagenesProductos { get; set; }
+    }
 }

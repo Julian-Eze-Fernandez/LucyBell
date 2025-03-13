@@ -11,6 +11,7 @@ namespace LucyBell.Server.DTOs.ProductosDTOs
 		public string Nombre { get; set; }
 		public decimal Precio { get; set; }
 		public string? Descripcion { get; set; }
+		public bool Destacado { get; set; }
 		public int CategoriaId { get; set; }
         public string CategoriaNombre { get; set; }
         public int? SubCategoriaId { get; set; }

@@ -28,7 +28,30 @@ namespace LucyBell.Server.Controllers
 			return mapper.Map<List<ProductoDTO>>(productos);
 		}
 
-		[HttpGet("completo")]
+        [HttpGet("Related")]
+        public async Task<ActionResult<List<ProductoDTO>>> GetRelatedProducts(int id, int count = 4)
+        {
+            var randomProducts = await context.Productos
+                .Where(producto => producto.Id != id)
+                .OrderBy(_ => Guid.NewGuid()) 
+                .Take(count) 
+                .Select(producto => new ProductoDTO
+                {
+                    Id = producto.Id,
+                    Nombre = producto.Nombre,
+                    Precio = producto.Precio,
+                    ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                    {
+                        Id = img.Id,
+                        UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen
+                    }).ToList(),
+                })
+                .ToListAsync();
+
+            return Ok(randomProducts);
+        }
+
+        [HttpGet("completo")]
 		public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompleto()
 		{
 			var productos = await context.Productos
@@ -44,13 +67,15 @@ namespace LucyBell.Server.Controllers
 				Precio = producto.Precio,
 				Descripcion = producto.Descripcion,
 				CategoriaId = producto.CategoriaId,
+				Destacado = producto.Destacado,
                 CategoriaNombre = producto.Categoria.Nombre,
                 SubCategoriaId = producto.SubCategoriaId,
 				MaterialId = producto.MaterialId,
 				ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
 				{
 					Id = img.Id,
-					UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen
+					UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                    SlotIndex = img.SlotIndex
                 }).ToList(),
 				VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
 				{
@@ -63,68 +88,211 @@ namespace LucyBell.Server.Controllers
 			return Ok(productosDTO);
 		}
 
-		[HttpGet]
-		public async Task<ActionResult<List<ProductoDTO>>> GetProductoFiltrado(
+        [HttpGet("filtrado")]
+        public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompleto(
 		int? categoriaId = null,
 		int? subCategoriaId = null,
-		int? materialId = null)
-		{
-			var query = context.Productos.AsQueryable();
+		int? materialId = null,
+        string? searchTerm = null,
+        int page = 1,
+		int pageSize = 12)
+        {
+           
+            var query = context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .AsQueryable();
 
-			if (categoriaId.HasValue)
-			{
-				var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId.Value);
+            if (categoriaId.HasValue)
+            {
+                query = query.Where(p => p.CategoriaId == categoriaId.Value);
+            }
 
-				if (!existeCategoria)
-				{
-					return NotFound($"No se encontró la categoría con Id {categoriaId}");
-				}
+            if (subCategoriaId.HasValue)
+            {
+                query = query.Where(p => p.SubCategoriaId == subCategoriaId.Value);
+            }
 
-				query = query.Where(productoDB => productoDB.CategoriaId == categoriaId.Value);
-			}
+            if (materialId.HasValue)
+            {
+                query = query.Where(p => p.MaterialId == materialId.Value);
+            }
 
-			if (subCategoriaId.HasValue)
-			{
-				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId.Value);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Nombre.Contains(searchTerm));
+            }
 
-				if (!existeSubCategoria)
-				{
-					return NotFound($"No se encontró la subcategoría con Id {subCategoriaId}");
-				}
+            var totalProducts = await query.CountAsync();
 
-				query = query.Where(productoDB => productoDB.SubCategoriaId == subCategoriaId.Value);
-			}
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
-			if (materialId.HasValue)
-			{
-				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId.Value);
+            var productos = await query.ToListAsync();
+            var productosDTO = productos.Select(producto => new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                    SlotIndex = img.SlotIndex
+                    
+                }).ToList(),
+                VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            }).ToList();
 
-				if (!existeMaterial)
-				{
-					return NotFound($"No se encontró el material con Id {materialId}");
-				}
+            Response.Headers.Append("X-Total-Count", totalProducts.ToString());
+            Response.Headers.Append("X-Total-Pages", Math.Ceiling((double)totalProducts / pageSize).ToString());
 
-				query = query.Where(productoDB => productoDB.MaterialId == materialId.Value);
-			}
+            return Ok(productosDTO);
+        }
 
-			var productos = await query.ToListAsync();
+        [HttpGet("filtradoVariantes")]
+        public async Task<ActionResult<List<ProductoCompletoDTO>>> GetProductoCompletoVariantes(
+        int? categoriaId = null,
+        int? subCategoriaId = null,
+        int? materialId = null,
+        string? searchTerm = null,
+        int page = 1,
+        int pageSize = 20)
+        {
+            var query = context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .AsQueryable();
 
-			if (productos == null || productos.Count == 0)
-			{
-				return NotFound("No se encontraron productos con los filtros especificados.");
-			}
+            if (categoriaId.HasValue)
+            {
+                query = query.Where(p => p.CategoriaId == categoriaId.Value);
+            }
 
-			return Ok(mapper.Map<List<ProductoDTO>>(productos));
-		}
+            if (subCategoriaId.HasValue)
+            {
+                query = query.Where(p => p.SubCategoriaId == subCategoriaId.Value);
+            }
+
+            if (materialId.HasValue)
+            {
+                query = query.Where(p => p.MaterialId == materialId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Nombre.Contains(searchTerm));
+            }
+
+            var allVariantsQuery = query.SelectMany(p => p.VariantesProducto);
+
+            var totalVariants = await allVariantsQuery.CountAsync();
+
+            var variantsPage = allVariantsQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var variants = await variantsPage;
+
+            var productoIds = variants.Select(v => v.ProductoId).Distinct();
+            var productos = await query.Where(p => productoIds.Contains(p.Id)).ToListAsync();
+
+            var productosDTO = productos.Select(producto => new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                    SlotIndex = img.SlotIndex
+                }).ToList(),
+                VariantesProducto = variants.Where(v => v.ProductoId == producto.Id).Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            }).ToList();
+
+            Response.Headers.Append("X-Total-Count", totalVariants.ToString());
+            Response.Headers.Append("X-Total-Pages", Math.Ceiling((double)totalVariants / pageSize).ToString());
+
+            return Ok(productosDTO);
+        }
 
 
-		[HttpPost]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductoCompletoDTO>> GetProductoCompletoById(int id)
+        {
+            var producto = await context.Productos
+                .Include(productoBD => productoBD.ImagenesProductos)
+                .Include(productoBD => productoBD.VariantesProducto)
+                .Include(productoBD => productoBD.Categoria)
+                .FirstOrDefaultAsync(productoBD => productoBD.Id == id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            var productoDTO = new ProductoCompletoDTO
+            {
+                Id = producto.Id,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                CategoriaId = producto.CategoriaId,
+                Destacado = producto.Destacado,
+                CategoriaNombre = producto.Categoria?.Nombre,
+                SubCategoriaId = producto.SubCategoriaId,
+                MaterialId = producto.MaterialId,
+                ImagenesProductos = producto.ImagenesProductos.Select(img => new ImagenProductoDTO
+                {
+                    Id = img.Id,
+                    UrlImagen = $"{Request.Scheme}://{Request.Host}/" + img.UrlImagen,
+                    SlotIndex = img.SlotIndex
+                }).ToList(),
+                VariantesProducto = producto.VariantesProducto.Select(variante => new VarianteProductoDTO
+                {
+                    Id = variante.Id,
+                    Color = variante.Color,
+                    Cantidad = variante.Cantidad
+                }).ToList(),
+            };
+
+            return Ok(productoDTO);
+        }
+
+
+        [HttpPost]
 		public async Task<ActionResult> PostProducto(
 		[FromForm] int categoriaId,
 		[FromForm] int? subCategoriaId,
 		[FromForm] int? materialId,
 		[FromForm] ProductoCreacionDTO productoCreacionDTO,
-		[FromForm] List<IFormFile> imagenes) // Recibe las imágenes aquí
+		[FromForm] List<IFormFile> imagenes,
+        [FromForm] List<int> indices) 
 		{
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
 			if (!existeCategoria) return NotFound();
@@ -137,31 +305,32 @@ namespace LucyBell.Server.Controllers
 			context.Add(producto);
 			await context.SaveChangesAsync();
 
-			// Subir las imágenes si existen
-			foreach (var imagen in imagenes)
-			{
-				if (imagen.Length > 0)
-				{
-					var nombreArchivo = Path.GetFileName(imagen.FileName);
-					var ruta = $"Imagenes/{nombreArchivo}";
+            foreach (var (imagen, index) in imagenes.Zip(indices))
+            {
+                if (imagen.Length > 0 && index >= 0 && index <= 3) 
+                {
+                    var fileName = Path.GetFileName(imagen.FileName);
+                    var filePath = $"Imagenes/{fileName}";
 
-					using (var stream = new FileStream(ruta, FileMode.Create))
-					{
-						await imagen.CopyToAsync(stream);
-					}
+                    
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imagen.CopyToAsync(stream);
+                    }
 
-					// Guardar la imagen en la base de datos
-					var imagenProducto = new ImagenProducto
-					{
-						UrlImagen = ruta,
-						ProductoId = producto.Id
-					};
+                    
+                    var imagenProducto = new ImagenProducto
+                    {
+                        UrlImagen = $"Imagenes/{fileName}",
+                        ProductoId = producto.Id,
+                        SlotIndex = index
+                    };
 
-					context.ImagenesProducto.Add(imagenProducto);
-				}
-			}
+                    context.ImagenesProducto.Add(imagenProducto);
+                }
+            }
 
-			await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 			return Ok(new { isSuccess = true, productoId = producto.Id });
 		}
 
@@ -172,7 +341,8 @@ namespace LucyBell.Server.Controllers
 		[FromForm] int? subCategoriaId,
 		[FromForm] int? materialId,
 		[FromForm] ProductoCreacionDTO productoCreacionDTO,
-		[FromForm] List<IFormFile> imagenes)
+		[FromForm] List<IFormFile> imagenes,
+		[FromForm] List<int> indices)	
 		{
 			var producto = mapper.Map<Producto>(productoCreacionDTO);
 			producto.Id = id;
@@ -182,8 +352,6 @@ namespace LucyBell.Server.Controllers
 
 			var existeCategoria = await context.Categorias.AnyAsync(categoriaDB => categoriaDB.Id == categoriaId);
 			if (!existeCategoria) return NotFound();
-
-
 
             if ( subCategoriaId != null){
 				var existeSubCategoria = await context.SubCategorias.AnyAsync(subCategoriaDB => subCategoriaDB.Id == subCategoriaId);
@@ -197,38 +365,45 @@ namespace LucyBell.Server.Controllers
 			if (materialId != null){
 				var existeMaterial = await context.Materiales.AnyAsync(materialDB => materialDB.Id == materialId);
 
-				// if (!existeMaterial)
-				// {
-				// 	return NotFound();
-				// }
+
 			}
 
-			foreach (var imagen in imagenes)
-			{
-				if (imagen.Length > 0)
-				{
-					var nombreArchivo = Path.GetFileName(imagen.FileName);
-					var ruta = $"Imagenes/{nombreArchivo}";
-
-					using (var stream = new FileStream(ruta, FileMode.Create))
-					{
-						await imagen.CopyToAsync(stream);
-					}
-
-					// Guardar la imagen en la base de datos
-					var imagenProducto = new ImagenProducto
-					{
-						UrlImagen = ruta,
-						ProductoId = producto.Id
-					};
-
-					context.ImagenesProducto.Add(imagenProducto);
-				}
-			}
+            foreach (var (imagen, index) in imagenes.Zip(indices))
+            {
+                if (imagen.Length > 0 && index >= 0 && index <= 3) 
+                {
+                    var fileName = Path.GetFileName(imagen.FileName);
+                    var filePath = $"Imagenes/{fileName}";
 
 
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imagen.CopyToAsync(stream);
+                    }
 
-			context.Update(producto);
+                    var imagenProducto = new ImagenProducto
+                    {
+                        UrlImagen = $"Imagenes/{fileName}",
+                        ProductoId = id,
+                        SlotIndex = index
+                    };
+
+
+                    var existingImage = await context.ImagenesProducto
+                        .FirstOrDefaultAsync(img => img.ProductoId == id && img.SlotIndex == index);
+
+                    if (existingImage != null)
+                    {
+                        existingImage.UrlImagen = imagenProducto.UrlImagen;
+                        context.ImagenesProducto.Update(existingImage);
+                    }
+                    else
+                    {
+                        context.ImagenesProducto.Add(imagenProducto);
+                    }
+                }
+            }
+            context.Update(producto);
 			await context.SaveChangesAsync();
 			return Ok(new {	isSuccess = true});
 		}

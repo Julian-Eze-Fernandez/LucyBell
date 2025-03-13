@@ -1,0 +1,41 @@
+.bg-custom-navbar {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+  font-family: Julius;
+}
+.navbar-bg {
+    background-color:#FBEDE0;
+}
+.navbarHover:hover {
+  background-color: rgba(209, 173, 245, 0.5);
+}
+
+.navbarItemHover:hover {
+  background-color: #7B688B;
+  border-radius: 0px 25px 25px 25px;
+}
+
+.navbarItemHoverLogin:hover {
+  background-color: #7B688B;
+  border-radius: 25px 0px 25px 25px;
+}
+
+.navbarItemBg {
+  background-color: rgba(0, 0, 0, 0.8);
+  font-family: Vol ;
+}
+
+.navbarSubItemRounded {
+  border-radius: 0px 25px 25px 25px;
+}
+
+.navbarSubItemRoundedLogin {
+  border-radius: 25px 0px 25px 25px;
+}
+
+.z-101 {
+z-index: 200;
+}
+
+.navbarFont {
+  font-family: Inter;
+}

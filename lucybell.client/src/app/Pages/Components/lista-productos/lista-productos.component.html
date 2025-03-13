@@ -1,0 +1,143 @@
+<div *ngIf="!isLargeScreen" class="fixed bottom-20 right-4 md:hidden z-20 flex-col">
+  <div *ngIf="!showSearchInput" class="btn bg-primary h-8 w-10 p-1 opacity-85" (click)="toggleSearchInput()">
+    <img src="../../../assets/icons/SearchBlack.svg" alt="Search" >
+  </div>
+  <div *ngIf="showSearchInput" class="relative">
+
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (change)="onSearch()"
+      placeholder="Search by name"
+      class="input input-bordered input-primary w-full max-w-xs relative z-20"
+      (click)="$event.stopPropagation()"
+    />
+    <div
+    class="fixed inset-0"
+    (click)="closeSearchInput()"
+  ></div>
+  </div>
+</div>
+<div *ngIf="!isLargeScreen" class="fixed bottom-4 right-4 md:hidden z-20 flex-col"> 
+  <details class="dropdown dropdown-top dropdown-end">
+    <summary class="btn bg-primary opacity-85">Filtros</summary>
+    <ul tabindex="0" class="dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow bg-base-300">
+      <div class="join join-vertical w-full">
+        <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+          <input type="radio" name="categAccordion" checked="checked" />
+          <div class="collapse-title text-xl font-medium bg-base-100">Productos</div>
+          <div class="collapse-content p-0 ">
+            <div class="join join-vertical w-full rounded-none z-10">
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categoriasResponsive" aria-label="Todos" (click)="onCategoryChange(null)" [checked]="!selectedCategoryId"/>
+              <div *ngFor="let category of listaCategorias" class="z-0">
+                <input class="join-item btn w-full max-w-48 truncate" type="radio" name="categoriasResponsive" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" [checked]="selectedCategoryId === category.id" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+          <input type="radio" name="categAccordion" />
+          <div class="collapse-title text-xl font-medium bg-base-100">Tipo</div>
+          <div class="collapse-content p-0">
+            <div class="join join-vertical w-full rounded-none z-10">
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="SubcategoriasResponsive" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+              <div *ngFor="let subCategory of filteredSubcategories">
+               <input class="join-item btn w-full max-w-48 truncate" type="radio" name="SubcategoriasResponsive" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="collapse collapse-arrow bg-base-200 join-item border-base-300 border">
+          <input type="radio" name="categAccordion" />
+          <div class="collapse-title text-xl font-medium bg-base-100">Material</div>
+          <div class="collapse-content p-0">
+            <div class="join join-vertical w-full rounded-none z-10">
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="MaterialesResponsive" aria-label="Todos" (click)="onMaterialChange(null)" />
+              <div *ngFor="let material of listaMateriales">
+              <input class="join-item btn w-full max-w-48 truncate" type="radio" name="MaterialesResponsive" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </ul>
+  </details>
+</div>
+
+
+<div class="flex justify-center"> 
+  <div *ngIf="isLargeScreen" class="max-w-80 p-6 max-md:hidden">
+    <label class="input input-bordered input-secondary flex items-center mb-6 max-w-96">
+      <input type="text" class="grow" placeholder="Buscar" [(ngModel)]="searchTerm" (change)="onSearch()"/>
+      <img src="../../../assets/icons/Search.svg" alt="Search" class="h-4 w-4">
+    </label>
+    <div class="collapse mb-2 collapse-arrow">
+      <input type="checkbox" checked />
+      <div class="collapse-title text-xl font-medium bg-secondary text-white border-2 border-neutral">Filtrar por producto</div>
+      <div class="collapse-content pb-0 p-0">
+        <div class="join join-vertical pb-0 w-full rounded-t-none border border-neutral border-t-0 z-10">
+          <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" aria-label="Todos" (change)="onCategoryChange(null)" [checked]="!selectedCategoryId"/>
+          <div *ngFor="let category of listaCategorias" class="z-0">
+            <input class="join-item btn w-full max-w-72 truncate" type="radio" name="categorias" [attr.aria-label]="category.nombre" [value]="category.id" (change)="onCategoryChange(category.id)" [checked]="selectedCategoryId === category.id" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapse mb-2 collapse-arrow">
+      <input type="checkbox" />
+      <div class="collapse-title text-xl font-medium bg-secondary text-white border-2 border-neutral">Filtrar por Tipo</div>
+      <div class="collapse-content p-0">
+        <div class="join join-vertical w-full rounded-t-none border border-neutral border-t-0 z-10">
+          <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Subcategorias" aria-label="Todos" (click)="onSubCategoryChange(null)" />
+          <div *ngFor="let subCategory of filteredSubcategories">
+           <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Subcategorias" [attr.aria-label]="subCategory.nombre" [value]="subCategory.id" (change)="onSubCategoryChange(subCategory.id)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapse mb-2 collapse-arrow">
+      <input type="checkbox" />
+      <div class="collapse-title text-xl font-medium bg-secondary text-white border-2 border-neutral">Filtrar por Material</div>
+      <div class="collapse-content p-0">
+        <div class="join join-vertical w-full rounded-t-none border border-neutral border-t-0 z-10">
+          <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Materiales" aria-label="Todos" (click)="onMaterialChange(null)" />
+          <div *ngFor="let material of listaMateriales">
+           <input class="join-item btn w-full max-w-72 truncate" type="radio" name="Materiales" [attr.aria-label]="material.nombre" [value]="material.id" (change)="onMaterialChange(material.id)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="md:w-[75%] w-[85%]">
+      <div class="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max pb-10 gap-4">
+        <div *ngFor="let producto of productos" class="rounded-lg shadow-yellow-950 shadow-2xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+          <div class="flex-col border border-black rounded-lg" [routerLink]="['/productos', producto.id]">
+            <div class="relative bg-black w-full aspect-[4/4] overflow-hidden rounded-t-lg min-h-1">	  
+              <div *ngIf="producto.imagenesProductos">
+                <img [ngSrc]="producto.imagenesProductos[0].urlImagen" alt="imagen de {{producto.nombre}}" class="absolute inset-0 w-full h-full object-cover" fill priority/>
+              </div>
+            </div>
+            <div class="p-2 pt-4 bg-MyColor w-full border-t rounded-b-lg border-black">
+              <div class="flex-col items-center text-center rounded-b-lg text-white inter">
+                <h4 class="text-white max-md:text-sm truncate font-semibold">{{producto.nombre}}</h4>
+                <div class="flex justify-center items-center">
+                  <h4 class="text-white ">${{producto.precio.toLocaleString('es-AR')}},00</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex md:justify-center mt-4 mb-5 ">
+        <div class=" join mt-4">
+          <button class="join-item btn" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">«</button>
+          <button class="join-item btn">Pagina {{ currentPage }} de {{ totalPages }}</button>
+          <button class="join-item btn" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages">»</button>
+        </div>
+      </div>
+  </div>
+</div>

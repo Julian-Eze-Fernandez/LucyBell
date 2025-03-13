@@ -14,12 +14,7 @@ namespace LucyBell.Server
 
 		}
 
-		public DbSet<Carrito> Carritos { get; set; }
-		public DbSet<Carrousel> Carrouseles { get; set; }
 		public DbSet<Categoria> Categorias { get; set; }
-		public DbSet<Cliente> Clientes { get; set; }
-		public DbSet<Contacto> Contactos { get; set; }
-		public DbSet<DetalleCarrito> DetallesCarrito { get; set; }
 		public DbSet<DetallePedido> DetallesPedido { get; set; }
 		public DbSet<Material> Materiales { get; set; }
 		public DbSet<Pedido> Pedidos { get; set; }
@@ -29,8 +24,10 @@ namespace LucyBell.Server
         public DbSet<ImagenProducto> ImagenesProducto { get; set; }
         public DbSet<IngresoProducto> IngresosProducto { get; set; }
         public DbSet<ModificacionPrecio> ModificacionesPrecio { get; set; }
+		public DbSet<Envio> Envios { get; set; }
+		public DbSet<Retiro> Retiros { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			var cascadeFKs = modelBuilder.Model.GetEntityTypes()
 				.SelectMany(t => t.GetForeignKeys())
